@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# 가상환경
+.venv/
+venv/
+
+# 내려받은 데이터셋과 학습 결과물 (루트 한정 — dlfs/data/ 는 소스다)
+/data/
+/checkpoints/
+/figures/
+*.npz
+*.png
+
+# 에디터 / OS
+.DS_Store
+.vscode/
+.idea/
+.ipynb_checkpoints/

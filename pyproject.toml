@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dl-from-scratch"
+version = "0.1.0"
+description = "numpy만으로 퍼셉트론부터 Transformer까지 — 역전파를 손으로 유도해서 구현한다"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "matplotlib>=3.7", "jupyter>=1.0", "ipykernel>=6"]
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["error"]
