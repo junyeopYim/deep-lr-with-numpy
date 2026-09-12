@@ -57,3 +57,5 @@ D-007 최종 완료: 중단 후 저장된 실행을 대조하고 15의 남은 �
 사용자가 현재 작업을 GitHub main에 푸시하도록 요청했습니다. 원격 fetch·fast-forward pull로 로컬과 원격의 기존 커밋 차이 0개를 확인했습니다.
 커밋 전 pytest 19개를 다시 통과했고, 현재 16개 노트북의 source가 저장된 실행 manifest와 모두 일치함을 확인했습니다. 저장된 코드 셀 360개에 실행 번호가 있고 오류·stderr가 없으며 PNG 86개를 다시 디코딩했습니다. 보조 파일 해시와 독립 검증 근거 68개 파일도 일치합니다.
 기존 저장소는 PRIVATE이며 GitHub Actions에 등록된 workflow는 0개입니다. 남은 미커밋 변경과 검증 기록을 모두 포함하고 생성 캐시·별도 PNG는 기존 .gitignore 규칙을 따릅니다. 푸시한 커밋과 원격 확인 결과는 후속 완료 기록에 남깁니다.
+
+D-008 완료 관찰(2026-09-12 17:31 KST): 작업물 215개 파일을 19e4a61ee67f17c844f68b29f91ab8c9fd6ec43d에 커밋하고 origin/main에 푸시했습니다. GitHub API의 main SHA가 로컬과 동일했고 git status의 남은 변경은 0개였습니다. 커밋의 Actions run·check-run·commit status는 각각 0개이며 저장소 workflow 등록도 0개입니다. 이 완료 기록·체크포인트는 후속 기록 커밋으로 함께 반영합니다.
