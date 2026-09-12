@@ -1,0 +1,30 @@
+{
+  "checked": 4,
+  "missing": [],
+  "links": [
+    {
+      "cell": 0,
+      "target": "../../src/utils/architecture_plots.py",
+      "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/architecture_plots.py",
+      "exists": true
+    },
+    {
+      "cell": 0,
+      "target": "08_attention.ipynb",
+      "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/08_attention.ipynb",
+      "exists": true
+    },
+    {
+      "cell": 0,
+      "target": "../../docs/CURRICULUM.md",
+      "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+      "exists": true
+    },
+    {
+      "cell": 26,
+      "target": "10_gnn.ipynb",
+      "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/10_gnn.ipynb",
+      "exists": true
+    }
+  ]
+}

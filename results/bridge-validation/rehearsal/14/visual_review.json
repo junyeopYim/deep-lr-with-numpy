@@ -1,0 +1,27 @@
+{
+  "all_pngs_decoded": true,
+  "all_pngs_directly_viewed": true,
+  "count": 5,
+  "notes": [
+    {
+      "figure": 1,
+      "observation": "MSE 포물선, MAE V 모양, Huber의 중앙 2차 구간과 꼬리 직선을 서로 구분할 수 있습니다. 제목·축·범례 한글과 수치가 잘리거나 깨지지 않았습니다."
+    },
+    {
+      "figure": 2,
+      "observation": "MSE의 비례 기울기, MAE의 ±1, Huber의 ±0.5 제한이 읽힙니다. MAE 0 근처는 선 연결로 보이지만 본문이 0의 부분기울기 선택을 별도로 설명합니다."
+    },
+    {
+      "figure": 3,
+      "observation": "10개 양의 이상치와 MSE 직선의 이동이 보입니다. MAE·Huber 예측은 거의 겹치며, 미세 차이는 인쇄된 RMSE로 비교할 수 있습니다. 범례·좌표는 읽힙니다."
+    },
+    {
+      "figure": 4,
+      "observation": "lambda 0, 0.1, 1에 따른 가중치 길이 감소가 보입니다. 세 범주와 L2 norm 축이 읽힙니다."
+    },
+    {
+      "figure": 5,
+      "observation": "기본 손실, dropout 분산 항, 전체 기대손실을 각각 구분할 수 있습니다. 축·범주 이름에 잘림이나 글리프 깨짐이 없습니다."
+    }
+  ]
+}

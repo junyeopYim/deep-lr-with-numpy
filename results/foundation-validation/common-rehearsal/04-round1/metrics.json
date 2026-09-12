@@ -1,0 +1,716 @@
+{
+  "own_implementations": {
+    "momentum_checker": "passed",
+    "adam_checker": "passed"
+  },
+  "two_steps": {
+    "theta_gradient_and_moment_shape": [
+      2,
+      3
+    ],
+    "momentum_velocity2": [
+      [
+        0.8,
+        -1.6,
+        0.0
+      ],
+      [
+        3.9,
+        -0.55,
+        3.55
+      ]
+    ],
+    "momentum_theta2": [
+      [
+        0.8039999999999999,
+        -1.6079999999999999,
+        0.5
+      ],
+      [
+        -0.343,
+        2.0035000000000003,
+        -3.2135
+      ]
+    ],
+    "adam_options": {
+      "beta1": 0.8,
+      "beta2": 0.95,
+      "epsilon": 1e-05
+    },
+    "adam_mean2": [
+      [
+        0.12,
+        -0.24,
+        0.0
+      ],
+      [
+        0.7599999999999998,
+        -0.11999999999999997,
+        0.7199999999999999
+      ]
+    ],
+    "adam_square2": [
+      [
+        0.2400000000000002,
+        0.9600000000000009,
+        0.0
+      ],
+      [
+        0.4975000000000004,
+        0.061875000000000055,
+        0.8118750000000008
+      ]
+    ],
+    "adam_theta2": [
+      [
+        0.9151283045413335,
+        -1.9151280821472658,
+        0.5
+      ],
+      [
+        -0.13541966672114691,
+        1.9592911749746877,
+        -2.9785173180781976
+      ]
+    ],
+    "max_adam_closed_form_error": 0.0,
+    "previous_state_unchanged": true
+  },
+  "batch_variations": [
+    {
+      "batch_size": 8,
+      "steps": 360,
+      "seen": 2600,
+      "epoch_batch_sizes": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        1
+      ],
+      "final_loss": 0.005933663014647557,
+      "theta": [
+        1.70068439694963,
+        -0.39549906024471315
+      ],
+      "feature_shape": [
+        65,
+        2
+      ],
+      "last_batch_feature_shape": [
+        1,
+        2
+      ],
+      "last_batch_target_shape": [
+        1
+      ],
+      "moment_shape": [
+        2
+      ]
+    },
+    {
+      "batch_size": 16,
+      "steps": 200,
+      "seen": 2600,
+      "epoch_batch_sizes": [
+        16,
+        16,
+        16,
+        16,
+        1
+      ],
+      "final_loss": 0.0059179778968641555,
+      "theta": [
+        1.703473036522816,
+        -0.4042862882769888
+      ],
+      "feature_shape": [
+        65,
+        2
+      ],
+      "last_batch_feature_shape": [
+        1,
+        2
+      ],
+      "last_batch_target_shape": [
+        1
+      ],
+      "moment_shape": [
+        2
+      ]
+    },
+    {
+      "batch_size": 32,
+      "steps": 120,
+      "seen": 2600,
+      "epoch_batch_sizes": [
+        32,
+        32,
+        1
+      ],
+      "final_loss": 0.005989128687385601,
+      "theta": [
+        1.6918527775445173,
+        -0.41039045752221054
+      ],
+      "feature_shape": [
+        65,
+        2
+      ],
+      "last_batch_feature_shape": [
+        1,
+        2
+      ],
+      "last_batch_target_shape": [
+        1
+      ],
+      "moment_shape": [
+        2
+      ]
+    },
+    {
+      "batch_size": 65,
+      "steps": 40,
+      "seen": 2600,
+      "epoch_batch_sizes": [
+        65
+      ],
+      "final_loss": 0.5821533900315259,
+      "theta": [
+        0.7857068996193105,
+        -0.4518242063556759
+      ],
+      "feature_shape": [
+        65,
+        2
+      ],
+      "last_batch_feature_shape": [
+        65,
+        2
+      ],
+      "last_batch_target_shape": [
+        65
+      ],
+      "moment_shape": [
+        2
+      ]
+    }
+  ],
+  "initialization": {
+    "finite_enumeration": {
+      "weights_shape": [
+        4,
+        2
+      ],
+      "z": [
+        -2.0,
+        0.0,
+        0.0,
+        2.0
+      ],
+      "variance_z": 2.0,
+      "relu_second_moment": 1.0,
+      "He_std": 1.0
+    },
+    "independent_reproduction": {
+      "작게": {
+        "standard_deviation": 0.017677669529663688,
+        "activation_second_moments": [
+          1.0047514980207994,
+          0.004785414811603031,
+          3.0009852973164963e-05,
+          1.210579610560582e-07,
+          6.206996246884593e-10,
+          1.896106116580424e-12,
+          9.195701793952212e-15
+        ],
+        "gradient_rms": [
+          2.121148318089269e-07,
+          2.710200827533655e-06,
+          3.980643790671576e-05,
+          0.0005048920169194392,
+          0.006973111221848035,
+          0.08228171236539482,
+          1.0
+        ],
+        "shapes_by_layer": [
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          }
+        ],
+        "G": 0.00039733269113497057,
+        "last_gradient_all_ones": true
+      },
+      "He": {
+        "standard_deviation": 0.25,
+        "activation_second_moments": [
+          1.0047514980207994,
+          0.9570829623206061,
+          1.2003941189265985,
+          0.9684636884484654,
+          0.9931193995015347,
+          0.6067539573057358,
+          0.5885249148129416
+        ],
+        "gradient_rms": [
+          1.6969186544714152,
+          1.5331211068211519,
+          1.5922575162686305,
+          1.4280502757227542,
+          1.394622244369607,
+          1.1636391356242335,
+          1.0
+        ],
+        "shapes_by_layer": [
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          }
+        ],
+        "G": 3178.661529079765,
+        "last_gradient_all_ones": true
+      },
+      "크게": {
+        "standard_deviation": 0.5303300858899106,
+        "activation_second_moments": [
+          1.0047514980207994,
+          4.306873330442727,
+          24.30798090826361,
+          88.25125360986638,
+          407.24102375809775,
+          1119.6317007795737,
+          4886.972957079752
+        ],
+        "gradient_rms": [
+          154.63171238870765,
+          65.85788010906778,
+          32.24321470443976,
+          13.632084456824854,
+          6.275800099663232,
+          2.4684513709618443,
+          1.0
+        ],
+        "shapes_by_layer": [
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          },
+          {
+            "W": [
+              32,
+              32
+            ],
+            "Z": [
+              256,
+              32
+            ],
+            "A": [
+              256,
+              32
+            ]
+          }
+        ],
+        "G": 289655.5318373934,
+        "last_gradient_all_ones": true
+      }
+    },
+    "tiny_gradient_max_abs_error": 1.3177903213090758e-11
+  },
+  "counterexamples": {
+    "checker_trials": [
+      {
+        "name": "momentum_resets_velocity",
+        "checker_passed": false,
+        "error_type": "AssertionError",
+        "error": "\nNot equal to tolerance rtol=1e-07, atol=0\n\nMismatched elements: 2 / 2 (100%)\nMax absolute difference among violations: 0.36\nMax relative difference among violations: 0.25\n ACTUAL: array([ 0.9, -1.8])\n DESIRED: array([ 0.72, -1.44])"
+      },
+      {
+        "name": "momentum_uses_average_coefficient",
+        "checker_passed": false,
+        "error_type": "AssertionError",
+        "error": "\nNot equal to tolerance rtol=1e-07, atol=0\n\nMismatched elements: 2 / 2 (100%)\nMax absolute difference among violations: 0.36\nMax relative difference among violations: 0.225\n ACTUAL: array([ 0.98, -1.96])\n DESIRED: array([ 0.8, -1.6])"
+      },
+      {
+        "name": "adam_resets_state",
+        "checker_passed": false,
+        "error_type": "AssertionError",
+        "error": "\nNot equal to tolerance rtol=1e-07, atol=0\n\nMismatched elements: 1 / 1 (100%)\nMax absolute difference among violations: 0.066667\nMax relative difference among violations: 0.071429\n ACTUAL: array([1.])\n DESIRED: array([0.933333])"
+      },
+      {
+        "name": "adam_uses_beta1_for_beta2",
+        "checker_passed": true,
+        "checker_output": "Adam: 이동 평균·보정 분모·스텝 수가 손계산과 일치합니다.\n"
+      },
+      {
+        "name": "adam_epsilon_inside_sqrt",
+        "checker_passed": true,
+        "checker_output": "Adam: 이동 평균·보정 분모·스텝 수가 손계산과 일치합니다.\n"
+      },
+      {
+        "name": "adam_modifies_input_inplace",
+        "checker_passed": false,
+        "error_type": "AssertionError",
+        "error": "\nNot equal to tolerance rtol=1e-07, atol=0\n\nMismatched elements: 1 / 1 (100%)\nMax absolute difference among violations: 0.033333\nMax relative difference among violations: 0.037037\n ACTUAL: array([0.933333])\n DESIRED: array([0.9])"
+      }
+    ],
+    "shared_beta_divergence": {
+      "gradients": [
+        [
+          2.0
+        ],
+        [
+          -1.0
+        ]
+      ],
+      "beta1": 0.9,
+      "beta2": 0.999,
+      "correct_theta2": [
+        0.87336629603396
+      ],
+      "incorrect_theta2": [
+        0.8729395963403305
+      ],
+      "gap": 0.00042669969362951754
+    },
+    "epsilon_divergence": {
+      "gradient": 1e-08,
+      "epsilon": 1e-08,
+      "correct_theta1": [
+        0.95
+      ],
+      "incorrect_theta1": [
+        0.99999000000005
+      ]
+    },
+    "mutation_input_after": [
+      0.9000000005
+    ]
+  },
+  "other_optimizer_two_steps": {
+    "SGD": {
+      "shape": [
+        2
+      ],
+      "steps": [
+        {
+          "theta": [
+            0.8,
+            -1.6
+          ],
+          "state": {
+            "t": 1
+          }
+        },
+        {
+          "theta": [
+            0.9,
+            -1.8
+          ],
+          "state": {
+            "t": 2
+          }
+        }
+      ],
+      "second_step_matches_hand_calculation": true
+    },
+    "Momentum": {
+      "shape": [
+        2
+      ],
+      "steps": [
+        {
+          "theta": [
+            0.8,
+            -1.6
+          ],
+          "state": {
+            "velocity": [
+              2.0,
+              -4.0
+            ],
+            "t": 1
+          }
+        },
+        {
+          "theta": [
+            0.72,
+            -1.44
+          ],
+          "state": {
+            "velocity": [
+              0.8,
+              -1.6
+            ],
+            "t": 2
+          }
+        }
+      ],
+      "second_step_matches_hand_calculation": true
+    },
+    "RMSProp": {
+      "shape": [
+        2
+      ],
+      "steps": [
+        {
+          "theta": [
+            0.683772233983162,
+            -1.683772233983162
+          ],
+          "state": {
+            "square": [
+              0.3999999999999999,
+              1.5999999999999996
+            ],
+            "t": 1
+          }
+        },
+        {
+          "theta": [
+            0.8312141901380592,
+            -1.8312141901380592
+          ],
+          "state": {
+            "square": [
+              0.4599999999999999,
+              1.8399999999999996
+            ],
+            "t": 2
+          }
+        }
+      ],
+      "second_step_matches_hand_calculation": true
+    }
+  }
+}

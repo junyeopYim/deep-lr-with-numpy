@@ -1,0 +1,189 @@
+{
+  "source": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/13_autodiff.ipynb",
+  "input_copy": "/tmp/dlfs-bridges/rehearsal13-final/13_autodiff.input.ipynb",
+  "executed_copy": "/tmp/dlfs-bridges/rehearsal13-final/13_autodiff.executed.ipynb",
+  "original_cell_count": 30,
+  "original_code_cell_count": 19,
+  "executed_code_cell_count": 20,
+  "elapsed_seconds": 3.8627171516418457,
+  "fresh_kernel": true,
+  "kernel_name": "python3",
+  "python": "3.13.12 | packaged by Anaconda, Inc. | (main, Feb 24 2026, 16:13:31) [GCC 14.3.0]",
+  "head": "fb9de11b4169667db3e5020f36b09aca4d74373d",
+  "stderr": [],
+  "errors": [],
+  "figures": [
+    {
+      "cell": 4,
+      "path": "/tmp/dlfs-bridges/rehearsal13-final/13_autodiff_cell04_0.png",
+      "width": 1230,
+      "height": 352,
+      "sha256": "3d2396b10f2e1d6f6175470cf59f172a6ad137b4e809bf9435841ec7fdc90a78",
+      "visually_inspected": true,
+      "visual_observation": "Jacobian 2×2, 출력 seed 2×1, 입력 기울기 2×1의 수치와 제목을 읽었습니다. J.T @ g=(-.5,-11)과 대응합니다."
+    },
+    {
+      "cell": 21,
+      "path": "/tmp/dlfs-bridges/rehearsal13-final/13_autodiff_cell21_0.png",
+      "width": 759,
+      "height": 385,
+      "sha256": "8d4054dcc1ddb3eb20733ee97c3f86e58939d14eda01bf07497eab4f19fea7ff",
+      "visually_inspected": true,
+      "visual_observation": "너비 12의 학습 손실이 로그 축에서 줄어듭니다. x축 스텝과 y축 half-MSE가 읽힙니다."
+    },
+    {
+      "cell": 22,
+      "path": "/tmp/dlfs-bridges/rehearsal13-final/13_autodiff_cell22_0.png",
+      "width": 538,
+      "height": 429,
+      "sha256": "c7ac7c7fc9bd93aa3d31df40a4ef88aeed2b53fd62e20914c63ff3c0d2572c3a",
+      "visually_inspected": true,
+      "visual_observation": "학습 관측, 학습 예측, 잡음 전 sin 함수의 범례와 점들이 구분됩니다. 예측의 양 끝 오차도 보입니다."
+    },
+    {
+      "cell": 28,
+      "path": "/tmp/dlfs-bridges/rehearsal13-final/13_autodiff_cell28_0.png",
+      "width": 759,
+      "height": 385,
+      "sha256": "6bfebfa37275c7867eaab56c5b69aacf275c90e25b6003c1a4d5d3568191a5f1",
+      "visually_inspected": true,
+      "visual_observation": "너비 12와 6의 손실 곡선이 읽히며 같은 스텝에서 너비 6의 최종 손실이 더 큽니다."
+    },
+    {
+      "cell": 30,
+      "path": "/tmp/dlfs-bridges/rehearsal13-final/13_autodiff_cell30_1.png",
+      "width": 759,
+      "height": 385,
+      "sha256": "a8a496dcd2ad6f2cd897ab586e900f1304f765cf91cb29bb4548e6e96dfa3b0e",
+      "visually_inspected": true,
+      "visual_observation": "독립 matmul + 너비 6의 손실 곡선이 원본 너비 6 실행과 일치하며 두 곡선 범례가 보입니다."
+    },
+    {
+      "cell": 30,
+      "path": "/tmp/dlfs-bridges/rehearsal13-final/13_autodiff_cell30_2.png",
+      "width": 538,
+      "height": 429,
+      "sha256": "6b07a1b3dfd323e1e9cd45a7789cd029cad19ffd5c76879d74a52407b6c282df",
+      "visually_inspected": true,
+      "visual_observation": "직접 구현한 matmul로 학습한 너비 6의 예측을 확인했습니다. 관측과 sin 함수 및 양 끝의 오차가 보이며 한글 글리프가 읽힙니다."
+    }
+  ],
+  "local_links": [
+    {
+      "cell": 0,
+      "label": "01 미분",
+      "target": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/01_gradients_and_learning.ipynb",
+      "exists": true
+    },
+    {
+      "cell": 0,
+      "label": "03 MLP",
+      "target": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/03_perceptron_to_mlp.ipynb",
+      "exists": true
+    },
+    {
+      "cell": 0,
+      "label": "그림 보조 코드",
+      "target": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/bridge_plots.py",
+      "exists": true
+    },
+    {
+      "cell": 0,
+      "label": "전체 경로",
+      "target": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+      "exists": true
+    },
+    {
+      "cell": 29,
+      "label": "14 손실·정규화",
+      "target": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/14_losses_regularization.ipynb",
+      "exists": true
+    }
+  ],
+  "cell_timings": [
+    {
+      "cell": 1,
+      "seconds": 1.2039220333099365
+    },
+    {
+      "cell": 3,
+      "seconds": 0.0058786869049072266
+    },
+    {
+      "cell": 4,
+      "seconds": 0.16181063652038574
+    },
+    {
+      "cell": 6,
+      "seconds": 0.004126548767089844
+    },
+    {
+      "cell": 7,
+      "seconds": 0.004071474075317383
+    },
+    {
+      "cell": 9,
+      "seconds": 0.00609588623046875
+    },
+    {
+      "cell": 11,
+      "seconds": 0.004686594009399414
+    },
+    {
+      "cell": 12,
+      "seconds": 0.00526118278503418
+    },
+    {
+      "cell": 14,
+      "seconds": 0.0040740966796875
+    },
+    {
+      "cell": 15,
+      "seconds": 0.010284185409545898
+    },
+    {
+      "cell": 17,
+      "seconds": 0.045264244079589844
+    },
+    {
+      "cell": 19,
+      "seconds": 0.004400491714477539
+    },
+    {
+      "cell": 20,
+      "seconds": 0.20576262474060059
+    },
+    {
+      "cell": 21,
+      "seconds": 0.13803744316101074
+    },
+    {
+      "cell": 22,
+      "seconds": 0.09904718399047852
+    },
+    {
+      "cell": 24,
+      "seconds": 0.005238533020019531
+    },
+    {
+      "cell": 26,
+      "seconds": 0.006175041198730469
+    },
+    {
+      "cell": 27,
+      "seconds": 0.24457025527954102
+    },
+    {
+      "cell": 28,
+      "seconds": 0.1285238265991211
+    },
+    {
+      "cell": 30,
+      "seconds": 0.6189749240875244
+    }
+  ],
+  "source_hashes_file": "/tmp/dlfs-bridges/rehearsal13-final/source_hashes.json",
+  "visual_inspection_method": "PNG를 모두 PIL로 디코딩한 뒤 view_image로 직접 확인했습니다.",
+  "controller_warning_count": 1,
+  "controller_warning_description": "IPKernelApp의 TCP transport encryption 경고가 runner.log에 있으며 노트북 셀 stderr는 없습니다."
+}

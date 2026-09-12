@@ -1,0 +1,17 @@
+{
+  "student_single_layer_check_passed": true,
+  "section6_multilayer_check_passed": true,
+  "section6_multilayer_check_max_error": 2.5641789882291924e-09,
+  "student_backward_calls_in_single_layer_check": 1,
+  "student_backward_calls_in_section6_check": 0,
+  "actual_student_errors_relative_to_numerically_verified_reference": {
+    "W1": 0.15280206505957053,
+    "b1": 0.12012295342748025,
+    "W2": 0.02138458876941431,
+    "b2": 0.023684511003068252,
+    "W3": 0.0,
+    "b3": 0.0
+  },
+  "actual_student_max_relative_error": 0.15280206505957053,
+  "stdout": "직접 쓴 backward의 입력·공유 가중치·편향 기울기가 일치합니다.\n[gradcheck] W1\n  ok   dx  rel_err = 5.696e-10\n[gradcheck] b1\n  ok   dx  rel_err = 9.753e-10\n[gradcheck] W2\n  ok   dx  rel_err = 4.583e-10\n[gradcheck] b2\n  ok   dx  rel_err = 3.263e-10\n[gradcheck] W3\n  ok   dx  rel_err = 1.482e-09\n[gradcheck] b3\n  ok   dx  rel_err = 4.005e-10\n[gradcheck] X\n  ok   dx  rel_err = 2.564e-09\n"
+}

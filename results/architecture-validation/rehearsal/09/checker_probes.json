@@ -1,0 +1,52 @@
+{
+  "ln_empty": {
+    "rejected": true,
+    "exception_type": "ValueError",
+    "exception": "not enough values to unpack (expected 3, got 0)"
+  },
+  "ln_only_dx": {
+    "rejected": true,
+    "exception_type": "ValueError",
+    "exception": "not enough values to unpack (expected 3, got 1)"
+  },
+  "ln_ignore_epsilon": {
+    "rejected": true,
+    "exception_type": "AssertionError",
+    "exception": "{'X': 0.21120694450497474, 'gamma': 2.650572573354181e-11, 'beta': 1.5381360554231757e-10}"
+  },
+  "ln_wrong_token_axis": {
+    "rejected": true,
+    "exception_type": "AssertionError",
+    "exception": "{'X': 0.5061415179066348, 'gamma': 2.650572573354181e-11, 'beta': 1.5381360554231757e-10}"
+  },
+  "ln_wrong_parameter_keepdims": {
+    "rejected": true,
+    "exception_type": "ValueError",
+    "exception": "모양이 다릅니다: (1, 1, 4) vs (4,)"
+  },
+  "block_missing_residual": {
+    "rejected": true,
+    "exception_type": "AssertionError",
+    "exception": "{'Wq': 0.06549959604023084, 'Wk': 0.11096926357975373, 'Wv': 0.6084136227893716, 'Wo': 0.7742304322818443, 'gamma1': 0.1350862030734665, 'beta1': 0.326201876043521, 'gamma2': 1.7532701244154863e-10, 'beta2': 2.1724499558889571e-10, 'W1': 3.206515433637214e-10, 'b1': 2.3024416113657304e-10, 'W2': 2.9191739442718077e-10, 'b2': 4.016366493210248e-10, 'X': 0.624645690496038}"
+  },
+  "model_missing_residual": {
+    "rejected": true,
+    "exception_type": "AssertionError",
+    "exception": "{'Wq': 0.6287842823010461, 'Wk': 1.5681430951966215, 'Wv': 0.9590181422103932, 'Wo': 0.8109572475952161, 'gamma1': 1.3178906286417258, 'beta1': 1.110042526335512, 'gamma2': 2.3006972246433447e-10, 'beta2': 2.2153463585080908e-10, 'W1': 2.915231982993747e-10, 'b1': 7.378297049281998e-10, 'W2': 4.2452787188996e-10, 'b2': 3.308265259901835e-10, 'E': 0.9578702151824646, 'P': 1.5564614553565048, 'Wout': 4.244271771736716e-10, 'bout': 6.250004227389203e-10}"
+  },
+  "block_missing_parameter": {
+    "rejected": true,
+    "exception_type": "KeyError",
+    "exception": "'Wq'"
+  },
+  "block_wrong_gradient_shapes": {
+    "rejected": true,
+    "exception_type": "ValueError",
+    "exception": "모양이 다릅니다: (1, 4, 4) vs (4, 4)"
+  },
+  "model_wrong_gradient_shapes": {
+    "rejected": true,
+    "exception_type": "ValueError",
+    "exception": "모양이 다릅니다: (1, 4, 4) vs (4, 4)"
+  }
+}

@@ -1,0 +1,2280 @@
+{
+  "source_hashes": {
+    "README.md": "cfd37c0673dcf8daec07a7b632a92e6696f251d52a14627da951eed571bdbe31",
+    "docs/CURRICULUM.md": "9b2df733c88d8a591559bea8e94113a88f6519247e6743dc2a0de85163830f12",
+    "docs/LEARNING_MAP.md": "870f760084374dcb9bd60a390dfeb62d48af410f1954d7299bcfd3802a09fa1f",
+    "pyproject.toml": "70349e13d03e0fc662fef0d1f2e08a1edbfa294d80dca683cb6baf656c818582",
+    "scripts/verify_notebooks.py": "ea33a165118165bf6f2914e26b61ae174a0e995205e4c13b54a1843634c38d6a"
+  },
+  "current_source_hashes": {
+    "README.md": "cfd37c0673dcf8daec07a7b632a92e6696f251d52a14627da951eed571bdbe31",
+    "docs/CURRICULUM.md": "9b2df733c88d8a591559bea8e94113a88f6519247e6743dc2a0de85163830f12",
+    "docs/LEARNING_MAP.md": "870f760084374dcb9bd60a390dfeb62d48af410f1954d7299bcfd3802a09fa1f",
+    "pyproject.toml": "70349e13d03e0fc662fef0d1f2e08a1edbfa294d80dca683cb6baf656c818582",
+    "scripts/verify_notebooks.py": "ea33a165118165bf6f2914e26b61ae174a0e995205e4c13b54a1843634c38d6a"
+  },
+  "source_matches_current": {
+    "README.md": true,
+    "docs/CURRICULUM.md": true,
+    "docs/LEARNING_MAP.md": true,
+    "pyproject.toml": true,
+    "scripts/verify_notebooks.py": true
+  },
+  "scope": {
+    "documents": [
+      "README.md",
+      "docs/CURRICULUM.md",
+      "docs/LEARNING_MAP.md"
+    ],
+    "original_repository_modified": false,
+    "prior_review_contents_read": false,
+    "execution_workspace": "/tmp/dlfs-bridges/rehearsal-docs/workspace"
+  },
+  "units": {
+    "defined": 64,
+    "currently_available": 16,
+    "planned": 48
+  },
+  "local_links": {
+    "count": 44,
+    "missing": [],
+    "history_links_existence_only": 8
+  },
+  "external_links": {
+    "unique": 12,
+    "http_200": 12
+  },
+  "project_python": ">=3.10",
+  "dependencies": [
+    "numpy>=1.24"
+  ],
+  "extras": {
+    "dev": [
+      "pytest>=7",
+      "matplotlib>=3.7",
+      "jupyter>=1.0",
+      "ipykernel>=6"
+    ],
+    "framework": [
+      "torch>=2.0"
+    ]
+  },
+  "pytest_passed": 19,
+  "suites": {
+    "foundation": {
+      "notebooks": 5,
+      "code_cells": 147,
+      "figures": 31,
+      "seconds": 11.520999999999999,
+      "errors": 0,
+      "warnings": 0,
+      "notebook_records": [
+        {
+          "notebook": "notebooks/00_기초/00_math_to_numpy.ipynb",
+          "executed_at": "2026-09-12T07:54:10.773951+00:00",
+          "python": "3.13.12",
+          "code_cells": 23,
+          "figures": [
+            "figures/foundation-validation/00_math_to_numpy-01.png",
+            "figures/foundation-validation/00_math_to_numpy-02.png",
+            "figures/foundation-validation/00_math_to_numpy-03.png",
+            "figures/foundation-validation/00_math_to_numpy-04.png",
+            "figures/foundation-validation/00_math_to_numpy-05.png"
+          ],
+          "seconds": 1.886,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy 2.5.3 · 준비 완료\n\n손계산 -0.3 · 코드 -0.29999999999999993\n\nx.shape = (2,) w.shape = (2,)\nx * w = [ 0.2 -0.6] (위치별 곱)\nx @ w = -0.39999999999999997 (곱한 뒤 더한 스칼라)\n\n두 번째 입력을 1 늘렸을 때 출력 변화: -0.30000000000000004\n\nX.shape (3, 2) → z.shape (3,)\n출력 [-0.3  1.  -0.6]\n\n열벡터로 유지한 출력:\n [[-0.3]\n [ 1. ]\n [-0.6]]\n\nX (3, 2) @ W (2, 2) + b (2,) → Z (3, 2)\n[[-0.3  1.8]\n [ 1.   2.3]\n [-0.6 -1.7]]\n\n샘플마다 적용되는 편향:\n [[ 0.1 -0.2]\n [ 0.1 -0.2]\n [ 0.1 -0.2]]\naxis=0: 샘플을 합함 [0.1 2.4]\naxis=1: 출력을 합함 [ 1.5  3.3 -2.3]\nkeepdims=True로 축을 남김 (1, 2)\n\n(2,)를 더했을 때:\n [[11. 22.]\n [13. 24.]]\n(2,1)을 더했을 때:\n [[11. 12.]\n [23. 24.]]\n\n원본:\n [[0 1 2]\n [3 4 5]]\ntranspose:\n [[0 3]\n [1 4]\n [2 5]]\nreshape:\n [[0 1]\n [2 3]\n [4 5]]\n\n출력 3개: 손계산과 일치합니다.\n\n출력의 변화:\n [[ 0.   0.5]\n [ 0.   1.5]\n [ 0.  -1. ]]\n"
+        },
+        {
+          "notebook": "notebooks/00_기초/01_gradients_and_learning.ipynb",
+          "executed_at": "2026-09-12T07:54:12.927429+00:00",
+          "python": "3.13.12",
+          "code_cells": 29,
+          "figures": [
+            "figures/foundation-validation/01_gradients_and_learning-01.png",
+            "figures/foundation-validation/01_gradients_and_learning-02.png",
+            "figures/foundation-validation/01_gradients_and_learning-03.png",
+            "figures/foundation-validation/01_gradients_and_learning-04.png",
+            "figures/foundation-validation/01_gradients_and_learning-05.png",
+            "figures/foundation-validation/01_gradients_and_learning-06.png"
+          ],
+          "seconds": 2.15,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy 2.5.3 · 준비 완료\n\n잔차 [-1.  1.  1.] · 손실 0.5\n\n도함수 3.0 · 폭 0.3의 평균 변화율 3.99\n\nepsilon=1e-01 · 중심차분 3.0100000000\nepsilon=1e-02 · 중심차분 3.0001000000\nepsilon=1e-03 · 중심차분 3.0000010000\nepsilon=1e-04 · 중심차분 3.0000000100\nepsilon=1e-05 · 중심차분 3.0000000001\nepsilon=1e-06 · 중심차분 2.9999999999\nepsilon=1e-07 · 중심차분 3.0000000001\nepsilon=1e-08 · 중심차분 2.9999999929\nepsilon=1e-09 · 중심차분 3.0000000817\nepsilon=1e-10 · 중심차분 3.0000002482\nepsilon=1e-11 · 중심차분 3.0000002482\nepsilon=1e-12 · 중심차분 3.0001001683\n\n예측 [0. 0. 0.] · 손실 1.8333333333333333\n손계산과 비교: dW [-1.3333] db [-1.]\n\n[gradcheck] dX\n  ok   dx  rel_err = 1.512e-10\n[gradcheck] dW\n  ok   dx  rel_err = 1.713e-10\n[gradcheck] db\n  ok   dx  rel_err = 6.268e-11\n\n[gradcheck] 평균 중복\n  FAIL dx  rel_err = 7.500e-01\n정상 db 오차 6.268162498977536e-11 · 평균을 두 번 낸 db 오차 0.7500000000017653\n\nW [0.] → [0.1333]\nb [0.] → [0.1]\n손실 1.833333 → 1.566481\n\n학습 전 손실 9.961568 → 200회 뒤 0.008696\n학습한 가중치 [1.9842] 편향 [0.6999]\n\n경사하강 해 [1.9842 0.6999]\n최소제곱 해 [1.9842 0.6999]\n최대 파라미터 차이 1.20e-09\n\n학습률 0.001: 9.961568 → 7.618282\n학습률 0.1: 9.961568 → 0.008696\n학습률 1.6: 9.961568 → 63905625558767566848.000000\n\n평균의 분모와 다중 출력 기울기가 손계산과 일치합니다.\n\n두 출력의 가중치 [[ 2. -1.]] 편향 [0.7 0.2]\n최종 손실 6.60e-20\n"
+        },
+        {
+          "notebook": "notebooks/00_기초/02_probability_and_losses.ipynb",
+          "executed_at": "2026-09-12T07:54:15.270401+00:00",
+          "python": "3.13.12",
+          "code_cells": 31,
+          "figures": [
+            "figures/foundation-validation/02_probability_and_losses-01.png",
+            "figures/foundation-validation/02_probability_and_losses-02.png",
+            "figures/foundation-validation/02_probability_and_losses-03.png",
+            "figures/foundation-validation/02_probability_and_losses-04.png",
+            "figures/foundation-validation/02_probability_and_losses-05.png",
+            "figures/foundation-validation/02_probability_and_losses-06.png",
+            "figures/foundation-validation/02_probability_and_losses-07.png"
+          ],
+          "seconds": 2.34,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy 2.5.3 · 확률과 손실 준비 완료\n\nP(A >= 1) = 0.8\nE[A] = 1.1 · Var(A) = 0.49\n\nP(A): [0.5 0.5] P(B): [0.4 0.6]\n행별 P(B | A):\n [[0.6 0.4]\n [0.2 0.8]]\nP(A=1 | B=1): 0.6666666666666666\n\n밀도 높이 4.0 · 전체 면적 1.0 · 구간 확률 0.39999999999999997\n\n정확한 E[A]=1.1000, 이번 표본 평균=1.1046, 표준오차=0.0099\n\nlog의 변화율 0.5000000000143778 · exp의 변화율 7.3890560989831044\n\n최대 우도 후보 0.75\nlog(곱)와 log의 합: -2.2493405784752336 -2.249340578475233\n\n2000개 확률의 곱: 0.0 · 로그의 합: -1386.2943611198905\n\n[gradcheck] Gaussian NLL → 평균\n  ok   dx  rel_err = 3.596e-10\n절반 MSE 0.3333333333333333 · Gaussian NLL 1.252271866538006\n\n[gradcheck] BCE → logits\n  ok   dx  rel_err = 6.989e-11\nBCE 0.49041462650586315 · 기울기 [ 0.25  -0.125]\n극단적인 오답 logit의 손실 1000.0 · 기울기 [-0.5  0.5]\n\n[gradcheck] softmax CE → logits\n  ok   dx  rel_err = 1.398e-10\n클래스 확률:\n [[0.33333 0.33333 0.33333]\n [0.5     0.25    0.25   ]]\nCE 0.8958797346140275 · dZ:\n [[ 0.16667  0.16667 -0.33333]\n [-0.25     0.125    0.125  ]]\n\n학습 손실 0.693147 → 0.043524, 학습 정확도 100.0%\nW [4.48523] b [0.39428]\n\n기댓값 변형: 손계산과 일치합니다.\n\n4개 클래스·배치 복제·서로 다른 logit: 손계산과 일치합니다.\n"
+        },
+        {
+          "notebook": "notebooks/00_기초/03_perceptron_to_mlp.ipynb",
+          "executed_at": "2026-09-12T07:54:18.028866+00:00",
+          "python": "3.13.12",
+          "code_cells": 30,
+          "figures": [
+            "figures/foundation-validation/03_perceptron_to_mlp-01.png",
+            "figures/foundation-validation/03_perceptron_to_mlp-02.png",
+            "figures/foundation-validation/03_perceptron_to_mlp-03.png",
+            "figures/foundation-validation/03_perceptron_to_mlp-04.png",
+            "figures/foundation-validation/03_perceptron_to_mlp-05.png",
+            "figures/foundation-validation/03_perceptron_to_mlp-06.png",
+            "figures/foundation-validation/03_perceptron_to_mlp-07.png"
+          ],
+          "seconds": 2.755,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy 2.5.3 · 퍼셉트론과 MLP 준비 완료\n\n손으로 정한 점수 [-1.5 -0.5 -0.5  0.5]\n학습한 w [2. 1.] b -3.0 · 에폭별 오분류 [2, 3, 3, 2, 1, 0]\n\n선형층 2개와 합친 선형층의 최대 차이: 2.220446049250313e-16\n\n[gradcheck] tanh\n  ok   dx  rel_err = 5.348e-11\n[gradcheck] relu\n  ok   dx  rel_err = 5.062e-11\n[gradcheck] sigmoid\n  ok   dx  rel_err = 1.911e-10\n\n은닉 표현:\n [[0. 0.]\n [1. 0.]\n [1. 0.]\n [2. 1.]]\n최종 logit: [-5.  5.  5. -5.]\n\n첫 층 Z [[2.1 2.8]] · 은닉 A [0.97045 0.99263] · 최종 logit [[0.09408]]\nA (1, 2) W (2, 2) b (2,) Z (1, 2)\nA (1, 2) W (2, 1) b (1,) Z (1, 1)\n\n[gradcheck] W1\n  ok   dx  rel_err = 1.399e-10\n[gradcheck] b1\n  ok   dx  rel_err = 1.478e-10\n[gradcheck] W2\n  ok   dx  rel_err = 2.647e-10\n[gradcheck] b2\n  ok   dx  rel_err = 2.829e-10\n[gradcheck] W3\n  ok   dx  rel_err = 3.370e-10\n[gradcheck] b3\n  ok   dx  rel_err = 6.154e-11\n[gradcheck] X\n  ok   dx  rel_err = 4.981e-10\n네트워크 최대 상대오차 4.98115205884979e-10\n\n배치 복제: 손실·공유 파라미터 기울기·입력 기울기 관계 통과\n\n선형 BCE 0.693147\nMLP BCE 0.759459 → 0.003789\nMLP의 XOR 확률 [0.00121 0.99574 0.99584 0.0055 ] · 정확도 1.0\n\n[gradcheck] W1\n  ok   dx  rel_err = 1.437e-10\n[gradcheck] b1\n  ok   dx  rel_err = 1.947e-10\n[gradcheck] W2\n  ok   dx  rel_err = 2.404e-10\n[gradcheck] b2\n  ok   dx  rel_err = 2.829e-10\n[gradcheck] W3\n  ok   dx  rel_err = 2.303e-10\n[gradcheck] b3\n  ok   dx  rel_err = 4.570e-10\n[gradcheck] X\n  ok   dx  rel_err = 5.531e-10\nλ=0.0: train BCE=0.0166, validation BCE=0.0985\n\nλ=0.01: train BCE=0.1399, validation BCE=0.1908\n\n[gradcheck] Leaky ReLU\n  ok   dx  rel_err = 3.606e-11\n직접 만든 도함수가 손계산·중심차분과 일치합니다.\n\n[gradcheck] W1\n  ok   dx  rel_err = 5.696e-10\n[gradcheck] b1\n  ok   dx  rel_err = 9.753e-10\n[gradcheck] W2\n  ok   dx  rel_err = 4.583e-10\n[gradcheck] b2\n  ok   dx  rel_err = 3.263e-10\n[gradcheck] W3\n  ok   dx  rel_err = 1.482e-09\n[gradcheck] b3\n  ok   dx  rel_err = 4.005e-10\n[gradcheck] X\n  ok   dx  rel_err = 2.564e-09\n구조 변형의 최대 상대오차 2.5641789882291924e-09\n\n직접 쓴 backward의 입력·공유 가중치·편향 기울기가 일치합니다.\n"
+        },
+        {
+          "notebook": "notebooks/00_기초/04_optimizers.ipynb",
+          "executed_at": "2026-09-12T07:54:20.424580+00:00",
+          "python": "3.13.12",
+          "code_cells": 34,
+          "figures": [
+            "figures/foundation-validation/04_optimizers-01.png",
+            "figures/foundation-validation/04_optimizers-02.png",
+            "figures/foundation-validation/04_optimizers-03.png",
+            "figures/foundation-validation/04_optimizers-04.png",
+            "figures/foundation-validation/04_optimizers-05.png",
+            "figures/foundation-validation/04_optimizers-06.png"
+          ],
+          "seconds": 2.39,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy 2.5.3 · optimizer 준비 완료\n\n[gradcheck] 이차 목적의 기울기\n  ok   dx  rel_err = 2.097e-11\nη=0.05: θ=[2.85 0.  ], J=4.061250\nη=0.11: θ=[ 2.67 -1.2 ], J=17.964450\n\n전체 기울기 [-6.183333 -0.7     ]\n배치 평균에 표본 수 가중치 적용 [-6.183333 -0.7     ]\n크기 다른 배치 평균끼리 단순 평균 [-5.5625 -0.95  ]\n\n배치 크기 [ 1  2  4  8 16] · 관측 표준편차 [5.648146 4.146826 2.880184 2.046016 1.464832]\n\nSGD 1회 [ 0.8 -1.6] 2회 [ 0.9 -1.8] 상태 {'t': 2}\n\nMomentum 1회 [ 0.8 -1.6] 2회 [ 0.72 -1.44] · v [ 0.8 -1.6]\n\nRMSProp 1회 [ 0.683772 -1.683772] 2회 [ 0.831214 -1.831214] · s [0.46 1.84]\n\nAdam 1회 [0.9] 2회 [0.933333] · 2회 상태 {'mean': array([-0.5]), 'square': array([3.]), 't': 2}\n\nSGD η=0.08 · 마지막 목적값 9.168347733964372e-09\nMomentum η=0.03 · 마지막 목적값 1.5808498185671706e-05\nRMSProp η=0.08 · 마지막 목적값 0.036501099256119836\nAdam η=0.08 · 마지막 목적값 6.339187231575337e-05\n\nSGD η=0.08: θ=[ 1.700046 -0.394376], loss=0.005942, steps=200\nMomentum η=0.03: θ=[ 1.700313 -0.383934], loss=0.006081, steps=200\nRMSProp η=0.03: θ=[ 1.701483 -0.345318], loss=0.007544, steps=200\nAdam η=0.05: θ=[ 1.703473 -0.404286], loss=0.005918, steps=200\n독립 최소제곱 해 [ 1.700257 -0.402473] · 최소 손실 0.005909222626615716\n\n두 입력의 완전열거: Var(z)= 2.0 E[ReLU(z)^2]= 1.0\n작게: 마지막 활성값 제곱 평균 9.196e-15, 입력 기울기 RMS 2.121e-07\nHe: 마지막 활성값 제곱 평균 5.885e-01, 입력 기울기 RMS 1.697e+00\n크게: 마지막 활성값 제곱 평균 4.887e+03, 입력 기울기 RMS 1.546e+02\n\nclipping 후 g [1.2 1.6] · Adam 한 스텝 θ [ 0.9 -2.1]\n\nMomentum: 두 스텝의 상태와 파라미터가 손계산과 일치합니다.\n\nAdam: 두 모멘트·편향 보정·스텝 수·epsilon 위치가 손계산과 일치합니다.\n\n배치 8: steps 360 seen 2600 loss 0.005933663014647557\n"
+        }
+      ]
+    },
+    "architecture": {
+      "notebooks": 6,
+      "code_cells": 109,
+      "figures": 30,
+      "seconds": 13.452,
+      "errors": 0,
+      "warnings": 0,
+      "notebook_records": [
+        {
+          "notebook": "notebooks/01_아키텍처/05_cnn.ipynb",
+          "executed_at": "2026-09-12T07:54:23.746733+00:00",
+          "python": "3.13.12",
+          "code_cells": 23,
+          "figures": [
+            "figures/architecture-validation/05_cnn-01.png",
+            "figures/architecture-validation/05_cnn-02.png",
+            "figures/architecture-validation/05_cnn-03.png",
+            "figures/architecture-validation/05_cnn-04.png",
+            "figures/architecture-validation/05_cnn-05.png",
+            "figures/architecture-validation/05_cnn-06.png"
+          ],
+          "seconds": 2.503,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy 2.5.3 · CNN 준비 완료\n\n출력 shape: (1, 1, 2, 2) · 첫 패치 내적: -4.0\n\n완전 연결: 14040\n지역 연결만: 2160\n지역 연결 + 공유: 60\n\nstride=1, padding=0: (2, 3, 3, 3), 최대 오차=1.78e-15\nstride=2, padding=1: (2, 3, 3, 3), 최대 오차=8.88e-16\n\nconvolution 전체 미분 최대 상대오차: 5.484114245342819e-10\n\nmean backward 상대오차 1.8890476578625065e-10\nmax backward 상대오차 4.15233628616863e-10\n\n학습: (500, 1, 8, 8) 검증: (200, 1, 8, 8)\n\nCNN 합성 전체 미분 최대 상대오차: 8.04833810323961e-10\n\n학습 CE 2.345114 → 0.087676\n검증 CE 0.229319 · 정확도 93.5% (n=200)\n\n주기적 경계 + stride 1의 이동 대응 검산 통과\n\n평균 pooling 변형 통과\n의도적 오답 검출: 평균의 /4 누락\n"
+        },
+        {
+          "notebook": "notebooks/01_아키텍처/06_rnn.ipynb",
+          "executed_at": "2026-09-12T07:54:25.722755+00:00",
+          "python": "3.13.12",
+          "code_cells": 15,
+          "figures": [
+            "figures/architecture-validation/06_rnn-01.png",
+            "figures/architecture-validation/06_rnn-02.png",
+            "figures/architecture-validation/06_rnn-03.png",
+            "figures/architecture-validation/06_rnn-04.png",
+            "figures/architecture-validation/06_rnn-05.png"
+          ],
+          "seconds": 1.974,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy 2.5.3 · RNN 준비 완료\n\n[1,0] 상태: [0.7616 0.3634] · [0,1] 상태: [0.     0.7616]\n\nRNN X·h0·모든 파라미터 최대 상대오차: 2.137166157521253e-10\n\n학습 (30, 6, 3) · 길이 변경 검증 (56, 8, 3) · 균형 라벨의 상수 예측 정확도 50%\n\n학습 CE 0.676096 → 0.000036, 정확도 100.0%\n길이 8 검증 CE 0.503527, 정확도 83.9%\n\n스칼라 h0 미분 = Wh의 T제곱 검산 통과\n\n의도적 오답 검출: 미래 경로와 h0 미분 누락\n모든 시각의 제곱 손실 변형 통과 — 자신의 backward로도 같은 셀을 실행하세요\n"
+        },
+        {
+          "notebook": "notebooks/01_아키텍처/07_lstm_gru.ipynb",
+          "executed_at": "2026-09-12T07:54:28.569111+00:00",
+          "python": "3.13.12",
+          "code_cells": 17,
+          "figures": [
+            "figures/architecture-validation/07_lstm_gru-01.png",
+            "figures/architecture-validation/07_lstm_gru-02.png",
+            "figures/architecture-validation/07_lstm_gru-03.png",
+            "figures/architecture-validation/07_lstm_gru-04.png"
+          ],
+          "seconds": 2.844,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy 2.5.3 · LSTM·GRU 준비 완료\n\nf=i=o=0.5, g=0.8 → c= 0.5 h= 0.23105857863000487\n\nLSTM 한 스텝 최대 상대오차: 2.1654197627094866e-10\n\nGRU 한 스텝 최대 상대오차: 9.456371417325128e-10\nGRU z가 이전 상태를 유지하는 손계산 통과\n\nLSTM 3스텝 전체 미분 최대 상대오차: 3.961704369723117e-10\nGRU 3스텝 전체 미분 최대 상대오차: 3.6187939142249692e-09\n\nLSTM: 파라미터 361, 학습 BCE 0.689228 → 0.000505, 검증 BCE 0.000504, 검증 정확도 100.0%\n\nGRU: 파라미터 273, 학습 BCE 0.695544 → 0.000258, 검증 BCE 0.000258, 검증 정확도 100.0%\n\n의도적 오답 검출: c의 별도 상류 기울기 누락\n추가 갱신 없는 길이 24 LSTM: BCE 0.000503, 정확도 100.0%\n추가 갱신 없는 길이 24 GRU: BCE 0.000257, 정확도 100.0%\n"
+        },
+        {
+          "notebook": "notebooks/01_아키텍처/08_attention.ipynb",
+          "executed_at": "2026-09-12T07:54:30.393501+00:00",
+          "python": "3.13.12",
+          "code_cells": 17,
+          "figures": [
+            "figures/architecture-validation/08_attention-01.png",
+            "figures/architecture-validation/08_attention-02.png",
+            "figures/architecture-validation/08_attention-03.png",
+            "figures/architecture-validation/08_attention-04.png",
+            "figures/architecture-validation/08_attention-05.png"
+          ],
+          "seconds": 1.823,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy 2.5.3 · Attention 준비 완료\n\n가중치: [[[0.75 0.25]]] · 읽은 값: [[[7.5 5. ]]]\n\n스케일 후 경험적 분산: [0.9853 1.0227 1.0103 0.9876]\n\nQ·K·V와 mask 미분 최대 상대오차: 5.101987596542411e-10\n\n예상한 입력 거부: 각 query에는 읽을 수 있는 key가 최소 하나 필요합니다\n\n검색 모델 전체 미분 최대 상대오차: 2.966572677205445e-08\n\n학습 CE 0.680324 → 0.001135\n검증 CE 0.001138 · 정확도 100.0% (n=128)\n예시 query 정체: [1 2 0 2] · 행별 key 정체: [[1 3 2 0]\n [1 2 0 3]\n [1 0 3 2]\n [0 1 2 3]]\n\nK·V의 공동 순열에 대한 출력 불변 검산 통과\n\n의도적 오답 검출: softmax의 다른 위치 기여 누락\n"
+        },
+        {
+          "notebook": "notebooks/01_아키텍처/09_transformer.ipynb",
+          "executed_at": "2026-09-12T07:54:32.834501+00:00",
+          "python": "3.13.12",
+          "code_cells": 18,
+          "figures": [
+            "figures/architecture-validation/09_transformer-01.png",
+            "figures/architecture-validation/09_transformer-02.png",
+            "figures/architecture-validation/09_transformer-03.png",
+            "figures/architecture-validation/09_transformer-04.png",
+            "figures/architecture-validation/09_transformer-05.png"
+          ],
+          "seconds": 2.439,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy 2.5.3 · Transformer 준비 완료\n\nLayerNorm 최대 상대오차: 3.266358006395601e-10\n\nMHA의 입력·네 투영 미분 최대 상대오차: 1.3941559756060622e-09\n예상한 mask shape 거부: MHA mask는 (T,T) 또는 (N,1,T,T)처럼 head 축을 명시해야 합니다\n배치마다 다른 mask를 모든 head에 적용하는 검산 통과\n\nTransformer 블록 전체 미분 최대 상대오차: 6.892493636954047e-10\n두 잔차의 항등 forward·backward 검산 통과\n\nembedding·위치·head까지 모든 파라미터 최대 상대오차: 1.4834569676899003e-09\n\n파라미터 1384\n학습 CE 1.554663 → 0.000001\n검증 CE 0.000002, 토큰 100.0%, 문장 100.0%\n입력 / 정답 / 예측\n[3 0 1 3] / [3 1 0 3] / [3 1 0 3]\n[1 2 1 2] / [2 1 2 1] / [2 1 2 1]\n[0 3 0 2] / [2 0 3 0] / [2 0 3 0]\n[1 1 3 0] / [0 3 1 1] / [0 3 1 1]\n[1 0 3 1] / [1 3 0 1] / [1 3 0 1]\n\n위치·mask 없는 모델의 순열 대응 검산 통과\n학습 후 위치만 제거한 토큰 정확도: 0.5390625\ncausal mask: 미래 변경에 대한 과거 logits 유지 검산 통과\n\n의도적 오답 검출: 잔차의 항등 미분 누락\n반복 토큰의 embedding 미분 누적: [3. 7.]\n"
+        },
+        {
+          "notebook": "notebooks/01_아키텍처/10_gnn.ipynb",
+          "executed_at": "2026-09-12T07:54:34.705691+00:00",
+          "python": "3.13.12",
+          "code_cells": 19,
+          "figures": [
+            "figures/architecture-validation/10_gnn-01.png",
+            "figures/architecture-validation/10_gnn-02.png",
+            "figures/architecture-validation/10_gnn-03.png",
+            "figures/architecture-validation/10_gnn-04.png",
+            "figures/architecture-validation/10_gnn-05.png"
+          ],
+          "seconds": 1.869,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy 2.5.3 · GNN 준비 완료\n\n노드 0은 노드 1·2에서 받고, 노드 1은 받는 이웃이 없습니다\n\n합·평균, 방향·고립 노드의 최대 미분 상대오차: 1.9854066525716172e-10\n\n2층·readout·head 전체 최대 미분 상대오차: 5.576446392942628e-10\n\npath degree: [1. 2. 2. 2. 2. 1.] · star degree: [5. 1. 1. 1. 1. 1.]\n두 그래프 평균 degree: 1.6666666666666667\n\n학습 CE 0.688424 → 0.000157\n검증 CE 0.000155, 정확도 100.0%, 파라미터 178\n\nsum 노드 출력·입력 미분 대응 / 그래프 출력·공유 미분 불변 통과\nmean 노드 출력·입력 미분 대응 / 그래프 출력·공유 미분 불변 통과\n\n평균 집계의 path/star logits 차이: 0.0\n합 집계의 한 고리/두 고리 logits 차이: 0.0\n\n의도적 오답 검출: 이웃 미분의 전치 누락 ('sum', 'X', 0.848897776249473)\n추가 갱신 없는 8노드: CE 0.000045, 정확도 100.0%\n"
+        }
+      ]
+    },
+    "bridge": {
+      "notebooks": 5,
+      "code_cells": 104,
+      "figures": 25,
+      "seconds": 10.732,
+      "errors": 0,
+      "warnings": 0,
+      "notebook_records": [
+        {
+          "notebook": "notebooks/02_연결/11_linear_algebra.ipynb",
+          "executed_at": "2026-09-12T07:55:39.999017+00:00",
+          "python": "3.13.12",
+          "code_cells": 21,
+          "figures": [
+            "figures/bridge-validation/11_linear_algebra-01.png",
+            "figures/bridge-validation/11_linear_algebra-02.png",
+            "figures/bridge-validation/11_linear_algebra-03.png",
+            "figures/bridge-validation/11_linear_algebra-04.png",
+            "figures/bridge-validation/11_linear_algebra-05.png"
+          ],
+          "seconds": 2.592,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "좌표: [[1.41421]] 복원: [[1. 1.]] 잔차: [[ 1. -1.]]\n\n최소제곱 계수: [0.8 0.9]\n\n경험 공분산:\n [[2.66667 1.33333]\n [1.33333 2.66667]]\n\n특이값: [34.19616  5.7151 ] 분산: [4.87241 0.13609]\n\nrank-1 특이값: [6.32456 0.     ] 판정 기준: 4.213000162292041e-15\n\n1차원 압축: 유지 분산 97.2828%, 학습 거리 오차 0.136093, 검증 거리 오차 0.125096\n\n행렬곱 backward 상대 오차: 1.3094692194474316e-10\n\n원래 열 단위에서 PCA 방향: [-0.79519 -0.60636]\n두 번째 열을 10배 한 좌표계의 방향: [-0.12097 -0.99266]\n\n통과: 평균·직교성·선택 부분공간·실제 복원\n3차원 검증 거리 오차 k=1,2,3: [np.float64(0.24538287804575815), np.float64(0.010660790846797765), np.float64(1.2443048184697054e-30)]\n"
+        },
+        {
+          "notebook": "notebooks/02_연결/12_gaussian_information.ipynb",
+          "executed_at": "2026-09-12T07:55:41.802663+00:00",
+          "python": "3.13.12",
+          "code_cells": 22,
+          "figures": [
+            "figures/bridge-validation/12_gaussian_information-01.png",
+            "figures/bridge-validation/12_gaussian_information-02.png",
+            "figures/bridge-validation/12_gaussian_information-03.png",
+            "figures/bridge-validation/12_gaussian_information-04.png",
+            "figures/bridge-validation/12_gaussian_information-05.png"
+          ],
+          "seconds": 1.801,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "생성 평균: [ 1.00867 -1.99173] \n생성 공분산:\n [[4.02464 1.98654]\n [1.98654 1.9867 ]]\n\n평균 위치의 로그 밀도: -2.5310242469692907\n\nH(p)=0.562335, H(p,q)=0.693147, KL(p||q)=0.130812\n\nGaussian entropy 해석식 / 샘플 평균: 3.5310242469692907 3.5372813163988632\n\nNLL: 8.22924940783883 → 3.770006347507251 기울기 상대 오차: 1.7422830377106247e-10\n학습 평균: [ 1.07844 -1.96366] 학습 분산: [3.68781 1.74932]\n검증 대각 NLL: 3.8817441865570714\n\n검증 NLL 전체 공분산 / 대각 공분산: 3.573965686146029 3.8817441865570714\n\nMLE / MAP: 2.0 1.2\n\nKL 해석식 / Monte Carlo: 1.116290607977085 1.1174150033954557 미분 오차: 1.638037853276656e-10\n\n고정 잡음에서 재매개화 미분 오차: 1.3070466284896373e-10\n\n통과: KL 방향·로그 분산·두 미분·관측 평균\n"
+        },
+        {
+          "notebook": "notebooks/02_연결/13_autodiff.ipynb",
+          "executed_at": "2026-09-12T07:55:44.681297+00:00",
+          "python": "3.13.12",
+          "code_cells": 19,
+          "figures": [
+            "figures/bridge-validation/13_autodiff-01.png",
+            "figures/bridge-validation/13_autodiff-02.png",
+            "figures/bridge-validation/13_autodiff-03.png",
+            "figures/bridge-validation/13_autodiff-04.png"
+          ],
+          "seconds": 2.877,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "NumPy: 2.3.5 PyTorch: 2.11.0+cu130 비교 장치: CPU, dtype: float64\n\nJ.T @ g: [ -0.5 -11. ]\n\nbroadcast 역방향: 열별 / 행별 / 전체 합 검산\n\n공유 경로·재계산·벡터 seed·양쪽 broadcasting 통과\n\n직접 backward / 중심차분 최대 상대 오차: 3.6193162287701783e-16 4.1681016385990223e-10\n\nPyTorch 최대 기울기 상대 오차: 2.386196090606463e-16 네 배열의 SGD 한 스텝 일치\n\n학습 half-MSE: 0.7215567955122906 → 0.003792637122729365 검증: 0.004301816888744917\n\n양쪽 경로 / 한쪽 경로: 6.0 3.0\n\n통과: 사각 행렬·공유 분기·반복 backward·양쪽 부모·MLP 전체 기울기\n\nhidden=6 학습 / 검증 half-MSE: 0.006918263554772796 0.007321249042379014\n"
+        },
+        {
+          "notebook": "notebooks/02_연결/14_losses_regularization.ipynb",
+          "executed_at": "2026-09-12T07:55:46.344135+00:00",
+          "python": "3.13.12",
+          "code_cells": 21,
+          "figures": [
+            "figures/bridge-validation/14_losses_regularization-01.png",
+            "figures/bridge-validation/14_losses_regularization-02.png",
+            "figures/bridge-validation/14_losses_regularization-03.png",
+            "figures/bridge-validation/14_losses_regularization-04.png",
+            "figures/bridge-validation/14_losses_regularization-05.png"
+          ],
+          "seconds": 1.661,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "손계산 통과: r=2, delta=0.5\n\n가중 손실 기울기 상대 오차: {'mse': 7.799658355076225e-11, 'mae': 1.3977802247034026e-10, 'huber': 1.1002213029520648e-10}\n\n가중 Huber + L2 전체 미분 상대 오차: 2.793343126683725e-10\n\nmse 기울기/절편: 3.2527710951376916 1.2682392167877086 깨끗한 함수 RMSE: 1.2315210814748554\nmae 기울기/절편: 1.9986202531645563 0.4130000000000003 깨끗한 함수 RMSE: 0.013035538756957222\nhuber 기울기/절편: 2.0571234851654476 0.4412893343627832 깨끗한 함수 RMSE: 0.057365453459457774\n\nlambda=0,0.1,1의 가중치 길이: [np.float64(2.275587957068822), np.float64(2.104915903400096), np.float64(1.2567949361416186)]\nK=2 ridge 해와 학습값의 최대 절대차: 2.886579864025407e-15\n\nAdam + L2: [0.97 9.97] AdamW: [ 0.9685 10.015 ]\n\nAdamW 두 스텝 손계산 통과: [ 1.05592828 -0.67228001]\n\ndropout 고정 mask 미분 오차: 1.9781313156190846e-10 평균 출력 최대 절대차: 0.005142857142903301\n\ndropout 평균 손실: 0.3799904761904761 = 기본 0.17333333333333334 + 분산 항 0.20665714285714293\n\n통과: 손실·출력 축·가중치·배치 반복·전체 모델\n\ndelta별 깨끗한 함수 RMSE: {0.1: 0.010562499617477515, 0.3: 0.057365453459457774, 1.0: 0.21613168053204956}\n"
+        },
+        {
+          "notebook": "notebooks/02_연결/15_experiments_evaluation.ipynb",
+          "executed_at": "2026-09-12T07:55:48.149116+00:00",
+          "python": "3.13.12",
+          "code_cells": 21,
+          "figures": [
+            "figures/bridge-validation/15_experiments_evaluation-01.png",
+            "figures/bridge-validation/15_experiments_evaluation-02.png",
+            "figures/bridge-validation/15_experiments_evaluation-03.png",
+            "figures/bridge-validation/15_experiments_evaluation-04.png",
+            "figures/bridge-validation/15_experiments_evaluation-05.png",
+            "figures/bridge-validation/15_experiments_evaluation-06.png"
+          ],
+          "seconds": 1.801,
+          "errors": 0,
+          "warnings": [],
+          "stdout": "행 분할 / 사람 분할 정확도: 1.0 0.65 행 분할의 겹친 사람 수: 100\n\n학습 평균: [3. 4.] 미래 관측을 합쳤을 때의 평균: [27.25  4.  ]\n\n수치미분 최대 상대 오차: 1.219283239380507e-09 네 관측 BCE: 0.007067326729228688\n\ntrain/validation 관측 수: 540 180 양성 비율: 0.34814814814814815 0.32222222222222224\nlambda별 평균 검증 BCE: {0.0: np.float64(0.4430584554376771), 0.02: np.float64(0.4456812462931811), 0.2: np.float64(0.5036214279992529)} 선택 lambda: 0.0\n선택 epoch: [89, 58, 48]\n\n네 관측 손계산: {'accuracy': np.float64(0.5), 'precision': np.float64(0.5), 'recall': np.float64(0.5), 'f1': np.float64(0.5), 'nll': np.float64(0.6841124189059771), 'brier': np.float64(0.25500000000000006), 'auc': np.float64(0.75)}\n\n원래 확률 accuracy/NLL/Brier: 0.8055555555555556 0.4434677231510092 0.14124827418324257\nlogit 3배 accuracy/NLL/Brier: 0.8055555555555556 0.7084902535875646 0.15887218330438363\n\n구간 관측 수: [75 34 20 20 18 13] validation ECE: 0.045562456701411125\n검증 평균 확률의 F1으로 선택한 임계값: 0.4\n\nseed=1, epoch=89, test NLL=0.429953, accuracy=0.7722, F1=0.6095, AUC=0.8319\nseed=2, epoch=58, test NLL=0.429226, accuracy=0.7778, F1=0.6154, AUC=0.8322\nseed=3, epoch=48, test NLL=0.429568, accuracy=0.7833, F1=0.6355, AUC=0.8309\nseed NLL 평균 / 표본 표준편차: 0.42958233052221834 0.0003638927795710818\n세 실행 평균 확률 test: {'accuracy': np.float64(0.7722222222222223), 'precision': np.float64(0.5245901639344263), 'recall': np.float64(0.7272727272727273), 'f1': np.float64(0.6095238095238096), 'nll': np.float64(0.4294734341320058), 'brier': np.float64(0.14156076477094362), 'auc': np.float64(0.8322192513368984)}\n\n원래 validation NLL: 0.4434677231510092 특성별 순열 NLL: {0: np.float64(0.6937559796926076), 7: np.float64(0.44775356397494714)}\n\n통과: 혼동행렬·임계값·동점 순위·분모 규약·확률 지표\n{'data_seed': 151, 'split_seed': 152, 'train_validation_test_counts': [540, 180, 180], 'l2_candidates': [0.0, 0.02, 0.2], 'training_seeds': [1, 2, 3], 'selected_l2': 0.0, 'selected_epochs': [89, 58, 48], 'selected_threshold': 0.4, 'selection_metric': 'validation BCE then ensemble validation F1', 'test_ensemble_nll': np.float64(0.4294734341320058), 'test_ensemble_f1': np.float64(0.6095238095238096), 'test_seed_nll_std': 0.0003638927795710818}\n"
+        }
+      ]
+    }
+  },
+  "figures": [
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/00_math_to_numpy-01.png",
+      "size": [
+        1144,
+        341
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/00_math_to_numpy-02.png",
+      "size": [
+        952,
+        396
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/00_math_to_numpy-03.png",
+      "size": [
+        1023,
+        396
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/00_math_to_numpy-04.png",
+      "size": [
+        1083,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/00_math_to_numpy-05.png",
+      "size": [
+        515,
+        539
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/01_gradients_and_learning-01.png",
+      "size": [
+        759,
+        429
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/01_gradients_and_learning-02.png",
+      "size": [
+        759,
+        429
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/01_gradients_and_learning-03.png",
+      "size": [
+        429,
+        341
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/01_gradients_and_learning-04.png",
+      "size": [
+        1199,
+        649
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/01_gradients_and_learning-05.png",
+      "size": [
+        759,
+        539
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/01_gradients_and_learning-06.png",
+      "size": [
+        759,
+        429
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/02_probability_and_losses-01.png",
+      "size": [
+        704,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/02_probability_and_losses-02.png",
+      "size": [
+        759,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/02_probability_and_losses-03.png",
+      "size": [
+        759,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/02_probability_and_losses-04.png",
+      "size": [
+        1089,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/02_probability_and_losses-05.png",
+      "size": [
+        1089,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/02_probability_and_losses-06.png",
+      "size": [
+        429,
+        341
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/02_probability_and_losses-07.png",
+      "size": [
+        1089,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/03_perceptron_to_mlp-01.png",
+      "size": [
+        1089,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/03_perceptron_to_mlp-02.png",
+      "size": [
+        1034,
+        429
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/03_perceptron_to_mlp-03.png",
+      "size": [
+        913,
+        341
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/03_perceptron_to_mlp-04.png",
+      "size": [
+        759,
+        396
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/03_perceptron_to_mlp-05.png",
+      "size": [
+        663,
+        517
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/03_perceptron_to_mlp-06.png",
+      "size": [
+        1405,
+        330
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/03_perceptron_to_mlp-07.png",
+      "size": [
+        759,
+        396
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/04_optimizers-01.png",
+      "size": [
+        737,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/04_optimizers-02.png",
+      "size": [
+        1089,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/04_optimizers-03.png",
+      "size": [
+        1199,
+        495
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/04_optimizers-04.png",
+      "size": [
+        1144,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/04_optimizers-05.png",
+      "size": [
+        1144,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "foundation",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/foundation-validation/04_optimizers-06.png",
+      "size": [
+        1089,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/05_cnn-01.png",
+      "size": [
+        1298,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/05_cnn-02.png",
+      "size": [
+        415,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/05_cnn-03.png",
+      "size": [
+        1297,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/05_cnn-04.png",
+      "size": [
+        1176,
+        501
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/05_cnn-05.png",
+      "size": [
+        759,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/05_cnn-06.png",
+      "size": [
+        1176,
+        501
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/06_rnn-01.png",
+      "size": [
+        759,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/06_rnn-02.png",
+      "size": [
+        854,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/06_rnn-03.png",
+      "size": [
+        759,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/06_rnn-04.png",
+      "size": [
+        861,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/06_rnn-05.png",
+      "size": [
+        759,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/07_lstm_gru-01.png",
+      "size": [
+        423,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/07_lstm_gru-02.png",
+      "size": [
+        759,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/07_lstm_gru-03.png",
+      "size": [
+        759,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/07_lstm_gru-04.png",
+      "size": [
+        1736,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/08_attention-01.png",
+      "size": [
+        1294,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/08_attention-02.png",
+      "size": [
+        759,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/08_attention-03.png",
+      "size": [
+        854,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/08_attention-04.png",
+      "size": [
+        759,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/08_attention-05.png",
+      "size": [
+        855,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/09_transformer-01.png",
+      "size": [
+        858,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/09_transformer-02.png",
+      "size": [
+        854,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/09_transformer-03.png",
+      "size": [
+        426,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/09_transformer-04.png",
+      "size": [
+        759,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/09_transformer-05.png",
+      "size": [
+        854,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/10_gnn-01.png",
+      "size": [
+        1721,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/10_gnn-02.png",
+      "size": [
+        854,
+        374
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/10_gnn-03.png",
+      "size": [
+        823,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/10_gnn-04.png",
+      "size": [
+        759,
+        407
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "architecture",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/architecture-validation/10_gnn-05.png",
+      "size": [
+        855,
+        397
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/11_linear_algebra-01.png",
+      "size": [
+        538,
+        429
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/11_linear_algebra-02.png",
+      "size": [
+        810,
+        352
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/11_linear_algebra-03.png",
+      "size": [
+        1090,
+        429
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/11_linear_algebra-04.png",
+      "size": [
+        1088,
+        429
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/11_linear_algebra-05.png",
+      "size": [
+        758,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/12_gaussian_information-01.png",
+      "size": [
+        1088,
+        429
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/12_gaussian_information-02.png",
+      "size": [
+        759,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/12_gaussian_information-03.png",
+      "size": [
+        759,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/12_gaussian_information-04.png",
+      "size": [
+        810,
+        352
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/12_gaussian_information-05.png",
+      "size": [
+        758,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/13_autodiff-01.png",
+      "size": [
+        1230,
+        352
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/13_autodiff-02.png",
+      "size": [
+        759,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/13_autodiff-03.png",
+      "size": [
+        538,
+        429
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/13_autodiff-04.png",
+      "size": [
+        759,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/14_losses_regularization-01.png",
+      "size": [
+        758,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/14_losses_regularization-02.png",
+      "size": [
+        758,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/14_losses_regularization-03.png",
+      "size": [
+        538,
+        429
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/14_losses_regularization-04.png",
+      "size": [
+        758,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/14_losses_regularization-05.png",
+      "size": [
+        758,
+        384
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/15_experiments_evaluation-01.png",
+      "size": [
+        759,
+        384
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/15_experiments_evaluation-02.png",
+      "size": [
+        758,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/15_experiments_evaluation-03.png",
+      "size": [
+        759,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/15_experiments_evaluation-04.png",
+      "size": [
+        758,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/15_experiments_evaluation-05.png",
+      "size": [
+        759,
+        385
+      ],
+      "decoded": true
+    },
+    {
+      "suite": "bridge",
+      "path": "/tmp/dlfs-bridges/rehearsal-docs/workspace/figures/bridge-validation/15_experiments_evaluation-06.png",
+      "size": [
+        396,
+        352
+      ],
+      "decoded": true
+    }
+  ],
+  "all_png_pixels_decoded": true,
+  "all_pngs_visually_reviewed": false,
+  "fresh_dev_environment": {
+    "activated_python": "/tmp/dlfs-bridges/rehearsal-docs/venv/bin/python",
+    "system_site_packages": "home = /home/junyeop/miniconda3/bin\ninclude-system-site-packages = false\nversion = 3.13.12\nexecutable = /home/junyeop/miniconda3/bin/python3.13\ncommand = /home/junyeop/miniconda3/bin/python -m venv /tmp/dlfs-bridges/rehearsal-docs/venv\n",
+    "versions": {
+      "numpy": "2.5.3",
+      "matplotlib": "3.11.2",
+      "pytest": "9.1.1",
+      "jupyter": "1.1.1",
+      "jupyterlab": "4.6.3",
+      "nbclient": "0.11.0",
+      "nbformat": "5.11.1",
+      "ipykernel": "7.3.0",
+      "pillow": "12.3.0"
+    },
+    "torch_installed": false
+  },
+  "framework_installation": {
+    "existing_torch_reused": true,
+    "existing_torch_version": "2.11.0",
+    "editable_install_with_dev_framework_succeeded": true,
+    "fully_clean_framework_dependencies_installed": false,
+    "fully_clean_dependency_resolution_succeeded": true,
+    "fresh_resolution_torch": "2.14.0"
+  },
+  "bridge_dev_only_expected_failure": {
+    "cell": "13_autodiff.ipynb import cell",
+    "exception": "ModuleNotFoundError: No module named 'torch'"
+  },
+  "jupyter": {
+    "command": [
+      "/tmp/dlfs-bridges/rehearsal-docs/venv/bin/python",
+      "-m",
+      "jupyter",
+      "lab",
+      "--ServerApp.root_dir=.",
+      "notebooks/00_기초/00_math_to_numpy.ipynb",
+      "--no-browser",
+      "--ServerApp.ip=127.0.0.1",
+      "--ServerApp.port=49609",
+      "--IdentityProvider.token=rehearsal-local-temporary"
+    ],
+    "server_ready": true,
+    "checks": [
+      {
+        "path": "notebooks/00_기초/00_math_to_numpy.ipynb",
+        "status": 200,
+        "type": "notebook",
+        "name": "00_math_to_numpy.ipynb"
+      },
+      {
+        "path": "README.md",
+        "status": 200,
+        "type": "file",
+        "name": "README.md"
+      },
+      {
+        "path": "docs/CURRICULUM.md",
+        "status": 200,
+        "type": "file",
+        "name": "CURRICULUM.md"
+      },
+      {
+        "path": "docs/LEARNING_MAP.md",
+        "status": 200,
+        "type": "file",
+        "name": "LEARNING_MAP.md"
+      },
+      {
+        "path": "src/utils/array_plots.py",
+        "status": 200,
+        "type": "file",
+        "name": "array_plots.py"
+      },
+      {
+        "path": "lab/tree/notebooks/00_기초/00_math_to_numpy.ipynb",
+        "status": 200,
+        "html_contains_jupyter": true
+      }
+    ],
+    "transport": "localhost HTTP",
+    "GUI_clicked": false,
+    "process_stopped": true
+  },
+  "official_jupyter_shortcuts": {
+    "notebook:enter-command-mode": "notebook:enter-command-mode # Label: Enter Command Mode Shortcuts: Escape",
+    "notebook:insert-cell-below": "notebook:insert-cell-below # Label: Insert Cell Below Shortcuts: B",
+    "notebook:run-cell-and-select-next": "notebook:run-cell-and-select-next # Label: Run Selected Cell Shortcuts: Shift Enter",
+    "notebook:restart-run-all": "notebook:restart-run-all # Label: Restart Kernel and Run All Cells…"
+  },
+  "exercise_followthrough": [
+    {
+      "source": "/tmp/dlfs-bridges/rehearsal-docs/workspace/notebooks/00_기초/00_math_to_numpy.ipynb",
+      "result": "/tmp/dlfs-bridges/rehearsal-docs/exercise-00_math_to_numpy.ipynb",
+      "errors": [],
+      "exercise_stdout": [
+        "출력 3개: 손계산과 일치합니다.\nDIRECT_EXERCISE_OK candidate=my_affine wrong_shape_rejected=True\n"
+      ],
+      "code_cells_executed": 24
+    },
+    {
+      "source": "/tmp/dlfs-bridges/rehearsal-docs/workspace/notebooks/00_기초/01_gradients_and_learning.ipynb",
+      "result": "/tmp/dlfs-bridges/rehearsal-docs/exercise-01_gradients_and_learning.ipynb",
+      "errors": [],
+      "exercise_stdout": [
+        "평균의 분모와 다중 출력 기울기가 손계산과 일치합니다.\nDIRECT_EXERCISE_OK candidate=my_mse_backward missing_K_rejected=True\n"
+      ],
+      "code_cells_executed": 30
+    }
+  ],
+  "routes": {
+    "VAE": {
+      "available": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "planned": [
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "overview_omits": [],
+      "first_unavailable": 22
+    },
+    "GPT": {
+      "available": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        8,
+        9,
+        13,
+        14,
+        15
+      ],
+      "planned": [
+        44,
+        45,
+        46
+      ],
+      "overview_omits": [],
+      "first_unavailable": 44
+    },
+    "RL": {
+      "available": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "planned": [
+        27,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "overview_omits": [],
+      "first_unavailable": 27
+    }
+  },
+  "interest_routes_recheck": {
+    "routes": [
+      {
+        "route": "수식을 직접 구현하기",
+        "text": "00–04 → 11–15 → 05–10",
+        "numbers": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          13,
+          14,
+          15,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "line": 21,
+        "full_path": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          13,
+          14,
+          15,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "missing_prerequisites": [],
+        "first_planned_unit": null
+      },
+      {
+        "route": "이미지 구조",
+        "text": "05 → 08–09 → 13 → 16–17",
+        "numbers": [
+          5,
+          8,
+          9,
+          13,
+          16,
+          17
+        ],
+        "line": 22,
+        "full_path": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          9,
+          13,
+          16,
+          17
+        ],
+        "missing_prerequisites": [],
+        "first_planned_unit": 16
+      },
+      {
+        "route": "VAE",
+        "text": "11–15 → 22–26",
+        "numbers": [
+          11,
+          12,
+          13,
+          14,
+          15,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "line": 23,
+        "full_path": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          13,
+          14,
+          15,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "missing_prerequisites": [],
+        "first_planned_unit": 22
+      },
+      {
+        "route": "GAN",
+        "text": "13–15 → 28–29",
+        "numbers": [
+          13,
+          14,
+          15,
+          28,
+          29
+        ],
+        "line": 24,
+        "full_path": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          13,
+          14,
+          15,
+          28,
+          29
+        ],
+        "missing_prerequisites": [],
+        "first_planned_unit": 28
+      },
+      {
+        "route": "score·diffusion",
+        "text": "11–15 → 27 → 31–32",
+        "numbers": [
+          11,
+          12,
+          13,
+          14,
+          15,
+          27,
+          31,
+          32
+        ],
+        "line": 25,
+        "full_path": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          13,
+          14,
+          15,
+          27,
+          31,
+          32
+        ],
+        "missing_prerequisites": [],
+        "first_planned_unit": 27
+      },
+      {
+        "route": "GPT",
+        "text": "08–09 → 13–15 → 44–46",
+        "numbers": [
+          8,
+          9,
+          13,
+          14,
+          15,
+          44,
+          45,
+          46
+        ],
+        "line": 26,
+        "full_path": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          8,
+          9,
+          13,
+          14,
+          15,
+          44,
+          45,
+          46
+        ],
+        "missing_prerequisites": [],
+        "first_planned_unit": 44
+      },
+      {
+        "route": "자기지도 표현",
+        "text": "05·08·10 → 11–15 → 38–39",
+        "numbers": [
+          5,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          38,
+          39
+        ],
+        "line": 27,
+        "full_path": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          38,
+          39
+        ],
+        "missing_prerequisites": [],
+        "first_planned_unit": 38
+      },
+      {
+        "route": "강화학습",
+        "text": "11–15 → 27 → 51–58",
+        "numbers": [
+          11,
+          12,
+          13,
+          14,
+          15,
+          27,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58
+        ],
+        "line": 28,
+        "full_path": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          13,
+          14,
+          15,
+          27,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58
+        ],
+        "missing_prerequisites": [],
+        "first_planned_unit": 27
+      }
+    ],
+    "unit_count": 64,
+    "unit_numbers_consecutive": true,
+    "prerequisite_mapping": {
+      "0": {
+        "title": "수식을 NumPy로 옮기기",
+        "prerequisites": [],
+        "prerequisite_text": "숫자·변수·반복문",
+        "line": 37
+      },
+      "1": {
+        "title": "미분으로 학습시키기",
+        "prerequisites": [
+          0
+        ],
+        "prerequisite_text": "00의 선형 계산",
+        "line": 38
+      },
+      "2": {
+        "title": "확률에서 손실 만들기",
+        "prerequisites": [
+          0,
+          1
+        ],
+        "prerequisite_text": "합·평균·함수·미분",
+        "line": 39
+      },
+      "3": {
+        "title": "퍼셉트론에서 MLP까지",
+        "prerequisites": [
+          0,
+          1,
+          2
+        ],
+        "prerequisite_text": "00–02",
+        "line": 40
+      },
+      "4": {
+        "title": "optimizer의 계산",
+        "prerequisites": [
+          1,
+          2,
+          3
+        ],
+        "prerequisite_text": "01·02의 기울기·기댓값, 03의 활성화",
+        "line": 41
+      },
+      "5": {
+        "title": "CNN",
+        "prerequisites": [
+          2,
+          3
+        ],
+        "prerequisite_text": "MLP, 다중분류",
+        "line": 53
+      },
+      "6": {
+        "title": "RNN",
+        "prerequisites": [
+          1,
+          3
+        ],
+        "prerequisite_text": "공유 파라미터, 역전파",
+        "line": 54
+      },
+      "7": {
+        "title": "LSTM·GRU",
+        "prerequisites": [
+          6
+        ],
+        "prerequisite_text": "RNN과 시간별 기울기",
+        "line": 55
+      },
+      "8": {
+        "title": "Attention",
+        "prerequisites": [
+          0,
+          2
+        ],
+        "prerequisite_text": "행렬곱, softmax",
+        "line": 56
+      },
+      "9": {
+        "title": "Transformer",
+        "prerequisites": [
+          3,
+          8
+        ],
+        "prerequisite_text": "attention, MLP",
+        "line": 57
+      },
+      "10": {
+        "title": "GNN",
+        "prerequisites": [
+          0,
+          1,
+          3
+        ],
+        "prerequisite_text": "공유 가중치, 합·평균",
+        "line": 58
+      },
+      "11": {
+        "title": "투영·공분산·SVD·PCA",
+        "prerequisites": [
+          0,
+          1
+        ],
+        "prerequisite_text": "00–01",
+        "line": 70
+      },
+      "12": {
+        "title": "다변량 Gaussian·정보이론·추정",
+        "prerequisites": [
+          2,
+          11
+        ],
+        "prerequisite_text": "02·11",
+        "line": 71
+      },
+      "13": {
+        "title": "계산 그래프와 자동미분",
+        "prerequisites": [
+          1,
+          3
+        ],
+        "prerequisite_text": "01·03",
+        "line": 72
+      },
+      "14": {
+        "title": "손실 선택·정규화·AdamW·dropout",
+        "prerequisites": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "prerequisite_text": "01–04",
+        "line": 73
+      },
+      "15": {
+        "title": "분할·학습 진단·평가·반복 실험",
+        "prerequisites": [
+          2,
+          4,
+          14
+        ],
+        "prerequisite_text": "02·04·14",
+        "line": 74
+      },
+      "16": {
+        "title": "BatchNorm·LayerNorm·RMSNorm",
+        "prerequisites": [
+          3,
+          9,
+          13
+        ],
+        "prerequisite_text": "03·09·13",
+        "line": 87
+      },
+      "17": {
+        "title": "잔차 블록과 ResNet",
+        "prerequisites": [
+          5,
+          9,
+          16
+        ],
+        "prerequisite_text": "05·09·16",
+        "line": 88
+      },
+      "18": {
+        "title": "encoder–decoder와 U-Net",
+        "prerequisites": [
+          5,
+          17
+        ],
+        "prerequisite_text": "05·17",
+        "line": 89
+      },
+      "19": {
+        "title": "patch embedding과 ViT",
+        "prerequisites": [
+          5,
+          9,
+          16
+        ],
+        "prerequisite_text": "05·09·16",
+        "line": 90
+      },
+      "20": {
+        "title": "sequence encoder–decoder",
+        "prerequisites": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "prerequisite_text": "06–09",
+        "line": 91
+      },
+      "21": {
+        "title": "집합·graph attention·구조적 대칭",
+        "prerequisites": [
+          8,
+          10
+        ],
+        "prerequisite_text": "08·10",
+        "line": 92
+      },
+      "22": {
+        "title": "Autoencoder와 압축 표현",
+        "prerequisites": [
+          3,
+          11,
+          13,
+          14,
+          15
+        ],
+        "prerequisite_text": "03·11·13–15",
+        "line": 107
+      },
+      "23": {
+        "title": "잠재변수·주변화·혼합 모형",
+        "prerequisites": [
+          2,
+          12
+        ],
+        "prerequisite_text": "02·12",
+        "line": 108
+      },
+      "24": {
+        "title": "Jensen 부등식과 ELBO 유도",
+        "prerequisites": [
+          12,
+          23
+        ],
+        "prerequisite_text": "12·23",
+        "line": 109
+      },
+      "25": {
+        "title": "재매개화 VAE의 전체 학습",
+        "prerequisites": [
+          13,
+          22,
+          24
+        ],
+        "prerequisite_text": "13·22·24",
+        "line": 110
+      },
+      "26": {
+        "title": "VAE가 배운 분포 읽기",
+        "prerequisites": [
+          15,
+          25
+        ],
+        "prerequisite_text": "15·25",
+        "line": 111
+      },
+      "27": {
+        "title": "Monte Carlo·importance sampling·샘플 기울기",
+        "prerequisites": [
+          2,
+          12,
+          13
+        ],
+        "prerequisite_text": "02·12–13",
+        "line": 112
+      },
+      "28": {
+        "title": "GAN의 두 목적과 교대 갱신",
+        "prerequisites": [
+          3,
+          4,
+          13,
+          14,
+          15
+        ],
+        "prerequisite_text": "03–04·13–15",
+        "line": 113
+      },
+      "29": {
+        "title": "GAN 목적과 안정화 비교",
+        "prerequisites": [
+          28
+        ],
+        "prerequisite_text": "28",
+        "line": 114
+      },
+      "30": {
+        "title": "변수 변환과 normalizing flow",
+        "prerequisites": [
+          11,
+          12,
+          13,
+          27
+        ],
+        "prerequisite_text": "11–13·27",
+        "line": 115
+      },
+      "31": {
+        "title": "에너지 기반 모델과 MCMC",
+        "prerequisites": [
+          12,
+          27
+        ],
+        "prerequisite_text": "12·27",
+        "line": 116
+      },
+      "32": {
+        "title": "score와 denoising score matching",
+        "prerequisites": [
+          12,
+          13,
+          27
+        ],
+        "prerequisite_text": "12–13·27",
+        "line": 117
+      },
+      "33": {
+        "title": "잡음 수준을 잇는 score 모델",
+        "prerequisites": [
+          31,
+          32
+        ],
+        "prerequisite_text": "31–32",
+        "line": 118
+      },
+      "34": {
+        "title": "Diffusion의 전방 과정과 학습 타깃",
+        "prerequisites": [
+          12,
+          24,
+          32
+        ],
+        "prerequisite_text": "12·24·32",
+        "line": 119
+      },
+      "35": {
+        "title": "Diffusion 역과정·DDIM·조건부 생성",
+        "prerequisites": [
+          20,
+          33,
+          34
+        ],
+        "prerequisite_text": "20·33–34",
+        "line": 120
+      },
+      "36": {
+        "title": "Flow matching과 ODE 생성",
+        "prerequisites": [
+          27,
+          30,
+          33
+        ],
+        "prerequisite_text": "27·30·33",
+        "line": 121
+      },
+      "37": {
+        "title": "생성 모델 평가와 비교 실험",
+        "prerequisites": [
+          15,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36
+        ],
+        "prerequisite_text": "15·22–36 중 관심 모델",
+        "line": 122
+      },
+      "38": {
+        "title": "데이터 변형과 불변성",
+        "prerequisites": [
+          5,
+          10,
+          15
+        ],
+        "prerequisite_text": "05·10·15",
+        "line": 142
+      },
+      "39": {
+        "title": "대조학습과 InfoNCE",
+        "prerequisites": [
+          8,
+          12,
+          38
+        ],
+        "prerequisite_text": "08·12·38",
+        "line": 143
+      },
+      "40": {
+        "title": "교사·학생·stop-gradient",
+        "prerequisites": [
+          13,
+          38,
+          39
+        ],
+        "prerequisite_text": "13·38–39",
+        "line": 144
+      },
+      "41": {
+        "title": "분산·공분산으로 표현 제약하기",
+        "prerequisites": [
+          11,
+          12,
+          40
+        ],
+        "prerequisite_text": "11–12·40",
+        "line": 145
+      },
+      "42": {
+        "title": "masked reconstruction",
+        "prerequisites": [
+          18,
+          19,
+          22,
+          38
+        ],
+        "prerequisite_text": "18–19·22·38",
+        "line": 146
+      },
+      "43": {
+        "title": "JEPA와 표현 타깃 예측",
+        "prerequisites": [
+          19,
+          20,
+          40,
+          41,
+          42
+        ],
+        "prerequisite_text": "19–20·40–42",
+        "line": 147
+      },
+      "44": {
+        "title": "토큰화·언어 데이터·자기회귀 목적",
+        "prerequisites": [
+          2,
+          9,
+          15
+        ],
+        "prerequisite_text": "02·09·15",
+        "line": 159
+      },
+      "45": {
+        "title": "작은 decoder GPT 전체 학습",
+        "prerequisites": [
+          9,
+          13,
+          14,
+          15,
+          44
+        ],
+        "prerequisite_text": "09·13–15·44",
+        "line": 160
+      },
+      "46": {
+        "title": "생성 규칙과 KV cache",
+        "prerequisites": [
+          45
+        ],
+        "prerequisite_text": "45",
+        "line": 161
+      },
+      "47": {
+        "title": "encoder 목적과 BERT식 MLM",
+        "prerequisites": [
+          20,
+          42,
+          44
+        ],
+        "prerequisite_text": "20·42·44",
+        "line": 162
+      },
+      "48": {
+        "title": "SFT·전이 학습·LoRA",
+        "prerequisites": [
+          13,
+          14,
+          15,
+          45
+        ],
+        "prerequisite_text": "13–15·45",
+        "line": 163
+      },
+      "49": {
+        "title": "선호 쌍·Bradley–Terry·DPO",
+        "prerequisites": [
+          12,
+          44,
+          45,
+          46,
+          47,
+          48
+        ],
+        "prerequisite_text": "12·44–48",
+        "line": 164
+      },
+      "50": {
+        "title": "다중모달 표현과 조건부 모델",
+        "prerequisites": [
+          19,
+          20,
+          39,
+          45
+        ],
+        "prerequisite_text": "19–20·39·45",
+        "line": 165
+      },
+      "51": {
+        "title": "Bandit·기대 보상·탐색",
+        "prerequisites": [
+          2,
+          27
+        ],
+        "prerequisite_text": "02·27",
+        "line": 177
+      },
+      "52": {
+        "title": "MDP·return·Bellman·동적 계획",
+        "prerequisites": [
+          11,
+          51
+        ],
+        "prerequisite_text": "11·51",
+        "line": 178
+      },
+      "53": {
+        "title": "Monte Carlo·TD·다단계 타깃",
+        "prerequisites": [
+          27,
+          52
+        ],
+        "prerequisite_text": "27·52",
+        "line": 179
+      },
+      "54": {
+        "title": "SARSA·Q-learning과 데이터 정책",
+        "prerequisites": [
+          52,
+          53
+        ],
+        "prerequisite_text": "52–53",
+        "line": 180
+      },
+      "55": {
+        "title": "DQN·replay·target network",
+        "prerequisites": [
+          3,
+          13,
+          15,
+          54
+        ],
+        "prerequisite_text": "03·13·15·54",
+        "line": 181
+      },
+      "56": {
+        "title": "REINFORCE와 정책 기울기 유도",
+        "prerequisites": [
+          12,
+          27,
+          51,
+          52,
+          53
+        ],
+        "prerequisite_text": "12·27·51–53",
+        "line": 182
+      },
+      "57": {
+        "title": "Actor–Critic·advantage·GAE",
+        "prerequisites": [
+          13,
+          53,
+          56
+        ],
+        "prerequisite_text": "13·53·56",
+        "line": 183
+      },
+      "58": {
+        "title": "PPO의 ratio·clip·업데이트",
+        "prerequisites": [
+          15,
+          57
+        ],
+        "prerequisite_text": "15·57",
+        "line": 184
+      },
+      "59": {
+        "title": "연속 행동·DDPG/TD3·SAC",
+        "prerequisites": [
+          12,
+          25,
+          55,
+          57
+        ],
+        "prerequisite_text": "12·25·55·57",
+        "line": 185
+      },
+      "60": {
+        "title": "모델 기반 RL과 계획",
+        "prerequisites": [
+          27,
+          52,
+          59
+        ],
+        "prerequisite_text": "27·52·59",
+        "line": 186
+      },
+      "61": {
+        "title": "오프라인 RL과 정책 평가",
+        "prerequisites": [
+          15,
+          27,
+          54,
+          59
+        ],
+        "prerequisite_text": "15·27·54·59",
+        "line": 187
+      },
+      "62": {
+        "title": "선호 보상과 RLHF 연결",
+        "prerequisites": [
+          45,
+          49,
+          56,
+          57,
+          58
+        ],
+        "prerequisite_text": "45·49·56–58",
+        "line": 188
+      },
+      "63": {
+        "title": "논문→계산 명세→작은 재현",
+        "prerequisites": [
+          13,
+          14,
+          15
+        ],
+        "prerequisite_text": "13–15와 관심 경로",
+        "line": 197
+      }
+    },
+    "initial_findings_resolved": [
+      "VAE 13–15 omitted",
+      "RL 27 omitted"
+    ],
+    "previous_curriculum_sha256": "cfc19aef1da819b4e1e5e3f4cfcbb6f99262f0755947292132cd32278109061a",
+    "current_curriculum_sha256": "9b2df733c88d8a591559bea8e94113a88f6519247e6743dc2a0de85163830f12"
+  },
+  "initial_route_findings": {
+    "VAE_missing_13_to_15": "resolved",
+    "RL_missing_27": "resolved"
+  },
+  "installed_jupyter_menu": {
+    "schema": "/tmp/dlfs-bridges/rehearsal-docs/venv/share/jupyter/lab/schemas/@jupyterlab/mainmenu-extension/plugin.json",
+    "menus_with_restart_and_run_all": [
+      "jp-mainmenu-run",
+      "jp-mainmenu-kernel"
+    ]
+  }
+}

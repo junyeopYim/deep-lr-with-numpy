@@ -1,0 +1,22 @@
+[
+  {
+    "notebook": "notebooks/00_기초/00_math_to_numpy.ipynb",
+    "source_sha256": "4b2397d2ab8d14cbcebbfdeb5f90e97b1a4855137ac14ddff8928af64413a3d2"
+  },
+  {
+    "notebook": "notebooks/00_기초/01_gradients_and_learning.ipynb",
+    "source_sha256": "37cfe2445479e64449f1aededfa475abb48c9c17a2c3f3f8c0ca22daaf37b3f5"
+  },
+  {
+    "notebook": "notebooks/00_기초/02_probability_and_losses.ipynb",
+    "source_sha256": "1032814e4dc8307cabf3db2856ca238bf9d66524fbf2d8ef43b59c8fff2b0e3c"
+  },
+  {
+    "notebook": "notebooks/00_기초/03_perceptron_to_mlp.ipynb",
+    "source_sha256": "c9841880d9200cb0de43f684ef84ef41aa86b088ff27b8306f64cbaa296adad3"
+  },
+  {
+    "notebook": "notebooks/00_기초/04_optimizers.ipynb",
+    "source_sha256": "06d3250b9ef76a3897fbd4507ea67646676bd2e77278499ce9db003e24630f81"
+  }
+]

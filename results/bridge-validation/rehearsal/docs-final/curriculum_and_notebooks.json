@@ -1,0 +1,1874 @@
+{
+  "units": [
+    {
+      "number": 0,
+      "title": "수식을 NumPy로 옮기기",
+      "prerequisite_text": "숫자·변수·반복문",
+      "numeric_prerequisites": [],
+      "line": 37,
+      "row": "| 00 | 수식을 NumPy로 옮기기 | 숫자·변수·반복문 | 내적을 배치·다중 출력으로 확장하고 shape와 축을 정하기 | [노트북](../notebooks/00_기초/00_math_to_numpy.ipynb) |"
+    },
+    {
+      "number": 1,
+      "title": "미분으로 학습시키기",
+      "prerequisite_text": "00의 선형 계산",
+      "numeric_prerequisites": [
+        0
+      ],
+      "line": 38,
+      "row": "| 01 | 미분으로 학습시키기 | 00의 선형 계산 | MSE의 미분을 유도·검산하고 작은 회귀 문제 학습시키기 | [노트북](../notebooks/00_기초/01_gradients_and_learning.ipynb) |"
+    },
+    {
+      "number": 2,
+      "title": "확률에서 손실 만들기",
+      "prerequisite_text": "합·평균·함수·미분",
+      "numeric_prerequisites": [],
+      "line": 39,
+      "row": "| 02 | 확률에서 손실 만들기 | 합·평균·함수·미분 | 확률·밀도·기댓값·우도를 계산하고 MSE·BCE·softmax CE 유도하기 | [노트북](../notebooks/00_기초/02_probability_and_losses.ipynb) |"
+    },
+    {
+      "number": 3,
+      "title": "퍼셉트론에서 MLP까지",
+      "prerequisite_text": "00–02",
+      "numeric_prerequisites": [
+        0,
+        1,
+        2
+      ],
+      "line": 40,
+      "row": "| 03 | 퍼셉트론에서 MLP까지 | 00–02 | XOR에서 비선형성이 필요한 이유를 보이고 다층 역전파 구현하기 | [노트북](../notebooks/00_기초/03_perceptron_to_mlp.ipynb) |"
+    },
+    {
+      "number": 4,
+      "title": "optimizer의 계산",
+      "prerequisite_text": "01·02의 기울기·기댓값, 03의 활성화",
+      "numeric_prerequisites": [
+        1,
+        2,
+        3
+      ],
+      "line": 41,
+      "row": "| 04 | optimizer의 계산 | 01·02의 기울기·기댓값, 03의 활성화 | 미니배치·SGD·Momentum·RMSProp·Adam의 상태와 한 스텝을 손으로 계산하기 | [노트북](../notebooks/00_기초/04_optimizers.ipynb) |"
+    },
+    {
+      "number": 5,
+      "title": "CNN",
+      "prerequisite_text": "MLP, 다중분류",
+      "numeric_prerequisites": [],
+      "line": 53,
+      "row": "| 05 | CNN | MLP, 다중분류 | 지역 연결·가중치 공유 → 패치·합성곱·풀링과 backward | 작은 숫자 도안 분류 | [노트북](../notebooks/01_아키텍처/05_cnn.ipynb) |"
+    },
+    {
+      "number": 6,
+      "title": "RNN",
+      "prerequisite_text": "공유 파라미터, 역전파",
+      "numeric_prerequisites": [],
+      "line": 54,
+      "row": "| 06 | RNN | 공유 파라미터, 역전파 | 시간별 상태 → 시간축 캐시와 BPTT | 같은 기호의 등장 순서 분류 | [노트북](../notebooks/01_아키텍처/06_rnn.ipynb) |"
+    },
+    {
+      "number": 7,
+      "title": "LSTM·GRU",
+      "prerequisite_text": "RNN과 시간별 기울기",
+      "numeric_prerequisites": [],
+      "line": 55,
+      "row": "| 07 | LSTM·GRU | RNN과 시간별 기울기 | 게이트·상태의 덧셈 → 각 경로의 미분 | 지연된 신호 기억 | [노트북](../notebooks/01_아키텍처/07_lstm_gru.ipynb) |"
+    },
+    {
+      "number": 8,
+      "title": "Attention",
+      "prerequisite_text": "행렬곱, softmax",
+      "numeric_prerequisites": [],
+      "line": 56,
+      "row": "| 08 | Attention | 행렬곱, softmax | 점수 → 정규화된 가중치 → 값의 가중합 | key에 붙은 값 검색 | [노트북](../notebooks/01_아키텍처/08_attention.ipynb) |"
+    },
+    {
+      "number": 9,
+      "title": "Transformer",
+      "prerequisite_text": "attention, MLP",
+      "numeric_prerequisites": [],
+      "line": 57,
+      "row": "| 09 | Transformer | attention, MLP | 위치·mask·정규화·잔차·MHA·FFN의 조합 | 작은 토큰열 역순 변환 | [노트북](../notebooks/01_아키텍처/09_transformer.ipynb) |"
+    },
+    {
+      "number": 10,
+      "title": "GNN",
+      "prerequisite_text": "공유 가중치, 합·평균",
+      "numeric_prerequisites": [],
+      "line": 58,
+      "row": "| 10 | GNN | 공유 가중치, 합·평균 | 이웃 집계 → message passing·readout·역전파 | 그래프 분류와 순열 검산 | [노트북](../notebooks/01_아키텍처/10_gnn.ipynb) |"
+    },
+    {
+      "number": 11,
+      "title": "투영·공분산·SVD·PCA",
+      "prerequisite_text": "00–01",
+      "numeric_prerequisites": [
+        0,
+        1
+      ],
+      "line": 70,
+      "row": "| 11 | 투영·공분산·SVD·PCA | 00–01 | 직교 투영, 중심화, 고유값, 낮은 차원 복원; 버린 고유값 합과 복원 오차 대조 | [노트북](../notebooks/02_연결/11_linear_algebra.ipynb) |"
+    },
+    {
+      "number": 12,
+      "title": "다변량 Gaussian·정보이론·추정",
+      "prerequisite_text": "02·11",
+      "numeric_prerequisites": [
+        2,
+        11
+      ],
+      "line": 71,
+      "row": "| 12 | 다변량 Gaussian·정보이론·추정 | 02·11 | Cholesky 샘플, log density, entropy·CE·KL, MLE·MAP, Gaussian KL·재매개화 미분 | [노트북](../notebooks/02_연결/12_gaussian_information.ipynb) |"
+    },
+    {
+      "number": 13,
+      "title": "계산 그래프와 자동미분",
+      "prerequisite_text": "01·03",
+      "numeric_prerequisites": [
+        1,
+        3
+      ],
+      "line": 72,
+      "row": "| 13 | 계산 그래프와 자동미분 | 01·03 | VJP·broadcast 역방향·공유 누적, 작은 엔진, 직접 backward·PyTorch·중심차분·SGD 비교 | [노트북](../notebooks/02_연결/13_autodiff.ipynb) |"
+    },
+    {
+      "number": 14,
+      "title": "손실 선택·정규화·AdamW·dropout",
+      "prerequisite_text": "01–04",
+      "numeric_prerequisites": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "line": 73,
+      "row": "| 14 | 손실 선택·정규화·AdamW·dropout | 01–04 | MSE·MAE·Huber, 관측 가중치, L2 전체 미분, ridge 해, 감쇠 두 스텝, dropout 기대 손실 | [노트북](../notebooks/02_연결/14_losses_regularization.ipynb) |"
+    },
+    {
+      "number": 15,
+      "title": "분할·학습 진단·평가·반복 실험",
+      "prerequisite_text": "02·04·14",
+      "numeric_prerequisites": [
+        2,
+        4,
+        14
+      ],
+      "line": 74,
+      "row": "| 15 | 분할·학습 진단·평가·반복 실험 | 02·04·14 | 그룹 분할·전처리, 작은 데이터 학습, 설정 선택, NLL·F1·AUC·Brier·calibration, seed 변동 | [노트북](../notebooks/02_연결/15_experiments_evaluation.ipynb) |"
+    },
+    {
+      "number": 16,
+      "title": "BatchNorm·LayerNorm·RMSNorm",
+      "prerequisite_text": "03·09·13",
+      "numeric_prerequisites": [
+        3,
+        9,
+        13
+      ],
+      "line": 87,
+      "row": "| 16 | BatchNorm·LayerNorm·RMSNorm | 03·09·13 | 통계 축, affine 파라미터, running 통계, train/eval, 각 VJP | 같은 입력의 배치 조합을 바꾸고 정규화 출력·기울기 비교 |"
+    },
+    {
+      "number": 17,
+      "title": "잔차 블록과 ResNet",
+      "prerequisite_text": "05·09·16",
+      "numeric_prerequisites": [
+        5,
+        9,
+        16
+      ],
+      "line": 88,
+      "row": "| 17 | 잔차 블록과 ResNet | 05·09·16 | identity·projection shortcut, 해상도·채널 변화, 두 경로 누적 | 깊이를 바꾸고 activation·gradient norm·분류 학습 비교 |"
+    },
+    {
+      "number": 18,
+      "title": "encoder–decoder와 U-Net",
+      "prerequisite_text": "05·17",
+      "numeric_prerequisites": [
+        5,
+        17
+      ],
+      "line": 89,
+      "row": "| 18 | encoder–decoder와 U-Net | 05·17 | down/up sampling, concatenate skip, pixel CE·Dice | 작은 도형 segmentation, 홀수 해상도·foreground 비율 변경 |"
+    },
+    {
+      "number": 19,
+      "title": "patch embedding과 ViT",
+      "prerequisite_text": "05·09·16",
+      "numeric_prerequisites": [
+        5,
+        9,
+        16
+      ],
+      "line": 90,
+      "row": "| 19 | patch embedding과 ViT | 05·09·16 | 이미지→patch→token, 위치·분류 token·pooling | 같은 도안에서 patch 크기·위치 정보 변경, parameter·token 수 계산 |"
+    },
+    {
+      "number": 20,
+      "title": "sequence encoder–decoder",
+      "prerequisite_text": "06–09",
+      "numeric_prerequisites": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "line": 91,
+      "row": "| 20 | sequence encoder–decoder | 06–09 | cross-attention, encoder/decoder mask, teacher forcing, 위치 방식 | 가변 길이 기호 변환, padding·미래 정보의 영향 검산 |"
+    },
+    {
+      "number": 21,
+      "title": "집합·graph attention·구조적 대칭",
+      "prerequisite_text": "08·10",
+      "numeric_prerequisites": [
+        8,
+        10
+      ],
+      "line": 92,
+      "row": "| 21 | 집합·graph attention·구조적 대칭 | 08·10 | Deep Sets의 합, edge mask의 attention, GAT 집계 | 노드/집합 순열에 대한 등변·불변 성질, 이웃 수 변경 |"
+    },
+    {
+      "number": 22,
+      "title": "Autoencoder와 압축 표현",
+      "prerequisite_text": "03·11·13–15",
+      "numeric_prerequisites": [
+        3,
+        11,
+        13,
+        14,
+        15
+      ],
+      "line": 107,
+      "row": "| 22 | Autoencoder와 압축 표현 | 03·11·13–15 | encoder/decoder, 복원 MSE, 병목의 전체 backward | PCA와 선형 AE의 부분공간·복원 비교, 비선형·denoising AE 변형 |"
+    },
+    {
+      "number": 23,
+      "title": "잠재변수·주변화·혼합 모형",
+      "prerequisite_text": "02·12",
+      "numeric_prerequisites": [
+        2,
+        12
+      ],
+      "line": 108,
+      "row": "| 23 | 잠재변수·주변화·혼합 모형 | 02·12 | 결합 p(x,z), 합으로 p(x), Bayes posterior, 작은 EM | 두 Gaussian 혼합에서 책임 확률과 로그우도, 잠재 label 교환 |"
+    },
+    {
+      "number": 24,
+      "title": "Jensen 부등식과 ELBO 유도",
+      "prerequisite_text": "12·23",
+      "numeric_prerequisites": [
+        12,
+        23
+      ],
+      "line": 109,
+      "row": "| 24 | Jensen 부등식과 ELBO 유도 | 12·23 | q로 기대값 만들기, log p(x)=ELBO+posterior KL | 잠재 상태를 열거해 증거·하한·차이를 각각 수치 확인 |"
+    },
+    {
+      "number": 25,
+      "title": "재매개화 VAE의 전체 학습",
+      "prerequisite_text": "13·22·24",
+      "numeric_prerequisites": [
+        13,
+        22,
+        24
+      ],
+      "line": 110,
+      "row": "| 25 | 재매개화 VAE의 전체 학습 | 13·22·24 | Gaussian encoder, 관측 likelihood, reconstruction+KL, 샘플 VJP | 2차원 잠재공간에서 복원·prior 샘플, 두 항·전체 미분 확인 |"
+    },
+    {
+      "number": 26,
+      "title": "VAE가 배운 분포 읽기",
+      "prerequisite_text": "15·25",
+      "numeric_prerequisites": [
+        15,
+        25
+      ],
+      "line": 111,
+      "row": "| 26 | VAE가 배운 분포 읽기 | 15·25 | posterior/prior, beta 가중치, KL warmup, 조건부 입력 | 잠재 사용량·복원·생성, posterior collapse와 과한 압축 관찰 |"
+    },
+    {
+      "number": 27,
+      "title": "Monte Carlo·importance sampling·샘플 기울기",
+      "prerequisite_text": "02·12–13",
+      "numeric_prerequisites": [
+        2,
+        12,
+        13
+      ],
+      "line": 112,
+      "row": "| 27 | Monte Carlo·importance sampling·샘플 기울기 | 02·12–13 | 기대값 추정, 분산·표준오차, importance weight, pathwise/score-function | 알려진 적분·미분과 추정치 비교, 샘플 수·제안 분포 변경 |"
+    },
+    {
+      "number": 28,
+      "title": "GAN의 두 목적과 교대 갱신",
+      "prerequisite_text": "03–04·13–15",
+      "numeric_prerequisites": [
+        3,
+        4,
+        13,
+        14,
+        15
+      ],
+      "line": 113,
+      "row": "| 28 | GAN의 두 목적과 교대 갱신 | 03–04·13–15 | D의 분류, G의 minimax/non-saturating 목적, gradient 경로 고정 | 1·2차원 혼합 분포 생성, D/G를 따로 갱신하고 mode별 샘플 수 기록 |"
+    },
+    {
+      "number": 29,
+      "title": "GAN 목적과 안정화 비교",
+      "prerequisite_text": "28",
+      "numeric_prerequisites": [
+        28
+      ],
+      "line": 114,
+      "row": "| 29 | GAN 목적과 안정화 비교 | 28 | 분포 거리·critic, Wasserstein 목적, gradient penalty·spectral 제약 | 작은 고정 실험에서 critic·G gradient·coverage·seed 비교 |"
+    },
+    {
+      "number": 30,
+      "title": "변수 변환과 normalizing flow",
+      "prerequisite_text": "11–13·27",
+      "numeric_prerequisites": [
+        11,
+        12,
+        13,
+        27
+      ],
+      "line": 115,
+      "row": "| 30 | 변수 변환과 normalizing flow | 11–13·27 | determinant·log Jacobian, 가역 affine coupling, 정확한 density | forward/inverse 왕복, density 적분, 2차원 flow의 likelihood·샘플 |"
+    },
+    {
+      "number": 31,
+      "title": "에너지 기반 모델과 MCMC",
+      "prerequisite_text": "12·27",
+      "numeric_prerequisites": [
+        12,
+        27
+      ],
+      "line": 116,
+      "row": "| 31 | 에너지 기반 모델과 MCMC | 12·27 | exp(-E)/Z, log-partition 미분, positive/negative phase, Langevin | 1차원 격자 적분과 샘플 추정 비교, chain·step size 변화 |"
+    },
+    {
+      "number": 32,
+      "title": "score와 denoising score matching",
+      "prerequisite_text": "12–13·27",
+      "numeric_prerequisites": [
+        12,
+        13,
+        27
+      ],
+      "line": 117,
+      "row": "| 32 | score와 denoising score matching | 12–13·27 | score=입력의 log density 기울기, Gaussian 잡음의 조건부 score | 해석 가능한 혼합 분포의 score와 학습 벡터장·샘플 비교 |"
+    },
+    {
+      "number": 33,
+      "title": "잡음 수준을 잇는 score 모델",
+      "prerequisite_text": "31–32",
+      "numeric_prerequisites": [
+        31,
+        32
+      ],
+      "line": 118,
+      "row": "| 33 | 잡음 수준을 잇는 score 모델 | 31–32 | noise-conditioned score, annealed Langevin, SDE/ODE의 작은 시간 스텝 | 잡음 크기·적분 간격·초깃값을 바꾸고 분포 이동 확인 |"
+    },
+    {
+      "number": 34,
+      "title": "Diffusion의 전방 과정과 학습 타깃",
+      "prerequisite_text": "12·24·32",
+      "numeric_prerequisites": [
+        12,
+        24,
+        32
+      ],
+      "line": 119,
+      "row": "| 34 | Diffusion의 전방 과정과 학습 타깃 | 12·24·32 | beta/alpha 누적곱, q(x_t\\|x_0), posterior 계수, epsilon/x0/v 타깃 | 닫힌식과 반복 잡음의 평균·분산 대조, 작은 denoiser 학습 |"
+    },
+    {
+      "number": 35,
+      "title": "Diffusion 역과정·DDIM·조건부 생성",
+      "prerequisite_text": "20·33–34",
+      "numeric_prerequisites": [
+        20,
+        33,
+        34
+      ],
+      "line": 120,
+      "row": "| 35 | Diffusion 역과정·DDIM·조건부 생성 | 20·33–34 | reverse mean/variance, timestep indexing, DDIM, guidance | 같은 모델의 스텝 수·sampler·guidance 변경, 생성 경로·비용 비교 |"
+    },
+    {
+      "number": 36,
+      "title": "Flow matching과 ODE 생성",
+      "prerequisite_text": "27·30·33",
+      "numeric_prerequisites": [
+        27,
+        30,
+        33
+      ],
+      "line": 121,
+      "row": "| 36 | Flow matching과 ODE 생성 | 27·30·33 | 조건부 경로, 목표 velocity, 회귀 목적, Euler/Heun 적분 | 2차원 분포 수송, 벡터장 오차와 solver 오차를 나누어 확인 |"
+    },
+    {
+      "number": 37,
+      "title": "생성 모델 평가와 비교 실험",
+      "prerequisite_text": "15·22–36 중 관심 모델",
+      "numeric_prerequisites": [
+        15,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "line": 122,
+      "row": "| 37 | 생성 모델 평가와 비교 실험 | 15·22–36 중 관심 모델 | likelihood·복원·품질·coverage, MMD·특징 통계·샘플 비용 | 알려진 mode 분포와 복제 샘플을 사용해 지표가 읽는 성질 대조 |",
+      "prerequisite_relation": "15는 공통 전제이며 22–36은 관심 모델을 선택하는 조건부 전제입니다. 모든 생성 모델을 선행해야 한다는 뜻으로 해석하지 않았습니다.",
+      "required_numeric_prerequisites": [
+        15
+      ],
+      "conditional_model_references": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+      ]
+    },
+    {
+      "number": 38,
+      "title": "데이터 변형과 불변성",
+      "prerequisite_text": "05·10·15",
+      "numeric_prerequisites": [
+        5,
+        10,
+        15
+      ],
+      "line": 142,
+      "row": "| 38 | 데이터 변형과 불변성 | 05·10·15 | augmentation 분포, 양성 쌍, 보존하려는 정보 | 회전·색·순서 변형이 라벨과 표현에 주는 영향, 변형 강도 비교 |"
+    },
+    {
+      "number": 39,
+      "title": "대조학습과 InfoNCE",
+      "prerequisite_text": "08·12·38",
+      "numeric_prerequisites": [
+        8,
+        12,
+        38
+      ],
+      "line": 143,
+      "row": "| 39 | 대조학습과 InfoNCE | 08·12·38 | 정규화 embedding, 유사도 행렬, temperature, 양성 인덱스·CE | 쌍 매칭, batch 크기·음성 구성, gradient·linear probe |"
+    },
+    {
+      "number": 40,
+      "title": "교사·학생·stop-gradient",
+      "prerequisite_text": "13·38–39",
+      "numeric_prerequisites": [
+        13,
+        38,
+        39
+      ],
+      "line": 144,
+      "row": "| 40 | 교사·학생·stop-gradient | 13·38–39 | online/target encoder, predictor, EMA 갱신, 기울기 경로 | 작은 표현 예측, 교사 갱신 속도·stop-gradient 위치와 붕괴 관찰 |"
+    },
+    {
+      "number": 41,
+      "title": "분산·공분산으로 표현 제약하기",
+      "prerequisite_text": "11–12·40",
+      "numeric_prerequisites": [
+        11,
+        12,
+        40
+      ],
+      "line": 145,
+      "row": "| 41 | 분산·공분산으로 표현 제약하기 | 11–12·40 | alignment, 분산 하한, 비대각 공분산 벌점 | 상수 표현·복제 차원에서 목적·기울기를 검산하고 표현 통계 추적 |"
+    },
+    {
+      "number": 42,
+      "title": "masked reconstruction",
+      "prerequisite_text": "18–19·22·38",
+      "numeric_prerequisites": [
+        18,
+        19,
+        22,
+        38
+      ],
+      "line": 146,
+      "row": "| 42 | masked reconstruction | 18–19·22·38 | mask 샘플, visible token encoder, decoder, masked-only loss | 작은 이미지 복원, mask 비율·손실 평균 분모·표현 평가 |"
+    },
+    {
+      "number": 43,
+      "title": "JEPA와 표현 타깃 예측",
+      "prerequisite_text": "19–20·40–42",
+      "numeric_prerequisites": [
+        19,
+        20,
+        40,
+        41,
+        42
+      ],
+      "line": 147,
+      "row": "| 43 | JEPA와 표현 타깃 예측 | 19–20·40–42 | context/target 영역, 교사 표현, predictor·position, latent loss | pixel 타깃과 표현 타깃을 같은 데이터에서 비교, 교사·학생 갱신 검산 |"
+    },
+    {
+      "number": 44,
+      "title": "토큰화·언어 데이터·자기회귀 목적",
+      "prerequisite_text": "02·09·15",
+      "numeric_prerequisites": [
+        2,
+        9,
+        15
+      ],
+      "line": 159,
+      "row": "| 44 | 토큰화·언어 데이터·자기회귀 목적 | 02·09·15 | 문자/byte/BPE, vocab·embedding, 입력/타깃 한 칸 이동, 문서 경계·padding | 문장별 조건부 확률의 곱과 token CE 합 대조, 토큰 수·perplexity 규약 |"
+    },
+    {
+      "number": 45,
+      "title": "작은 decoder GPT 전체 학습",
+      "prerequisite_text": "09·13–15·44",
+      "numeric_prerequisites": [
+        9,
+        13,
+        14,
+        15,
+        44
+      ],
+      "line": 160,
+      "row": "| 45 | 작은 decoder GPT 전체 학습 | 09·13–15·44 | causal block, tied/untied head, token NLL, 전체 backward·학습 loop | 작은 문자 언어모델, causal·padding mask, 학습 문장 복원·held-out NLL |"
+    },
+    {
+      "number": 46,
+      "title": "생성 규칙과 KV cache",
+      "prerequisite_text": "45",
+      "numeric_prerequisites": [
+        45
+      ],
+      "line": 161,
+      "row": "| 46 | 생성 규칙과 KV cache | 45 | temperature·top-k·top-p, categorical sampling, prefill/한 토큰 cache | 같은 prefix의 logits를 전체 재계산과 대조, 길이·seed·속도·메모리 |"
+    },
+    {
+      "number": 47,
+      "title": "encoder 목적과 BERT식 MLM",
+      "prerequisite_text": "20·42·44",
+      "numeric_prerequisites": [
+        20,
+        42,
+        44
+      ],
+      "line": 162,
+      "row": "| 47 | encoder 목적과 BERT식 MLM | 20·42·44 | bidirectional mask, 선택 위치 CE, corruption 방식 | 같은 토큰열의 MLM·next-token 정보 접근 범위와 예측 비교 |"
+    },
+    {
+      "number": 48,
+      "title": "SFT·전이 학습·LoRA",
+      "prerequisite_text": "13–15·45",
+      "numeric_prerequisites": [
+        13,
+        14,
+        15,
+        45
+      ],
+      "line": 163,
+      "row": "| 48 | SFT·전이 학습·LoRA | 13–15·45 | trainable 파라미터, response-only loss, 저랭크 delta-W, scaling | 같은 작은 과제의 full/frozen/LoRA 학습, loss mask·gradient·파라미터 수 |"
+    },
+    {
+      "number": 49,
+      "title": "선호 쌍·Bradley–Terry·DPO",
+      "prerequisite_text": "12·44–48",
+      "numeric_prerequisites": [
+        12,
+        44,
+        45,
+        46,
+        47,
+        48
+      ],
+      "line": 164,
+      "row": "| 49 | 선호 쌍·Bradley–Terry·DPO | 12·44–48 | sequence log-prob 합, 기준 정책, 선호 확률·log-ratio 목적 | 같은 prompt의 두 답변, 부호·padding·reference 고정과 길이 영향 |"
+    },
+    {
+      "number": 50,
+      "title": "다중모달 표현과 조건부 모델",
+      "prerequisite_text": "19–20·39·45",
+      "numeric_prerequisites": [
+        19,
+        20,
+        39,
+        45
+      ],
+      "line": 165,
+      "row": "| 50 | 다중모달 표현과 조건부 모델 | 19–20·39·45 | image/text encoder 정렬, projection, cross-attention·조건 token | 도형-설명 검색과 조건부 토큰 생성, modality 교환·목적 비교 |"
+    },
+    {
+      "number": 51,
+      "title": "Bandit·기대 보상·탐색",
+      "prerequisite_text": "02·27",
+      "numeric_prerequisites": [
+        2,
+        27
+      ],
+      "line": 177,
+      "row": "| 51 | Bandit·기대 보상·탐색 | 02·27 | 행동 가치, sample average, epsilon-greedy, regret | 2–5개 행동의 확률 보상, 탐색 계수·seed별 return 비교 |"
+    },
+    {
+      "number": 52,
+      "title": "MDP·return·Bellman·동적 계획",
+      "prerequisite_text": "11·51",
+      "numeric_prerequisites": [
+        11,
+        51
+      ],
+      "line": 178,
+      "row": "| 52 | MDP·return·Bellman·동적 계획 | 11·51 | 전이 행렬, discounted return, 정책 가치 방정식, value/policy iteration | 작은 격자의 정확한 V·Q와 rollout 평균 비교 |"
+    },
+    {
+      "number": 53,
+      "title": "Monte Carlo·TD·다단계 타깃",
+      "prerequisite_text": "27·52",
+      "numeric_prerequisites": [
+        27,
+        52
+      ],
+      "line": 179,
+      "row": "| 53 | Monte Carlo·TD·다단계 타깃 | 27·52 | return 추정, TD error, bootstrapping, n-step·lambda return | 같은 정책의 가치 추정, 편향·분산·종료 상태 처리 |"
+    },
+    {
+      "number": 54,
+      "title": "SARSA·Q-learning과 데이터 정책",
+      "prerequisite_text": "52–53",
+      "numeric_prerequisites": [
+        52,
+        53
+      ],
+      "line": 180,
+      "row": "| 54 | SARSA·Q-learning과 데이터 정책 | 52–53 | on/off-policy 타깃, epsilon 행동, importance ratio의 역할 | 표 기반 제어, 수집 정책을 바꾸며 Q·행동 변화 확인 |"
+    },
+    {
+      "number": 55,
+      "title": "DQN·replay·target network",
+      "prerequisite_text": "03·13·15·54",
+      "numeric_prerequisites": [
+        3,
+        13,
+        15,
+        54
+      ],
+      "line": 181,
+      "row": "| 55 | DQN·replay·target network | 03·13·15·54 | Q 신경망, TD loss, replay sampling, 고정 target·Double DQN | 작은 환경 학습, terminal mask·target gradient·업데이트 주기 검산 |"
+    },
+    {
+      "number": 56,
+      "title": "REINFORCE와 정책 기울기 유도",
+      "prerequisite_text": "12·27·51–53",
+      "numeric_prerequisites": [
+        12,
+        27,
+        51,
+        52,
+        53
+      ],
+      "line": 182,
+      "row": "| 56 | REINFORCE와 정책 기울기 유도 | 12·27·51–53 | trajectory 확률, log-derivative trick, reward-to-go·baseline | 열거 가능한 정책의 정확한 기대 보상 미분과 샘플 추정 대조 |"
+    },
+    {
+      "number": 57,
+      "title": "Actor–Critic·advantage·GAE",
+      "prerequisite_text": "13·53·56",
+      "numeric_prerequisites": [
+        13,
+        53,
+        56
+      ],
+      "line": 183,
+      "row": "| 57 | Actor–Critic·advantage·GAE | 13·53·56 | actor/critic 목적, TD residual, GAE 재귀, 고정 타깃 | rollout의 경계·bootstrap·advantage 계산, 두 모델 기울기 분리 |"
+    },
+    {
+      "number": 58,
+      "title": "PPO의 ratio·clip·업데이트",
+      "prerequisite_text": "15·57",
+      "numeric_prerequisites": [
+        15,
+        57
+      ],
+      "line": 184,
+      "row": "| 58 | PPO의 ratio·clip·업데이트 | 15·57 | old log-prob, 확률비, clipped surrogate, value·entropy 항 | 작은 한 배치의 손계산, 여러 epoch 재사용과 KL·return 추적 |"
+    },
+    {
+      "number": 59,
+      "title": "연속 행동·DDPG/TD3·SAC",
+      "prerequisite_text": "12·25·55·57",
+      "numeric_prerequisites": [
+        12,
+        25,
+        55,
+        57
+      ],
+      "line": 185,
+      "row": "| 59 | 연속 행동·DDPG/TD3·SAC | 12·25·55·57 | Gaussian/tanh 정책, log-Jacobian 보정, Q와 actor, entropy 목적 | 작은 연속 제어, action 범위·재매개화·두 Q·entropy 계수 검산 |"
+    },
+    {
+      "number": 60,
+      "title": "모델 기반 RL과 계획",
+      "prerequisite_text": "27·52·59",
+      "numeric_prerequisites": [
+        27,
+        52,
+        59
+      ],
+      "line": 186,
+      "row": "| 60 | 모델 기반 RL과 계획 | 27·52·59 | 전이/보상 모델, rollout, shooting·MPC, 모델 오차 | 정확한 작은 환경과 학습 모델의 계획을 비교, horizon 변경 |"
+    },
+    {
+      "number": 61,
+      "title": "오프라인 RL과 정책 평가",
+      "prerequisite_text": "15·27·54·59",
+      "numeric_prerequisites": [
+        15,
+        27,
+        54,
+        59
+      ],
+      "line": 187,
+      "row": "| 61 | 오프라인 RL과 정책 평가 | 15·27·54·59 | 데이터 행동 분포, importance 평가, Q 외삽·보수적 목적 | 고정 데이터의 행동 범위·coverage·평가 분산 비교 |"
+    },
+    {
+      "number": 62,
+      "title": "선호 보상과 RLHF 연결",
+      "prerequisite_text": "45·49·56–58",
+      "numeric_prerequisites": [
+        45,
+        49,
+        56,
+        57,
+        58
+      ],
+      "line": 188,
+      "row": "| 62 | 선호 보상과 RLHF 연결 | 45·49·56–58 | 선호 reward 모델, KL 기준 정책, sequence 보상·PPO | 작은 토큰 환경에서 SFT·DPO·보상 기반 정책 갱신 비교 |"
+    },
+    {
+      "number": 63,
+      "title": "논문→계산 명세→작은 재현",
+      "prerequisite_text": "13–15와 관심 경로",
+      "numeric_prerequisites": [
+        13,
+        14,
+        15
+      ],
+      "line": 197,
+      "row": "| 63 | 논문→계산 명세→작은 재현 | 13–15와 관심 경로 | 문제·가정·기호표, 연산별 shape, 목적·평균 축, 갱신/사용 loop, 완성 노트북 | 작은 정확해·수치미분·대조 구현, 한 요소씩 바꾼 실험, 실행 설정·한계 해석 |",
+      "prerequisite_relation": "13–15와 선택한 관심 경로입니다."
+    }
+  ],
+  "unit_count": 64,
+  "numbering_exactly_00_to_63": true,
+  "future_or_self_numeric_prerequisites": [],
+  "routes": {
+    "VAE": {
+      "route": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "missing_numeric_prerequisites": [],
+      "available_now": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "planned": [
+        22,
+        23,
+        24,
+        25,
+        26
+      ]
+    },
+    "GPT": {
+      "route": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        8,
+        9,
+        13,
+        14,
+        15,
+        44,
+        45,
+        46
+      ],
+      "missing_numeric_prerequisites": [],
+      "available_now": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        8,
+        9,
+        13,
+        14,
+        15
+      ],
+      "planned": [
+        44,
+        45,
+        46
+      ]
+    },
+    "RL": {
+      "route": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15,
+        27,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "missing_numeric_prerequisites": [],
+      "available_now": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "planned": [
+        27,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ]
+    }
+  },
+  "notebooks": [
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/00_math_to_numpy.ipynb",
+      "sha256": "8f2c25252c6da049f49b6fea61f1dc8a8bbfb0e141e96d251281cb5c95eed19a",
+      "code_cells": 23,
+      "checkers": [
+        "check_three_outputs"
+      ],
+      "practice_lines": [
+        {
+          "cell": 36,
+          "line": 1,
+          "text": "## 8. 직접 바꿔서 확인합니다"
+        },
+        {
+          "cell": 36,
+          "line": 11,
+          "text": "검사 예제 셀 아래에 새 Code 셀을 만들고 `my_affine(X, W, b)`를 직접 정의해 실행하세요. 그다음 셀에서 `check_three_outputs(my_affine)`을 실행합니다. 함수 이름을 전달할 때는 `my_affine()`처럼 괄호를 붙이지 않습니다."
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../src/utils/array_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/array_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../README.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/README.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "01_gradients_and_learning.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/01_gradients_and_learning.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/01_gradients_and_learning.ipynb",
+      "sha256": "f8017f4f0685bd1e7f8d9c7ad996d3f2a531b5501dd4a49de9b5e46943eefb22",
+      "code_cells": 29,
+      "checkers": [
+        "check_affine_mse",
+        "check_mse_backward"
+      ],
+      "practice_lines": [
+        {
+          "cell": 44,
+          "line": 1,
+          "text": "## 9. 직접 바꾸어 자신의 구현을 확인합니다"
+        },
+        {
+          "cell": 44,
+          "line": 9,
+          "text": "검사 예제 셀 아래에 새 Code 셀을 만들고 `my_mse_backward(residual)`을 직접 정의해 실행하세요. 그다음 셀에서 `check_mse_backward(my_mse_backward)`를 실행합니다."
+        }
+      ],
+      "local_links": [
+        {
+          "target": "00_math_to_numpy.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/00_math_to_numpy.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../src/utils/gradient_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/gradient_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../src/utils/gradcheck.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/gradcheck.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "02_probability_and_losses.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/02_probability_and_losses.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/02_probability_and_losses.ipynb",
+      "sha256": "401efaf62b3f0e6346298b0d2fab409ecc59a5966dc593ce5f3e4907861c2e33",
+      "code_cells": 31,
+      "checkers": [
+        "check_expectation",
+        "check_ce"
+      ],
+      "practice_lines": [
+        {
+          "cell": 39,
+          "line": 5,
+          "text": "## 10. 직접 바꾸고 검산합니다"
+        },
+        {
+          "cell": 39,
+          "line": 9,
+          "text": "1절을 가리고 `my_expectation(values, probabilities)`를 직접 작성하세요. 값이 `[0, 2, 5]`, 확률이 `[0.5, 0.25, 0.25]`라면 기댓값은 1.75입니다."
+        },
+        {
+          "cell": 39,
+          "line": 10,
+          "text": "아래 검사 예제 다음에 새 Code 셀을 추가하고 자신의 함수를 정의한 뒤 `check_expectation(my_expectation)`을 실행하세요."
+        },
+        {
+          "cell": 42,
+          "line": 3,
+          "text": "`my_ce(logits, targets)`가 `(평균 손실, logit 기울기)`를 반환하도록 직접 작성하세요."
+        },
+        {
+          "cell": 42,
+          "line": 6,
+          "text": "새 셀에 자신의 함수를 정의한 뒤 `check_ce(my_ce)`로 확인하세요."
+        }
+      ],
+      "local_links": [
+        {
+          "target": "00_math_to_numpy.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/00_math_to_numpy.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "01_gradients_and_learning.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/01_gradients_and_learning.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../README.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/README.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../src/utils/probability_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/probability_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "03_perceptron_to_mlp.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/03_perceptron_to_mlp.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/03_perceptron_to_mlp.ipynb",
+      "sha256": "0898193670eb7729fc6aa00accc9680138032f21097eb142e64df283ad26c3c5",
+      "code_cells": 30,
+      "checkers": [
+        "check_mlp_gradients",
+        "check_leaky_derivative",
+        "check_single_layer_backward"
+      ],
+      "practice_lines": [
+        {
+          "cell": 37,
+          "line": 4,
+          "text": "## 9. 직접 바꾸고 복원합니다"
+        },
+        {
+          "cell": 37,
+          "line": 9,
+          "text": "원소별 도함수를 반환하는 `my_leaky_derivative(z)`를 직접 작성하세요."
+        },
+        {
+          "cell": 37,
+          "line": 10,
+          "text": "새 Code 셀에 정의한 뒤 `check_leaky_derivative(my_leaky_derivative)`을 실행합니다."
+        },
+        {
+          "cell": 42,
+          "line": 1,
+          "text": "### 연습 C · backward를 직접 다시 쓰기"
+        },
+        {
+          "cell": 42,
+          "line": 3,
+          "text": "5절을 가리고 `my_backward(dlogits, parameters, caches)`를 작성해 보세요."
+        },
+        {
+          "cell": 42,
+          "line": 9,
+          "text": "check_mlp_gradients(check_X, check_Y, check_parameters, backward_fn=my_backward)"
+        }
+      ],
+      "local_links": [
+        {
+          "target": "00_math_to_numpy.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/00_math_to_numpy.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "01_gradients_and_learning.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/01_gradients_and_learning.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "02_probability_and_losses.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/02_probability_and_losses.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../README.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/README.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../src/utils/mlp_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/mlp_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "04_optimizers.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/04_optimizers.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/04_optimizers.ipynb",
+      "sha256": "dd82d561154588fb6d4ae570169558cecdfeea8dba2cf8033bcb29d7029fac80",
+      "code_cells": 34,
+      "checkers": [
+        "check_momentum",
+        "check_adam"
+      ],
+      "practice_lines": [
+        {
+          "cell": 42,
+          "line": 1,
+          "text": "## 10. 직접 바꾸고 상태를 검산합니다"
+        },
+        {
+          "cell": 42,
+          "line": 3,
+          "text": "### 연습 A · Momentum을 직접 작성하기"
+        },
+        {
+          "cell": 42,
+          "line": 5,
+          "text": "4절을 가리고 `my_momentum(theta, gradient, state, learning_rate)`를 작성하세요."
+        },
+        {
+          "cell": 42,
+          "line": 7,
+          "text": "검사 예제 아래에 새 Code 셀로 자신의 함수를 정의한 뒤 `check_momentum(my_momentum)`을 실행합니다."
+        },
+        {
+          "cell": 45,
+          "line": 3,
+          "text": "`my_adam`을 6절의 함수와 같은 인자로 작성하고 `check_adam(my_adam)`에 전달하세요."
+        }
+      ],
+      "local_links": [
+        {
+          "target": "01_gradients_and_learning.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/01_gradients_and_learning.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "02_probability_and_losses.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/02_probability_and_losses.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "03_perceptron_to_mlp.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/03_perceptron_to_mlp.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../README.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/README.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../src/utils/optimizer_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/optimizer_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/05_cnn.ipynb",
+      "sha256": "329fc94e01279932f521a34fb6c1cf02130d065735d9b3429edc0ca532472a98",
+      "code_cells": 23,
+      "checkers": [
+        "check_conv_backward",
+        "check_mean_pool_backward"
+      ],
+      "practice_lines": [
+        {
+          "cell": 30,
+          "line": 1,
+          "text": "## 7. 직접 바꾸기: 읽은 함수를 자신의 함수로 만들기"
+        },
+        {
+          "cell": 30,
+          "line": 3,
+          "text": "Jupyter에서 `Esc`, `B`로 아래에 코드 셀을 만든 뒤, 예를 들어 `def my_conv_backward(dY, cache): ...`를 작성하세요. 완성 함수는 위에 있으므로 처음에는 참고해도 됩니다. `check_conv_backward(my_conv_backward)`로 **자신의 함수**를 전달해야 합니다. 인자 없이 원본만 재검사하는 것은 풀이 확인이 아닙니다."
+        },
+        {
+          "cell": 33,
+          "line": 1,
+          "text": "### 준비도 확인"
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../../src/utils/architecture_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/architecture_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../00_기초/04_optimizers.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/04_optimizers.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "06_rnn.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/06_rnn.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/06_rnn.ipynb",
+      "sha256": "d9127fd3944c4ad6e94dc4279ebadb85da025a6f06347aad458767e975af6907",
+      "code_cells": 15,
+      "checkers": [
+        "check_rnn_backward"
+      ],
+      "practice_lines": [
+        {
+          "cell": 6,
+          "line": 1,
+          "text": "## 2. 시간 역전파: 직접 온 기울기와 미래에서 온 기울기"
+        },
+        {
+          "cell": 19,
+          "line": 3,
+          "text": "## 5. 직접 변형하고 검사하기"
+        },
+        {
+          "cell": 19,
+          "line": 5,
+          "text": "새 코드 셀(`Esc`, `B`)에 `my_rnn_backward(dH, cache, p)`를 작성하고 `check_rnn_backward(my_rnn_backward)`를 호출하세요. 검사기는 초기 상태가 0이 아닌 경우, 길이 1·4, **모든 시각에서 직접 온 상류 기울기**를 사용합니다."
+        },
+        {
+          "cell": 22,
+          "line": 1,
+          "text": "### 준비도 확인"
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../../src/utils/architecture_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/architecture_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "05_cnn.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/05_cnn.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "07_lstm_gru.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/07_lstm_gru.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/07_lstm_gru.ipynb",
+      "sha256": "88946fdfcb11a563a4e4e0423cc945317ff56e1dc1e2564a3168a25f0c404940",
+      "code_cells": 17,
+      "checkers": [
+        "check_lstm_step",
+        "check_gru_step",
+        "check_gated_sequence"
+      ],
+      "practice_lines": [
+        {
+          "cell": 22,
+          "line": 3,
+          "text": "## 7. 직접 변형과 오답 검출"
+        },
+        {
+          "cell": 22,
+          "line": 5,
+          "text": "새 셀에 자신의 `my_lstm_step_backward(dh, dc_future, cache, p)` 또는 `my_gru_step_backward(dh, cache, p)`를 쓰세요. 다음 두 단계를 모두 진행합니다."
+        },
+        {
+          "cell": 22,
+          "line": 7,
+          "text": "1. `check_lstm_step(my_lstm_step_backward)`와 `check_gated_sequence(\"LSTM\", my_lstm_step_backward)`처럼 **같은 후보를 한 스텝·여러 스텝에 전달**하세요. GRU도 같은 방식입니다."
+        },
+        {
+          "cell": 25,
+          "line": 1,
+          "text": "### 준비도 확인"
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../../src/utils/architecture_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/architecture_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "06_rnn.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/06_rnn.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "08_attention.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/08_attention.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/08_attention.ipynb",
+      "sha256": "35d50c941fe540c8e8aab7d55543103eab485896582bc6451d251bfef5c9385f",
+      "code_cells": 17,
+      "checkers": [
+        "check_attention_backward"
+      ],
+      "practice_lines": [
+        {
+          "cell": 22,
+          "line": 1,
+          "text": "## 7. 직접 변형하고 검사하기"
+        },
+        {
+          "cell": 22,
+          "line": 3,
+          "text": "1. `my_attention_backward(dO, cache)`를 새 셀에 작성하고 `check_attention_backward(my_attention_backward)`를 실행하세요. query 길이 2, key 길이 4, 값 차원 2와 비교 차원 3을 섞지 않아야 합니다."
+        },
+        {
+          "cell": 25,
+          "line": 1,
+          "text": "### 준비도 확인"
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../../src/utils/architecture_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/architecture_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "07_lstm_gru.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/07_lstm_gru.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "09_transformer.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/09_transformer.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/09_transformer.ipynb",
+      "sha256": "4d30080c1fcb54eb32376ad1283ca1078008a818c3c3617313586008318986c7",
+      "code_cells": 18,
+      "checkers": [
+        "check_layernorm",
+        "check_block_backward",
+        "check_transformer"
+      ],
+      "practice_lines": [
+        {
+          "cell": 23,
+          "line": 1,
+          "text": "## 7. 직접 변형하고 검사하기"
+        },
+        {
+          "cell": 23,
+          "line": 3,
+          "text": "1. `my_layernorm_backward(dY, cache)`를 쓰고 `check_layernorm(my_layernorm_backward)`를 통과시키세요. gamma가 전부 1이 아니고 epsilon도 0이 아닌 사례를 검사합니다."
+        },
+        {
+          "cell": 23,
+          "line": 4,
+          "text": "2. 자신의 `my_block_backward(dY, cache, p)`를 `check_block_backward`에 전달한 뒤 `check_transformer(my_block_backward)`로 전체 모델에서도 검사하세요. 두 잔차의 직접 경로를 표시해 보세요."
+        },
+        {
+          "cell": 26,
+          "line": 1,
+          "text": "### 준비도 확인"
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../../src/utils/architecture_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/architecture_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "08_attention.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/08_attention.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "10_gnn.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/10_gnn.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/10_gnn.ipynb",
+      "sha256": "2e251b76fd586d5e289770f8c7e95d7e6f40211fa2460010678ff94c7615b038",
+      "code_cells": 19,
+      "checkers": [
+        "check_gnn_layer"
+      ],
+      "practice_lines": [
+        {
+          "cell": 24,
+          "line": 1,
+          "text": "## 7. 직접 바꾸고 검사하기"
+        },
+        {
+          "cell": 24,
+          "line": 3,
+          "text": "1. `my_gnn_layer_backward(dH, cache, p)`를 새 셀에 쓰고 `check_gnn_layer(my_gnn_layer_backward)`를 실행하세요. 이 검사에는 비대칭 A, 받는 이웃만 없는 노드, 들어오고 나가는 연결이 모두 없는 고립 노드가 있어 전치·0 degree 처리 실수를 숨기지 않습니다."
+        },
+        {
+          "cell": 27,
+          "line": 12,
+          "text": "### 준비도 확인"
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../../src/utils/architecture_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/architecture_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "09_transformer.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/09_transformer.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md#3-학습-목적과-생성",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": "3-학습-목적과-생성"
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/11_linear_algebra.ipynb",
+      "sha256": "58ae54b3e725f92bb16528c3c2ca895f5684ec7cd1518c50dce39fa348a17ad0",
+      "code_cells": 21,
+      "checkers": [
+        "check_pca_fit"
+      ],
+      "practice_lines": [
+        {
+          "cell": 27,
+          "line": 1,
+          "text": "## 6. 직접 바꾸기: 3차원에서 두 방향 남기기"
+        },
+        {
+          "cell": 27,
+          "line": 3,
+          "text": "새 셀에 `my_pca_fit(X, k)`를 작성해 `(mu, Q)`를 반환해 보세요. 공분산의 `eigh`를 쓰면 SVD와 다른 경로로 구현할 수 있습니다."
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../00_기초/00_math_to_numpy.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/00_math_to_numpy.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../00_기초/01_gradients_and_learning.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/01_gradients_and_learning.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../src/utils/bridge_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/bridge_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "12_gaussian_information.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/12_gaussian_information.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/12_gaussian_information.ipynb",
+      "sha256": "89a99091f16d42f5b26a4d6700471c7516515755190f791da317e7ad22850ca8",
+      "code_cells": 22,
+      "checkers": [
+        "check_distribution",
+        "check_diagonal_kl"
+      ],
+      "practice_lines": [
+        {
+          "cell": 29,
+          "line": 1,
+          "text": "## 7. 직접 바꾸기: 표준정규에서 다른 기준 분포로"
+        },
+        {
+          "cell": 29,
+          "line": 3,
+          "text": "`my_diagonal_kl(q_mu, q_logvar, p_mu, p_logvar)`를 작성하고 `(loss, dmu, dlogvar)`를 반환해 보세요."
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../00_기초/02_probability_and_losses.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/02_probability_and_losses.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "11_linear_algebra.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/11_linear_algebra.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../src/utils/bridge_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/bridge_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "13_autodiff.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/13_autodiff.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/13_autodiff.ipynb",
+      "sha256": "4961b846b17ba859db9ac580dc91e89c5838430eba847dff624f574a8db064e4",
+      "code_cells": 19,
+      "checkers": [
+        "check_matmul"
+      ],
+      "practice_lines": [
+        {
+          "cell": 0,
+          "line": 1,
+          "text": "# 13 · 직접 쓴 미분을 자동미분 그래프로 연결하기"
+        },
+        {
+          "cell": 25,
+          "line": 1,
+          "text": "## 6. 직접 바꾸기: 새로운 행렬곱을 실제 MLP에 넣기"
+        },
+        {
+          "cell": 25,
+          "line": 3,
+          "text": "새 셀에 `my_matmul(a, b)`를 작성해 출력 `Node`를 반환합니다. `a`, `b`는 Node이며,"
+        },
+        {
+          "cell": 25,
+          "line": 6,
+          "text": "그 뒤 `fit_graph_mlp(..., matmul_fn=my_matmul, hidden_size=6)`로 너비를 바꾸어 학습해 보세요."
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../00_기초/01_gradients_and_learning.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/01_gradients_and_learning.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../00_기초/03_perceptron_to_mlp.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/03_perceptron_to_mlp.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../src/utils/bridge_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/bridge_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "14_losses_regularization.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/14_losses_regularization.ipynb",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/14_losses_regularization.ipynb",
+      "sha256": "5491851ba2d0ccbd4bd1a4a0645acf76ca0372f99460ebb7dea2ff1e1dff7178",
+      "code_cells": 21,
+      "checkers": [
+        "check_regression_loss"
+      ],
+      "practice_lines": [
+        {
+          "cell": 29,
+          "line": 3,
+          "text": "## 6. 직접 바꾸기: 가중 Huber를 실제 학습에 연결하기"
+        },
+        {
+          "cell": 29,
+          "line": 5,
+          "text": "`my_regression_loss(prediction, target, kind, delta, weights)`를 작성해 `(loss, d_prediction)`을 반환해 보세요."
+        },
+        {
+          "cell": 29,
+          "line": 7,
+          "text": "이후 `fit_linear(..., loss_fn=my_regression_loss)`로 실제 모델에 연결하고 $\\delta=.1,.3,1$을 비교해 보세요."
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../00_기초/01_gradients_and_learning.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/01_gradients_and_learning.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../00_기초/02_probability_and_losses.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/02_probability_and_losses.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../00_기초/04_optimizers.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/04_optimizers.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../src/utils/bridge_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/bridge_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "15_experiments_evaluation.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/15_experiments_evaluation.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/15_experiments_evaluation.ipynb",
+      "sha256": "86b0f383f1eb4d9ed10801d1ab77b787f79da100e9ad95f9c245c9bdf302c757",
+      "code_cells": 21,
+      "checkers": [
+        "check_binary_metrics"
+      ],
+      "practice_lines": [
+        {
+          "cell": 30,
+          "line": 1,
+          "text": "## 7. 직접 바꾸기: 같은 확률에서 지표 다시 만들기"
+        },
+        {
+          "cell": 30,
+          "line": 3,
+          "text": "`my_binary_metrics(y, p, threshold=.5)`를 작성해 위 함수와 같은 키의 dictionary를 반환해 보세요."
+        }
+      ],
+      "local_links": [
+        {
+          "target": "../00_기초/02_probability_and_losses.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/02_probability_and_losses.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../00_기초/04_optimizers.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/04_optimizers.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "14_losses_regularization.ipynb",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/14_losses_regularization.ipynb",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../src/utils/bridge_plots.py",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/bridge_plots.py",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        },
+        {
+          "target": "../../docs/CURRICULUM.md",
+          "resolved": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+          "exists": true,
+          "fragment": ""
+        }
+      ]
+    }
+  ],
+  "runnable_notebook_count": 16,
+  "fragment_checks": [
+    {
+      "notebook": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/10_gnn.ipynb",
+      "target": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+      "fragment": "3-학습-목적과-생성",
+      "explicit_anchor_found": true
+    }
+  ]
+}

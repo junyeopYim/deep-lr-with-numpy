@@ -1,0 +1,7 @@
+{
+  "README.md": "cfd37c0673dcf8daec07a7b632a92e6696f251d52a14627da951eed571bdbe31",
+  "docs/CURRICULUM.md": "9b2df733c88d8a591559bea8e94113a88f6519247e6743dc2a0de85163830f12",
+  "docs/LEARNING_MAP.md": "870f760084374dcb9bd60a390dfeb62d48af410f1954d7299bcfd3802a09fa1f",
+  "pyproject.toml": "70349e13d03e0fc662fef0d1f2e08a1edbfa294d80dca683cb6baf656c818582",
+  "scripts/verify_notebooks.py": "ea33a165118165bf6f2914e26b61ae174a0e995205e4c13b54a1843634c38d6a"
+}

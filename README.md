@@ -1,151 +1,139 @@
-# numpy로 밑바닥부터
+# 개념을 수식과 코드로
 
-퍼셉트론에서 Transformer까지 numpy만으로 구현한다. 자동미분을 쓰지 않고
-**모든 역전파를 손으로 유도해서** 코드로 옮긴다.
+모델의 이름을 아는 데서 출발해, **왜 그 수식인지 설명하고 NumPy로 직접 구현하는 것**을 목표로 합니다.
+행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
-순서는 코세라 [Deep Learning Specialization](https://www.coursera.org/specializations/deep-learning)
-(Andrew Ng, deeplearning.ai) 5개 코스를 따라가고, 그 앞에 퍼셉트론 서장을 하나 둔다.
+현재 **00–15의 16개 노트북**을 실행하며 공부할 수 있습니다.
+[전체 커리큘럼](docs/CURRICULUM.md)은 64개 학습 단위의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
-의존성은 numpy뿐이다 (테스트에 pytest, 그림에 matplotlib).
+## 여기서 시작합니다
 
-## 시작하기
-
-```bash
-.venv/bin/jupyter lab notebooks/00_perceptron.ipynb
-```
-
-퍼셉트론으로 논리 게이트를 만들고, XOR이 단층으로 **불가능함을 증명**한 뒤,
-층을 쌓아 해결한다. 은닉층이 왜 필요한지에 대한 답이 여기 다 들어 있다.
-
-```bash
-.venv/bin/python -m pytest
-```
-
-새 환경에서 시작한다면:
-
-```bash
-python3 -m venv .venv
-.venv/bin/pip install -e ".[dev]"
-.venv/bin/python -m ipykernel install --user --name dl-scratch --display-name "Python (from-scratch)"
-```
-
-## 작업 방식 — 노트북에서 이해하고, `src/`에 정착시킨다
-
-라이브러리에 바로 쓰지 않는다. 노트북에서 이해가 끝난 것만 옮긴다.
-
-| 단계 | 하는 일 | 위치 | 도구 |
-|---|---|---|---|
-| 1 | 미분을 유도한다 | 노트북 마크다운 | |
-| 2 | 클래스 없이 함수로 짜 본다 | 노트북 | |
-| 3 | **수치미분으로 검증한다** | 노트북 | `check_function` |
-| 4 | `Layer`로 정리해 옮긴다 | `src/` | |
-| 5 | 회귀 테스트를 붙인다 | `tests/` | `check_layer` |
-| 6 | 학습이 되는지 확인한다 | 노트북 → `examples/` | |
-| 7 | 유도를 정리해 남긴다 | `docs/derivations/` | |
-
-3번을 건너뛰면, 나중에 학습이 안 될 때 **유도 오류인지 하이퍼파라미터 문제인지**
-구분할 방법이 사라진다.
-
-3번과 5번은 같은 검증을 다른 시점에 하는 것이다. `check_function`은 아직
-함수 쌍일 때, `check_layer`는 `Layer`가 된 뒤.
-
-```python
-import numpy as np
-from src import check_function, check_layer
-
-# 노트북에서 — 아직 함수 쌍일 때
-check_function(lambda x: np.maximum(x, 0),        # forward(x) -> y
-               lambda dout, x: dout * (x > 0),    # backward(dout, x) -> dx
-               x)
-
-# src/ 로 옮긴 뒤 — Layer가 되었을 때
-check_layer(my_layer, x, verbose=True)
-```
-
-올바른 유도는 상대오차 `1e-9` 언저리, 틀린 유도는 `1e-1` 이상이 나온다.
-9자릿수가 벌어지므로 애매한 판정이 없다.
-
-## 구조
-
-```
-notebooks/         ← 여기서 이해한다
-  00_perceptron            퍼셉트론 · 논리 게이트 · XOR과 다층 (완료)
-  01_logistic_regression   시그모이드 · 로그 손실 · 계산 그래프 · 벡터화 (완료)
-  02_...                   이후 코세라 순서대로
-src/               ← 이해가 끝난 것만 여기로
-  functional.py    sigmoid                    (노트북 01에서 정착)
-  losses.py        binary_cross_entropy       (노트북 01에서 정착)
-  utils/
-    gradcheck.py   수치미분 검증기 ← 이 프로젝트의 안전망
-    plotting.py    setup_plots() — 그림 설정 일괄 적용, 학습 곡선·결정경계·gradcheck 막대
-  data/            DataLoader, 장난감 데이터셋, MNIST 로더
-tests/             src/ 에 들어간 것들의 회귀 테스트
-examples/          end-to-end 학습 스크립트
-docs/
-  CURRICULUM.md    전체 로드맵 ← 다음에 무엇을 할지는 여기
-  derivations/     미분 유도 노트
-```
-
-`src/`가 거의 비어 있는 것이 정상이다. 노트북을 진행하며 채워 나간다.
-지금까지 정착한 것은 `sigmoid` 와 `binary_cross_entropy` 뿐이다.
-
-## 로드맵
-
-| | 노트북 | 내용 |
+| 순서 | 노트북 | 끝나면 직접 해 볼 것 |
 |---|---|---|
-| 서장 | `00_perceptron` ✅ | 퍼셉트론, 논리 게이트, XOR의 불가능성, 다층 해법 |
-| **C1** | `01_logistic_regression` ✅ | 로지스틱 회귀를 신경망으로, 계산 그래프, 벡터화 |
-| | `02_shallow_nn` | 은닉층 1개, 활성화 함수, 왜 비선형이어야 하는가 |
-| | `03_deep_nn` | L층 일반화 — `Layer` 추상화가 여기서 나온다 |
-| **C2** | `04_regularization` | L2, 드롭아웃, 초기화, 기울기 소실, gradient checking |
-| | `05_optimization` | 미니배치, Momentum, RMSProp, Adam, 학습률 감쇠 |
-| | `06_batchnorm_softmax` | BatchNorm, softmax 다중분류 |
-| **C3** | `07_ml_strategy` | 편향·분산 분해, 오차 분석, 학습곡선 (진단 도구를 numpy로) |
-| **C4** | `08_cnn_foundations` | im2col, Conv2d, 풀링 |
-| | `09_cnn_architectures` | LeNet, VGG, ResNet 잔차 블록, MobileNet |
-| | `10_object_detection` | IoU, NMS, YOLO 손실, U-Net |
-| | `11_face_and_style` | Triplet loss, Gram 행렬, 입력에 대한 경사하강 |
-| **C5** | `12_rnn` | RNN, BPTT, GRU, LSTM, 문자 단위 언어모델 |
-| | `13_word_embeddings` | word2vec, GloVe, 유추, 편향 제거 |
-| | `14_attention` | seq2seq, 빔 서치, BLEU, Bahdanau 어텐션 |
-| | `15_transformer` | self-attention, MHA, LayerNorm, Transformer 블록 |
+| 00 | [수식을 NumPy로 옮기기](notebooks/00_기초/00_math_to_numpy.ipynb) | 기호의 shape와 합하는 축을 정하고, 반복문을 행렬곱으로 옮기기 |
+| 01 | [미분으로 학습시키기](notebooks/00_기초/01_gradients_and_learning.ipynb) | 손실의 미분을 유도하고, 검산한 기울기로 회귀 모델 학습시키기 |
+| 02 | [확률에서 손실 만들기](notebooks/00_기초/02_probability_and_losses.ipynb) | 관측 모형에서 MSE·BCE·softmax CE를 유도하고 안정적으로 구현하기 |
+| 03 | [퍼셉트론에서 MLP까지](notebooks/00_기초/03_perceptron_to_mlp.ipynb) | XOR의 선형 분리 한계를 설명하고 다층 forward·backward를 직접 검산하기 |
+| 04 | [optimizer의 계산](notebooks/00_기초/04_optimizers.ipynb) | SGD·Momentum·RMSProp·Adam의 상태와 갱신을 손계산하고 미니배치로 학습하기 |
 
-전부 numpy로 구현한다. C4 후반과 C5W2는 원래 GPU를 전제하는 과제라
-각 주차에 CPU에서 끝나는 축소 설정을 명시해 두었다 — 구조와 역전파는 그대로 구현하고
-데이터 크기만 줄인다. 자세한 내용은 [docs/CURRICULUM.md](docs/CURRICULUM.md).
+## 기본 아키텍처
 
-## 노트북 규약
+각 노트북은 필요한 수식·shape를 설명하고, NumPy 구현·역전파 검산·작은 학습·직접 변형으로 이어집니다.
+공통 기초를 마치셨다면 05부터 시작하시면 됩니다. 데이터는 본문에서 생성하며 CPU에서 실행합니다.
 
-모든 노트북의 **첫 셀에서 `setup_plots()` 를 한 번** 부른다. 폰트, 크기, 해상도,
-격자, 색 순서, 여백이 전부 잡히므로 이후 셀에서는 그림 내용만 쓰면 된다.
-`ax.grid(...)`, `plt.tight_layout()`, 눈금 포매터를 셀마다 부를 필요가 없다.
+| 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
+|---|---|---|
+| 05 | [CNN](notebooks/01_아키텍처/05_cnn.ipynb) | 숫자 도안 분류, 패치·합성곱·풀링 미분과 겹침 누적 |
+| 06 | [RNN](notebooks/01_아키텍처/06_rnn.ipynb) | 기호 순서 분류, 시간별 캐시·BPTT·길이 변경 |
+| 07 | [LSTM·GRU](notebooks/01_아키텍처/07_lstm_gru.ipynb) | 지연 신호 기억, 게이트·상태별 미분·forget bias 변경 |
+| 08 | [Attention](notebooks/01_아키텍처/08_attention.ipynb) | key의 값 검색, Q·K·V·softmax 미분·mask |
+| 09 | [Transformer](notebooks/01_아키텍처/09_transformer.ipynb) | 토큰열 역순 변환, MHA·LayerNorm·잔차·FFN·embedding |
+| 10 | [GNN](notebooks/01_아키텍처/10_gnn.ipynb) | 그래프 분류, 이웃 집계·readout·순열 성질과 표현 한계 |
 
-```python
-from src.utils import COLOR_NEG, COLOR_POS, setup_plots
-setup_plots()
+## 구조와 목적을 잇는 기초
+
+00–10에서 사용한 수학을 확률 모델·자동미분·실험 설계로 넓힙니다. **지금 이어 읽을 순서는 11 → 12 → 13 → 14 → 15입니다.**
+
+| 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
+|---|---|---|
+| 11 | [선형대수와 PCA](notebooks/02_연결/11_linear_algebra.ipynb) | 투영·공분산·SVD·PCA, 3차원 압축과 복원 오차 |
+| 12 | [Gaussian·정보이론·추정](notebooks/02_연결/12_gaussian_information.ipynb) | 샘플·로그 밀도·entropy·KL·MLE·MAP·재매개화 미분 |
+| 13 | [작은 자동미분 엔진](notebooks/02_연결/13_autodiff.ipynb) | VJP·공유 그래프·broadcast, 직접 미분과 PyTorch 대조, MLP 학습 |
+| 14 | [손실과 정규화](notebooks/02_연결/14_losses_regularization.ipynb) | MSE·MAE·Huber, 가중 손실·L2·ridge·AdamW·dropout |
+| 15 | [실험과 평가](notebooks/02_연결/15_experiments_evaluation.ipynb) | 그룹 분할·전처리·학습 진단·지표·calibration·seed 반복 |
+
+## 실행 환경
+
+저장소 최상위 폴더에서 실행합니다. `root_dir`을 지정하면 노트북 안의 문서·보조 코드 링크도 열 수 있습니다.
+
+```bash
+python -m jupyter lab --ServerApp.root_dir=. notebooks/00_기초/00_math_to_numpy.ipynb
 ```
 
-클래스를 색으로 구분할 때는 `COLOR_POS` / `COLOR_NEG` 를 쓴다.
-색 코드를 셀마다 적어 두면 나중에 팔레트를 바꿀 때 전부 찾아다녀야 한다.
+새 Python 환경에서는 다음과 같이 준비합니다.
 
-폰트 선택이 조금 까다롭다. `$...$` 가 섞인 문자열은 **전체가 mathtext 엔진으로**
-그려지는데, 이 엔진은 글리프 단위 폴백을 하지 않고 `font.family` 의 첫 폰트만 쓴다.
-그래서 첫 폰트가 **한글과 유니코드 마이너스(U+2212)를 모두** 갖고 있어야
-`"입력 공간 $(x_1,x_2)$ — 직선으로 못 가름"` 같은 제목과 로그 눈금의 $10^{-10}$ 이
-동시에 제대로 나온다. `setup_plots()` 가 설치된 폰트의 글리프 커버리지를
-실제로 확인해서 고른다.
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e ".[dev]"
+python -m jupyter lab
+```
 
-## 설계 결정
+13번의 PyTorch 비교에는 다음 추가 환경을 사용합니다. NumPy 구현과 PyTorch 비교 모두 CPU에서 실행합니다.
 
-**`float64`를 쓴다.** `float32`에서는 수치미분의 상대오차가 `1e-3`까지 커져
-실제 유도 오류와 구분되지 않는다. 속도보다 검증 가능성을 택했다.
+```bash
+python -m pip install -e ".[dev,framework]"
+```
 
-**기울기는 `=`가 아니라 `+=`로 누적한다.** 그래서 매 스텝 `zero_grad()`가 필요하다.
-CNN의 가중치 공유, RNN의 시간축 전개, Transformer의 embedding 가중치 공유가
-모두 "같은 파라미터를 한 번의 forward에서 여러 번 쓰는" 경우인데,
-누적이어야 그 기여들이 제대로 더해진다.
+### Jupyter에서 셀 실행하기
 
-**검증기는 덕 타이핑으로 동작한다.** `check_layer`는 `forward`/`backward`/
-`zero_grad`/`named_parameters` 네 가지만 요구한다. 그래서 `Layer` 추상화를
-노트북 03번에서 직접 설계해 만들 때까지, 검증기가 먼저 존재할 수 있다.
-`tests/test_gradcheck.py`의 `_MiniLayer`가 그 인터페이스의 전부다.
+1. 저장된 출력은 지난 실행의 기록입니다. 노트북을 열면 첫 셀부터 선택하고 **Shift+Enter**로 실행하며 내려갑니다. 코드를 실행해야 그 셀의 변수와 함수를 현재 커널에서 쓸 수 있습니다.
+2. 변형 문제에서는 검사 예제 셀을 선택하고 **Esc → B**를 눌러 아래에 셀을 추가합니다. 위쪽 셀 종류가 `Code`인지 확인하고, 자신이 작성한 함수를 정의해 실행합니다. 00번에서 `my_affine(X, W, b)`를 작성했다면 다음 셀에 `check_three_outputs(my_affine)`을 입력해 실행합니다. 01번에서는 `my_mse_backward(residual)`을 작성하고 `check_mse_backward(my_mse_backward)`로 확인합니다.
+3. 처음부터 다시 확인할 때는 **Run → Restart Kernel and Run All**을 선택합니다. 커널은 실행 중인 Python의 변수와 함수를 보관하며, 재시작하면 이 상태가 초기화됩니다. 모든 셀이 위에서부터 실행되는지 확인한 뒤 저장합니다.
+
+조작 이름과 단축키는 [JupyterLab 공식 명령 안내](https://jupyterlab.readthedocs.io/en/stable/user/commands.html)를 기준으로 합니다.
+
+## 공부하는 방식
+
+**작은 완성 예제 → 수식과 코드의 대응 → 검산 → 직접 변형** 순서로 공부합니다.
+
+1. 문제와 가정을 읽고 출력값이나 변화 방향을 예상합니다.
+2. 숫자가 적은 예제를 손으로 계산한 뒤 실행합니다.
+3. 기호마다 배열의 shape와 의미를 쓰고, 반복문과 벡터화를 대조합니다.
+4. 미분을 손으로 유도하고 중심차분으로 검산합니다.
+5. 차원·계수·목적을 바꾸어 자신의 구현을 확인합니다.
+
+각 노트북 마지막의 준비도 질문으로 다음에 복습할 절을 찾습니다.
+자세한 방식은 [학습 설계](docs/LEARNING_MAP.md), 주제와 전제의 연결은 [전체 학습 경로](docs/CURRICULUM.md)에 있습니다.
+
+## 이어지는 경로
+
+**공통 기초:** 배열 → 미분과 학습 → 확률과 손실 → 퍼셉트론·MLP → optimizer
+
+**기본 아키텍처:** CNN → RNN → LSTM·GRU → attention → Transformer → GNN
+
+**연결 기초:** 선형대수·정보이론 → 자동미분 → 손실·정규화 → 실험·평가
+
+**구조 조합:** 정규화 층 → ResNet·U-Net·ViT → encoder–decoder·집합·graph attention
+
+**확률 모델과 생성:** AE → 잠재변수·ELBO·VAE, GAN, flow·에너지·score·diffusion·flow matching → 생성 평가
+
+**표현과 언어:** 대조학습·교사·공분산 제약·mask·JEPA, 토큰화 → GPT·생성 → SFT·LoRA·선호·다중모달
+
+**강화학습:** Bandit·MDP → MC·TD·Q·DQN → 정책 기울기·Actor–Critic·PPO → 연속 행동·계획·오프라인·RLHF
+
+주제마다 필요한 전제와 이해를 확인할 작은 문제를 명시합니다. 예를 들어 GPT는 Transformer와
+조건부 확률을 연결한 다음, VAE는 확률·우도와 잠재변수를 연결한 다음 공부합니다.
+
+## 프로젝트 구성
+
+```text
+notebooks/00_기초/       배열·미분·확률·MLP·optimizer
+notebooks/01_아키텍처/  CNN·RNN·LSTM/GRU·Attention·Transformer·GNN
+notebooks/02_연결/      선형대수·정보이론·자동미분·정규화·평가
+src/utils/         수치미분 검산기와 그림 보조 코드
+src/data/          이후 실험에서 사용할 작은 데이터와 MNIST 로더
+docs/              학습 방식, 전체 경로, 표기 규약
+scripts/           노트북 실행 검증
+results/           실행 검증 기록
+memory/            학습 방향과 작업 상태
+```
+
+모델·손실·역전파·갱신·실험 계산은 노트북 본문에 둡니다.
+긴 그림 코드는 계산 결과를 인자로 받는 보조 함수로 나눕니다.
+
+## 실행 검증
+
+```bash
+python -m pytest
+python scripts/verify_notebooks.py --suite foundation
+python scripts/verify_notebooks.py --suite architecture
+python scripts/verify_notebooks.py --suite bridge
+```
+
+검증기는 각 노트북을 별도 커널에서 실행하고, 저장된 그림을 디코딩해 확인합니다.
+11–15의 수치와 독립 실습은 [연결 기초 검증](results/bridge-validation/bridges.md), 실행 출력은 [실행 기록](results/bridge-validation/execution.json)에 있습니다.
+실행 결과는 [공통 기초 실행 기록](results/foundation-validation/execution.json)과 [아키텍처 실행 기록](results/architecture-validation/execution.json)에 각각 남습니다.
+아키텍처의 수치·직접 변형·독립 점검은 [아키텍처 검증](results/architecture-validation/architectures.md)에 있습니다.
+공통 기초 다섯 단원의 계산 결과와 독립 실습 점검은 [공통 기초 검증](results/foundation-validation/common-foundations.md)에 있습니다.
+초기 00·01의 설치·실습 점검은 [첫 두 단원 점검](results/foundation-validation/rehearsal.md)에 남겨 두었습니다.

@@ -1,0 +1,32 @@
+{
+  "command": "python -m jupyter lab notebooks/00_기초/00_math_to_numpy.ipynb",
+  "server_root": "/tmp/dlfs-rehearsal/snapshot/notebooks/00_기초",
+  "lab": {
+    "http_status": 200,
+    "bytes": 4354
+  },
+  "api/contents": {
+    "http_status": 200,
+    "bytes": 878,
+    "contents": [
+      "00_math_to_numpy.ipynb",
+      "01_gradients_and_learning.ipynb"
+    ]
+  },
+  "api/contents/notebooks/00_기초/00_math_to_numpy.ipynb": {
+    "http_status": 404,
+    "message": "HTTP Error 404: Not Found",
+    "body": "file or directory '/notebooks/00_기초/00_math_to_numpy.ipynb' does not exist"
+  },
+  "api/contents/00_math_to_numpy.ipynb": {
+    "http_status": 200,
+    "bytes": 281127,
+    "type": "notebook",
+    "cells": 42
+  },
+  "api/contents/../../docs/CURRICULUM.md": {
+    "http_status": 404,
+    "message": "HTTP Error 404: Not Found",
+    "body": "{\"message\": \"../../docs/CURRICULUM.md is outside root contents directory\", \"reason\": null}"
+  }
+}

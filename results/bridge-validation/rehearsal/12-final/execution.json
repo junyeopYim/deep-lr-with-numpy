@@ -1,0 +1,201 @@
+{
+  "source": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/12_gaussian_information.ipynb",
+  "input_copy": "/tmp/dlfs-bridges/rehearsal12-final/12_gaussian_information.input.ipynb",
+  "executed_copy": "/tmp/dlfs-bridges/rehearsal12-final/12_gaussian_information.executed.ipynb",
+  "original_cell_count": 34,
+  "original_code_cell_count": 22,
+  "executed_code_cell_count": 23,
+  "elapsed_seconds": 1.8587512969970703,
+  "fresh_kernel": true,
+  "kernel_name": "python3",
+  "python": "3.13.12 | packaged by Anaconda, Inc. | (main, Feb 24 2026, 16:13:31) [GCC 14.3.0]",
+  "head": "fb9de11b4169667db3e5020f36b09aca4d74373d",
+  "stderr": [],
+  "errors": [],
+  "figures": [
+    {
+      "cell": 5,
+      "path": "/tmp/dlfs-bridges/rehearsal12-final/12_gaussian_information_cell05_0.png",
+      "width": 1088,
+      "height": 429,
+      "sha256": "ef35bd2b7a2a2606d385e65c1b276e3fd238a0d57bcb407938677e8853af8ed9",
+      "visually_inspected": true,
+      "visual_observation": "왼쪽 양의 상관 점구름과 오른쪽 대각 공분산 점구름을 확인했습니다. 축·제목·범례를 읽을 수 있습니다."
+    },
+    {
+      "cell": 12,
+      "path": "/tmp/dlfs-bridges/rehearsal12-final/12_gaussian_information_cell12_0.png",
+      "width": 759,
+      "height": 385,
+      "sha256": "f21062ac1653ec3ddccd4a905d9f254c857e3981ed94f9c0ff4ad601f8550dfe",
+      "visually_inspected": true,
+      "visual_observation": "CE와 KL의 일정한 수직 차이, q 첫 확률 약 .75에서 KL 최솟값을 확인했습니다."
+    },
+    {
+      "cell": 18,
+      "path": "/tmp/dlfs-bridges/rehearsal12-final/12_gaussian_information_cell18_0.png",
+      "width": 759,
+      "height": 385,
+      "sha256": "a177ffe59355a0a83fc0a4c18019e3546bcea6a7f2407768df88d6ed6e288abf",
+      "visually_inspected": true,
+      "visual_observation": "평균 NLL이 약 8.23에서 3.77로 내려간 뒤 평평해집니다. 축과 한글 표기가 읽힙니다."
+    },
+    {
+      "cell": 21,
+      "path": "/tmp/dlfs-bridges/rehearsal12-final/12_gaussian_information_cell21_0.png",
+      "width": 810,
+      "height": 352,
+      "sha256": "7ab4a6c6cb44b4e56072b5476130a28d252fbe3a08cef5fefa3aa8130a29f634",
+      "visually_inspected": true,
+      "visual_observation": "전체 공분산의 비대각 약 1.74와 대각 모형의 0이 수치 주석으로 구분됩니다. 각 패널 색 막대도 있습니다."
+    },
+    {
+      "cell": 32,
+      "path": "/tmp/dlfs-bridges/rehearsal12-final/12_gaussian_information_cell32_0.png",
+      "width": 758,
+      "height": 385,
+      "sha256": "faea11346a07dc76baf8836ad73c8dd525433768573e10799cfca54de5748c27",
+      "visually_inspected": true,
+      "visual_observation": "기준 분산 .5, 1, 2의 KL 곡선과 분산 1에서 평균 0의 KL 0을 확인했습니다."
+    },
+    {
+      "cell": 34,
+      "path": "/tmp/dlfs-bridges/rehearsal12-final/12_gaussian_information_cell34_1.png",
+      "width": 758,
+      "height": 385,
+      "sha256": "6d57021c439c979af440e7c6ca4c908c63945865fdd7a96f540deacfb9968f3c",
+      "visually_inspected": true,
+      "visual_observation": "직접 변형한 두 번째 평균 이동 곡선에서 p 분산 .25가 가장 가파르고 4가 가장 완만합니다."
+    }
+  ],
+  "local_links": [
+    {
+      "cell": 0,
+      "label": "02 확률과 손실",
+      "target": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/02_probability_and_losses.ipynb",
+      "exists": true
+    },
+    {
+      "cell": 0,
+      "label": "11 선형대수",
+      "target": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/11_linear_algebra.ipynb",
+      "exists": true
+    },
+    {
+      "cell": 0,
+      "label": "전체 경로",
+      "target": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+      "exists": true
+    },
+    {
+      "cell": 0,
+      "label": "그림 보조 코드",
+      "target": "/home/junyeop/projects/deep-learning-from-scratch/src/utils/bridge_plots.py",
+      "exists": true
+    },
+    {
+      "cell": 33,
+      "label": "13 자동미분",
+      "target": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/13_autodiff.ipynb",
+      "exists": true
+    }
+  ],
+  "cell_timings": [
+    {
+      "cell": 1,
+      "seconds": 0.3972806930541992
+    },
+    {
+      "cell": 3,
+      "seconds": 0.003225564956665039
+    },
+    {
+      "cell": 4,
+      "seconds": 0.012228012084960938
+    },
+    {
+      "cell": 5,
+      "seconds": 0.14601492881774902
+    },
+    {
+      "cell": 7,
+      "seconds": 0.003598928451538086
+    },
+    {
+      "cell": 8,
+      "seconds": 0.004674434661865234
+    },
+    {
+      "cell": 10,
+      "seconds": 0.0038404464721679688
+    },
+    {
+      "cell": 11,
+      "seconds": 0.004579067230224609
+    },
+    {
+      "cell": 12,
+      "seconds": 0.09124588966369629
+    },
+    {
+      "cell": 14,
+      "seconds": 0.021089553833007812
+    },
+    {
+      "cell": 16,
+      "seconds": 0.004042625427246094
+    },
+    {
+      "cell": 17,
+      "seconds": 0.0809023380279541
+    },
+    {
+      "cell": 18,
+      "seconds": 0.06068730354309082
+    },
+    {
+      "cell": 20,
+      "seconds": 0.004317522048950195
+    },
+    {
+      "cell": 21,
+      "seconds": 0.12097525596618652
+    },
+    {
+      "cell": 23,
+      "seconds": 0.004041194915771484
+    },
+    {
+      "cell": 25,
+      "seconds": 0.0035300254821777344
+    },
+    {
+      "cell": 26,
+      "seconds": 0.029123783111572266
+    },
+    {
+      "cell": 28,
+      "seconds": 0.009536266326904297
+    },
+    {
+      "cell": 30,
+      "seconds": 0.005525112152099609
+    },
+    {
+      "cell": 31,
+      "seconds": 0.016846179962158203
+    },
+    {
+      "cell": 32,
+      "seconds": 0.09278106689453125
+    },
+    {
+      "cell": 34,
+      "seconds": 0.10325026512145996
+    }
+  ],
+  "source_hashes_file": "/tmp/dlfs-bridges/rehearsal12-final/source_hashes.json",
+  "visual_inspection_method": "실행 출력 PNG를 전부 PIL로 디코딩한 뒤 view_image로 직접 확인했습니다.",
+  "controller_warning_count": 1,
+  "controller_warning_description": "IPKernelApp의 TCP transport encryption 경고가 runner.log에 있으며 노트북 셀 stderr는 없습니다."
+}

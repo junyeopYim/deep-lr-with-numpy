@@ -1,0 +1,475 @@
+{
+  "files": [
+    {
+      "file": "notebooks/02_연결/11_linear_algebra.ipynb",
+      "html_pngs": 5,
+      "tables": 1,
+      "strikethrough_tags": 0,
+      "links": [
+        {
+          "cell": 0,
+          "target": "../00_기초/00_math_to_numpy.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../00_기초/01_gradients_and_learning.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../../docs/CURRICULUM.md",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../../src/utils/bridge_plots.py",
+          "exists": true
+        },
+        {
+          "cell": 31,
+          "target": "12_gaussian_information.ipynb",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "file": "notebooks/02_연결/12_gaussian_information.ipynb",
+      "html_pngs": 5,
+      "tables": 1,
+      "strikethrough_tags": 0,
+      "links": [
+        {
+          "cell": 0,
+          "target": "../00_기초/02_probability_and_losses.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "11_linear_algebra.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../../docs/CURRICULUM.md",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../../src/utils/bridge_plots.py",
+          "exists": true
+        },
+        {
+          "cell": 33,
+          "target": "13_autodiff.ipynb",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "file": "notebooks/02_연결/13_autodiff.ipynb",
+      "html_pngs": 4,
+      "tables": 0,
+      "strikethrough_tags": 0,
+      "links": [
+        {
+          "cell": 0,
+          "target": "../00_기초/01_gradients_and_learning.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../00_기초/03_perceptron_to_mlp.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../../src/utils/bridge_plots.py",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../../docs/CURRICULUM.md",
+          "exists": true
+        },
+        {
+          "cell": 29,
+          "target": "14_losses_regularization.ipynb",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "file": "notebooks/02_연결/14_losses_regularization.ipynb",
+      "html_pngs": 5,
+      "tables": 2,
+      "strikethrough_tags": 0,
+      "links": [
+        {
+          "cell": 0,
+          "target": "../00_기초/01_gradients_and_learning.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../00_기초/02_probability_and_losses.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../00_기초/04_optimizers.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../../docs/CURRICULUM.md",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../../src/utils/bridge_plots.py",
+          "exists": true
+        },
+        {
+          "cell": 32,
+          "target": "15_experiments_evaluation.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 32,
+          "target": "../../docs/CURRICULUM.md",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "file": "notebooks/02_연결/15_experiments_evaluation.ipynb",
+      "html_pngs": 6,
+      "tables": 0,
+      "strikethrough_tags": 0,
+      "links": [
+        {
+          "cell": 0,
+          "target": "../00_기초/02_probability_and_losses.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../00_기초/04_optimizers.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "14_losses_regularization.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../../src/utils/bridge_plots.py",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../../docs/CURRICULUM.md",
+          "exists": true
+        },
+        {
+          "cell": 33,
+          "target": "../../docs/CURRICULUM.md",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "file": "README.md",
+      "links": [
+        {
+          "cell": 0,
+          "target": "docs/CURRICULUM.md",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/00_기초/00_math_to_numpy.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/00_기초/01_gradients_and_learning.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/00_기초/02_probability_and_losses.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/00_기초/03_perceptron_to_mlp.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/00_기초/04_optimizers.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/01_아키텍처/05_cnn.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/01_아키텍처/06_rnn.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/01_아키텍처/07_lstm_gru.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/01_아키텍처/08_attention.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/01_아키텍처/09_transformer.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/01_아키텍처/10_gnn.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/02_연결/11_linear_algebra.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/02_연결/12_gaussian_information.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/02_연결/13_autodiff.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/02_연결/14_losses_regularization.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "notebooks/02_연결/15_experiments_evaluation.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "docs/LEARNING_MAP.md",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "docs/CURRICULUM.md",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "results/bridge-validation/bridges.md",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "results/bridge-validation/execution.json",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "results/foundation-validation/execution.json",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "results/architecture-validation/execution.json",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "results/architecture-validation/architectures.md",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "results/foundation-validation/common-foundations.md",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "results/foundation-validation/rehearsal.md",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "file": "docs/CURRICULUM.md",
+      "links": [
+        {
+          "cell": 0,
+          "target": "../notebooks/00_기초/00_math_to_numpy.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/00_기초/01_gradients_and_learning.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/00_기초/02_probability_and_losses.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/00_기초/03_perceptron_to_mlp.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/00_기초/04_optimizers.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/01_아키텍처/05_cnn.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/01_아키텍처/06_rnn.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/01_아키텍처/07_lstm_gru.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/01_아키텍처/08_attention.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/01_아키텍처/09_transformer.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/01_아키텍처/10_gnn.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/02_연결/11_linear_algebra.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/02_연결/12_gaussian_information.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/02_연결/13_autodiff.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/02_연결/14_losses_regularization.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../notebooks/02_연결/15_experiments_evaluation.ipynb",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "../results/bridge-validation/bridges.md",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "file": "docs/LEARNING_MAP.md",
+      "links": [
+        {
+          "cell": 0,
+          "target": "CURRICULUM.md",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "file": "results/bridge-validation/bridges.md",
+      "links": [
+        {
+          "cell": 0,
+          "target": "rehearsal/",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "rehearsal/current-source-checks.json",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "rehearsal/docs/execution.json",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "rehearsal/docs-final/curriculum_and_notebooks.json",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "rehearsal/docs-final/cli_and_extras.json",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "rehearsal/docs-final/readme_practice_execution.json",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "rehearsal/docs-final/execution.json",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "execution.json",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "source-manifest.json",
+          "exists": true
+        },
+        {
+          "cell": 0,
+          "target": "render-and-links.json",
+          "exists": true
+        }
+      ]
+    }
+  ],
+  "failures": []
+}

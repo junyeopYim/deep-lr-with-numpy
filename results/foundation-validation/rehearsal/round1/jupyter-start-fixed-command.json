@@ -1,0 +1,23 @@
+{
+  "command": "python -m jupyter lab --ServerApp.root_dir=. notebooks/00_기초/00_math_to_numpy.ipynb",
+  "server_root": "/tmp/dlfs-rehearsal/snapshot",
+  "lab": {
+    "http_status": 200,
+    "bytes": 4264
+  },
+  "api/contents/notebooks/00_기초/00_math_to_numpy.ipynb": {
+    "http_status": 200,
+    "bytes": 281153,
+    "type": "notebook"
+  },
+  "api/contents/docs/CURRICULUM.md": {
+    "http_status": 200,
+    "bytes": 12080,
+    "type": "file"
+  },
+  "api/contents/src/utils/array_plots.py": {
+    "http_status": 200,
+    "bytes": 3036,
+    "type": "file"
+  }
+}

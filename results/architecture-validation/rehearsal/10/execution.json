@@ -1,0 +1,132 @@
+{
+  "source": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/10_gnn.ipynb",
+  "source_sha256": "74b32492f2c40b448fd3e95374a0b0e2e8b5787a04cd5322bb988385c70cfc57",
+  "python_version": "3.13.12",
+  "fresh_kernel": true,
+  "executed_at_utc": "2026-09-12T06:45:01.991981+00:00",
+  "elapsed_seconds": 2.2771898989740293,
+  "original_cells": 28,
+  "original_code_cells": 19,
+  "original_code_cells_executed": 19,
+  "source_unchanged_at_completion": true,
+  "errors": [],
+  "figure_count": 5,
+  "figures": [
+    {
+      "cell": 5,
+      "path": "/tmp/dlfs-architectures/rehearsal10/figure_01_cell_5.png",
+      "size": [
+        1724,
+        373
+      ],
+      "decoded": true,
+      "visually_reviewed": true,
+      "visual_note": "A·X·이웃 합·이웃 평균의 4개 패널과 숫자를 원본 해상도로 확인했습니다. 방향 규약과 받는 이웃 없는 행의 0이 읽힙니다."
+    },
+    {
+      "cell": 12,
+      "path": "/tmp/dlfs-architectures/rehearsal10/figure_02_cell_12.png",
+      "size": [
+        853,
+        373
+      ],
+      "decoded": true,
+      "visually_reviewed": true,
+      "visual_note": "1-hop과 2-hop 도달 가능 행렬을 확인했습니다. 두 번째 전달에서 범위가 넓어지는 위치가 표시됩니다."
+    },
+    {
+      "cell": 16,
+      "path": "/tmp/dlfs-architectures/rehearsal10/figure_03_cell_16.png",
+      "size": [
+        823,
+        384
+      ],
+      "decoded": true,
+      "visually_reviewed": true,
+      "visual_note": "6노드 path와 star, 노드 번호와 연결을 직접 확인했습니다. 두 구조가 구별되며 한글 제목이 읽힙니다."
+    },
+    {
+      "cell": 18,
+      "path": "/tmp/dlfs-architectures/rehearsal10/figure_04_cell_18.png",
+      "size": [
+        758,
+        407
+      ],
+      "decoded": true,
+      "visually_reviewed": true,
+      "visual_note": "학습·검증 CE가 감소하는 곡선을 확인했습니다. 제목·축·범례가 읽히며 잘림이 없습니다."
+    },
+    {
+      "cell": 23,
+      "path": "/tmp/dlfs-architectures/rehearsal10/figure_05_cell_23.png",
+      "size": [
+        856,
+        397
+      ],
+      "decoded": true,
+      "visually_reviewed": true,
+      "visual_note": "연결된 6-cycle과 분리된 두 3-cycle을 직접 확인했습니다. 노드 6개와 두 연결 성분의 차이가 보입니다."
+    }
+  ],
+  "streams": [
+    {
+      "cell": 1,
+      "name": "stdout",
+      "text": "NumPy 2.3.5 · GNN 준비 완료\n"
+    },
+    {
+      "cell": 4,
+      "name": "stdout",
+      "text": "노드 0은 노드 1·2에서 받고, 노드 1은 받는 이웃이 없습니다\n"
+    },
+    {
+      "cell": 8,
+      "name": "stdout",
+      "text": "합·평균, 방향·고립 노드의 최대 미분 상대오차: 3.4934060500237707e-10\n"
+    },
+    {
+      "cell": 11,
+      "name": "stdout",
+      "text": "2층·readout·head 전체 최대 미분 상대오차: 5.576446392942628e-10\n"
+    },
+    {
+      "cell": 15,
+      "name": "stdout",
+      "text": "path degree: [1. 2. 2. 2. 2. 1.] · star degree: [5. 1. 1. 1. 1. 1.]\n두 그래프 평균 degree: 1.6666666666666667\n"
+    },
+    {
+      "cell": 17,
+      "name": "stdout",
+      "text": "학습 CE 0.688424 → 0.000157\n검증 CE 0.000155, 정확도 100.0%, 파라미터 178\n"
+    },
+    {
+      "cell": 20,
+      "name": "stdout",
+      "text": "sum 노드 출력·입력 미분 대응 / 그래프 출력·공유 미분 불변 통과\nmean 노드 출력·입력 미분 대응 / 그래프 출력·공유 미분 불변 통과\n"
+    },
+    {
+      "cell": 22,
+      "name": "stdout",
+      "text": "평균 집계의 path/star logits 차이: 0.0\n합 집계의 한 고리/두 고리 logits 차이: 0.0\n"
+    },
+    {
+      "cell": 26,
+      "name": "stdout",
+      "text": "의도적 오답 검출: 이웃 미분의 전치 누락 ('sum', 'X', 0.6547288639059174)\n추가 갱신 없는 8노드: CE 0.000045, 정확도 100.0%\n"
+    },
+    {
+      "cell": 29,
+      "name": "stdout",
+      "text": "{\n  \"own_backward\": {\n    \"errors\": {\n      \"sum/X\": 3.4934060500237707e-10,\n      \"sum/Ws\": 1.1109246050834057e-10,\n      \"sum/Wn\": 1.414048870163173e-10,\n      \"sum/b\": 1.1299278130926057e-10,\n      \"mean/X\": 1.9518430882508358e-10,\n      \"mean/Ws\": 4.8711798487286544e-11,\n      \"mean/Wn\": 5.222027193171091e-11,\n      \"mean/b\": 5.118908771205454e-11\n    },\n    \"max_relative_error\": 3.4934060500237707e-10\n  },\n  \"direction_and_isolation\": {\n    \"A\": [\n      [\n        [\n          0.0,\n          1.0,\n          1.0,\n          0.0\n        ],\n        [\n          0.0,\n          0.0,\n          0.0,\n          0.0\n        ],\n        [\n          1.0,\n          0.0,\n          0.0,\n          0.0\n        ],\n        [\n          0.0,\n          0.0,\n          0.0,\n          0.0\n        ]\n      ]\n    ],\n    \"incoming_degree\": [\n      [\n        2.0,\n        0.0,\n        1.0,\n        0.0\n      ]\n    ],\n    \"outgoing_degree\": [\n      [\n        1.0,\n        1.0,\n        1.0,\n        0.0\n      ]\n    ],\n    \"true_isolated_node\": 3,\n    \"incoming_zero_but_connected_node\": 1,\n    \"records\": {\n      \"sum\": {\n        \"all_input_gradient_error\": 9.083031345629357e-10,\n        \"isolated_output\": [\n          [\n            -0.5370495669980353,\n            0.4621171572600097\n          ]\n        ],\n        \"isolated_input_gradient\": [\n          [\n            0.22096032581403732,\n            0.16477654363105596\n          ]\n        ],\n        \"incoming_zero_but_sends_input_gradient\": [\n          [\n            0.011412492937704799,\n            0.08480477179695398\n          ]\n        ]\n      },\n      \"mean\": {\n        \"all_input_gradient_error\": 6.819393670634959e-10,\n        \"isolated_output\": [\n          [\n            -0.5370495669980353,\n            0.4621171572600097\n          ]\n        ],\n        \"isolated_input_gradient\": [\n          [\n            0.22096032581403732,\n            0.16477654363105596\n          ]\n        ],\n        \"incoming_zero_but_sends_input_gradient\": [\n          [\n            0.1313871808236052,\n            0.033239381540925865\n          ]\n        ]\n      }\n    }\n  },\n  \"intentional_errors\": [\n    {\n      \"name\": \"notebook_wrong_direction\",\n      \"detected\": true,\n      \"error\": \"('sum', 'X', 0.6547288639059174)\"\n    },\n    {\n      \"name\": \"no_transpose\",\n      \"detected\": true,\n      \"error\": \"('sum', 'X', 0.6547288639059174)\"\n    },\n    {\n      \"name\": \"mean_as_sum\",\n      \"detected\": true,\n      \"error\": \"('mean', 'X', 0.05516806733917401)\"\n    },\n    {\n      \"name\": \"incoming_zero_erases_self\",\n      \"detected\": true,\n      \"error\": \"('sum', 'X', 0.07334920400763242)\"\n    },\n    {\n      \"name\": \"extra_node_average\",\n      \"detected\": true,\n      \"error\": \"('sum', 'Ws', 0.6666666666640849)\"\n    }\n  ],\n  \"permutations\": {\n    \"permutations\": [\n      [\n        1,\n        2,\n        0,\n        3,\n        5,\n        4\n      ],\n      [\n        4,\n        0,\n        1,\n        3,\n        2,\n        5\n      ],\n      [\n        3,\n        4,\n        1,\n        0,\n        5,\n        2\n      ]\n    ],\n    \"modes\": {\n      \"sum\": {\n        \"node_output_max_abs_error\": 0.0,\n        \"node_input_gradient_max_abs_error\": 4.440892098500626e-16,\n        \"layer_shared_gradient_max_abs_error\": 8.881784197001252e-16,\n        \"graph_output_max_abs_error\": 0.0,\n        \"graph_input_gradient_max_abs_error\": 4.440892098500626e-16,\n        \"graph_shared_gradient_max_abs_error\": 3.552713678800501e-15\n      },\n      \"mean\": {\n        \"node_output_max_abs_error\": 0.0,\n        \"node_input_gradient_max_abs_error\": 2.220446049250313e-16,\n        \"layer_shared_gradient_max_abs_error\": 1.7763568394002505e-15,\n        \"graph_output_max_abs_error\": 1.7763568394002505e-15,\n        \"graph_input_gradient_max_abs_error\": 8.881784197001252e-16,\n        \"graph_shared_gradient_max_abs_error\": 1.3322676295501878e-15\n      }\n    },\n    \"backward_used\": \"my_gnn_layer_backward\"\n  },\n  \"full_graph_backward\": {\n    \"errors\": {\n      \"X\": 5.576446392942628e-10,\n      \"0/Ws\": 1.5628307993567618e-11,\n      \"0/Wn\": 1.9502678310263368e-11,\n      \"0/b\": 1.255933454147947e-10,\n      \"1/Ws\": 2.5041173506113295e-11,\n      \"1/Wn\": 6.192189921190108e-11,\n      \"1/b\": 3.249824903854512e-11,\n      \"2/W\": 4.588215498223633e-11,\n      \"2/b\": 8.143471140888434e-12\n    },\n    \"max_relative_error\": 5.576446392942628e-10\n  },\n  \"six_node_baseline\": {\n    \"train_count\": 128,\n    \"valid_count\": 64,\n    \"updates\": 350,\n    \"train_ce_initial\": 0.6884241769892172,\n    \"train_ce_final\": 0.0001571521227951892,\n    \"valid_ce_final\": 0.0001547637874574808,\n    \"valid_accuracy\": 1.0,\n    \"parameters\": 178\n  },\n  \"eight_node_variation\": {\n    \"additional_updates\": 0,\n    \"X_shape\": [\n      64,\n      8,\n      1\n    ],\n    \"A_shape\": [\n      64,\n      8,\n      8\n    ],\n    \"logits_shape\": [\n      64,\n      2\n    ],\n    \"dX_shape\": [\n      64,\n      8,\n      1\n    ],\n    \"ce\": 4.52095647966675e-05,\n    \"accuracy\": 1.0,\n    \"parameters\": 178,\n    \"parameter_shapes\": [\n      {\n        \"Ws\": [\n          1,\n          8\n        ],\n        \"Wn\": [\n          1,\n          8\n        ],\n        \"b\": [\n          8\n        ]\n      },\n      {\n        \"Ws\": [\n          8,\n          8\n        ],\n        \"Wn\": [\n          8,\n          8\n        ],\n        \"b\": [\n          8\n        ]\n      },\n      {\n        \"W\": [\n          8,\n          2\n        ],\n        \"b\": [\n          2\n        ]\n      }\n    ],\n    \"weights_unchanged\": true,\n    \"backward_used\": \"my_gnn_layer_backward\"\n  },\n  \"indistinguishable_graphs\": {\n    \"cycle_components\": [\n      [\n        0,\n        1,\n        2,\n        3,\n        4,\n        5\n      ]\n    ],\n    \"triangle_components\": [\n      [\n        0,\n        1,\n        2\n      ],\n      [\n        3,\n        4,\n        5\n      ]\n    ],\n    \"degree_each_node\": 2,\n    \"regular_pair_six_layer_max_differences\": [\n      0.0,\n      0.0,\n      0.0,\n      0.0,\n      0.0,\n      0.0\n    ],\n    \"mean_path_star_four_layer_max_differences\": [\n      0.0,\n      2.7755575615628914e-17,\n      2.7755575615628914e-17,\n      2.7755575615628914e-17\n    ],\n    \"trained_regular_pair_logit_gap\": 0.0,\n    \"trained_mean_path_star_logit_gap\": 0.0\n  },\n  \"linear_readout_condition_counterexample\": {\n    \"cell\": 13,\n    \"equal_mean_degree\": 1.6666666666666667,\n    \"constant_feature_readouts\": [\n      1.6666666666666667,\n      1.6666666666666667\n    ],\n    \"shared_perturbed_features\": [\n      1.03,\n      1.0,\n      1.0,\n      1.0,\n      1.0,\n      1.0\n    ],\n    \"perturbed_feature_readouts\": [\n      1.6716666666666669,\n      1.6916666666666664\n    ],\n    \"gap\": 0.019999999999999574\n  }\n}\n"
+    }
+  ],
+  "glyph_warning_count": 0,
+  "visual_review_count": 5,
+  "reviewed_at_utc": "2026-09-12T06:47:13.768248+00:00",
+  "rehearsal_findings": {
+    "blocking_stalls": 0,
+    "implementation_errors": 0,
+    "mathematical_claim_missing_condition": 1,
+    "test_scope_wording_clarification": 1
+  }
+}

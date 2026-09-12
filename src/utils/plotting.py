@@ -24,12 +24,13 @@ _CYCLE = ["#264653", COLOR_POS, "#e9c46a", "#f4a261", COLOR_NEG, COLOR_ACCENT]
 # NanumSquare Neo 는 글리프는 충분하지만 맥에 Bold(700) 웨이트만 설치되어
 # 본문까지 굵게 나오므로 뒤로 뺐다.
 _FONT_CANDIDATES = (
-    "Arial Unicode MS", "Noto Sans CJK KR", "Apple SD Gothic Neo",
+    "Arial Unicode MS", "Noto Sans CJK KR", "Noto Sans KR", "Apple SD Gothic Neo",
     "AppleGothic", "NanumGothic", "Malgun Gothic", "NanumSquare Neo",
 )
 
-# 폰트가 갖춰야 할 글리프: 한글, 유니코드 마이너스, 아래첨자
-_NEEDED = (ord("가"), 0x2212, 0x2081)
+# 한글과 유니코드 마이너스가 있으면 음수 눈금을 정확히 표시할 수 있습니다.
+# 아래첨자는 mathtext로 조합하므로 U+2081 지원 여부와 분리합니다.
+_NEEDED = (ord("가"), 0x2212)
 
 
 def _covers(path: str, codepoints) -> bool:
@@ -63,6 +64,14 @@ def _pick_font() -> tuple[list[str], str | None, bool]:
     available: dict[str, str] = {}
     for f in fm.fontManager.ttflist:
         available.setdefault(f.name, f.fname)
+
+    # 기존 캐시에 한글 폰트가 없으면 설치된 폰트를 다시 찾아 등록한다.
+    if not any(name in available for name in _FONT_CANDIDATES):
+        for path in sorted(fm.findSystemFonts()):
+            if _covers(path, (ord("가"),)):
+                fm.fontManager.addfont(path)
+        for f in fm.fontManager.ttflist:
+            available.setdefault(f.name, f.fname)
 
     # 1순위: 필요한 글리프를 모두 가진 폰트
     for name in _FONT_CANDIDATES:

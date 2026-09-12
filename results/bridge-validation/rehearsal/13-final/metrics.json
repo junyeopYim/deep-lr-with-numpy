@@ -1,0 +1,240 @@
+{
+  "checker_result": "통과: 사각 행렬·공유 분기·반복 backward·양쪽 부모·MLP 전체 기울기",
+  "hand_matmul": {
+    "output": [
+      [
+        5.0,
+        11.0
+      ],
+      [
+        14.0,
+        23.0
+      ]
+    ],
+    "da": [
+      [
+        4.0,
+        -6.0,
+        -3.0
+      ],
+      [
+        -2.0,
+        9.0,
+        6.5
+      ]
+    ],
+    "db": [
+      [
+        3.0,
+        10.0
+      ],
+      [
+        4.5,
+        11.0
+      ],
+      [
+        6.0,
+        12.0
+      ]
+    ],
+    "gradient_relative_errors": [
+      1.3345318915564372e-09,
+      3.276075707011235e-10
+    ]
+  },
+  "shared_paths": {
+    "double_parent_gradient": [
+      [
+        5.0,
+        -2.6
+      ],
+      [
+        11.6,
+        6.4
+      ]
+    ],
+    "repeat_max_abs_difference": 0.0,
+    "branch_relative_error": 1.518253708889103e-16,
+    "right_chain_gradient": [
+      [
+        6.0,
+        20.0
+      ],
+      [
+        9.0,
+        22.0
+      ],
+      [
+        12.0,
+        24.0
+      ]
+    ],
+    "left_chain_gradient": [
+      [
+        12.0,
+        -18.0,
+        -9.0
+      ],
+      [
+        -6.0,
+        27.0,
+        19.5
+      ]
+    ]
+  },
+  "broadcast": {
+    "row_grad": [
+      [
+        26.0
+      ],
+      [
+        62.0
+      ]
+    ],
+    "column_grad": [
+      14.0,
+      19.0,
+      24.0
+    ],
+    "scalar_grad": 21.0,
+    "pytorch_gradient_errors": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "repeated_backward": {
+    "node_once": 12.0,
+    "node_twice": 12.0,
+    "torch_once": 12.0,
+    "torch_twice": 24.0,
+    "torch_after_grad_none": 12.0
+  },
+  "negative_candidates": {
+    "overwrite_shared_gradient": {
+      "rejected": true,
+      "error_type": "AssertionError",
+      "message": "Not equal to tolerance rtol=1e-07, atol=1e-12\n\nMismatched elements: 9 / 9 (100%)\nMax absolute difference among violations: 2.37548746\nMax relative difference among violations: 6.32597244\n ACTUAL: array([[-2.083932,  0.115597, -0.702138],\n       [ 1.464545, -0.518091,  1.061694],\n       [ 0.118031,  0.52227 , -2.184968]])\n DESIRED: array([[-3.897512,  0.015779, -0.566054],\n       [ 1.070984, -2.893579,  1.559976],\n       [ 1.211395,  1.527152, -2.782891]])"
+    },
+    "missing_right_parent": {
+      "rejected": true,
+      "error_type": "AssertionError",
+      "message": "Not equal to tolerance rtol=1e-07, atol=1e-12\n\nMismatched elements: 6 / 6 (100%)\nMax absolute difference among violations: 0.83401511\nMax relative difference among violations: 1.\n ACTUAL: array([[-0.388752,  1.43631 ],\n       [ 0.269014, -1.66803 ],\n       [-0.015327, -0.695557]])\n DESIRED: array([[-0.194376,  0.718155],\n       [ 0.134507, -0.834015],\n       [-0.007663, -0.347778]])"
+    },
+    "missing_left_parent": {
+      "rejected": true,
+      "error_type": "AssertionError",
+      "message": "Not equal to tolerance rtol=1e-07, atol=1e-12\n\nMismatched elements: 6 / 6 (100%)\nMax absolute difference among violations: 3.62527019\nMax relative difference among violations: 1.\n ACTUAL: array([[-1.782368,  2.250195, -4.244604],\n       [ 2.383321, -2.312696,  7.25054 ]])\n DESIRED: array([[-0.891184,  1.125098, -2.122302],\n       [ 1.19166 , -1.156348,  3.62527 ]])"
+    },
+    "ignores_upstream_seed": {
+      "rejected": true,
+      "error_type": "AssertionError",
+      "message": "Not equal to tolerance rtol=1e-07, atol=1e-12\n\nMismatched elements: 6 / 6 (100%)\nMax absolute difference among violations: 2.78758853\nMax relative difference among violations: 28.70905818\n ACTUAL: array([[-0.473889,  0.180987, -2.302174],\n       [-0.473889,  0.180987, -2.302174]])\n DESIRED: array([[-0.254518, -2.146007,  0.083084],\n       [ 1.761494, -2.606602, -3.10141 ]])"
+    }
+  },
+  "missing_parent_counterexample": {
+    "actual_root_grad": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "expected_root_grad": [
+      [
+        6.0,
+        20.0
+      ],
+      [
+        9.0,
+        22.0
+      ],
+      [
+        12.0,
+        24.0
+      ]
+    ]
+  },
+  "new_mlp": {
+    "N": 3,
+    "D": 2,
+    "H": 6,
+    "K": 2,
+    "loss": 2.0023419370596267,
+    "manual_gradient_relative_errors": [
+      1.543511767844498e-16,
+      1.0797705229237379e-16,
+      1.1373210927146784e-16,
+      1.0987836044974755e-16
+    ],
+    "numeric_gradient_relative_errors": [
+      6.903568228674655e-10,
+      5.792782055185388e-10,
+      9.060556058835625e-10,
+      1.3158109469233988e-10
+    ],
+    "pytorch_gradient_relative_errors": [
+      3.0870235356889966e-16,
+      1.0797705229237379e-16,
+      1.1373210927146784e-16,
+      0.0
+    ]
+  },
+  "width_variant": {
+    "hidden_size": 6,
+    "steps": 1800,
+    "parameter_count": 19,
+    "initial_train_half_mse": 0.2223163286943096,
+    "final_train_half_mse": 0.006918263554772796,
+    "valid_half_mse": 0.007321249042379014,
+    "baseline_history_max_abs_difference": 0.0
+  },
+  "original_notebook": {
+    "manual_errors": [
+      8.123294966889176e-17,
+      3.6193162287701783e-16,
+      1.1930980453032318e-16,
+      2.829104259720334e-16
+    ],
+    "numeric_errors": [
+      4.1681016385990223e-10,
+      2.9607472574412713e-10,
+      2.5758801867899753e-10,
+      2.919239521435024e-11
+    ],
+    "pytorch_errors": [
+      1.624658993377835e-16,
+      1.8096581143850891e-16,
+      2.386196090606463e-16,
+      0.0
+    ],
+    "baseline_width": 12,
+    "baseline_parameter_count": 37,
+    "initial_train_half_mse": 0.7215567955122906,
+    "final_train_half_mse": 0.003792637122729365,
+    "valid_half_mse": 0.004301816888744917,
+    "width6_train_half_mse": 0.006918263554772796,
+    "width6_valid_half_mse": 0.007321249042379014,
+    "stop_gradient_full": 6.0,
+    "stop_gradient_stopped": 3.0
+  },
+  "assessment": {
+    "execution_blockers": [],
+    "required_outside_guesses": [],
+    "observed_notebook_errors": [],
+    "source_hash": "851225bb485508583cd576403eb2f4fb3e3711f6fc1f17b59b07d77d924d64e0",
+    "all_pngs_visually_inspected": true,
+    "png_count": 6,
+    "original_code_cells_passed": 19,
+    "negative_candidates_rejected": 4,
+    "additional_comparison_setup": "같은 PyTorch 그래프의 기울기 누적을 대조하는 추가 실습에만 retain_graph=True를 사용했습니다. 본문 필수 실행에는 필요하지 않습니다.",
+    "scope": "현재 노트북과 직접 링크된 선수 자료·그림 helper를 통한 독립 실행 경로를 확인했습니다. 학습 효과의 측정은 아닙니다."
+  }
+}

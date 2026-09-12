@@ -1,0 +1,251 @@
+{
+  "task": "세 문서 최종 독립 사용 점검",
+  "documents": [
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/README.md",
+      "snapshot": "/tmp/dlfs-bridges/rehearsal-docs-final/README.md",
+      "sha256": "cfd37c0673dcf8daec07a7b632a92e6696f251d52a14627da951eed571bdbe31",
+      "lines": 139,
+      "current_sha256_at_finish": "cfd37c0673dcf8daec07a7b632a92e6696f251d52a14627da951eed571bdbe31",
+      "unchanged_during_rehearsal": true
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/docs/CURRICULUM.md",
+      "snapshot": "/tmp/dlfs-bridges/rehearsal-docs-final/docs__CURRICULUM.md",
+      "sha256": "9b2df733c88d8a591559bea8e94113a88f6519247e6743dc2a0de85163830f12",
+      "lines": 236,
+      "current_sha256_at_finish": "9b2df733c88d8a591559bea8e94113a88f6519247e6743dc2a0de85163830f12",
+      "unchanged_during_rehearsal": true
+    },
+    {
+      "path": "/home/junyeop/projects/deep-learning-from-scratch/docs/LEARNING_MAP.md",
+      "snapshot": "/tmp/dlfs-bridges/rehearsal-docs-final/docs__LEARNING_MAP.md",
+      "sha256": "870f760084374dcb9bd60a390dfeb62d48af410f1954d7299bcfd3802a09fa1f",
+      "lines": 94,
+      "current_sha256_at_finish": "870f760084374dcb9bd60a390dfeb62d48af410f1954d7299bcfd3802a09fa1f",
+      "unchanged_during_rehearsal": true
+    }
+  ],
+  "unit_count": 64,
+  "numbering_exactly_00_to_63": true,
+  "notebook_count": 16,
+  "local_link_occurrences": 44,
+  "local_link_occurrences_existing": 44,
+  "local_link_occurrences_opened": 36,
+  "prior_report_links_existence_only": 8,
+  "external_link_occurrences": 14,
+  "routes": {
+    "VAE": {
+      "route": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "missing_numeric_prerequisites": [],
+      "available_now": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "planned": [
+        22,
+        23,
+        24,
+        25,
+        26
+      ]
+    },
+    "GPT": {
+      "route": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        8,
+        9,
+        13,
+        14,
+        15,
+        44,
+        45,
+        46
+      ],
+      "missing_numeric_prerequisites": [],
+      "available_now": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        8,
+        9,
+        13,
+        14,
+        15
+      ],
+      "planned": [
+        44,
+        45,
+        46
+      ]
+    },
+    "RL": {
+      "route": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15,
+        27,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "missing_numeric_prerequisites": [],
+      "available_now": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "planned": [
+        27,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ]
+    }
+  },
+  "readme_candidate_checks_passed": 2,
+  "pytest_passed": 19,
+  "pytest_failed": 0,
+  "full_notebook_suites_rerun": false,
+  "new_environment_installed": false,
+  "repo_modified_by_this_rehearsal": false,
+  "required_corrections": 0,
+  "blocking_findings": 0,
+  "optional_navigation_observations": 1,
+  "evidence_files": [
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/README.md",
+      "sha256": "cfd37c0673dcf8daec07a7b632a92e6696f251d52a14627da951eed571bdbe31",
+      "bytes": 9294
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/cli_and_extras.json",
+      "sha256": "dfdc5354e3b68b6cd720777878e8559a1e8844c7712e555b36177186e6c7aa95",
+      "bytes": 6235
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/cli_initial.json",
+      "sha256": "f25c335759c1e96bd9dfbb287f09e6060243a4ba0d47a91ef77131c2162ef8b5",
+      "bytes": 14433
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/curriculum_and_notebooks.json",
+      "sha256": "ea7bd72f06723c8103e1441a75ddb0a3d13c7e2012a87cca9916a40500ab2f13",
+      "bytes": 65770
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/docs__CURRICULUM.md",
+      "sha256": "9b2df733c88d8a591559bea8e94113a88f6519247e6743dc2a0de85163830f12",
+      "bytes": 24983
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/docs__LEARNING_MAP.md",
+      "sha256": "870f760084374dcb9bd60a390dfeb62d48af410f1954d7299bcfd3802a09fa1f",
+      "bytes": 5973
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/documents_and_links.json",
+      "sha256": "070e029229876e64441a45002a21529c5721df67a8d3961b266d4f1db8ef53c1",
+      "bytes": 24171
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/environment.json",
+      "sha256": "49553cc9e09cd83ed0a04c330d484aac64a9e23cd1db763102916e2b0e357de9",
+      "bytes": 752
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/external_reference_check.json",
+      "sha256": "737cc59ec189f491c423995e6dbf4e886fec175fae2f4db6f7bb214664e6a222",
+      "bytes": 811
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/findings.json",
+      "sha256": "b8b4e8d576933a8808765f4a08948410dcbeb57a3e46223673be8543a5a1983c",
+      "bytes": 2625
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/framework_smoke.json",
+      "sha256": "43cc2eafd498aa40885e10b12d2e332cf3d85a5c7c2f4a20f321ef2853ffec4c",
+      "bytes": 434
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/jupyter_commands.json",
+      "sha256": "f2c383595494391671fdedce3ecee4237359f9b60db511f77d1d6921af4fd6e6",
+      "bytes": 2554
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/jupyter_reference_followup.json",
+      "sha256": "70e4524c3799dde9ba8316ca87dc679dac60d649157453f79a269f4cf572a67d",
+      "bytes": 1496
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/readme_learner_candidates.py",
+      "sha256": "96a1a56626303b2f4ae6cfac4d2db11969065bc5030975e79df55b3d10929ad0",
+      "bytes": 569
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/readme_practice_execution.json",
+      "sha256": "9578e0adcbd80d8a25333f2482b5f27167c10bb6dcf8b0ec8aa24b38777c883d",
+      "bytes": 2612
+    },
+    {
+      "path": "/tmp/dlfs-bridges/rehearsal-docs-final/report.md",
+      "sha256": "d079eaed81cf5fd77dc7863b014712198ed353770c57677c0178acb5b475a2c5",
+      "bytes": 9171
+    }
+  ]
+}

@@ -1,0 +1,423 @@
+{
+  "source": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/01_아키텍처/10_gnn.ipynb",
+  "sha256": "a27f0d17d929d496282282cd27fb8bc7ca1473f235749294f6b5592fee30ebc7",
+  "elapsed_seconds": 2.8367996215820312,
+  "original_cells": 28,
+  "original_code_cells": 19,
+  "executed_code_cells": 20,
+  "source_changed_during_execution": false,
+  "figure_count": 5,
+  "figures": [
+    {
+      "number": 1,
+      "cell": 5,
+      "path": "/tmp/dlfs-architectures/rehearsal10-final/figure_01_cell_5.png",
+      "width": 1721,
+      "height": 373,
+      "mode": "RGBA",
+      "format": "PNG"
+    },
+    {
+      "number": 2,
+      "cell": 12,
+      "path": "/tmp/dlfs-architectures/rehearsal10-final/figure_02_cell_12.png",
+      "width": 853,
+      "height": 373,
+      "mode": "RGBA",
+      "format": "PNG"
+    },
+    {
+      "number": 3,
+      "cell": 16,
+      "path": "/tmp/dlfs-architectures/rehearsal10-final/figure_03_cell_16.png",
+      "width": 823,
+      "height": 384,
+      "mode": "RGBA",
+      "format": "PNG"
+    },
+    {
+      "number": 4,
+      "cell": 18,
+      "path": "/tmp/dlfs-architectures/rehearsal10-final/figure_04_cell_18.png",
+      "width": 758,
+      "height": 407,
+      "mode": "RGBA",
+      "format": "PNG"
+    },
+    {
+      "number": 5,
+      "cell": 23,
+      "path": "/tmp/dlfs-architectures/rehearsal10-final/figure_05_cell_23.png",
+      "width": 856,
+      "height": 397,
+      "mode": "RGBA",
+      "format": "PNG"
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "baseline": {
+      "node_count": 6,
+      "train_count": 128,
+      "valid_count": 64,
+      "steps": 350,
+      "train_initial_ce": 0.6884241769892172,
+      "train_final_ce": 0.0001571521227951892,
+      "valid_initial_ce": 0.6884538679054405,
+      "valid_final_ce": 0.0001547637874574808,
+      "valid_accuracy": 1.0,
+      "parameters": 178,
+      "history": {
+        "step": [
+          0.0,
+          35.0,
+          70.0,
+          105.0,
+          140.0,
+          175.0,
+          210.0,
+          245.0,
+          280.0,
+          315.0,
+          350.0
+        ],
+        "train": [
+          0.6884241769892172,
+          0.002771887732528203,
+          0.0007258859598245094,
+          0.0005403164708755966,
+          0.00042894617906792995,
+          0.0003483692127556773,
+          0.00028846829758467235,
+          0.00024294690967054477,
+          0.00020761487779548737,
+          0.00017965761792657108,
+          0.0001571521227951892
+        ],
+        "valid": [
+          0.6884538679054405,
+          0.002742670139008435,
+          0.0007152853347736373,
+          0.0005323846995828724,
+          0.00042262521948471316,
+          0.0003431889796415274,
+          0.0002841454799812888,
+          0.0002392857141540627,
+          0.00020447376954306213,
+          0.0001769321279383593,
+          0.0001547637874574808
+        ]
+      }
+    },
+    "eight_node_variation": {
+      "node_count": 8,
+      "samples": 64,
+      "ce": 4.52095647966675e-05,
+      "accuracy": 1.0,
+      "logit_shape": [
+        64,
+        2
+      ],
+      "input_gradient_shape": [
+        64,
+        8,
+        1
+      ],
+      "parameter_count": 178,
+      "parameter_unchanged": true,
+      "extra_training_steps": 0
+    },
+    "hand_sum": [
+      [
+        [
+          8.0,
+          12.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          2.0
+        ]
+      ]
+    ],
+    "hand_mean": [
+      [
+        [
+          4.0,
+          6.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          2.0
+        ]
+      ]
+    ],
+    "notebook_layer_errors": {
+      "sum/X": 1.2622236093771063e-10,
+      "sum/Ws": 1.9854066525716172e-10,
+      "sum/Wn": 4.522515469958867e-11,
+      "sum/b": 3.139950201995654e-11,
+      "mean/X": 1.502525819670687e-10,
+      "mean/Ws": 9.129664360410577e-11,
+      "mean/Wn": 8.113831678137924e-11,
+      "mean/b": 9.956865202678113e-11
+    },
+    "notebook_graph_errors": {
+      "X": 5.576446392942628e-10,
+      "0/Ws": 1.5628307993567618e-11,
+      "0/Wn": 1.9502678310263368e-11,
+      "0/b": 1.255933454147947e-10,
+      "1/Ws": 2.5041173506113295e-11,
+      "1/Wn": 6.192200811888837e-11,
+      "1/b": 3.249824903854512e-11,
+      "2/W": 4.588215498223633e-11,
+      "2/b": 8.143471140888434e-12
+    },
+    "learner_layer_errors": {
+      "sum/X": 1.2622236093771063e-10,
+      "sum/Ws": 1.9854095046196472e-10,
+      "sum/Wn": 4.522515469958867e-11,
+      "sum/b": 3.139950201995654e-11,
+      "mean/X": 1.502525819670687e-10,
+      "mean/Ws": 9.129664360410577e-11,
+      "mean/Wn": 8.113831678137924e-11,
+      "mean/b": 9.956865202678113e-11
+    },
+    "learner_graph_errors": {
+      "sum": {
+        "X": 5.576446392942628e-10,
+        "0/Ws": 1.5628307993567618e-11,
+        "0/Wn": 1.9502678310263368e-11,
+        "0/b": 1.255933454147947e-10,
+        "1/Ws": 2.5041173506113295e-11,
+        "1/Wn": 6.192189921190108e-11,
+        "1/b": 3.249824903854512e-11,
+        "2/W": 4.588215498223633e-11,
+        "2/b": 8.143471140888434e-12
+      },
+      "mean": {
+        "X": 1.045246322630543e-09,
+        "0/Ws": 2.7337385350086296e-11,
+        "0/Wn": 2.696721465608268e-11,
+        "0/b": 8.543781286633979e-11,
+        "1/Ws": 6.251118519970806e-11,
+        "1/Wn": 9.404635406843181e-11,
+        "1/b": 6.428613435079166e-11,
+        "2/W": 4.6437312856273094e-11,
+        "2/b": 7.916529699781712e-12
+      }
+    },
+    "permutation_errors": {
+      "sum": {
+        "node_output": 0.0,
+        "input_gradient": 4.440892098500626e-16,
+        "graph_logits": 0.0,
+        "Ws": 1.7763568394002505e-15,
+        "Wn": 1.7763568394002505e-15,
+        "b": 1.1102230246251565e-15
+      },
+      "mean": {
+        "node_output": 0.0,
+        "input_gradient": 1.1102230246251565e-16,
+        "graph_logits": 1.7763568394002505e-15,
+        "Ws": 8.881784197001252e-16,
+        "Wn": 8.881784197001252e-16,
+        "b": 8.881784197001252e-16
+      }
+    },
+    "isolated_node_checks": {
+      "sum": {
+        "zero_incoming_rows": [
+          1,
+          3
+        ],
+        "zero_outgoing_columns": [
+          3
+        ],
+        "fully_isolated_output": [
+          0.14888503362331793,
+          -0.8004990217606297
+        ],
+        "fully_isolated_self_gradient": [
+          0.2197130344666375,
+          0.039712221980586854
+        ],
+        "fully_isolated_neighbor_weight_gradient_max": 0.0,
+        "no_incoming_but_outgoing_node_gradient": [
+          0.03705648403475989,
+          -0.22531301592263805
+        ]
+      },
+      "mean": {
+        "zero_incoming_rows": [
+          1,
+          3
+        ],
+        "zero_outgoing_columns": [
+          3
+        ],
+        "fully_isolated_output": [
+          0.14888503362331793,
+          -0.8004990217606297
+        ],
+        "fully_isolated_self_gradient": [
+          0.2197130344666375,
+          0.039712221980586854
+        ],
+        "fully_isolated_neighbor_weight_gradient_max": 0.0,
+        "no_incoming_but_outgoing_node_gradient": [
+          0.020556421142498907,
+          -0.11481437175011164
+        ]
+      }
+    },
+    "checker_probes": {
+      "wrong_neighbor_direction": {
+        "rejected": true,
+        "exception_type": "AssertionError",
+        "exception": "('sum', 'X', 0.848897776249473)"
+      },
+      "no_self_input_gradient": {
+        "rejected": true,
+        "exception_type": "AssertionError",
+        "exception": "('sum', 'X', 0.5497324933545117)"
+      },
+      "empty_return": {
+        "rejected": true,
+        "exception_type": "ValueError",
+        "exception": "not enough values to unpack (expected 2, got 0)"
+      },
+      "missing_neighbor_weight": {
+        "rejected": true,
+        "exception_type": "KeyError",
+        "exception": "'Wn'"
+      },
+      "wrong_parameter_gradient_shape": {
+        "rejected": true,
+        "exception_type": "ValueError",
+        "exception": "모양이 다릅니다: (1, 3) vs (3,)"
+      }
+    },
+    "candidate_calls": 19,
+    "star_mean_matrix_max_asymmetry": 0.8,
+    "one_hop": [
+      [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        1
+      ]
+    ],
+    "two_hop": [
+      [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    ],
+    "limitations": {
+      "mean_path_star_logit_max_abs_difference": 0.0,
+      "sum_regular_graph_logit_max_abs_difference": 0.0,
+      "sum_regular_graph_node_differences_by_depth": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean_path_star_node_differences_by_depth": [
+        0.0,
+        2.7755575615628914e-17,
+        2.7755575615628914e-17,
+        5.551115123125783e-17,
+        5.551115123125783e-17
+      ],
+      "equal_average_degree": 1.6666666666666667,
+      "linear_readouts": [
+        [
+          1.2999999999999998,
+          0.2333333333333333
+        ],
+        [
+          1.2999999999999998,
+          0.23333333333333325
+        ]
+      ],
+      "degree_feature_nonlinear_readouts": [
+        [
+          0.8965497720357994
+        ],
+        [
+          0.8013133306735698
+        ]
+      ]
+    }
+  }
+}

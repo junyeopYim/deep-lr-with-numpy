@@ -1,350 +1,236 @@
-# 커리큘럼
+# 전체 학습 경로: 개념을 수식과 코드로
 
-퍼셉트론 서장 하나 + 코세라 [Deep Learning Specialization](https://www.coursera.org/specializations/deep-learning)
-(Andrew Ng, deeplearning.ai) 5개 코스의 순서를 그대로 따라간다. **전부 numpy로 구현한다.**
+학습 목적은 **문제 → 가정·수식 → 배열 연산 → 미분·갱신 → 실험 → 직접 변형**의 연결입니다.
+행렬·미분·확률을 실제 계산과 함께 다시 확인하고, 작은 완성 예제를 재구성한 뒤 조건을 바꿉니다.
 
-## 작업 방식
+**현재 실행 자료는 00–15, 총 16개 노트북입니다.** 16–63은 다음 제작을 위한 학습 설계입니다.
+전체 64개 단위는 주제를 찾는 지도이며, 선수 개념을 확인하면서 관심 경로를 선택합니다.
+한 단위를 마치면 **설명 / 수식 구성 / 직접 구현 / 변형 검산**을 각각 기록합니다.
 
-각 단계는 노트북에서 시작한다. 노트북에서 유도하고, 짜 보고, 검증하고,
-거기서 이해가 끝난 것만 `src/`로 옮긴다.
+## 지금 연결할 순서
 
-| 단계 | 하는 일 | 위치 | 도구 |
+00–10을 읽고 계셨다면 **11 → 12 → 13 → 14 → 15**를 이어 보시면 됩니다.
+그 뒤 생성 모델에 관심이 크면 22 Autoencoder로, 구조의 조합을 더 보고 싶으면 16 정규화 층으로 이어갑니다.
+기초부터 시작할 때는 00–04 다음에 11–15를 읽고 기본 아키텍처로 들어가도 좋습니다.
+
+아래 관심 경로는 **공통 기초 00–04를 바탕으로** 첫 완성 예제에 도달하는 순서를 적었습니다.
+이후 확장은 각 단원 표의 선수 개념을 확인하면서 붙입니다.
+
+| 관심 | 첫 완성 예제까지의 경로 | 이후 넓히는 방향 |
+|---|---|---|
+| 수식을 직접 구현하기 | 00–04 → 11–15 → 05–10 | 63 논문 한 편을 계산으로 재구성 |
+| 이미지 구조 | 05 → 08–09 → 13 → 16–17 | 18–19 U-Net·ViT → 42–43 표현 학습 |
+| VAE | 11–15 → 22–26 | 27 샘플 추정 → 30 flow |
+| GAN | 13–15 → 28–29 | 27 샘플 추정·37 생성 모델 평가 |
+| score·diffusion | 11–15 → 27 → 31–32 | 23–24 잠재 모형·하한 → 33–36 과정·생성 |
+| GPT | 08–09 → 13–15 → 44–46 | 47 encoder 목적, 48–50 적응·선호·다중모달 |
+| 자기지도 표현 | 05·08·10 → 11–15 → 38–39 | 19–20 구조 조합·22 AE → 40–43 타깃·기울기 경로 |
+| 강화학습 | 11–15 → 27 → 51–58 | 59 연속 행동 → 60–62 계획·오프라인·선호 |
+
+준비도는 표의 과제를 작은 입력으로 수행해 확인합니다. 선수 단원의 이름은 기억나지만 수식이 흐릿하다면
+해당 노트북의 손계산·shape 표·검산 셀을 먼저 다시 실행합니다.
+
+## 1. 공통 기초
+
+| 번호 | 학습 단위 | 먼저 연결할 개념 | 준비도 확인 | 자료 |
+|---|---|---|---|---|
+| 00 | 수식을 NumPy로 옮기기 | 숫자·변수·반복문 | 내적을 배치·다중 출력으로 확장하고 shape와 축을 정하기 | [노트북](../notebooks/00_기초/00_math_to_numpy.ipynb) |
+| 01 | 미분으로 학습시키기 | 00의 선형 계산 | MSE의 미분을 유도·검산하고 작은 회귀 문제 학습시키기 | [노트북](../notebooks/00_기초/01_gradients_and_learning.ipynb) |
+| 02 | 확률에서 손실 만들기 | 합·평균·함수·미분 | 확률·밀도·기댓값·우도를 계산하고 MSE·BCE·softmax CE 유도하기 | [노트북](../notebooks/00_기초/02_probability_and_losses.ipynb) |
+| 03 | 퍼셉트론에서 MLP까지 | 00–02 | XOR에서 비선형성이 필요한 이유를 보이고 다층 역전파 구현하기 | [노트북](../notebooks/00_기초/03_perceptron_to_mlp.ipynb) |
+| 04 | optimizer의 계산 | 01·02의 기울기·기댓값, 03의 활성화 | 미니배치·SGD·Momentum·RMSProp·Adam의 상태와 한 스텝을 손으로 계산하기 | [노트북](../notebooks/00_기초/04_optimizers.ipynb) |
+
+02에서는 확률값과 밀도값, 조건부 확률과 우도, 합과 Monte Carlo 평균을 구분합니다.
+03에서는 활성화·캐시·가중치 공유를, 04에서는 학습률·초기화·기울기 크기를 실제 실험에 연결합니다.
+정규화와 데이터 분할은 일반화 실험이 등장하는 자리에서 함께 다룹니다.
+
+## 2. 기본 아키텍처
+
+각 단위는 구조 자체의 이유를 보여 주는 작은 지도학습 문제를 가집니다.
+
+| 번호 | 학습 단위 | 먼저 연결할 개념 | 수학→코드의 핵심 | 완성 예제 | 자료 |
+|---|---|---|---|---|---|
+| 05 | CNN | MLP, 다중분류 | 지역 연결·가중치 공유 → 패치·합성곱·풀링과 backward | 작은 숫자 도안 분류 | [노트북](../notebooks/01_아키텍처/05_cnn.ipynb) |
+| 06 | RNN | 공유 파라미터, 역전파 | 시간별 상태 → 시간축 캐시와 BPTT | 같은 기호의 등장 순서 분류 | [노트북](../notebooks/01_아키텍처/06_rnn.ipynb) |
+| 07 | LSTM·GRU | RNN과 시간별 기울기 | 게이트·상태의 덧셈 → 각 경로의 미분 | 지연된 신호 기억 | [노트북](../notebooks/01_아키텍처/07_lstm_gru.ipynb) |
+| 08 | Attention | 행렬곱, softmax | 점수 → 정규화된 가중치 → 값의 가중합 | key에 붙은 값 검색 | [노트북](../notebooks/01_아키텍처/08_attention.ipynb) |
+| 09 | Transformer | attention, MLP | 위치·mask·정규화·잔차·MHA·FFN의 조합 | 작은 토큰열 역순 변환 | [노트북](../notebooks/01_아키텍처/09_transformer.ipynb) |
+| 10 | GNN | 공유 가중치, 합·평균 | 이웃 집계 → message passing·readout·역전파 | 그래프 분류와 순열 검산 | [노트북](../notebooks/01_아키텍처/10_gnn.ipynb) |
+
+Attention과 Transformer를 별도 단위로 두어, 계산 부품과 그것들을 조합한 구조를 연결합니다.
+GNN에서는 노드 순서를 바꿨을 때 대응하는 출력이 어떻게 바뀌는지도 검산합니다.
+CNN의 공유, RNN의 공유, GNN의 공유를 비교하면서 같은 미분 규칙이 어디에 다시 쓰이는지 확인합니다.
+
+## 3. 구조와 목적을 잇는 기초
+
+이 단원들은 생성 모델·표현 학습·RL에서 반복되는 계산을 먼저 완성합니다.
+
+| 번호 | 학습 단위 | 선수 개념 | 수식→구현→검산 | 자료 |
+|---|---|---|---|---|
+| 11 | 투영·공분산·SVD·PCA | 00–01 | 직교 투영, 중심화, 고유값, 낮은 차원 복원; 버린 고유값 합과 복원 오차 대조 | [노트북](../notebooks/02_연결/11_linear_algebra.ipynb) |
+| 12 | 다변량 Gaussian·정보이론·추정 | 02·11 | Cholesky 샘플, log density, entropy·CE·KL, MLE·MAP, Gaussian KL·재매개화 미분 | [노트북](../notebooks/02_연결/12_gaussian_information.ipynb) |
+| 13 | 계산 그래프와 자동미분 | 01·03 | VJP·broadcast 역방향·공유 누적, 작은 엔진, 직접 backward·PyTorch·중심차분·SGD 비교 | [노트북](../notebooks/02_연결/13_autodiff.ipynb) |
+| 14 | 손실 선택·정규화·AdamW·dropout | 01–04 | MSE·MAE·Huber, 관측 가중치, L2 전체 미분, ridge 해, 감쇠 두 스텝, dropout 기대 손실 | [노트북](../notebooks/02_연결/14_losses_regularization.ipynb) |
+| 15 | 분할·학습 진단·평가·반복 실험 | 02·04·14 | 그룹 분할·전처리, 작은 데이터 학습, 설정 선택, NLL·F1·AUC·Brier·calibration, seed 변동 | [노트북](../notebooks/02_연결/15_experiments_evaluation.ipynb) |
+
+11의 PCA는 22의 선형 AE 기준이 됩니다. 12의 KL·Gaussian 샘플은 24–25에서 변분 추론으로,
+13의 stop-gradient는 40의 교사 표현과 55의 TD 타깃으로 이어집니다.
+14·15에서는 학습 목적의 숫자와 실제 평가 지표를 함께 기록하는 습관을 만듭니다.
+
+## 4. 기본 부품을 조합하는 아키텍처
+
+16–21은 작은 블록의 전체 backward와 구조의 성질을 검산하는 후속 제작 단위입니다.
+09의 LayerNorm·잔차, 04의 초기화·clipping을 출발점으로 사용합니다.
+
+| 번호 | 학습 단위 | 선수 개념 | 직접 구현할 계산 | 완성 예제·변형 검산 |
+|---|---|---|---|---|
+| 16 | BatchNorm·LayerNorm·RMSNorm | 03·09·13 | 통계 축, affine 파라미터, running 통계, train/eval, 각 VJP | 같은 입력의 배치 조합을 바꾸고 정규화 출력·기울기 비교 |
+| 17 | 잔차 블록과 ResNet | 05·09·16 | identity·projection shortcut, 해상도·채널 변화, 두 경로 누적 | 깊이를 바꾸고 activation·gradient norm·분류 학습 비교 |
+| 18 | encoder–decoder와 U-Net | 05·17 | down/up sampling, concatenate skip, pixel CE·Dice | 작은 도형 segmentation, 홀수 해상도·foreground 비율 변경 |
+| 19 | patch embedding과 ViT | 05·09·16 | 이미지→patch→token, 위치·분류 token·pooling | 같은 도안에서 patch 크기·위치 정보 변경, parameter·token 수 계산 |
+| 20 | sequence encoder–decoder | 06–09 | cross-attention, encoder/decoder mask, teacher forcing, 위치 방식 | 가변 길이 기호 변환, padding·미래 정보의 영향 검산 |
+| 21 | 집합·graph attention·구조적 대칭 | 08·10 | Deep Sets의 합, edge mask의 attention, GAT 집계 | 노드/집합 순열에 대한 등변·불변 성질, 이웃 수 변경 |
+
+16의 정규화는 배열 통계를, 14의 regularization은 목적·학습 방식에 주는 제약을 다룹니다.
+18의 복원 경로와 skip은 34의 이미지 잡음 예측기로 다시 사용하고,
+20의 cross-attention은 조건부 생성과 다중모달 구조로 연결합니다.
+
+<a id="3-학습-목적과-생성"></a>
+
+## 5. 확률 모델·학습 목적·생성
+
+아키텍처, 목적, 파라미터 갱신, 샘플 생성 절차를 매번 따로 적습니다.
+22–37은 한 모델의 이름 안에 묶여 있던 중간 계산을 실제 학습 단위로 펼친 설계입니다.
+
+| 번호 | 학습 단위 | 선수 개념 | 직접 구현할 계산 | 완성 예제·변형 검산 |
+|---|---|---|---|---|
+| 22 | Autoencoder와 압축 표현 | 03·11·13–15 | encoder/decoder, 복원 MSE, 병목의 전체 backward | PCA와 선형 AE의 부분공간·복원 비교, 비선형·denoising AE 변형 |
+| 23 | 잠재변수·주변화·혼합 모형 | 02·12 | 결합 p(x,z), 합으로 p(x), Bayes posterior, 작은 EM | 두 Gaussian 혼합에서 책임 확률과 로그우도, 잠재 label 교환 |
+| 24 | Jensen 부등식과 ELBO 유도 | 12·23 | q로 기대값 만들기, log p(x)=ELBO+posterior KL | 잠재 상태를 열거해 증거·하한·차이를 각각 수치 확인 |
+| 25 | 재매개화 VAE의 전체 학습 | 13·22·24 | Gaussian encoder, 관측 likelihood, reconstruction+KL, 샘플 VJP | 2차원 잠재공간에서 복원·prior 샘플, 두 항·전체 미분 확인 |
+| 26 | VAE가 배운 분포 읽기 | 15·25 | posterior/prior, beta 가중치, KL warmup, 조건부 입력 | 잠재 사용량·복원·생성, posterior collapse와 과한 압축 관찰 |
+| 27 | Monte Carlo·importance sampling·샘플 기울기 | 02·12–13 | 기대값 추정, 분산·표준오차, importance weight, pathwise/score-function | 알려진 적분·미분과 추정치 비교, 샘플 수·제안 분포 변경 |
+| 28 | GAN의 두 목적과 교대 갱신 | 03–04·13–15 | D의 분류, G의 minimax/non-saturating 목적, gradient 경로 고정 | 1·2차원 혼합 분포 생성, D/G를 따로 갱신하고 mode별 샘플 수 기록 |
+| 29 | GAN 목적과 안정화 비교 | 28 | 분포 거리·critic, Wasserstein 목적, gradient penalty·spectral 제약 | 작은 고정 실험에서 critic·G gradient·coverage·seed 비교 |
+| 30 | 변수 변환과 normalizing flow | 11–13·27 | determinant·log Jacobian, 가역 affine coupling, 정확한 density | forward/inverse 왕복, density 적분, 2차원 flow의 likelihood·샘플 |
+| 31 | 에너지 기반 모델과 MCMC | 12·27 | exp(-E)/Z, log-partition 미분, positive/negative phase, Langevin | 1차원 격자 적분과 샘플 추정 비교, chain·step size 변화 |
+| 32 | score와 denoising score matching | 12–13·27 | score=입력의 log density 기울기, Gaussian 잡음의 조건부 score | 해석 가능한 혼합 분포의 score와 학습 벡터장·샘플 비교 |
+| 33 | 잡음 수준을 잇는 score 모델 | 31–32 | noise-conditioned score, annealed Langevin, SDE/ODE의 작은 시간 스텝 | 잡음 크기·적분 간격·초깃값을 바꾸고 분포 이동 확인 |
+| 34 | Diffusion의 전방 과정과 학습 타깃 | 12·24·32 | beta/alpha 누적곱, q(x_t\|x_0), posterior 계수, epsilon/x0/v 타깃 | 닫힌식과 반복 잡음의 평균·분산 대조, 작은 denoiser 학습 |
+| 35 | Diffusion 역과정·DDIM·조건부 생성 | 20·33–34 | reverse mean/variance, timestep indexing, DDIM, guidance | 같은 모델의 스텝 수·sampler·guidance 변경, 생성 경로·비용 비교 |
+| 36 | Flow matching과 ODE 생성 | 27·30·33 | 조건부 경로, 목표 velocity, 회귀 목적, Euler/Heun 적분 | 2차원 분포 수송, 벡터장 오차와 solver 오차를 나누어 확인 |
+| 37 | 생성 모델 평가와 비교 실험 | 15·22–36 중 관심 모델 | likelihood·복원·품질·coverage, MMD·특징 통계·샘플 비용 | 알려진 mode 분포와 복제 샘플을 사용해 지표가 읽는 성질 대조 |
+
+### VAE를 공부할 때의 다섯 연결
+
+1. **분포 배열화:** 12에서 평균·로그 분산·샘플·로그 밀도를 계산합니다.
+2. **잠재변수 모형:** 23에서 결합·주변·사후분포를 작은 열거로 연결합니다.
+3. **학습 가능한 목적:** 24에서 하한과 posterior KL의 관계를 식과 숫자로 확인합니다.
+4. **샘플을 통과하는 미분:** 25에서 고정 잡음의 미분과 기대값의 샘플 추정을 연결합니다.
+5. **학습한 모형의 사용:** 26에서 입력 복원·prior 생성·잠재 사용을 각각 관찰합니다.
+
+같은 방식으로 GAN은 28–29, score·diffusion은 31–35, flow는 30·36으로 나누어 공부합니다.
+37은 관심 모델 하나의 첫 구현을 마친 뒤 바로 붙여도 좋습니다.
+
+## 6. 표현 학습과 자기지도 목적
+
+같은 encoder에 어떤 입력 쌍·타깃·손실을 주는지 비교합니다.
+표현의 평가는 15의 분할을 따르는 선형 probe·최근접 이웃·downstream 과제로 연결합니다.
+
+| 번호 | 학습 단위 | 선수 개념 | 직접 구현할 계산 | 완성 예제·변형 검산 |
+|---|---|---|---|---|
+| 38 | 데이터 변형과 불변성 | 05·10·15 | augmentation 분포, 양성 쌍, 보존하려는 정보 | 회전·색·순서 변형이 라벨과 표현에 주는 영향, 변형 강도 비교 |
+| 39 | 대조학습과 InfoNCE | 08·12·38 | 정규화 embedding, 유사도 행렬, temperature, 양성 인덱스·CE | 쌍 매칭, batch 크기·음성 구성, gradient·linear probe |
+| 40 | 교사·학생·stop-gradient | 13·38–39 | online/target encoder, predictor, EMA 갱신, 기울기 경로 | 작은 표현 예측, 교사 갱신 속도·stop-gradient 위치와 붕괴 관찰 |
+| 41 | 분산·공분산으로 표현 제약하기 | 11–12·40 | alignment, 분산 하한, 비대각 공분산 벌점 | 상수 표현·복제 차원에서 목적·기울기를 검산하고 표현 통계 추적 |
+| 42 | masked reconstruction | 18–19·22·38 | mask 샘플, visible token encoder, decoder, masked-only loss | 작은 이미지 복원, mask 비율·손실 평균 분모·표현 평가 |
+| 43 | JEPA와 표현 타깃 예측 | 19–20·40–42 | context/target 영역, 교사 표현, predictor·position, latent loss | pixel 타깃과 표현 타깃을 같은 데이터에서 비교, 교사·학생 갱신 검산 |
+
+39–43에서는 목적값, 표현의 평균·분산, 샘플 구분, 분할된 평가 성능을 함께 관찰합니다.
+복원 손실과 downstream 성능이 각각 무엇을 측정하는지 설명하는 것이 준비도 기준입니다.
+
+## 7. 언어모델·GPT·적응 학습
+
+Transformer라는 구조에 데이터의 확률 분해와 토큰 타깃을 붙입니다.
+44–46이 작은 GPT의 학습부터 생성까지 이어지는 첫 경로입니다.
+
+| 번호 | 학습 단위 | 선수 개념 | 직접 구현할 계산 | 완성 예제·변형 검산 |
+|---|---|---|---|---|
+| 44 | 토큰화·언어 데이터·자기회귀 목적 | 02·09·15 | 문자/byte/BPE, vocab·embedding, 입력/타깃 한 칸 이동, 문서 경계·padding | 문장별 조건부 확률의 곱과 token CE 합 대조, 토큰 수·perplexity 규약 |
+| 45 | 작은 decoder GPT 전체 학습 | 09·13–15·44 | causal block, tied/untied head, token NLL, 전체 backward·학습 loop | 작은 문자 언어모델, causal·padding mask, 학습 문장 복원·held-out NLL |
+| 46 | 생성 규칙과 KV cache | 45 | temperature·top-k·top-p, categorical sampling, prefill/한 토큰 cache | 같은 prefix의 logits를 전체 재계산과 대조, 길이·seed·속도·메모리 |
+| 47 | encoder 목적과 BERT식 MLM | 20·42·44 | bidirectional mask, 선택 위치 CE, corruption 방식 | 같은 토큰열의 MLM·next-token 정보 접근 범위와 예측 비교 |
+| 48 | SFT·전이 학습·LoRA | 13–15·45 | trainable 파라미터, response-only loss, 저랭크 delta-W, scaling | 같은 작은 과제의 full/frozen/LoRA 학습, loss mask·gradient·파라미터 수 |
+| 49 | 선호 쌍·Bradley–Terry·DPO | 12·44–48 | sequence log-prob 합, 기준 정책, 선호 확률·log-ratio 목적 | 같은 prompt의 두 답변, 부호·padding·reference 고정과 길이 영향 |
+| 50 | 다중모달 표현과 조건부 모델 | 19–20·39·45 | image/text encoder 정렬, projection, cross-attention·조건 token | 도형-설명 검색과 조건부 토큰 생성, modality 교환·목적 비교 |
+
+GPT의 next-token 학습, SFT의 타깃 선택, DPO의 선호 목적을 각각 써 보고 같은 decoder에 적용합니다.
+학습 데이터의 단위·평균 축·문서 경계·생성 루프까지 포함해 한 모델을 설명합니다.
+
+## 8. 강화학습: 기대값에서 정책 갱신까지
+
+작은 표 기반 환경에서 값을 손으로 계산한 다음 신경망으로 확장합니다.
+환경의 randomness, 행동 샘플링, 데이터 수집 정책과 갱신 정책을 구분해 기록합니다.
+
+| 번호 | 학습 단위 | 선수 개념 | 직접 구현할 계산 | 완성 예제·변형 검산 |
+|---|---|---|---|---|
+| 51 | Bandit·기대 보상·탐색 | 02·27 | 행동 가치, sample average, epsilon-greedy, regret | 2–5개 행동의 확률 보상, 탐색 계수·seed별 return 비교 |
+| 52 | MDP·return·Bellman·동적 계획 | 11·51 | 전이 행렬, discounted return, 정책 가치 방정식, value/policy iteration | 작은 격자의 정확한 V·Q와 rollout 평균 비교 |
+| 53 | Monte Carlo·TD·다단계 타깃 | 27·52 | return 추정, TD error, bootstrapping, n-step·lambda return | 같은 정책의 가치 추정, 편향·분산·종료 상태 처리 |
+| 54 | SARSA·Q-learning과 데이터 정책 | 52–53 | on/off-policy 타깃, epsilon 행동, importance ratio의 역할 | 표 기반 제어, 수집 정책을 바꾸며 Q·행동 변화 확인 |
+| 55 | DQN·replay·target network | 03·13·15·54 | Q 신경망, TD loss, replay sampling, 고정 target·Double DQN | 작은 환경 학습, terminal mask·target gradient·업데이트 주기 검산 |
+| 56 | REINFORCE와 정책 기울기 유도 | 12·27·51–53 | trajectory 확률, log-derivative trick, reward-to-go·baseline | 열거 가능한 정책의 정확한 기대 보상 미분과 샘플 추정 대조 |
+| 57 | Actor–Critic·advantage·GAE | 13·53·56 | actor/critic 목적, TD residual, GAE 재귀, 고정 타깃 | rollout의 경계·bootstrap·advantage 계산, 두 모델 기울기 분리 |
+| 58 | PPO의 ratio·clip·업데이트 | 15·57 | old log-prob, 확률비, clipped surrogate, value·entropy 항 | 작은 한 배치의 손계산, 여러 epoch 재사용과 KL·return 추적 |
+| 59 | 연속 행동·DDPG/TD3·SAC | 12·25·55·57 | Gaussian/tanh 정책, log-Jacobian 보정, Q와 actor, entropy 목적 | 작은 연속 제어, action 범위·재매개화·두 Q·entropy 계수 검산 |
+| 60 | 모델 기반 RL과 계획 | 27·52·59 | 전이/보상 모델, rollout, shooting·MPC, 모델 오차 | 정확한 작은 환경과 학습 모델의 계획을 비교, horizon 변경 |
+| 61 | 오프라인 RL과 정책 평가 | 15·27·54·59 | 데이터 행동 분포, importance 평가, Q 외삽·보수적 목적 | 고정 데이터의 행동 범위·coverage·평가 분산 비교 |
+| 62 | 선호 보상과 RLHF 연결 | 45·49·56–58 | 선호 reward 모델, KL 기준 정책, sequence 보상·PPO | 작은 토큰 환경에서 SFT·DPO·보상 기반 정책 갱신 비교 |
+
+52의 정확한 값, 56의 정확한 기대 보상 미분을 기준으로 근사 알고리즘을 검산합니다.
+58에서는 policy loss만이 아니라 데이터 수집·종료 처리·value target·확률비의 기준까지 재현합니다.
+
+## 9. 한 편의 논문을 스스로 계산으로 재구성하기
+
+| 번호 | 학습 단위 | 선수 개념 | 실제 산출물 | 검산 기준 |
+|---|---|---|---|---|
+| 63 | 논문→계산 명세→작은 재현 | 13–15와 관심 경로 | 문제·가정·기호표, 연산별 shape, 목적·평균 축, 갱신/사용 loop, 완성 노트북 | 작은 정확해·수치미분·대조 구현, 한 요소씩 바꾼 실험, 실행 설정·한계 해석 |
+
+63에서는 VAE·GAN·GPT·RL 중 하나를 골라 다음 한 장을 먼저 채웁니다.
+
+| 질문 | 직접 적을 내용 |
+|---|---|
+| 무엇을 관측하고 예측하나요? | 데이터 단위, 입력·출력 shape, 랜덤 변수와 고정 값 |
+| 어떤 구조를 사용하나요? | 연산 순서, 공유 파라미터, mask·cache |
+| 목적은 어떤 가정에서 나오나요? | likelihood·거리·보상, 기대값의 분포, 합·평균 축 |
+| 무엇을 미분하고 갱신하나요? | 파라미터/입력, stop-gradient, optimizer 상태, 타깃 갱신 시점 |
+| 학습 후 어떻게 사용하나요? | 예측·복원·샘플링·행동 선택의 루프 |
+| 무엇으로 이해를 검산하나요? | 손계산, 중심차분, 독립 구현, 조건 변경, 분리된 평가 |
+
+## 10. 관심이 생겼을 때 붙이는 확장 가지
+
+다음 가지는 연결할 입구와 작은 실습을 갖춘 심화 후보입니다. 관심 경로의 첫 완성 예제 뒤에 붙입니다.
+
+| 가지 | 연결할 단원 | 추가할 수학·구현 | 작은 확인 문제 |
 |---|---|---|---|
-| 1 | 미분을 유도한다 | 노트북 마크다운 | |
-| 2 | 클래스 없이 함수로 짜 본다 | 노트북 | |
-| 3 | **수치미분으로 검증한다** | 노트북 | `check_function` |
-| 4 | `Layer`로 정리해 옮긴다 | `src/` | |
-| 5 | 회귀 테스트를 붙인다 | `tests/` | `check_layer` |
-| 6 | 학습이 되는지 확인한다 | 노트북 → `examples/` | |
-| 7 | 유도를 정리해 남긴다 | `docs/derivations/` | |
-
-3번이 이 프로젝트의 핵심이다. 자동미분이 없으므로, 유도가 맞다는 것을 보증해 주는 것은
-수치미분 검증뿐이다. 이 단계를 건너뛰면 나중에 학습이 안 될 때
-*유도 오류*와 *하이퍼파라미터 문제*를 구분할 방법이 사라진다.
-
-`src/`는 지금 도구만 담고 있다. 신경망 구성요소는 노트북을 진행하며 채워 나간다.
-
-## 계산 자원에 대해
-
-CPU numpy로 전부 돌린다. C4 후반(ResNet, YOLO, U-Net, 스타일 전이)과
-C5W2(word2vec, 트리거워드)는 원래 GPU와 대규모 데이터를 전제하는 과제라,
-**각 주차에 축소 설정을 명시해 두었다.** 구조와 역전파는 전부 구현하되,
-데이터 크기·이미지 해상도·에폭 수를 줄여 한 실험이 CPU에서 끝나게 한다.
-축소해도 배우려는 메커니즘은 그대로 남는다.
-
----
-
-# 서장
-
-## 00 · 퍼셉트론과 논리 게이트 ✅
-
-> [`00_perceptron.ipynb`](../notebooks/00_perceptron.ipynb) — 완료
-
-- `Perceptron` 클래스, AND/OR/NAND를 손으로 만든 가중치로 구성
-- XOR이 단층으로 **불가능함을 대수적으로 증명**, 학습 규칙이 주기에 갇히는 것을 확인
-- 2층(OR + NAND → AND)으로 해결
-- **은닉층이 좌표를 바꿔 선형분리 가능하게 만든다**는 것을 그림으로 확인
-- 계단함수의 한계(미분이 0) → 시그모이드로 넘어가는 이유
-
----
-
-# Course 1 · Neural Networks and Deep Learning
-
-## 01 · 로지스틱 회귀를 신경망으로 (C1W2) ✅
-
-> [`01_logistic_regression.ipynb`](../notebooks/01_logistic_regression.ipynb) — 완료
-> · `src/functional.py`, `src/losses.py` 에 정착
-
-**구현**
-- [x] `sigmoid` (수치 안정 버전), 이진 교차엔트로피 손실
-- [x] 계산 그래프를 따라 손으로 역전파: `dz = a - y` 유도
-- [x] 반복문 버전 → **벡터화 버전**, 속도 비교 (1035배)
-- [x] 경사하강 학습 루프
-
-**유도 포인트**
-- $\sigma'(z) = \sigma(z)(1-\sigma(z))$ — 출력으로 도함수를 표현할 수 있다
-- 손실과 시그모이드를 묶으면 $\partial L/\partial z = a - y$ 로 깔끔히 정리된다.
-  (5번 노트북의 softmax + 교차엔트로피가 같은 구조다)
-- 왜 제곱오차가 아니라 로그 손실인가 — 볼록성, 그리고 $\sigma'$이 곱해져 기울기가 죽는 문제
-
-**실험** — 원 vs 십자 합성 이미지 (다운로드 불필요, `src.data.shapes`).
-학습된 가중치를 이미지로 되돌려 모델이 무엇을 보는지 확인했다 (클래스 차이와 상관계수 0.85).
-
-**덤으로 알게 된 것** — 학습률을 아무리 키워도 발산하지 않는다.
-학습 데이터가 선형분리 가능해서 손실에 유한한 최솟값이 없기 때문이다
-(‖w‖ → ∞ 이면 J → 0). 겹치는 데이터에서는 α ≥ 5 부터 실제로 발산한다.
-이것이 L2 정규화(04번)가 필요한 이유로 이어진다.
-
-## 02 · 얕은 신경망 (C1W3)
-
-**구현**
-- [ ] 은닉층 1개짜리 신경망 (forward/backward 전부 손으로)
-- [ ] `tanh`, `ReLU`, `LeakyReLU`
-- [ ] 랜덤 초기화
-
-**유도 포인트**
-- **왜 비선형 활성화가 필요한가** — 선형층만 쌓으면 $W_2(W_1x) = (W_2W_1)x$ 로
-  단층과 똑같다. 00번의 XOR이 대수적으로 다시 나타나는 지점
-- **왜 0으로 초기화하면 안 되는가** — 같은 층 뉴런들이 대칭이 깨지지 않아
-  영원히 같은 값을 유지한다 (대칭성 파괴)
-- 각 활성화의 도함수와 포화 구간
-
-**검증** — `check_function`으로 활성화 함수 전부
-
-**실험** — 평면 데이터 분류. 은닉 유닛 수를 1, 2, 5, 20, 50으로 바꿔 결정경계 변화 관찰
-
-## 03 · 깊은 신경망 (C1W4)
-
-**구현**
-- [ ] L층 일반화: `initialize_parameters_deep`, `L_model_forward`, `L_model_backward`
-- [ ] 캐시 구조 설계 — 어떤 값을 저장해야 backward가 가능한가
-- [ ] `Layer` / `Parameter` 추상화를 여기서 만들어 `src/`로 옮긴다
-
-**유도 포인트**
-- 층별 블록으로 나누면 backward가 같은 형태의 반복이 된다
-- 파라미터와 하이퍼파라미터의 구분
-
-**검증** — `check_layer`가 이 시점부터 쓰인다. `src/`에 첫 레이어가 들어간다
-
-**실험** — MNIST로 2층 대 4층 비교
-
----
-
-# Course 2 · Improving Deep Neural Networks
-
-## 04 · 실전 기법과 정규화 (C2W1)
-
-**구현**
-- [ ] train/dev/test 분할, 편향·분산 진단
-- [ ] L2 정규화 (가중치 감쇠)
-- [ ] 드롭아웃 (inverted dropout — 스케일 보정을 어디서 할지)
-- [ ] 입력 정규화
-- [ ] He, Xavier 초기화
-- [ ] **gradient checking** — 코세라가 정규 주제로 다룬다.
-      이 프로젝트에서 이미 쓰고 있는 `check_layer`를 다시 유도해 보는 자리
-
-**유도 포인트**
-- L2 정규화가 backward에 더하는 항: $\lambda W / m$
-- 드롭아웃의 backward — 같은 마스크를 써야 한다
-- **기울기 소실·폭발**: 층별 가중치의 스펙트럼이 $L$ 제곱으로 누적된다.
-  초기화 분산 $\mathrm{Var}(W) = 2/n^{[l-1]}$ 이 나오는 계산
-
-**실험**
-- 정규화 유무에 따른 과적합 비교 (학습/검증 곡선)
-- 깊은 망에서 초기화 방식별 층별 활성화 분포 히스토그램
-
-## 05 · 최적화 알고리즘 (C2W2)
-
-**구현**
-- [ ] 미니배치 경사하강
-- [ ] 지수가중이동평균과 편향 보정
-- [ ] Momentum, RMSProp, **Adam**
-- [ ] 학습률 감쇠 (step, exponential, cosine)
-
-**유도 포인트**
-- 편향 보정이 없으면 초기 스텝이 왜 과소추정되는가
-- Momentum이 진동을 줄이는 기하학적 이유 (좁고 긴 골짜기)
-- Adam = Momentum + RMSProp
-
-**검증** — 옵티마이저는 gradcheck 대상이 아니다.
-대신 **볼록 이차형식에서 최솟값으로 수렴하는지** 테스트한다
-
-**실험** — 같은 신경망, 옵티마이저만 바꿔 수렴 속도 비교
-
-## 06 · 배치 정규화와 다중분류 (C2W3)
-
-**구현**
-- [ ] 하이퍼파라미터 무작위 탐색 (그리드보다 나은 이유)
-- [ ] **BatchNorm** — 이 단계의 산
-- [ ] softmax + 교차엔트로피 (다중분류)
-
-**유도 포인트**
-- BatchNorm backward: $x_i$ 가 자기 자신뿐 아니라 배치 평균 $\mu$ 와 분산 $\sigma^2$ 을
-  **통해서도** 출력에 영향을 준다. 경로가 세 갈래라 유도가 길다
-- 학습 시 배치 통계 / 추론 시 이동평균 — `training` 플래그가 필요한 이유
-- softmax + CE 를 묶으면 $\partial L/\partial z = p - y$ (01번의 이진 버전과 같은 구조)
-
-**검증** — BatchNorm은 `training=True`/`False` 양쪽 모두 gradcheck
-
----
-
-# Course 3 · Structuring Machine Learning Projects
-
-## 07 · ML 전략 (C3W1-2)
-
-코세라에서 **프로그래밍 과제가 없는** 코스다. 개념을 읽고 넘기는 대신,
-여기서 다루는 진단을 **numpy 도구로 구현해** `src/`에 넣는다.
-이후 모든 실험에서 실제로 쓰게 된다.
-
-**구현**
-- [ ] 편향·분산 분해 리포트 (베이즈 오차 / 학습 오차 / 검증 오차 / 회피 가능한 편향)
-- [ ] 학습곡선 (데이터 양에 따른 학습·검증 오차)
-- [ ] 오차 분석 테이블 — 오분류 샘플을 원인별로 집계
-- [ ] 혼동 행렬, 정밀도/재현율/F1, 단일 평가 지표
-- [ ] 데이터 분포 불일치 진단 (train-dev 세트)
-- [ ] 전이학습 유틸 — 저장한 가중치를 부분적으로 불러오기 (C4에서 쓴다)
-
-**실험** — 04번에서 만든 과적합 모델을 이 도구들로 진단해 보고,
-"다음에 무엇을 해야 하는가"를 실제로 판단해 본다
-
----
-
-# Course 4 · Convolutional Neural Networks
-
-## 08 · CNN 기초 (C4W1)
-
-**구현**
-- [ ] 패딩, 스트라이드
-- [ ] 순진한 4중 반복문 합성곱 (정답 기준용)
-- [ ] **im2col / col2im** — 이후 전부가 여기 달려 있다
-- [ ] `Conv2d`, `MaxPool2d`, `AvgPool2d`, `Flatten`
-
-**유도 포인트**
-- im2col로 펴면 합성곱이 행렬곱이 되고, backward도 `Linear`와 같은 꼴이 된다.
-  남는 문제는 `col2im` — 겹치는 수용영역의 기여를 **더해서** 되돌리는 것
-- MaxPool backward는 argmax 위치로만 기울기를 보낸다
-- 가중치 공유가 backward에서 합으로 나타나는 이유
-
-**검증** — 작은 입력(1×1×5×5, 커널 3×3)으로 gradcheck. 순진한 버전과 im2col 버전의 forward 일치 확인
-
-**실험** — MNIST CNN. 학습된 첫 층 필터 시각화
-
-## 09 · CNN 아키텍처 (C4W2)
-
-**구현**
-- [ ] LeNet-5, VGG 스타일 블록
-- [ ] **ResNet 잔차 블록** — skip connection의 backward
-- [ ] 1×1 합성곱, Inception 모듈
-- [ ] MobileNet의 depthwise separable convolution
-
-**유도 포인트**
-- 잔차 연결의 backward는 기울기를 **그대로 복사해 더한다**.
-  이것이 깊은 망에서 기울기가 살아남는 이유 — 04번의 소실 문제에 대한 구조적 해답
-- depthwise separable이 연산량을 줄이는 계산 ($\approx 1/N + 1/k^2$ 배)
-
-**축소 설정** — ImageNet은 불가능하다. CIFAR-10 부분집합(클래스 3개 × 1000장)을
-32×32로 쓰고, ResNet은 20층 대신 **8층**으로 줄인다. 목표는 정확도가 아니라
-"잔차 연결이 있을 때와 없을 때 층별 기울기 노름이 어떻게 다른가"를 재는 것이다
-
-**실험** — 20층 plain vs 20층 residual의 층별 기울기 노름 비교. 논문의 핵심 주장을 직접 확인
-
-## 10 · 물체 검출 (C4W3)
-
-**구현**
-- [ ] 바운딩 박스 표현, IoU
-- [ ] 비최대 억제 (NMS)
-- [ ] 앵커 박스, YOLO 출력 인코딩
-- [ ] YOLO 손실함수 (좌표 + 신뢰도 + 클래스) 와 그 backward
-- [ ] **U-Net** — 전치 합성곱(transposed convolution), skip connection
-
-**유도 포인트**
-- 전치 합성곱의 forward는 합성곱의 backward와 같은 연산이다 (이름의 유래)
-- 다중 항 손실에서 각 항의 기울기가 어떻게 합쳐지는가
-
-**축소 설정** — 실제 검출 데이터셋 학습은 CPU에서 비현실적이다.
-합성 데이터(64×64 캔버스에 도형 1-3개를 무작위 배치)를 만들어 학습한다.
-IoU/NMS/손실은 실제 구현 그대로 쓰고, 백본만 작은 CNN으로 바꾼다.
-U-Net은 합성 분할 마스크로 검증
-
-## 11 · 얼굴 인식과 스타일 전이 (C4W4)
-
-**구현**
-- [ ] 샴 네트워크, 인코딩 거리
-- [ ] **Triplet loss** 와 그 backward
-- [ ] 뉴럴 스타일 전이: content loss, style loss, **Gram 행렬**
-- [ ] **입력 이미지에 대한 경사하강** — 파라미터가 아니라 입력을 갱신한다
-
-**유도 포인트**
-- Gram 행렬 $G = F F^\top$ 의 backward: $dF = (dG + dG^\top) F$
-- 스타일 전이는 지금까지와 목적함수의 대상이 다르다.
-  `backward`가 입력까지 흘러야 하는 이유가 여기서 실제로 쓰인다
-  (그동안 `dx`를 계산해 온 것이 헛되지 않았음이 드러나는 지점)
-
-**축소 설정** — 사전학습 VGG 가중치가 없으므로, 08-09번에서 직접 학습시킨
-작은 CNN을 특징 추출기로 쓴다. 이미지는 128×128, 최적화 300스텝 정도.
-결과의 미적 품질은 기대하지 않는다 — 손실이 내려가고 이미지가 변하는 것을 확인하는 것이 목표
-
----
-
-# Course 5 · Sequence Models
-
-## 12 · 순환 신경망 (C5W1)
-
-**구현**
-- [ ] `RNNCell`, 시간축 전개, **BPTT**
-- [ ] `GRU`, `LSTM`
-- [ ] 양방향 RNN, 깊은 RNN
-- [ ] `Embedding` — 정수 인덱스 입력, `np.add.at` 으로 기울기 누적
-- [ ] 기울기 클리핑
-
-**유도 포인트**
-- BPTT: 같은 $W_{hh}$ 가 매 시각 쓰이므로 기울기가 **시각마다 더해진다**.
-  기울기를 `+=` 로 누적하도록 설계하는 이유가 여기서 드러난다
-- $\partial h_T/\partial h_0$ 가 $W_{hh}$ 의 거듭제곱 꼴이라 스펙트럼 반지름에 지배된다
-- LSTM의 셀 상태가 **덧셈 경로**라 기울기가 감쇠 없이 흐른다 — 09번 잔차 연결과 같은 아이디어
-
-**검증** — 짧은 시퀀스(T=4)로 gradcheck. `Embedding`은 입력이 정수라 가중치 기울기만 검사된다
-
-**실험** — 문자 단위 언어모델(공룡 이름 생성). 시각별 기울기 노름을 그려 소실 관찰. RNN vs LSTM 비교
-
-## 13 · 단어 임베딩 (C5W2)
-
-**구현**
-- [ ] 임베딩 행렬, 코사인 유사도, 유추 문제 (king - man + woman)
-- [ ] **word2vec skip-gram** + negative sampling
-- [ ] **GloVe** 목적함수
-- [ ] 편향 제거 (debiasing) — 성별 방향 투영 제거
-- [ ] 트리거워드 감지
-
-**유도 포인트**
-- negative sampling이 softmax의 분모 계산을 회피하는 방식과 그 기울기
-- GloVe의 가중 최소제곱 목적함수와 그 backward
-
-**축소 설정** — 위키피디아 전체는 불가능하다. 작은 말뭉치(text8 앞부분 또는
-한국어 소설 텍스트) 수십만 토큰에 어휘 5천 개, 임베딩 50차원으로 학습한다.
-유추 문제가 어느 정도 풀리는지까지는 확인 가능하다.
-트리거워드는 합성 오디오(짧은 스펙트로그램)로 대체
-
-## 14 · seq2seq와 어텐션 (C5W3)
-
-**구현**
-- [ ] 인코더-디코더 seq2seq
-- [ ] **Bahdanau 어텐션**
-- [ ] 빔 서치, 길이 정규화
-- [ ] BLEU 점수
-
-**유도 포인트**
-- 어텐션 가중치의 softmax backward — 손실과 묶여 있지 않으므로
-  야코비안 $\partial p_i/\partial x_j = p_i(\delta_{ij} - p_j)$ 를 직접 다뤄야 한다.
-  다행히 $dx = p \odot (dout - \sum(dout \odot p))$ 로 정리된다.
-  **15번 노트북 전체가 이 식 위에 세워진다**
-- 어텐션이 고정 길이 병목을 없애는 방식
-
-**실험** — 날짜 형식 변환 (사람이 쓴 날짜 → ISO). 어텐션 가중치 히트맵 시각화
-
-## 15 · Transformer (C5W4)
-
-**구현**
-- [ ] 위치 인코딩 (사인/코사인)
-- [ ] **Scaled dot-product attention** + 마스킹
-- [ ] **Multi-head attention**
-- [ ] `LayerNorm`, position-wise FFN, 잔차 연결
-- [ ] Transformer 블록 (pre-norm), 디코더 전용 언어모델
-- [ ] 가중치 공유 (embedding ↔ 출력 projection)
-- [ ] NER, QA 응용
-
-**유도 포인트**
-- $\sqrt{d_k}$ 로 나누는 이유: $d_k$ 가 크면 내적의 분산이 커져
-  softmax가 포화하고 기울기가 죽는다
-- LayerNorm의 정규화 축이 배치가 아니라 특성 — 시퀀스 모델에서 BatchNorm을 쓰지 않는 이유
-- 마스킹은 forward에서 $-\infty$ 를 더한다. backward에서 그 위치가 0이 되는지 확인
-- 가중치 공유 시 기울기 누적 (`parameters()` 가 중복을 제거해야 하는 이유)
-
-**검증**
-- 작은 크기(B=2, T=3, d=4, heads=2)로 gradcheck
-- causal mask 확인: 미래 토큰을 바꿔도 현재 위치 출력이 변하지 않아야 한다
-
-**축소 설정** — 문자 단위 언어모델, $d_{model}=128$, 헤드 4개, 블록 2-4개,
-시퀀스 길이 64. 작은 텍스트로 학습해 샘플을 생성한다
-
-**실험** — 어텐션 가중치 시각화. 12번의 LSTM 언어모델과 같은 데이터로 비교
+| 수치 계산과 큰 모델 학습 | 04·11·13·15 | conditioning, Hessian-vector product, float32/16, gradient accumulation, AMP·분산 평균 | 같은 유효 배치의 gradient 일치, precision·메모리·시간 변화 |
+| 기하학·등변 구조 | 10·11·21 | 회전·이동 군 작용, 거리/방향 message, E(n) 등변성 | 좌표 회전 전후 출력·벡터 gradient가 같은 규칙을 따르는지 확인 |
+| 연속 상태와 선택적 계산 | 06–09·17 | state-space model·scan, S4/Mamba, MoE routing·load balance | 순차/병렬 scan 대조, 라우팅 선택·전문가별 토큰 수·계산량 |
+| 이산 잠재표현과 생성 | 23–27·34·44 | VQ·straight-through·Gumbel-Softmax, 이산 diffusion | 열거 가능한 categorical 기댓값과 근사 미분의 차이 |
+| 불확실성·일반화 | 12·15·27 | 편향–분산 분해, bootstrap·교차검증, Bayesian posterior, calibration·conformal | 새 데이터 반복과 seed 반복을 구분해 coverage·오차 추정 |
+| 다른 학습 기준선 | 01·11–12·15·23 | k-NN·tree, kernel·SVM·Gaussian process, clustering | 같은 작은 데이터의 가정·표현·목적·비용을 신경망 기준선과 비교 |
+| 검색과 시스템 결합 | 39·44–50 | retrieval embedding, 검색·생성 분리 평가, tool 입력/출력 | 검색 오차와 생성 오차를 각각 측정하는 작은 질의 집합 |
+
+## 경로를 넓힌 근거
+
+이 순서는 사용자의 수학 복습·직접 구현 목적에 맞춘 프로젝트 설계입니다.
+주제 범위와 연결을 검토할 때 다음 원자료를 참조했습니다.
+
+- [Stanford CS231n 일정](https://cs231n.stanford.edu/schedule.html): 최적화·구조 조합·자기지도·생성의 별도 학습 범위.
+- [Stanford CS236 강의 범위](https://deepgenerativemodels.github.io/syllabus.html): 잠재변수·변분 추론·flow·에너지·score·생성 평가의 연결.
+- [PyTorch 자동미분 안내](https://docs.pytorch.org/tutorials/beginner/basics/autogradqs_tutorial.html): 계산 그래프·기울기 누적·VJP의 API 대응.
+- [Spinning Up의 RL 알고리즘 분류](https://spinningup.openai.com/en/latest/spinningup/rl_intro2.html)와 [정책 기울기 유도](https://spinningup.openai.com/en/latest/spinningup/rl_intro3.html): 가치·정책·모델 기반 접근과 기대 보상 미분.
+- [VAE](https://arxiv.org/abs/1312.6114), [GAN](https://arxiv.org/abs/1406.2661), [AdamW](https://arxiv.org/abs/1711.05101), [Flow Matching](https://arxiv.org/abs/2210.02747): 각 목적·갱신·생성 절차의 원논문.
+
+학습자의 실제 질문이 모이면 절의 길이·순서·변형 난도를 조정합니다.
+파일의 실행·수치 검산과 독립 실습 기록은 [연결 기초 검증](../results/bridge-validation/bridges.md)에 있습니다.

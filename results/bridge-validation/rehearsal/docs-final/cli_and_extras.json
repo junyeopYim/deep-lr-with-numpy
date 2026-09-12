@@ -1,0 +1,103 @@
+{
+  "commands": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "venv",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: venv [-h] [--system-site-packages] [--symlinks | --copies] [--clear]\n            [--upgrade] [--without-pip] [--prompt PROMPT] [--upgrade-deps]\n            [--without-scm-ignore-files]\n            ENV_DIR [ENV_DIR ...]\n\nCreates virtual Python environments in one or more target directories.\n\npositional arguments:\n  ENV_DIR               A directory to create the environment in.\n\noptions:\n  -h, --help            show this help message and exit\n  --system-site-packages\n                        Give the virtual environment access to the system\n                        site-packages dir.\n  --symlinks            Try to use symlinks rather than copies, when symlinks\n                        are not the default for the platform.\n  --copies              Try to use copies rather than symlinks, even when\n                        symlinks are the default for the platform.\n  --clear               Delete the contents of the environment directory if it\n                        already exists, before environment creation.\n  --upgrade             Upgrade the environment directory to use this version\n                        of Python, assuming Python has been upgraded in-place.\n  --without-pip         Skips installing or upgrading pip in the virtual\n                        environment (pip is bootstrapped by default)\n  --prompt PROMPT       Provides an alternative prompt prefix for this\n                        environment.\n  --upgrade-deps        Upgrade core dependencies (pip) to the latest version\n                        in PyPI\n  --without-scm-ignore-files\n                        Skips adding SCM ignore files to the environment\n                        directory (Git is supported by default).\n\nOnce an environment has been created, you may wish to activate it, e.g. by\nsourcing an activate script in its bin directory.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "pip",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "pip 26.2.1 from /home/junyeop/miniconda3/lib/python3.13/site-packages/pip (python 3.13)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "jupyter",
+        "lab",
+        "--ServerApp.root_dir=.",
+        "--show-config-json",
+        "notebooks/00_기초/00_math_to_numpy.ipynb"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n \"NotebookApp\": {},\n \"ServerApp\": {\n  \"default_url\": \"/lab\",\n  \"file_to_run\": \"/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_\\uae30\\ucd08/00_math_to_numpy.ipynb\",\n  \"file_url_prefix\": \"/lab/tree\",\n  \"jpserver_extensions\": \"<LazyConfigValue value={'jupyterlab': True, 'jupyter_lsp': True, 'jupyter_server_terminals': True, 'notebook_shim': True}>\",\n  \"open_browser\": true,\n  \"root_dir\": \".\"\n }\n}\n",
+      "stderr": "[I 2026-09-12 17:13:16.280 ServerApp] jupyter_lsp | extension was successfully linked.\n[I 2026-09-12 17:13:16.282 ServerApp] jupyter_server_terminals | extension was successfully linked.\n[I 2026-09-12 17:13:16.284 ServerApp] jupyterlab | extension was successfully linked.\n[I 2026-09-12 17:13:16.311 ServerApp] notebook_shim | extension was successfully linked.\n[I 2026-09-12 17:13:16.323 ServerApp] notebook_shim | extension was successfully loaded.\n[I 2026-09-12 17:13:16.324 ServerApp] jupyter_lsp | extension was successfully loaded.\n[I 2026-09-12 17:13:16.324 ServerApp] jupyter_server_terminals | extension was successfully loaded.\n[I 2026-09-12 17:13:16.326 LabApp] JupyterLab extension loaded from /home/junyeop/miniconda3/lib/python3.13/site-packages/jupyterlab\n[I 2026-09-12 17:13:16.326 LabApp] JupyterLab application directory is /home/junyeop/miniconda3/share/jupyter/lab\n[I 2026-09-12 17:13:16.326 LabApp] Extension Manager is 'pypi'.\n[I 2026-09-12 17:13:16.352 ServerApp] jupyterlab | extension was successfully loaded.\n[I 2026-09-12 17:13:16.352 ServerApp] The port 8888 is already in use, trying another port.\n"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "exit_code": 0,
+      "stdout": "...................                                                      [100%]\n19 passed in 0.73s\n",
+      "stderr": ""
+    }
+  ],
+  "requirement_checks": [
+    {
+      "extra": "base",
+      "requirement": "numpy>=1.24",
+      "installed_distribution_version": "2.3.5",
+      "meets_constraint": true
+    },
+    {
+      "extra": "dev",
+      "requirement": "pytest>=7",
+      "installed_distribution_version": "9.0.2",
+      "meets_constraint": true
+    },
+    {
+      "extra": "dev",
+      "requirement": "matplotlib>=3.7",
+      "installed_distribution_version": "3.10.9",
+      "meets_constraint": true
+    },
+    {
+      "extra": "dev",
+      "requirement": "jupyter>=1.0",
+      "installed_distribution_version": null,
+      "meets_constraint": false
+    },
+    {
+      "extra": "dev",
+      "requirement": "ipykernel>=6",
+      "installed_distribution_version": "7.3.0",
+      "meets_constraint": true
+    },
+    {
+      "extra": "framework",
+      "requirement": "torch>=2.0",
+      "installed_distribution_version": "2.11.0",
+      "meets_constraint": true
+    }
+  ],
+  "source_hashes": {
+    "pyproject.toml": "70349e13d03e0fc662fef0d1f2e08a1edbfa294d80dca683cb6baf656c818582",
+    "scripts/verify_notebooks.py": "ea33a165118165bf6f2914e26b61ae174a0e995205e4c13b54a1843634c38d6a",
+    "tests/test_gradcheck.py": "fb6184066dabe42ad488a551e59012074279f9572a5e5c5893d682272ce66003"
+  },
+  "validation_cli_read_only_scope": {
+    "help_executed": true,
+    "full_suites_executed": false,
+    "reason": "재개 지시에서 전체 노트북 재학습은 필요하지 않다고 명시했습니다. 검증기는 결과·그림·노트북 출력을 저장하므로 저장소 읽기 전용 조건 아래 help와 suite 경로만 확인했습니다.",
+    "writes_notebook_at_line": 90,
+    "writes_results_directory_at_line": 37,
+    "writes_figures_directory_at_line": 38
+  }
+}

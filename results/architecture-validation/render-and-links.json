@@ -1,0 +1,50 @@
+[
+  {
+    "notebook": "notebooks/01_아키텍처/05_cnn.ipynb",
+    "local_links": 4,
+    "missing": [],
+    "html_images": 6,
+    "unexpected_del": 0,
+    "control_characters": 0
+  },
+  {
+    "notebook": "notebooks/01_아키텍처/06_rnn.ipynb",
+    "local_links": 4,
+    "missing": [],
+    "html_images": 5,
+    "unexpected_del": 0,
+    "control_characters": 0
+  },
+  {
+    "notebook": "notebooks/01_아키텍처/07_lstm_gru.ipynb",
+    "local_links": 4,
+    "missing": [],
+    "html_images": 4,
+    "unexpected_del": 0,
+    "control_characters": 0
+  },
+  {
+    "notebook": "notebooks/01_아키텍처/08_attention.ipynb",
+    "local_links": 4,
+    "missing": [],
+    "html_images": 5,
+    "unexpected_del": 0,
+    "control_characters": 0
+  },
+  {
+    "notebook": "notebooks/01_아키텍처/09_transformer.ipynb",
+    "local_links": 4,
+    "missing": [],
+    "html_images": 5,
+    "unexpected_del": 0,
+    "control_characters": 0
+  },
+  {
+    "notebook": "notebooks/01_아키텍처/10_gnn.ipynb",
+    "local_links": 4,
+    "missing": [],
+    "html_images": 5,
+    "unexpected_del": 0,
+    "control_characters": 0
+  }
+]

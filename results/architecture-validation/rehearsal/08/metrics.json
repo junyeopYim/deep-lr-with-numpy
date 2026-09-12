@@ -1,0 +1,343 @@
+{
+  "own_backward": {
+    "errors": {
+      "mask=False/Q": 3.1400890755623513e-10,
+      "mask=False/K": 5.101987910004492e-10,
+      "mask=False/V": 1.248702422199046e-10,
+      "mask=True/Q": 6.368766914828304e-11,
+      "mask=True/K": 1.7219060513603886e-10,
+      "mask=True/V": 6.373949560833519e-11
+    },
+    "max_relative_error": 5.101987910004492e-10,
+    "Q_shape": [
+      2,
+      2,
+      3
+    ],
+    "K_shape": [
+      2,
+      4,
+      3
+    ],
+    "V_shape": [
+      2,
+      4,
+      2
+    ],
+    "O_shape": [
+      2,
+      2,
+      2
+    ]
+  },
+  "hand_derivation": {
+    "objective": "sum(O)",
+    "P": [
+      0.75,
+      0.25
+    ],
+    "softmax_jacobian": [
+      [
+        0.1875,
+        -0.1875
+      ],
+      [
+        -0.1875,
+        0.1875
+      ]
+    ],
+    "dP": [
+      10.0,
+      20.0
+    ],
+    "dS": [
+      -1.875,
+      1.875
+    ],
+    "dQ": [
+      [
+        [
+          -1.3258252147247764,
+          1.3258252147247764
+        ]
+      ]
+    ],
+    "dK": [
+      [
+        [
+          -2.0598980412527057,
+          0.0
+        ],
+        [
+          2.0598980412527057,
+          0.0
+        ]
+      ]
+    ],
+    "dV": [
+      [
+        [
+          0.75,
+          0.75
+        ],
+        [
+          0.25,
+          0.25
+        ]
+      ]
+    ]
+  },
+  "rectangular_three_keys": {
+    "Q_shape": [
+      2,
+      2,
+      3
+    ],
+    "K_shape": [
+      2,
+      3,
+      3
+    ],
+    "V_shape": [
+      2,
+      3,
+      2
+    ],
+    "P_shape": [
+      2,
+      2,
+      3
+    ],
+    "O_shape": [
+      2,
+      2,
+      2
+    ],
+    "errors": {
+      "Q": 3.850024979185055e-10,
+      "K": 1.318540378299513e-09,
+      "V": 2.4326589707054795e-11
+    },
+    "max_relative_error": 1.318540378299513e-09
+  },
+  "mask_variations": {
+    "padding_mask_shape": [
+      1,
+      1,
+      4
+    ],
+    "padding_forbidden_probability_max": 0.0,
+    "padding_forbidden_dK_max": 0.0,
+    "padding_forbidden_dV_max": 0.0,
+    "combined_mask_shape": [
+      4,
+      4
+    ],
+    "past_output_max_change": 0.0,
+    "all_masked_row_rejected": true,
+    "all_masked_message": "각 query에는 읽을 수 있는 key가 최소 하나 필요합니다"
+  },
+  "intentional_errors": [
+    {
+      "name": "elementwise_softmax",
+      "detected": true,
+      "error_type": "AssertionError",
+      "error": ""
+    },
+    {
+      "name": "query_softmax_axis",
+      "detected": true,
+      "error_type": "AssertionError",
+      "error": ""
+    },
+    {
+      "name": "mask_ignored",
+      "detected": true,
+      "error_type": "AssertionError",
+      "error": ""
+    },
+    {
+      "name": "qk_transpose",
+      "detected": true,
+      "error_type": "ValueError",
+      "error": "matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 2 is different from 4)"
+    }
+  ],
+  "intentional_error_values": {
+    "elementwise_softmax/mask=False/Q": 0.9610170928368559,
+    "query_softmax_axis/mask=False/Q": 0.9649159901203748,
+    "mask_ignored/mask=False/Q": 3.1400890755623513e-10,
+    "elementwise_softmax/mask=True/Q": 0.3580848811625636,
+    "query_softmax_axis/mask=True/Q": 0.42354350632957616,
+    "mask_ignored/mask=True/Q": 0.28009616462634435
+  },
+  "two_queries": {
+    "Xq_shape": [
+      2,
+      2,
+      3
+    ],
+    "Xk_shape": [
+      2,
+      3,
+      3
+    ],
+    "V_shape": [
+      2,
+      3,
+      2
+    ],
+    "labels_shape": [
+      2,
+      2
+    ],
+    "logits_shape": [
+      2,
+      2,
+      2
+    ],
+    "ce_mean_denominator": 4,
+    "parameter_shapes": {
+      "Wq": [
+        3,
+        3
+      ],
+      "Wk": [
+        3,
+        3
+      ],
+      "Wo": [
+        2,
+        2
+      ],
+      "b": [
+        2
+      ]
+    },
+    "errors": {
+      "Wq": 2.840981672157736e-09,
+      "Wk": 2.037050256208807e-09,
+      "Wo": 3.278206381162418e-11,
+      "b": 4.363964670861933e-10,
+      "Xq": 1.307128045537582e-08,
+      "Xk": 1.8069142078703253e-09,
+      "V": 4.3601949310599213e-10
+    },
+    "max_relative_error": 1.307128045537582e-08
+  },
+  "four_key_baseline": {
+    "keys": 4,
+    "updates": 500,
+    "parameters": 38,
+    "train_ce_initial": 0.6803244773413439,
+    "train_ce_final": 0.0011346341096925428,
+    "valid_ce_final": 0.0011380297642989844,
+    "valid_accuracy": 1.0
+  },
+  "three_key_training": {
+    "keys": 3,
+    "updates": 500,
+    "fresh_model_and_optimizer_state": true,
+    "backward_used": "my_attention_backward",
+    "train_shapes": [
+      [
+        256,
+        1,
+        3
+      ],
+      [
+        256,
+        3,
+        3
+      ],
+      [
+        256,
+        3,
+        2
+      ],
+      [
+        256
+      ]
+    ],
+    "parameter_shapes": {
+      "Wq": [
+        3,
+        3
+      ],
+      "Wk": [
+        3,
+        3
+      ],
+      "Wo": [
+        2,
+        2
+      ],
+      "b": [
+        2
+      ]
+    },
+    "parameters": 24,
+    "valid_count": 128,
+    "train_ce_final": 0.0017709317323520975,
+    "valid_ce_final": 0.0017699881465489964,
+    "valid_accuracy": 1.0,
+    "query_key_argmax_match_rate": 1.0,
+    "history": [
+      {
+        "step": 0,
+        "train_ce": 1.080085420141138,
+        "valid_ce": 1.1044355664085965
+      },
+      {
+        "step": 50,
+        "train_ce": 0.6928268399700049,
+        "valid_ce": 0.6895216614819883
+      },
+      {
+        "step": 100,
+        "train_ce": 0.6562333228512742,
+        "valid_ce": 0.6519123492927028
+      },
+      {
+        "step": 150,
+        "train_ce": 0.021732247115247804,
+        "valid_ce": 0.02172067512689964
+      },
+      {
+        "step": 200,
+        "train_ce": 0.008910843375086429,
+        "valid_ce": 0.008906147168526956
+      },
+      {
+        "step": 250,
+        "train_ce": 0.005762576414112405,
+        "valid_ce": 0.005759519943378902
+      },
+      {
+        "step": 300,
+        "train_ce": 0.00416250692679559,
+        "valid_ce": 0.004160298519395467
+      },
+      {
+        "step": 350,
+        "train_ce": 0.0031972818017990956,
+        "valid_ce": 0.0031955836779226443
+      },
+      {
+        "step": 400,
+        "train_ce": 0.002557119998583667,
+        "valid_ce": 0.0025557603852530333
+      },
+      {
+        "step": 450,
+        "train_ce": 0.0021050052951943543,
+        "valid_ce": 0.0021038848659093237
+      },
+      {
+        "step": 500,
+        "train_ce": 0.0017709317323520975,
+        "valid_ce": 0.0017699881465489964
+      }
+    ]
+  }
+}

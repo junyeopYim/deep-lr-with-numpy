@@ -1,0 +1,176 @@
+{
+  "observed_at": "2026-09-12T15:17:24.688239+09:00",
+  "status": "clean",
+  "scope": "현재 04 노트북 전체 실행 및 6·10절 Adam의 독립 수식 구현·두 오답 검출",
+  "earlier_04_reviews_read": false,
+  "blocking_stalls": [],
+  "guesses_required_outside_deliverable": [],
+  "repository_edits_performed": false,
+  "original_code_cells_executed": 34,
+  "fresh_kernel": true,
+  "png_count": 6,
+  "missing_korean_glyph_warnings": 0,
+  "notebook_stderr_count": 0,
+  "environment": {
+    "python": "3.13.12 | packaged by Anaconda, Inc. | (main, Feb 24 2026, 16:13:31) [GCC 14.3.0]",
+    "executable": "/home/junyeop/miniconda3/bin/python",
+    "numpy": "2.3.5",
+    "matplotlib": "3.10.9"
+  },
+  "execution": {
+    "notebook": "notebooks/00_기초/04_optimizers.ipynb",
+    "original_cell_count": 51,
+    "executed_code_cells": 35,
+    "extra_exercise_cell_count": 1,
+    "fresh_kernel": true,
+    "elapsed_seconds": 2.5460320340062026,
+    "source_sha256": "55defd993bb24426d0f7b14f3a2f67c5a1c40e228aeda2686f2fd3428f26a0d9",
+    "source_unchanged": true,
+    "figures": [
+      {
+        "cell": 10,
+        "path": "/tmp/dlfs-common-foundations/rehearsal04-final/04_optimizers_cell10_0.png",
+        "width": 736,
+        "height": 385,
+        "sha256": "fb1d2eeaaa01ccfb3046606add36e879ea04b6e85ca81bb65032560b3c489ece",
+        "visually_inspected": true
+      },
+      {
+        "cell": 24,
+        "path": "/tmp/dlfs-common-foundations/rehearsal04-final/04_optimizers_cell24_0.png",
+        "width": 1088,
+        "height": 385,
+        "sha256": "3e7dc31649aa10145f54796d19b9fc2a10ec37be336ee68e349b7c52951c1f4a",
+        "visually_inspected": true
+      },
+      {
+        "cell": 28,
+        "path": "/tmp/dlfs-common-foundations/rehearsal04-final/04_optimizers_cell28_0.png",
+        "width": 1198,
+        "height": 494,
+        "sha256": "4208154a8dc5606dc271bb9bb6067b1db5c9d9633fafc1074be872385e727e72",
+        "visually_inspected": true
+      },
+      {
+        "cell": 32,
+        "path": "/tmp/dlfs-common-foundations/rehearsal04-final/04_optimizers_cell32_0.png",
+        "width": 1143,
+        "height": 407,
+        "sha256": "cd847b5100ba79b66afde525721126c0c04f90792cedd273a55e616fd1399fd2",
+        "visually_inspected": true
+      },
+      {
+        "cell": 37,
+        "path": "/tmp/dlfs-common-foundations/rehearsal04-final/04_optimizers_cell37_0.png",
+        "width": 1143,
+        "height": 407,
+        "sha256": "3a9a6121e5ef11d04c20d2fcd574ca1bb044481a2f8851b83c2902b6f1392790",
+        "visually_inspected": true
+      },
+      {
+        "cell": 41,
+        "path": "/tmp/dlfs-common-foundations/rehearsal04-final/04_optimizers_cell41_0.png",
+        "width": 1088,
+        "height": 373,
+        "sha256": "73e045d4908e83678d78ffaf29c854995fb5d1b8ca4c6ab03e31e5d4db8ac506",
+        "visually_inspected": true
+      }
+    ],
+    "stderr": [],
+    "metrics": {
+      "independent_adam_checker_passed": true,
+      "equal_betas": {
+        "beta1": 0.5,
+        "beta2": 0.5,
+        "first_theta": [
+          0.9
+        ],
+        "first_state": {
+          "mean": [
+            1.0
+          ],
+          "square": [
+            2.0
+          ],
+          "t": 1
+        },
+        "second_theta": [
+          0.9333333333333333
+        ],
+        "second_state": {
+          "mean": [
+            -0.5
+          ],
+          "square": [
+            3.0
+          ],
+          "t": 2
+        }
+      },
+      "unequal_betas": {
+        "beta1": 0.5,
+        "beta2": 0.75,
+        "first_theta": [
+          0.9
+        ],
+        "first_state": {
+          "mean": [
+            1.0
+          ],
+          "square": [
+            1.0
+          ],
+          "t": 1
+        },
+        "second_theta": [
+          0.8118082896311803
+        ],
+        "second_state": {
+          "mean": [
+            1.0
+          ],
+          "square": [
+            1.0
+          ],
+          "t": 2
+        },
+        "second_corrected_mean": 1.3333333333333333,
+        "second_corrected_square": 2.2857142857142856
+      },
+      "tiny_gradient": {
+        "gradient": 1e-08,
+        "epsilon": 1e-08,
+        "corrected_mean": 1e-08,
+        "corrected_square": 1.0000000000000001e-16,
+        "denominator": 2e-08,
+        "theta": [
+          0.95
+        ]
+      },
+      "wrong_betas_rejected": true,
+      "wrong_betas_first_square": [
+        2.0
+      ],
+      "wrong_epsilon_rejected": true,
+      "wrong_epsilon_tiny_theta": [
+        0.99999000000005
+      ],
+      "assertion_messages": {
+        "confuses_betas": "\nNot equal to tolerance rtol=1e-07, atol=0\n\nMismatched elements: 1 / 1 (100%)\nMax absolute difference among violations: 1.\nMax relative difference among violations: 1.\n ACTUAL: array([2.])\n DESIRED: array([1.])",
+        "epsilon_inside_sqrt": "\nNot equal to tolerance rtol=1e-07, atol=0\n\nMismatched elements: 1 / 1 (100%)\nMax absolute difference among violations: 0.04999\nMax relative difference among violations: 0.052621\n ACTUAL: array([0.99999])\n DESIRED: array([0.95])"
+      },
+      "original_quadratic_gradient_error": 2.096669504667168e-11,
+      "original_regression_final_losses": {
+        "SGD η=0.08": 0.005942029628257595,
+        "Momentum η=0.03": 0.0060810550024296564,
+        "RMSProp η=0.03": 0.0075435766965699985,
+        "Adam η=0.05": 0.0059179778968641555
+      },
+      "original_regression_least_squares_loss": 0.005909222626615714
+    }
+  },
+  "scope_notes": [
+    "새 환경 설치와 JupyterLab UI 클릭은 수행 범위에 포함하지 않았습니다.",
+    "커널 시작 시 IPKernelApp의 TCP transport encryption 경고가 출력됐고 최종 노트북 셀 stderr는 0건입니다."
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "cell": 5,
+    "viewed": true,
+    "observation": "입력의 두 번째 토큰이 모든 좌표에서 +3이며 LN 출력의 두 행이 동일하게 표시됩니다. 정규화 값과 한글 제목·축 이름이 읽힙니다."
+  },
+  {
+    "number": 2,
+    "cell": 9,
+    "viewed": true,
+    "observation": "두 head의 causal 행렬은 위 삼각형이 모두 0이고 행마다 허용된 key에만 확률이 배정되어 있습니다. head별 비율 차이도 보입니다."
+  },
+  {
+    "number": 3,
+    "cell": 16,
+    "viewed": true,
+    "observation": "위치 12개×특성 12개의 sinusoidal 표가 표시됩니다. 행=위치·열=특성이라는 제목, sin/cos의 첫 행 0/1 교대, 좌표별 변화 속도를 확인했습니다."
+  },
+  {
+    "number": 4,
+    "cell": 20,
+    "viewed": true,
+    "observation": "학습·검증 CE는 처음 약 1.55/1.58에서 80스텝 안에 거의 0으로 내려옵니다. 선형 y축이므로 이후 1e-5~1e-6 차이는 구별하기 어렵지만 수치 출력과 모순되지 않습니다."
+  },
+  {
+    "number": 5,
+    "cell": 20,
+    "viewed": true,
+    "observation": "학습된 두 attention 행렬에서 서로 다른 읽기 비율을 직접 확인했습니다. 완전한 역대각선과 다른 head도 실제 정답 출력에 기여할 수 있다는 본문 설명과 맞으며 제목·숫자·색상 막대가 읽힙니다."
+  }
+]

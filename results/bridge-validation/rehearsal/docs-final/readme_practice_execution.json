@@ -1,0 +1,37 @@
+{
+  "method": "README가 이름으로 안내한 본문 검사 함수와 필요한 mse_forward만 AST로 추출해 독립 Python 프로세스에서 직접 작성한 후보를 전달했습니다. 전체 노트북은 재학습하지 않았습니다.",
+  "candidate_code_path": "/tmp/dlfs-bridges/rehearsal-docs-final/readme_learner_candidates.py",
+  "candidate_code_sha256": "96a1a56626303b2f4ae6cfac4d2db11969065bc5030975e79df55b3d10929ad0",
+  "extracted_current_functions": [
+    {
+      "notebook": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/00_math_to_numpy.ipynb",
+      "cell_zero_based": 37,
+      "name": "check_three_outputs",
+      "source": "def check_three_outputs(candidate):\n    example_X = np.array([[1., 2.], [-1., 3.]])\n    example_W = np.array([[1., 0., -2.], [0.5, 2., 1.]])\n    example_b = np.array([0., 1., -1.])\n    actual = candidate(example_X, example_W, example_b)\n    assert actual.shape == (2, 3)\n    np.testing.assert_allclose(actual, [[2., 5., -1.], [0.5, 7., 4.]])\n    print(\"출력 3개: 손계산과 일치합니다.\")"
+    },
+    {
+      "notebook": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/01_gradients_and_learning.ipynb",
+      "cell_zero_based": 3,
+      "name": "mse_forward",
+      "source": "def mse_forward(prediction, target):\n    if prediction.shape != target.shape or prediction.size == 0:\n        raise ValueError(\"prediction과 target은 같은 모양의 비어 있지 않은 배열로 둡니다.\")\n    residual = prediction - target\n    return 0.5 * np.mean(residual ** 2), residual"
+    },
+    {
+      "notebook": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/00_기초/01_gradients_and_learning.ipynb",
+      "cell_zero_based": 45,
+      "name": "check_mse_backward",
+      "source": "def check_mse_backward(candidate):\n    pred = np.array([[1., 0.], [2., 3.]])\n    target = np.array([[0., 1.], [0., 1.]])\n    loss, residual = mse_forward(pred, target)\n    np.testing.assert_allclose(loss, 1.25)\n    expected = np.array([[0.25, -0.25], [0.5, 0.5]])\n    np.testing.assert_allclose(candidate(residual), expected)\n    print(\"평균의 분모와 다중 출력 기울기가 손계산과 일치합니다.\")"
+    }
+  ],
+  "checks": [
+    {
+      "command": "check_three_outputs(my_affine)",
+      "passed": true,
+      "stdout": "출력 3개: 손계산과 일치합니다.\n"
+    },
+    {
+      "command": "check_mse_backward(my_mse_backward)",
+      "passed": true,
+      "stdout": "평균의 분모와 다중 출력 기울기가 손계산과 일치합니다.\n"
+    }
+  ]
+}

@@ -1,0 +1,340 @@
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+05_cnn cell 1 start
+05_cnn cell 1 done 0.432s
+05_cnn cell 3 start
+05_cnn cell 3 done 0.005s
+05_cnn cell 4 start
+05_cnn cell 4 done 0.006s
+05_cnn cell 5 start
+05_cnn cell 5 done 0.287s
+05_cnn cell 7 start
+05_cnn cell 7 done 0.004s
+05_cnn cell 9 start
+05_cnn cell 9 done 0.005s
+05_cnn cell 10 start
+05_cnn cell 10 done 0.013s
+05_cnn cell 12 start
+05_cnn cell 12 done 0.008s
+05_cnn cell 13 start
+05_cnn cell 13 done 0.014s
+05_cnn cell 14 start
+05_cnn cell 14 done 0.093s
+05_cnn cell 16 start
+05_cnn cell 16 done 0.016s
+05_cnn cell 17 start
+05_cnn cell 17 done 0.007s
+05_cnn cell 18 start
+05_cnn cell 18 done 0.289s
+05_cnn cell 20 start
+05_cnn cell 20 done 0.006s
+05_cnn cell 21 start
+05_cnn cell 21 done 0.007s
+05_cnn cell 22 start
+05_cnn cell 22 done 0.195s
+05_cnn cell 24 start
+05_cnn cell 24 done 0.004s
+05_cnn cell 25 start
+05_cnn cell 25 done 0.090s
+05_cnn cell 26 start
+05_cnn cell 26 done 0.417s
+05_cnn cell 27 start
+05_cnn cell 27 done 0.329s
+05_cnn cell 29 start
+05_cnn cell 29 done 0.005s
+05_cnn cell 31 start
+05_cnn cell 31 done 0.004s
+05_cnn cell 32 start
+05_cnn cell 32 done 0.010s
+05_cnn cell 34 start
+05_cnn cell 34 done 0.418s
+{
+  "notebook": "notebooks/01_아키텍처/05_cnn.ipynb",
+  "source_sha256": "336c0f5fa286be7bdab58e310af55871284d4e9a2069f1779f12b26f6d9c77d6",
+  "source_unchanged": true,
+  "fresh_kernel": true,
+  "original_cell_count": 34,
+  "original_code_cells_executed": 23,
+  "appended_exercise_cells": 1,
+  "elapsed_seconds": 3.420473692007363,
+  "cell_times": [
+    {
+      "cell": 1,
+      "seconds": 0.431669175013667
+    },
+    {
+      "cell": 3,
+      "seconds": 0.0053767139906995
+    },
+    {
+      "cell": 4,
+      "seconds": 0.006195522000780329
+    },
+    {
+      "cell": 5,
+      "seconds": 0.28668119001667947
+    },
+    {
+      "cell": 7,
+      "seconds": 0.004191483982140198
+    },
+    {
+      "cell": 9,
+      "seconds": 0.004700646997662261
+    },
+    {
+      "cell": 10,
+      "seconds": 0.013174582010833547
+    },
+    {
+      "cell": 12,
+      "seconds": 0.007595357979880646
+    },
+    {
+      "cell": 13,
+      "seconds": 0.01437920902390033
+    },
+    {
+      "cell": 14,
+      "seconds": 0.09307636099401861
+    },
+    {
+      "cell": 16,
+      "seconds": 0.016333867999492213
+    },
+    {
+      "cell": 17,
+      "seconds": 0.007444769988069311
+    },
+    {
+      "cell": 18,
+      "seconds": 0.2887458900222555
+    },
+    {
+      "cell": 20,
+      "seconds": 0.006480544980149716
+    },
+    {
+      "cell": 21,
+      "seconds": 0.006572453014086932
+    },
+    {
+      "cell": 22,
+      "seconds": 0.1952258920064196
+    },
+    {
+      "cell": 24,
+      "seconds": 0.004061671003000811
+    },
+    {
+      "cell": 25,
+      "seconds": 0.08986784901935607
+    },
+    {
+      "cell": 26,
+      "seconds": 0.4174792369885836
+    },
+    {
+      "cell": 27,
+      "seconds": 0.32925065999734215
+    },
+    {
+      "cell": 29,
+      "seconds": 0.00512420799350366
+    },
+    {
+      "cell": 31,
+      "seconds": 0.004249104997143149
+    },
+    {
+      "cell": 32,
+      "seconds": 0.010003053001128137
+    },
+    {
+      "cell": 34,
+      "seconds": 0.4176450990198646
+    }
+  ],
+  "figures": [
+    {
+      "cell": 5,
+      "path": "/tmp/dlfs-architectures/rehearsal05-07/05_cnn_cell05_0.png",
+      "width": 1302,
+      "height": 373,
+      "sha256": "eee6bcb8a24e6a56c23e6188fb7049a17b126f1a5131d9237601c0568ea5f489"
+    },
+    {
+      "cell": 14,
+      "path": "/tmp/dlfs-architectures/rehearsal05-07/05_cnn_cell14_0.png",
+      "width": 418,
+      "height": 373,
+      "sha256": "27f188f6cd045ed66c8d3b4a411a45d29d3c2a08f21e95d549451da7ff53afc8"
+    },
+    {
+      "cell": 18,
+      "path": "/tmp/dlfs-architectures/rehearsal05-07/05_cnn_cell18_0.png",
+      "width": 1301,
+      "height": 373,
+      "sha256": "8cbee0f50a327fc5860a76c48f999b9205cfdda6b27d1729ee1ccd834be1960b"
+    },
+    {
+      "cell": 22,
+      "path": "/tmp/dlfs-architectures/rehearsal05-07/05_cnn_cell22_0.png",
+      "width": 1177,
+      "height": 501,
+      "sha256": "b0b2145d565a4785c2a24b94cd65f0b1be5ae50fd2d513683914409053e0f529"
+    },
+    {
+      "cell": 27,
+      "path": "/tmp/dlfs-architectures/rehearsal05-07/05_cnn_cell27_0.png",
+      "width": 758,
+      "height": 407,
+      "sha256": "e32a490c21a9441aa64e1ba45032d1ef54815ac4c2704163ea1c5bff642ae7b1"
+    },
+    {
+      "cell": 27,
+      "path": "/tmp/dlfs-architectures/rehearsal05-07/05_cnn_cell27_1.png",
+      "width": 1177,
+      "height": 501,
+      "sha256": "953f04a035d34abd4d2f9b2c2f662af54a2c6e468d7d3be51165e52e958f79fa"
+    },
+    {
+      "cell": 34,
+      "path": "/tmp/dlfs-architectures/rehearsal05-07/05_cnn_cell34_0.png",
+      "width": 758,
+      "height": 407,
+      "sha256": "a8df09a23eb5311c9ccf86dc3e70d798de5fdc1e249972ba003e0f7f0b8af5c5"
+    }
+  ],
+  "stderr": [],
+  "metrics": {
+    "independent_conv_errors": {
+      "s1p0/X": 3.046231664885452e-10,
+      "s1p0/K": 5.484114055173651e-10,
+      "s1p0/b": 3.610719712753774e-10,
+      "s2p1/X": 2.4084906355003797e-10,
+      "s2p1/K": 1.2686361097147391e-10,
+      "s2p1/b": 7.773398929306294e-11
+    },
+    "independent_mean_pool_check": "평균 pooling 변형 통과",
+    "return_shapes": {
+      "dX": [
+        1,
+        1,
+        3,
+        3
+      ],
+      "dK": [
+        1,
+        1,
+        2,
+        2
+      ],
+      "db": [
+        1
+      ]
+    },
+    "overlap_coverage": [
+      [
+        1.0,
+        2.0,
+        1.0
+      ],
+      [
+        2.0,
+        4.0,
+        2.0
+      ],
+      [
+        1.0,
+        2.0,
+        1.0
+      ]
+    ],
+    "wrong_overlap_coverage": [
+      [
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0
+      ]
+    ],
+    "intentional_wrong_assertions": {
+      "conv_overlap_overwrite": "('X', 0.7446697357730543)",
+      "pool_divisor_missing": "\nNot equal to tolerance rtol=1e-06, atol=1e-08\n\nMismatched elements: 144 / 144 (100%)\nMax absolute difference among violations: 2.0776\nMax relative difference among violations: 3.\n ACTUAL: array([[[[ 0.7832  ,  0.7832  ,  0.633966,  0.633966,  0.903559,\n           0.903559],\n         [ 0.7832  ,  0.7832  ,  0.633966,  0.633966,  0.903559,...\n DESIRED: array([[[[ 0.1958  ,  0.1958  ,  0.158492,  0.158492,  0.22589 ,\n           0.22589 ],\n         [ 0.1958  ,  0.1958  ,  0.158492,  0.158492,  0.22589 ,..."
+    },
+    "baseline": {
+      "train_ce_initial": 2.3451135431563266,
+      "train_ce_final": 0.0876760079946676,
+      "validation_ce": 0.2293187206524869,
+      "validation_accuracy": 0.935,
+      "parameters": 610,
+      "conv_gradient_max_error": 5.484114245342819e-10,
+      "cnn_gradient_max_error": 8.04833810323961e-10
+    },
+    "filter3_variation": {
+      "head_input_dimension": 27,
+      "parameters": 310,
+      "steps": 600,
+      "train_ce_final": 0.3472036857437994,
+      "validation_ce": 0.5116086177814229,
+      "validation_accuracy": 0.85,
+      "training_seconds": 0.3213161979801953,
+      "history": {
+        "step": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450,
+          500,
+          550,
+          600
+        ],
+        "train": [
+          2.3099971084419186,
+          2.095170201313719,
+          1.744192961533708,
+          1.3459834011871605,
+          1.0512633800716291,
+          0.8852943265667347,
+          0.7570375628163365,
+          0.6069807275988992,
+          0.541120520558881,
+          0.4809322955505172,
+          0.43826617624674796,
+          0.3814715598902202,
+          0.3472036857437994
+        ],
+        "valid": [
+          2.3074454164540334,
+          2.171077269136739,
+          1.8537804367347661,
+          1.5029199877144086,
+          1.24830668179085,
+          1.0722430939816419,
+          0.9487199632925905,
+          0.7727575603545321,
+          0.6917104545603772,
+          0.6596810522703107,
+          0.595751814589979,
+          0.54484658505665,
+          0.5116086177814229
+        ]
+      }
+    }
+  }
+}

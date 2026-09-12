@@ -1,0 +1,936 @@
+{
+  "routes": [
+    {
+      "route": "수식을 직접 구현하기",
+      "text": "00–04 → 11–15 → 05–10",
+      "numbers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "line": 21,
+      "full_path": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "missing_prerequisites": [],
+      "first_planned_unit": null
+    },
+    {
+      "route": "이미지 구조",
+      "text": "05 → 08–09 → 13 → 16–17",
+      "numbers": [
+        5,
+        8,
+        9,
+        13,
+        16,
+        17
+      ],
+      "line": 22,
+      "full_path": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9,
+        13,
+        16,
+        17
+      ],
+      "missing_prerequisites": [],
+      "first_planned_unit": 16
+    },
+    {
+      "route": "VAE",
+      "text": "11–15 → 22–26",
+      "numbers": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "line": 23,
+      "full_path": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "missing_prerequisites": [],
+      "first_planned_unit": 22
+    },
+    {
+      "route": "GAN",
+      "text": "13–15 → 28–29",
+      "numbers": [
+        13,
+        14,
+        15,
+        28,
+        29
+      ],
+      "line": 24,
+      "full_path": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        13,
+        14,
+        15,
+        28,
+        29
+      ],
+      "missing_prerequisites": [],
+      "first_planned_unit": 28
+    },
+    {
+      "route": "score·diffusion",
+      "text": "11–15 → 27 → 31–32",
+      "numbers": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        27,
+        31,
+        32
+      ],
+      "line": 25,
+      "full_path": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15,
+        27,
+        31,
+        32
+      ],
+      "missing_prerequisites": [],
+      "first_planned_unit": 27
+    },
+    {
+      "route": "GPT",
+      "text": "08–09 → 13–15 → 44–46",
+      "numbers": [
+        8,
+        9,
+        13,
+        14,
+        15,
+        44,
+        45,
+        46
+      ],
+      "line": 26,
+      "full_path": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        8,
+        9,
+        13,
+        14,
+        15,
+        44,
+        45,
+        46
+      ],
+      "missing_prerequisites": [],
+      "first_planned_unit": 44
+    },
+    {
+      "route": "자기지도 표현",
+      "text": "05·08·10 → 11–15 → 38–39",
+      "numbers": [
+        5,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        38,
+        39
+      ],
+      "line": 27,
+      "full_path": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        38,
+        39
+      ],
+      "missing_prerequisites": [],
+      "first_planned_unit": 38
+    },
+    {
+      "route": "강화학습",
+      "text": "11–15 → 27 → 51–58",
+      "numbers": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        27,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "line": 28,
+      "full_path": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14,
+        15,
+        27,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ],
+      "missing_prerequisites": [],
+      "first_planned_unit": 27
+    }
+  ],
+  "unit_count": 64,
+  "unit_numbers_consecutive": true,
+  "prerequisite_mapping": {
+    "0": {
+      "title": "수식을 NumPy로 옮기기",
+      "prerequisites": [],
+      "prerequisite_text": "숫자·변수·반복문",
+      "line": 37
+    },
+    "1": {
+      "title": "미분으로 학습시키기",
+      "prerequisites": [
+        0
+      ],
+      "prerequisite_text": "00의 선형 계산",
+      "line": 38
+    },
+    "2": {
+      "title": "확률에서 손실 만들기",
+      "prerequisites": [
+        0,
+        1
+      ],
+      "prerequisite_text": "합·평균·함수·미분",
+      "line": 39
+    },
+    "3": {
+      "title": "퍼셉트론에서 MLP까지",
+      "prerequisites": [
+        0,
+        1,
+        2
+      ],
+      "prerequisite_text": "00–02",
+      "line": 40
+    },
+    "4": {
+      "title": "optimizer의 계산",
+      "prerequisites": [
+        1,
+        2,
+        3
+      ],
+      "prerequisite_text": "01·02의 기울기·기댓값, 03의 활성화",
+      "line": 41
+    },
+    "5": {
+      "title": "CNN",
+      "prerequisites": [
+        2,
+        3
+      ],
+      "prerequisite_text": "MLP, 다중분류",
+      "line": 53
+    },
+    "6": {
+      "title": "RNN",
+      "prerequisites": [
+        1,
+        3
+      ],
+      "prerequisite_text": "공유 파라미터, 역전파",
+      "line": 54
+    },
+    "7": {
+      "title": "LSTM·GRU",
+      "prerequisites": [
+        6
+      ],
+      "prerequisite_text": "RNN과 시간별 기울기",
+      "line": 55
+    },
+    "8": {
+      "title": "Attention",
+      "prerequisites": [
+        0,
+        2
+      ],
+      "prerequisite_text": "행렬곱, softmax",
+      "line": 56
+    },
+    "9": {
+      "title": "Transformer",
+      "prerequisites": [
+        3,
+        8
+      ],
+      "prerequisite_text": "attention, MLP",
+      "line": 57
+    },
+    "10": {
+      "title": "GNN",
+      "prerequisites": [
+        0,
+        1,
+        3
+      ],
+      "prerequisite_text": "공유 가중치, 합·평균",
+      "line": 58
+    },
+    "11": {
+      "title": "투영·공분산·SVD·PCA",
+      "prerequisites": [
+        0,
+        1
+      ],
+      "prerequisite_text": "00–01",
+      "line": 70
+    },
+    "12": {
+      "title": "다변량 Gaussian·정보이론·추정",
+      "prerequisites": [
+        2,
+        11
+      ],
+      "prerequisite_text": "02·11",
+      "line": 71
+    },
+    "13": {
+      "title": "계산 그래프와 자동미분",
+      "prerequisites": [
+        1,
+        3
+      ],
+      "prerequisite_text": "01·03",
+      "line": 72
+    },
+    "14": {
+      "title": "손실 선택·정규화·AdamW·dropout",
+      "prerequisites": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "prerequisite_text": "01–04",
+      "line": 73
+    },
+    "15": {
+      "title": "분할·학습 진단·평가·반복 실험",
+      "prerequisites": [
+        2,
+        4,
+        14
+      ],
+      "prerequisite_text": "02·04·14",
+      "line": 74
+    },
+    "16": {
+      "title": "BatchNorm·LayerNorm·RMSNorm",
+      "prerequisites": [
+        3,
+        9,
+        13
+      ],
+      "prerequisite_text": "03·09·13",
+      "line": 87
+    },
+    "17": {
+      "title": "잔차 블록과 ResNet",
+      "prerequisites": [
+        5,
+        9,
+        16
+      ],
+      "prerequisite_text": "05·09·16",
+      "line": 88
+    },
+    "18": {
+      "title": "encoder–decoder와 U-Net",
+      "prerequisites": [
+        5,
+        17
+      ],
+      "prerequisite_text": "05·17",
+      "line": 89
+    },
+    "19": {
+      "title": "patch embedding과 ViT",
+      "prerequisites": [
+        5,
+        9,
+        16
+      ],
+      "prerequisite_text": "05·09·16",
+      "line": 90
+    },
+    "20": {
+      "title": "sequence encoder–decoder",
+      "prerequisites": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "prerequisite_text": "06–09",
+      "line": 91
+    },
+    "21": {
+      "title": "집합·graph attention·구조적 대칭",
+      "prerequisites": [
+        8,
+        10
+      ],
+      "prerequisite_text": "08·10",
+      "line": 92
+    },
+    "22": {
+      "title": "Autoencoder와 압축 표현",
+      "prerequisites": [
+        3,
+        11,
+        13,
+        14,
+        15
+      ],
+      "prerequisite_text": "03·11·13–15",
+      "line": 107
+    },
+    "23": {
+      "title": "잠재변수·주변화·혼합 모형",
+      "prerequisites": [
+        2,
+        12
+      ],
+      "prerequisite_text": "02·12",
+      "line": 108
+    },
+    "24": {
+      "title": "Jensen 부등식과 ELBO 유도",
+      "prerequisites": [
+        12,
+        23
+      ],
+      "prerequisite_text": "12·23",
+      "line": 109
+    },
+    "25": {
+      "title": "재매개화 VAE의 전체 학습",
+      "prerequisites": [
+        13,
+        22,
+        24
+      ],
+      "prerequisite_text": "13·22·24",
+      "line": 110
+    },
+    "26": {
+      "title": "VAE가 배운 분포 읽기",
+      "prerequisites": [
+        15,
+        25
+      ],
+      "prerequisite_text": "15·25",
+      "line": 111
+    },
+    "27": {
+      "title": "Monte Carlo·importance sampling·샘플 기울기",
+      "prerequisites": [
+        2,
+        12,
+        13
+      ],
+      "prerequisite_text": "02·12–13",
+      "line": 112
+    },
+    "28": {
+      "title": "GAN의 두 목적과 교대 갱신",
+      "prerequisites": [
+        3,
+        4,
+        13,
+        14,
+        15
+      ],
+      "prerequisite_text": "03–04·13–15",
+      "line": 113
+    },
+    "29": {
+      "title": "GAN 목적과 안정화 비교",
+      "prerequisites": [
+        28
+      ],
+      "prerequisite_text": "28",
+      "line": 114
+    },
+    "30": {
+      "title": "변수 변환과 normalizing flow",
+      "prerequisites": [
+        11,
+        12,
+        13,
+        27
+      ],
+      "prerequisite_text": "11–13·27",
+      "line": 115
+    },
+    "31": {
+      "title": "에너지 기반 모델과 MCMC",
+      "prerequisites": [
+        12,
+        27
+      ],
+      "prerequisite_text": "12·27",
+      "line": 116
+    },
+    "32": {
+      "title": "score와 denoising score matching",
+      "prerequisites": [
+        12,
+        13,
+        27
+      ],
+      "prerequisite_text": "12–13·27",
+      "line": 117
+    },
+    "33": {
+      "title": "잡음 수준을 잇는 score 모델",
+      "prerequisites": [
+        31,
+        32
+      ],
+      "prerequisite_text": "31–32",
+      "line": 118
+    },
+    "34": {
+      "title": "Diffusion의 전방 과정과 학습 타깃",
+      "prerequisites": [
+        12,
+        24,
+        32
+      ],
+      "prerequisite_text": "12·24·32",
+      "line": 119
+    },
+    "35": {
+      "title": "Diffusion 역과정·DDIM·조건부 생성",
+      "prerequisites": [
+        20,
+        33,
+        34
+      ],
+      "prerequisite_text": "20·33–34",
+      "line": 120
+    },
+    "36": {
+      "title": "Flow matching과 ODE 생성",
+      "prerequisites": [
+        27,
+        30,
+        33
+      ],
+      "prerequisite_text": "27·30·33",
+      "line": 121
+    },
+    "37": {
+      "title": "생성 모델 평가와 비교 실험",
+      "prerequisites": [
+        15,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "prerequisite_text": "15·22–36 중 관심 모델",
+      "line": 122
+    },
+    "38": {
+      "title": "데이터 변형과 불변성",
+      "prerequisites": [
+        5,
+        10,
+        15
+      ],
+      "prerequisite_text": "05·10·15",
+      "line": 142
+    },
+    "39": {
+      "title": "대조학습과 InfoNCE",
+      "prerequisites": [
+        8,
+        12,
+        38
+      ],
+      "prerequisite_text": "08·12·38",
+      "line": 143
+    },
+    "40": {
+      "title": "교사·학생·stop-gradient",
+      "prerequisites": [
+        13,
+        38,
+        39
+      ],
+      "prerequisite_text": "13·38–39",
+      "line": 144
+    },
+    "41": {
+      "title": "분산·공분산으로 표현 제약하기",
+      "prerequisites": [
+        11,
+        12,
+        40
+      ],
+      "prerequisite_text": "11–12·40",
+      "line": 145
+    },
+    "42": {
+      "title": "masked reconstruction",
+      "prerequisites": [
+        18,
+        19,
+        22,
+        38
+      ],
+      "prerequisite_text": "18–19·22·38",
+      "line": 146
+    },
+    "43": {
+      "title": "JEPA와 표현 타깃 예측",
+      "prerequisites": [
+        19,
+        20,
+        40,
+        41,
+        42
+      ],
+      "prerequisite_text": "19–20·40–42",
+      "line": 147
+    },
+    "44": {
+      "title": "토큰화·언어 데이터·자기회귀 목적",
+      "prerequisites": [
+        2,
+        9,
+        15
+      ],
+      "prerequisite_text": "02·09·15",
+      "line": 159
+    },
+    "45": {
+      "title": "작은 decoder GPT 전체 학습",
+      "prerequisites": [
+        9,
+        13,
+        14,
+        15,
+        44
+      ],
+      "prerequisite_text": "09·13–15·44",
+      "line": 160
+    },
+    "46": {
+      "title": "생성 규칙과 KV cache",
+      "prerequisites": [
+        45
+      ],
+      "prerequisite_text": "45",
+      "line": 161
+    },
+    "47": {
+      "title": "encoder 목적과 BERT식 MLM",
+      "prerequisites": [
+        20,
+        42,
+        44
+      ],
+      "prerequisite_text": "20·42·44",
+      "line": 162
+    },
+    "48": {
+      "title": "SFT·전이 학습·LoRA",
+      "prerequisites": [
+        13,
+        14,
+        15,
+        45
+      ],
+      "prerequisite_text": "13–15·45",
+      "line": 163
+    },
+    "49": {
+      "title": "선호 쌍·Bradley–Terry·DPO",
+      "prerequisites": [
+        12,
+        44,
+        45,
+        46,
+        47,
+        48
+      ],
+      "prerequisite_text": "12·44–48",
+      "line": 164
+    },
+    "50": {
+      "title": "다중모달 표현과 조건부 모델",
+      "prerequisites": [
+        19,
+        20,
+        39,
+        45
+      ],
+      "prerequisite_text": "19–20·39·45",
+      "line": 165
+    },
+    "51": {
+      "title": "Bandit·기대 보상·탐색",
+      "prerequisites": [
+        2,
+        27
+      ],
+      "prerequisite_text": "02·27",
+      "line": 177
+    },
+    "52": {
+      "title": "MDP·return·Bellman·동적 계획",
+      "prerequisites": [
+        11,
+        51
+      ],
+      "prerequisite_text": "11·51",
+      "line": 178
+    },
+    "53": {
+      "title": "Monte Carlo·TD·다단계 타깃",
+      "prerequisites": [
+        27,
+        52
+      ],
+      "prerequisite_text": "27·52",
+      "line": 179
+    },
+    "54": {
+      "title": "SARSA·Q-learning과 데이터 정책",
+      "prerequisites": [
+        52,
+        53
+      ],
+      "prerequisite_text": "52–53",
+      "line": 180
+    },
+    "55": {
+      "title": "DQN·replay·target network",
+      "prerequisites": [
+        3,
+        13,
+        15,
+        54
+      ],
+      "prerequisite_text": "03·13·15·54",
+      "line": 181
+    },
+    "56": {
+      "title": "REINFORCE와 정책 기울기 유도",
+      "prerequisites": [
+        12,
+        27,
+        51,
+        52,
+        53
+      ],
+      "prerequisite_text": "12·27·51–53",
+      "line": 182
+    },
+    "57": {
+      "title": "Actor–Critic·advantage·GAE",
+      "prerequisites": [
+        13,
+        53,
+        56
+      ],
+      "prerequisite_text": "13·53·56",
+      "line": 183
+    },
+    "58": {
+      "title": "PPO의 ratio·clip·업데이트",
+      "prerequisites": [
+        15,
+        57
+      ],
+      "prerequisite_text": "15·57",
+      "line": 184
+    },
+    "59": {
+      "title": "연속 행동·DDPG/TD3·SAC",
+      "prerequisites": [
+        12,
+        25,
+        55,
+        57
+      ],
+      "prerequisite_text": "12·25·55·57",
+      "line": 185
+    },
+    "60": {
+      "title": "모델 기반 RL과 계획",
+      "prerequisites": [
+        27,
+        52,
+        59
+      ],
+      "prerequisite_text": "27·52·59",
+      "line": 186
+    },
+    "61": {
+      "title": "오프라인 RL과 정책 평가",
+      "prerequisites": [
+        15,
+        27,
+        54,
+        59
+      ],
+      "prerequisite_text": "15·27·54·59",
+      "line": 187
+    },
+    "62": {
+      "title": "선호 보상과 RLHF 연결",
+      "prerequisites": [
+        45,
+        49,
+        56,
+        57,
+        58
+      ],
+      "prerequisite_text": "45·49·56–58",
+      "line": 188
+    },
+    "63": {
+      "title": "논문→계산 명세→작은 재현",
+      "prerequisites": [
+        13,
+        14,
+        15
+      ],
+      "prerequisite_text": "13–15와 관심 경로",
+      "line": 197
+    }
+  },
+  "initial_findings_resolved": [
+    "VAE 13–15 omitted",
+    "RL 27 omitted"
+  ],
+  "previous_curriculum_sha256": "cfc19aef1da819b4e1e5e3f4cfcbb6f99262f0755947292132cd32278109061a",
+  "current_curriculum_sha256": "9b2df733c88d8a591559bea8e94113a88f6519247e6743dc2a0de85163830f12"
+}

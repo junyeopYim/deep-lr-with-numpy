@@ -1,0 +1,339 @@
+{
+  "task": "ballast:rehearsal 15_experiments_evaluation",
+  "source_sha256": "de169ffbd3c04ee6b240b10b2d6cc8145c989278daf91ef2e9f15ffaf6891300",
+  "source_cells_sha256": "315fd059aa0fb7d651550d6d7a23b8cea32f58b6bec4aaab560dd1a39354254e",
+  "source_snapshot_path": "/tmp/dlfs-bridges/rehearsal15/source_snapshot.ipynb",
+  "source_sha256_after_execution": "de169ffbd3c04ee6b240b10b2d6cc8145c989278daf91ef2e9f15ffaf6891300",
+  "source_unchanged_during_execution": true,
+  "learner_code_sha256": "701050b178596eb3dc443e8276970e007ec924233717bea19a435e157d33e73b",
+  "runner_sha256": "15821446e6675fa3ed714814f5cfbe1d11629b2de4d5487660ac5d4befa67839",
+  "python": "3.13.12",
+  "helper_sha256": "58cd0bace331cc5feabce133980bfdfa53d2b431c61f72bb2dabfd2d7791ef89",
+  "runs": {
+    "baseline": {
+      "original_source_path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/15_experiments_evaluation.ipynb",
+      "original_source_sha256": "de169ffbd3c04ee6b240b10b2d6cc8145c989278daf91ef2e9f15ffaf6891300",
+      "original_source_cells_sha256": "315fd059aa0fb7d651550d6d7a23b8cea32f58b6bec4aaab560dd1a39354254e",
+      "input_copy_path": "/tmp/dlfs-bridges/rehearsal15/baseline_input.ipynb",
+      "input_copy_sha256": "08063ce535a6c54852ff8b3212d4939ff43f5d012adab818498f0b251e43b00f",
+      "executed_copy_path": "/tmp/dlfs-bridges/rehearsal15/baseline_executed.ipynb",
+      "executed_copy_sha256": "d01dcf759906d4c4895b13dd2a91c0c0cac54a86a2d63d0bb34c775f54674978",
+      "source_changes": [],
+      "appended_learner_cell_index_zero_based": 34,
+      "kernel_name": "python3",
+      "kernel_working_directory": "/home/junyeop/projects/deep-learning-from-scratch",
+      "fresh_kernel": true,
+      "elapsed_seconds": 1.8698412090016063,
+      "original_cells": 34,
+      "original_code_cells": 21,
+      "original_executed_code_cells": 21,
+      "learner_cell_executed": true,
+      "error_count": 0,
+      "errors": [],
+      "glyph_warning_count": 0,
+      "png_count": 6,
+      "pictures": [
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/baseline_figure_01.png",
+          "cell_index_zero_based": 5,
+          "output_index_zero_based": 0,
+          "width": 759,
+          "height": 384,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "c6fbffdf72eeca7749bc726e88b2b0cedd8d61791850fb6bfc6de92aa6aebbbd",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "행 분할 정확도 1.00, 사람 단위 분할 0.65인 막대 두 개가 축과 일치합니다. 한글과 제목을 읽을 수 있습니다."
+        },
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/baseline_figure_02.png",
+          "cell_index_zero_based": 14,
+          "output_index_zero_based": 0,
+          "width": 758,
+          "height": 385,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "553e9e817af7f8cacdb6a3ac6040f74fb417bfd9f2ab307b5c18b2321f651dff",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "train BCE와 validation BCE가 내려갑니다. 선택 lambda=0이라 정규화 포함 목적이 train BCE와 겹칩니다. 범례·축·제목을 읽을 수 있습니다."
+        },
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/baseline_figure_03.png",
+          "cell_index_zero_based": 14,
+          "output_index_zero_based": 1,
+          "width": 759,
+          "height": 385,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "c047ef7f253ac05397d4f10a0601e4142ef0ba6a9f785a38ff2de4ef5ba38b67",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "전체 기울기 norm은 계속 줄어들지만 epoch의 미니배치 업데이트 norm 합은 약 0.1 부근에서 흔들립니다. log 축과 두 범례가 구분됩니다."
+        },
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/baseline_figure_04.png",
+          "cell_index_zero_based": 24,
+          "output_index_zero_based": 0,
+          "width": 758,
+          "height": 385,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "c6e89ba470a1ddcf48d4bb3039fded41ef1104fe11b5b033f5bf8dae9d38d16e",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "확률 구간별 관측 비율이 기준선 양쪽에 놓입니다. x≈0.4 구간은 예측보다 관측 비율이 낮습니다. 선·한글 축·범례를 읽을 수 있습니다."
+        },
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/baseline_figure_05.png",
+          "cell_index_zero_based": 24,
+          "output_index_zero_based": 1,
+          "width": 759,
+          "height": 385,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "4fb9d6cac3baf403ec8d30e0e96cfdc1fcb3e18dc835926c23276d2c3bef8582",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "validation F1 최대 구간이 threshold 0.4~0.425 부근에 보입니다. 선택된 0.4와 수치가 부합합니다."
+        },
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/baseline_figure_06.png",
+          "cell_index_zero_based": 27,
+          "output_index_zero_based": 0,
+          "width": 396,
+          "height": 352,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "e18d6d1dfeb79a266a29124752bdc256a475faf12dafb8b0fc9b8cbf565fd1e2",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "행=정답, 열=예측이라고 제목에 명시되어 있고 [[107,29],[12,32]]가 모두 읽힙니다. 합 180과 지표를 재구성할 수 있습니다."
+        }
+      ],
+      "streams": [
+        {
+          "cell_index_zero_based": 4,
+          "name": "stdout",
+          "text": "행 분할 / 사람 분할 정확도: 1.0 0.65 행 분할의 겹친 사람 수: 100\n"
+        },
+        {
+          "cell_index_zero_based": 8,
+          "name": "stdout",
+          "text": "학습 평균: [3. 4.] 미래 관측을 합쳤을 때의 평균: [27.25  4.  ]\n"
+        },
+        {
+          "cell_index_zero_based": 11,
+          "name": "stdout",
+          "text": "수치미분 최대 상대 오차: 1.219283239380507e-09 네 관측 BCE: 0.007067326729228688\n"
+        },
+        {
+          "cell_index_zero_based": 13,
+          "name": "stdout",
+          "text": "train/validation 관측 수: 540 180 양성 비율: 0.34814814814814815 0.32222222222222224\nlambda별 평균 검증 BCE: {0.0: np.float64(0.4430584554376771), 0.02: np.float64(0.4456812462931811), 0.2: np.float64(0.5036214279992529)} 선택 lambda: 0.0\n선택 epoch: [89, 58, 48]\n"
+        },
+        {
+          "cell_index_zero_based": 18,
+          "name": "stdout",
+          "text": "네 관측 손계산: {'accuracy': np.float64(0.5), 'precision': np.float64(0.5), 'recall': np.float64(0.5), 'f1': np.float64(0.5), 'nll': np.float64(0.6841124189059771), 'brier': np.float64(0.25500000000000006), 'auc': np.float64(0.75)}\n"
+        },
+        {
+          "cell_index_zero_based": 20,
+          "name": "stdout",
+          "text": "원래 확률 accuracy/NLL/Brier: 0.8055555555555556 0.4434677231510092 0.14124827418324257\nlogit 3배 accuracy/NLL/Brier: 0.8055555555555556 0.7084902535875646 0.15887218330438363\n"
+        },
+        {
+          "cell_index_zero_based": 23,
+          "name": "stdout",
+          "text": "구간 관측 수: [75 34 20 20 18 13] validation ECE: 0.045562456701411125\n검증 평균 확률의 F1으로 선택한 임계값: 0.4\n"
+        },
+        {
+          "cell_index_zero_based": 26,
+          "name": "stdout",
+          "text": "seed=1, epoch=89, test NLL=0.429953, accuracy=0.7722, F1=0.6095, AUC=0.8319\nseed=2, epoch=58, test NLL=0.429226, accuracy=0.7778, F1=0.6154, AUC=0.8322\nseed=3, epoch=48, test NLL=0.429568, accuracy=0.7833, F1=0.6355, AUC=0.8309\nseed NLL 평균 / 표본 표준편차: 0.42958233052221834 0.0003638927795710818\n세 실행 평균 확률 test: {'accuracy': np.float64(0.7722222222222223), 'precision': np.float64(0.5245901639344263), 'recall': np.float64(0.7272727272727273), 'f1': np.float64(0.6095238095238096), 'nll': np.float64(0.4294734341320058), 'brier': np.float64(0.14156076477094362), 'auc': np.float64(0.8322192513368984)}\n"
+        },
+        {
+          "cell_index_zero_based": 29,
+          "name": "stdout",
+          "text": "원래 validation NLL: 0.4434677231510092 특성별 순열 NLL: {0: np.float64(0.6937559796926076), 7: np.float64(0.44775356397494714)}\n"
+        },
+        {
+          "cell_index_zero_based": 32,
+          "name": "stdout",
+          "text": "통과: 혼동행렬·임계값·동점 순위·분모 규약·확률 지표\n{'data_seed': 151, 'split_seed': 152, 'train_validation_test_counts': [540, 180, 180], 'l2_candidates': [0.0, 0.02, 0.2], 'training_seeds': [1, 2, 3], 'selected_l2': 0.0, 'selected_epochs': [89, 58, 48], 'selected_threshold': 0.4, 'selection_metric': 'validation BCE then ensemble validation F1', 'test_ensemble_nll': np.float64(0.4294734341320058), 'test_ensemble_f1': np.float64(0.6095238095238096), 'test_seed_nll_std': 0.0003638927795710818}\n"
+        },
+        {
+          "cell_index_zero_based": 34,
+          "name": "stdout",
+          "text": "독립 구현 및 실험 검산: 통과: 혼동행렬·임계값·동점 순위·분모 규약·확률 지표\nREHEARSAL baseline {\"positive_prevalence\": [0.34814814814814815, 0.32222222222222224, 0.24444444444444444], \"selected_l2\": 0.0, \"selected_epochs\": [89, 58, 48], \"selected_threshold\": 0.4, \"ensemble_test\": {\"accuracy\": 0.7722222222222223, \"precision\": 0.5245901639344263, \"recall\": 0.7272727272727273, \"f1\": 0.6095238095238096, \"nll\": 0.4294734341320058, \"brier\": 0.14156076477094368, \"auc\": 0.8322192513368984, \"confusion\": [[107, 29], [12, 32]]}, \"accepted_incorrect_candidates\": [\"wrong_strict_threshold\", \"wrong_f1_arithmetic_mean\", \"wrong_single_class_auc_zero\"]}\n"
+        }
+      ]
+    },
+    "low_prevalence": {
+      "original_source_path": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/15_experiments_evaluation.ipynb",
+      "original_source_sha256": "de169ffbd3c04ee6b240b10b2d6cc8145c989278daf91ef2e9f15ffaf6891300",
+      "original_source_cells_sha256": "315fd059aa0fb7d651550d6d7a23b8cea32f58b6bec4aaab560dd1a39354254e",
+      "input_copy_path": "/tmp/dlfs-bridges/rehearsal15/low_prevalence_input.ipynb",
+      "input_copy_sha256": "46b70bcf511b5349a6a7b8a2c7cf3ddaf16c6abf336771a6a647ed9f22010bb6",
+      "executed_copy_path": "/tmp/dlfs-bridges/rehearsal15/low_prevalence_executed.ipynb",
+      "executed_copy_sha256": "a741da34b97419d6fdefa794933f952df19b77be497208723170e7e0258db881",
+      "source_changes": [
+        {
+          "cell_index_zero_based": 13,
+          "source_line_one_based": 4,
+          "before": "true_logits = 1.2*(raw_X[:, 0]/3) - 1.5*((raw_X[:, 1]-1)/.5) - 1.2",
+          "after": "true_logits = 1.2*(raw_X[:, 0]/3) - 1.5*((raw_X[:, 1]-1)/.5) - 2.5"
+        }
+      ],
+      "appended_learner_cell_index_zero_based": 34,
+      "kernel_name": "python3",
+      "kernel_working_directory": "/home/junyeop/projects/deep-learning-from-scratch",
+      "fresh_kernel": true,
+      "elapsed_seconds": 1.8275162310164887,
+      "original_cells": 34,
+      "original_code_cells": 21,
+      "original_executed_code_cells": 21,
+      "learner_cell_executed": true,
+      "error_count": 0,
+      "errors": [],
+      "glyph_warning_count": 0,
+      "png_count": 6,
+      "pictures": [
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/low_prevalence_figure_01.png",
+          "cell_index_zero_based": 5,
+          "output_index_zero_based": 0,
+          "width": 759,
+          "height": 384,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "c6fbffdf72eeca7749bc726e88b2b0cedd8d61791850fb6bfc6de92aa6aebbbd",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "앞선 사람/행 분할 예제는 동일하여 막대 1.00/0.65가 재현됩니다. 그림을 직접 열어 확인했습니다."
+        },
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/low_prevalence_figure_02.png",
+          "cell_index_zero_based": 14,
+          "output_index_zero_based": 0,
+          "width": 758,
+          "height": 385,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "5f1cb60d459db9f5e964c8055a5f44af8bf5252b95808f086d00b00446ce3e87",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "학습과 검증 BCE가 각각 약 0.27/0.30으로 내려갑니다. lambda=0으로 train 목적과 BCE가 겹칩니다. 축과 범례는 정상입니다."
+        },
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/low_prevalence_figure_03.png",
+          "cell_index_zero_based": 14,
+          "output_index_zero_based": 1,
+          "width": 759,
+          "height": 385,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "7e61934e06a17781e0b68ed8a5350a16b264b0fd014b79f63996f689e9235dc3",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "전체 기울기 norm은 줄어들고 업데이트 norm 합은 약 0.08 부근에서 흔들립니다. 한글·log 축·범례가 읽힙니다."
+        },
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/low_prevalence_figure_04.png",
+          "cell_index_zero_based": 24,
+          "output_index_zero_based": 0,
+          "width": 758,
+          "height": 385,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "ac4bc77b8e32be26e6888289e8a2c8cd40e725e84b2c6230ecaa669006eeec10",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "가장 높은 확률 구간의 실제 양성 비율이 약 2/3입니다. 이 구간은 출력된 관측 수 3개이며, 표본 수 해석은 본문 경고와 연결됩니다. 그림 잘림은 없습니다."
+        },
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/low_prevalence_figure_05.png",
+          "cell_index_zero_based": 24,
+          "output_index_zero_based": 1,
+          "width": 758,
+          "height": 385,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "cedc70d957ce840b3410ad33d12a1a5e0825e0259f559843c6b133d221688a8c",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "validation F1 최대가 threshold 0.275 부근에 나타납니다. 오른쪽 높은 threshold에서 F1이 낮아집니다."
+        },
+        {
+          "path": "/tmp/dlfs-bridges/rehearsal15/low_prevalence_figure_06.png",
+          "cell_index_zero_based": 27,
+          "output_index_zero_based": 0,
+          "width": 397,
+          "height": 352,
+          "decoded": true,
+          "visually_reviewed": true,
+          "sha256": "7fc36149b796690bb95c449e2d23b9445f9081108fa77e87580d666d0f21c246",
+          "review_method": "PIL verify/load 후 tools.view_image로 원본 PNG를 직접 보았습니다.",
+          "visual_note": "행=정답, 열=예측이며 [[141,21],[10,8]]이 읽힙니다. 양성 18개 중 8개를 맞혀 recall=8/18로 연결됩니다."
+        }
+      ],
+      "streams": [
+        {
+          "cell_index_zero_based": 4,
+          "name": "stdout",
+          "text": "행 분할 / 사람 분할 정확도: 1.0 0.65 행 분할의 겹친 사람 수: 100\n"
+        },
+        {
+          "cell_index_zero_based": 8,
+          "name": "stdout",
+          "text": "학습 평균: [3. 4.] 미래 관측을 합쳤을 때의 평균: [27.25  4.  ]\n"
+        },
+        {
+          "cell_index_zero_based": 11,
+          "name": "stdout",
+          "text": "수치미분 최대 상대 오차: 1.219283239380507e-09 네 관측 BCE: 0.007067326729228688\n"
+        },
+        {
+          "cell_index_zero_based": 13,
+          "name": "stdout",
+          "text": "train/validation 관측 수: 540 180 양성 비율: 0.1685185185185185 0.16666666666666666\nlambda별 평균 검증 BCE: {0.0: np.float64(0.29558190925396316), 0.02: np.float64(0.3008042007387991), 0.2: np.float64(0.3630105171746534)} 선택 lambda: 0.0\n선택 epoch: [81, 82, 77]\n"
+        },
+        {
+          "cell_index_zero_based": 18,
+          "name": "stdout",
+          "text": "네 관측 손계산: {'accuracy': np.float64(0.5), 'precision': np.float64(0.5), 'recall': np.float64(0.5), 'f1': np.float64(0.5), 'nll': np.float64(0.6841124189059771), 'brier': np.float64(0.25500000000000006), 'auc': np.float64(0.75)}\n"
+        },
+        {
+          "cell_index_zero_based": 20,
+          "name": "stdout",
+          "text": "원래 확률 accuracy/NLL/Brier: 0.8722222222222222 0.2955260664425631 0.0913997747994422\nlogit 3배 accuracy/NLL/Brier: 0.8722222222222222 0.4846843914431685 0.10574236130133724\n"
+        },
+        {
+          "cell_index_zero_based": 23,
+          "name": "stdout",
+          "text": "구간 관측 수: [124  26  13   7   7   3] validation ECE: 0.02479245108381183\n검증 평균 확률의 F1으로 선택한 임계값: 0.275\n"
+        },
+        {
+          "cell_index_zero_based": 26,
+          "name": "stdout",
+          "text": "seed=1, epoch=81, test NLL=0.283130, accuracy=0.8278, F1=0.3404, AUC=0.8104\nseed=2, epoch=82, test NLL=0.283257, accuracy=0.8278, F1=0.3404, AUC=0.8114\nseed=3, epoch=77, test NLL=0.284064, accuracy=0.8278, F1=0.3404, AUC=0.8090\nseed NLL 평균 / 표본 표준편차: 0.28348365727712177 0.0005065848772111283\n세 실행 평균 확률 test: {'accuracy': np.float64(0.8277777777777777), 'precision': np.float64(0.27586206896551724), 'recall': np.float64(0.4444444444444444), 'f1': np.float64(0.3404255319148936), 'nll': np.float64(0.28347419188236755), 'brier': np.float64(0.08410168270816522), 'auc': np.float64(0.8100137174211248)}\n"
+        },
+        {
+          "cell_index_zero_based": 29,
+          "name": "stdout",
+          "text": "원래 validation NLL: 0.2955260664425631 특성별 순열 NLL: {0: np.float64(0.46868232528264286), 7: np.float64(0.29652240823189513)}\n"
+        },
+        {
+          "cell_index_zero_based": 32,
+          "name": "stdout",
+          "text": "통과: 혼동행렬·임계값·동점 순위·분모 규약·확률 지표\n{'data_seed': 151, 'split_seed': 152, 'train_validation_test_counts': [540, 180, 180], 'l2_candidates': [0.0, 0.02, 0.2], 'training_seeds': [1, 2, 3], 'selected_l2': 0.0, 'selected_epochs': [81, 82, 77], 'selected_threshold': 0.275, 'selection_metric': 'validation BCE then ensemble validation F1', 'test_ensemble_nll': np.float64(0.28347419188236755), 'test_ensemble_f1': np.float64(0.3404255319148936), 'test_seed_nll_std': 0.0005065848772111283}\n"
+        },
+        {
+          "cell_index_zero_based": 34,
+          "name": "stdout",
+          "text": "독립 구현 및 실험 검산: 통과: 혼동행렬·임계값·동점 순위·분모 규약·확률 지표\nREHEARSAL low_prevalence {\"positive_prevalence\": [0.1685185185185185, 0.16666666666666666, 0.1], \"selected_l2\": 0.0, \"selected_epochs\": [81, 82, 77], \"selected_threshold\": 0.275, \"ensemble_test\": {\"accuracy\": 0.8277777777777777, \"precision\": 0.27586206896551724, \"recall\": 0.4444444444444444, \"f1\": 0.3404255319148936, \"nll\": 0.28347419188236755, \"brier\": 0.08410168270816519, \"auc\": 0.8100137174211248, \"confusion\": [[141, 21], [10, 8]]}, \"accepted_incorrect_candidates\": [\"wrong_strict_threshold\", \"wrong_f1_arithmetic_mean\", \"wrong_single_class_auc_zero\"]}\n"
+        }
+      ]
+    }
+  },
+  "scope_limit": "현재 산출물과 직접 링크된 자료만 사용한 한 에이전트의 실행 rehearsal입니다. 실제 사용자 학습 효과를 측정하지 않았습니다.",
+  "preflight_history": [
+    {
+      "expected_file_sha256": "d530fd53f67163c12edfed6e3399d4dc149ceb82ac77875fffc466a3dd7cb558",
+      "observed_file_sha256": "de169ffbd3c04ee6b240b10b2d6cc8145c989278daf91ef2e9f15ffaf6891300",
+      "action": "원본 저장 출력이 갱신되어 최초 실행 전 hash guard가 멈췄습니다. 최신 원본의 seed·checker source를 다시 읽고 최신 파일을 캡처한 뒤 두 커널을 실행했습니다. 이 시점에는 노트북 커널 실행을 시작하지 않았습니다."
+    }
+  ],
+  "total_original_executed_code_cells": 42,
+  "total_png_decoded_and_visually_reviewed": 12
+}

@@ -1,0 +1,434 @@
+{
+  "checker_result": "통과: 혼동행렬·임계값·동점 순위·분모 규약·확률 지표",
+  "hand_threshold_and_auc_tie": {
+    "accuracy": 0.75,
+    "precision": 0.6666666666666666,
+    "recall": 1.0,
+    "f1": 0.8,
+    "nll": 0.4581453659370775,
+    "brier": 0.14500000000000002,
+    "auc": 0.875,
+    "confusion": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        2
+      ]
+    ]
+  },
+  "edge_cases": {
+    "no_positive_prediction": {
+      "accuracy": 0.3333333333333333,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "nll": 0.9729237441392876,
+      "brier": 0.38000000000000006,
+      "auc": 1.0,
+      "confusion": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    "all_negative_labels": {
+      "accuracy": 0.6666666666666666,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "nll": 0.6459806598020456,
+      "brier": 0.23000000000000007,
+      "auc": "NaN",
+      "confusion": [
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "all_positive_labels": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "nll": 1.9560115027140728,
+      "brier": 0.7250000000000001,
+      "auc": "NaN",
+      "confusion": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    "perfect_endpoints": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "nll": 0.0,
+      "brier": 0.0,
+      "auc": 1.0,
+      "confusion": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    "wrong_certain_endpoints": {
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "nll": "+Infinity",
+      "brier": 1.0,
+      "auc": 0.0,
+      "confusion": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    }
+  },
+  "negative_candidates": {
+    "strict_threshold": {
+      "rejected": true,
+      "error_type": "AssertionError",
+      "message": "Not equal to tolerance rtol=1e-07, atol=1e-12\nprecision\nMismatched elements: 1 / 1 (100%)\nMax absolute difference among violations: 0.5\nMax relative difference among violations: 1.\n ACTUAL: array(0.)\n DESIRED: array(0.5)"
+    },
+    "wrong_recall_denominator": {
+      "rejected": true,
+      "error_type": "AssertionError",
+      "message": "Not equal to tolerance rtol=1e-07, atol=1e-12\nrecall\nMismatched elements: 1 / 1 (100%)\nMax absolute difference among violations: 0.5\nMax relative difference among violations: 0.5\n ACTUAL: array(0.5)\n DESIRED: array(1.)"
+    },
+    "ignores_auc_ties": {
+      "rejected": true,
+      "error_type": "AssertionError",
+      "message": "Not equal to tolerance rtol=1e-07, atol=1e-12\nauc\nMismatched elements: 1 / 1 (100%)\nMax absolute difference among violations: 0.125\nMax relative difference among violations: 0.2\n ACTUAL: array(0.5)\n DESIRED: array(0.625)"
+    },
+    "single_class_auc_zero": {
+      "rejected": true,
+      "error_type": "AssertionError",
+      "message": "Not equal to tolerance rtol=1e-07, atol=1e-12\nauc\nnan location mismatch:\n ACTUAL: array(0.)\n DESIRED: array(nan)"
+    },
+    "clips_zero_correct_probability": {
+      "rejected": true,
+      "error_type": "AssertionError",
+      "message": "Not equal to tolerance rtol=1e-07, atol=1e-12\nnll\n+inf location mismatch:\n ACTUAL: array(27.631021)\n DESIRED: array(inf)"
+    }
+  },
+  "changed_experiment": {
+    "intercept": -2.5,
+    "data_seed": 151,
+    "split_seed": 152,
+    "counts": [
+      540,
+      180,
+      180
+    ],
+    "split_overlap_counts": [
+      0,
+      0,
+      0
+    ],
+    "training_seeds": [
+      1,
+      2,
+      3
+    ],
+    "epochs_per_run": 120,
+    "batch_size": 64,
+    "last_batch_size": 28,
+    "training_run_count": 9,
+    "train_positive_fraction": 0.1685185185185185,
+    "validation_positive_fraction": 0.16666666666666666,
+    "test_positive_fraction": 0.1,
+    "mean_validation_bce": {
+      "0.0": 0.29558190925396316,
+      "0.02": 0.3008042007387991,
+      "0.2": 0.3630105171746534
+    },
+    "frozen_choice_before_test": {
+      "l2": 0.0,
+      "epochs": [
+        81,
+        82,
+        77
+      ],
+      "threshold": 0.275,
+      "training_seeds": [
+        1,
+        2,
+        3
+      ],
+      "selection": "seed mean validation BCE, then ensemble validation F1"
+    },
+    "snapshot_validation_errors": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "thresholds_tied_for_max_validation_f1": [
+      0.275
+    ],
+    "max_validation_f1": 0.6470588235294118,
+    "ensemble_test": {
+      "accuracy": 0.8277777777777777,
+      "precision": 0.27586206896551724,
+      "recall": 0.4444444444444444,
+      "f1": 0.3404255319148936,
+      "nll": 0.2834741918823677,
+      "brier": 0.08410168270816519,
+      "auc": 0.8100137174211248,
+      "confusion": [
+        [
+          141,
+          21
+        ],
+        [
+          10,
+          8
+        ]
+      ]
+    },
+    "individual_test": [
+      {
+        "accuracy": 0.8277777777777777,
+        "precision": 0.27586206896551724,
+        "recall": 0.4444444444444444,
+        "f1": 0.3404255319148936,
+        "nll": 0.28312996328323026,
+        "brier": 0.08400910538595086,
+        "auc": 0.8103566529492455,
+        "confusion": [
+          [
+            141,
+            21
+          ],
+          [
+            10,
+            8
+          ]
+        ]
+      },
+      {
+        "accuracy": 0.8277777777777777,
+        "precision": 0.27586206896551724,
+        "recall": 0.4444444444444444,
+        "f1": 0.3404255319148936,
+        "nll": 0.28325701492249467,
+        "brier": 0.0840530657641349,
+        "auc": 0.8113854595336076,
+        "confusion": [
+          [
+            141,
+            21
+          ],
+          [
+            10,
+            8
+          ]
+        ]
+      },
+      {
+        "accuracy": 0.8277777777777777,
+        "precision": 0.27586206896551724,
+        "recall": 0.4444444444444444,
+        "f1": 0.3404255319148936,
+        "nll": 0.2840639936256405,
+        "brier": 0.08425498615957867,
+        "auc": 0.8089849108367627,
+        "confusion": [
+          [
+            141,
+            21
+          ],
+          [
+            10,
+            8
+          ]
+        ]
+      }
+    ],
+    "test_seed_nll_mean": 0.2834836572771218,
+    "test_seed_nll_sample_std": 0.0005065848772110647,
+    "always_negative_accuracy": 0.9,
+    "always_negative_recall": 0.0,
+    "train_mean": [
+      -0.0073626796012377415,
+      0.9817424057871343,
+      2.0076364859829594,
+      3.0513645549141817,
+      4.002382944072992,
+      4.9513574049265685,
+      6.031225506565431,
+      6.886242197796597
+    ],
+    "train_scale": [
+      3.034374195098322,
+      0.49240512305504736,
+      2.0050288009931996,
+      0.9832011478298817,
+      0.1989742832801633,
+      3.8586346939581913,
+      0.9850010925623089,
+      2.0383816002563013
+    ],
+    "full_data_mean_difference": 0.06535534272150922
+  },
+  "original_experiment": {
+    "intercept": -1.2,
+    "train_positive_fraction": 0.34814814814814815,
+    "validation_positive_fraction": 0.32222222222222224,
+    "test_positive_fraction": 0.24444444444444444,
+    "ensemble_test": {
+      "accuracy": 0.7722222222222223,
+      "precision": 0.5245901639344263,
+      "recall": 0.7272727272727273,
+      "f1": 0.6095238095238096,
+      "nll": 0.4294734341320058,
+      "brier": 0.14156076477094362,
+      "auc": 0.8322192513368984,
+      "confusion": [
+        [
+          107,
+          29
+        ],
+        [
+          12,
+          32
+        ]
+      ]
+    },
+    "experiment_record": {
+      "data_seed": 151,
+      "split_seed": 152,
+      "train_validation_test_counts": [
+        540,
+        180,
+        180
+      ],
+      "l2_candidates": [
+        0.0,
+        0.02,
+        0.2
+      ],
+      "training_seeds": [
+        1,
+        2,
+        3
+      ],
+      "selected_l2": 0.0,
+      "selected_epochs": [
+        89,
+        58,
+        48
+      ],
+      "selected_threshold": 0.4,
+      "selection_metric": "validation BCE then ensemble validation F1",
+      "test_ensemble_nll": 0.4294734341320058,
+      "test_ensemble_f1": 0.6095238095238096,
+      "test_seed_nll_std": 0.0003638927795710818
+    },
+    "mean_validation_bce": {
+      "0.0": 0.4430584554376771,
+      "0.02": 0.4456812462931811,
+      "0.2": 0.5036214279992529
+    },
+    "row_split_accuracy": 1.0,
+    "group_split_accuracy": 0.65,
+    "row_overlap_people": 100,
+    "gradient_errors": [
+      3.341489220824264e-10,
+      1.219283239380507e-09
+    ],
+    "tiny_bce": 0.007067326729228688,
+    "ordinary_validation": {
+      "accuracy": 0.8055555555555556,
+      "precision": 0.7254901960784313,
+      "recall": 0.6379310344827587,
+      "f1": 0.6788990825688074,
+      "nll": 0.4434677231510092,
+      "brier": 0.14124827418324257,
+      "auc": 0.8407292255511588,
+      "confusion": [
+        [
+          108,
+          14
+        ],
+        [
+          21,
+          37
+        ]
+      ]
+    },
+    "sharp_validation": {
+      "accuracy": 0.8055555555555556,
+      "precision": 0.7254901960784313,
+      "recall": 0.6379310344827587,
+      "f1": 0.6788990825688074,
+      "nll": 0.7084902535875646,
+      "brier": 0.15887218330438363,
+      "auc": 0.8407292255511588,
+      "confusion": [
+        [
+          108,
+          14
+        ],
+        [
+          21,
+          37
+        ]
+      ]
+    },
+    "validation_ece": 0.045562456701411125,
+    "permuted_validation_nll": {
+      "0": 0.6937559796926076,
+      "7": 0.44775356397494714
+    },
+    "test_seed_nll_mean": 0.42958233052221834,
+    "test_seed_nll_sample_std": 0.0003638927795710818
+  },
+  "nonfinite_encoding": {
+    "NaN": "한 클래스의 ROC-AUC처럼 정의되지 않은 값",
+    "+Infinity": "정답 확률 0의 NLL"
+  },
+  "assessment": {
+    "execution_blockers": [],
+    "required_outside_guesses": [],
+    "observed_notebook_errors": [],
+    "source_hash": "03c5628cdcfa56f29c1a05c080e4fbb86856fd9899c3c86955e086e09c0d631e",
+    "all_pngs_visually_inspected": true,
+    "png_count": 8,
+    "original_code_cells_passed": 21,
+    "negative_candidates_rejected": 5,
+    "scope": "현재 노트북과 직접 링크된 자료에 따른 독립 실행 경로의 확인입니다. 학습 효과의 측정은 아닙니다.",
+    "resume_actions": "기존 실행 산출물의 hash 확인, 8개 PNG 직접 확인, 보고서·확인 기록 완성만 수행했습니다."
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "source": "/home/junyeop/projects/deep-learning-from-scratch/notebooks/02_연결/12_gaussian_information.ipynb",
+  "sha256": "dd7b7ab445171e5bc9e7fe1ccdbeac645971ccb27888a48a17860b1b0462c36c",
+  "elapsed_seconds": 2.6114091873168945,
+  "original_cells": 34,
+  "original_code_cells": 22,
+  "executed_code_cells": 23,
+  "source_changed_during_execution": false,
+  "next_notebook_exists": true,
+  "figure_count": 5,
+  "figures": [
+    {
+      "number": 1,
+      "cell": 5,
+      "path": "/tmp/dlfs-bridges/rehearsal12/figure_01_cell_5.png",
+      "width": 1088,
+      "height": 429,
+      "mode": "RGBA",
+      "format": "PNG"
+    },
+    {
+      "number": 2,
+      "cell": 12,
+      "path": "/tmp/dlfs-bridges/rehearsal12/figure_02_cell_12.png",
+      "width": 759,
+      "height": 385,
+      "mode": "RGBA",
+      "format": "PNG"
+    },
+    {
+      "number": 3,
+      "cell": 18,
+      "path": "/tmp/dlfs-bridges/rehearsal12/figure_03_cell_18.png",
+      "width": 759,
+      "height": 385,
+      "mode": "RGBA",
+      "format": "PNG"
+    },
+    {
+      "number": 4,
+      "cell": 21,
+      "path": "/tmp/dlfs-bridges/rehearsal12/figure_04_cell_21.png",
+      "width": 810,
+      "height": 352,
+      "mode": "RGBA",
+      "format": "PNG"
+    },
+    {
+      "number": 5,
+      "cell": 32,
+      "path": "/tmp/dlfs-bridges/rehearsal12/figure_05_cell_32.png",
+      "width": 758,
+      "height": 385,
+      "mode": "RGBA",
+      "format": "PNG"
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "empirical_mean": [
+      1.0086650780032755,
+      -1.9917308241924467
+    ],
+    "target_mean": [
+      1.0,
+      -2.0
+    ],
+    "empirical_covariance": [
+      [
+        4.024637715821526,
+        1.9865399200232408
+      ],
+      [
+        1.9865399200232408,
+        1.9867009329680811
+      ]
+    ],
+    "target_covariance": [
+      [
+        4.0,
+        2.0
+      ],
+      [
+        2.0,
+        2.0
+      ]
+    ],
+    "logpdf_at_mean": -2.5310242469692907,
+    "entropy_discrete": 0.5623351446188083,
+    "cross_entropy_discrete": 0.6931471805599453,
+    "kl_discrete_pq": 0.130812035941137,
+    "kl_discrete_qp": 0.1438410362258905,
+    "gaussian_entropy_exact": 3.5310242469692907,
+    "gaussian_entropy_mc": 3.5372813163988632,
+    "negative_differential_entropy_example": -1.7672931195787456,
+    "nll_initial": 8.22924940783883,
+    "nll_final": 3.770006347507251,
+    "fit_steps": 1200,
+    "nll_gradient_max_error": 1.7422830377106247e-10,
+    "learned_mean": [
+      1.0784371445974361,
+      -1.9636594924384443
+    ],
+    "learned_variances": [
+      3.687812917812545,
+      1.74931622859082
+    ],
+    "mean_fit_max_error": 3.6204372833026355e-12,
+    "variance_fit_max_error": 6.661338147750939e-15,
+    "full_holdout_nll": 3.573965686146029,
+    "diagonal_holdout_nll": 3.8817441865570714,
+    "full_fitted_covariance": [
+      [
+        3.687812917812542,
+        1.7362343859067921
+      ],
+      [
+        1.7362343859067921,
+        1.7493162285908161
+      ]
+    ],
+    "mle": 2.0,
+    "map": 1.2,
+    "map_after_data_replication": 1.5,
+    "kl_exact": 1.116290607977085,
+    "kl_mc": 1.1174150033954557,
+    "kl_gradient_errors": [
+      6.518628372130199e-11,
+      1.638037853276656e-10
+    ],
+    "reparam_logvar_error": 1.3070466284896373e-10,
+    "reparam_mu_error": 2.4852316632017382e-11,
+    "shared_reparameterization_errors": {
+      "mu": 4.317985812467944e-11,
+      "logvar": 1.8188234878411866e-09
+    },
+    "learner_checker_result": "통과: KL 방향·로그 분산·두 미분·관측 평균",
+    "initial_checker_candidate_calls": 4,
+    "standard_normal_mean_hand": [
+      2.5,
+      [
+        [
+          1.0,
+          2.0
+        ]
+      ],
+      [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    ],
+    "variance_hand": [
+      0.8068528194400546,
+      [
+        [
+          0.0
+        ]
+      ],
+      [
+        [
+          1.5
+        ]
+      ]
+    ],
+    "variation_shape": [
+      3,
+      4
+    ],
+    "variation_kl": 2.6471635311065635,
+    "variation_gradient_errors": {
+      "mu": 2.739384450948886e-10,
+      "logvar": 5.383030166697136e-10
+    },
+    "tripled_batch_shape": [
+      9,
+      4
+    ],
+    "tripled_kl": 2.647163531106565,
+    "tripled_gradient_scaling_verified": true,
+    "identity_kl": 0.0,
+    "learner_curvature_checks": {
+      "0.5": {
+        "mean_zero_kl": 0.1534264097200273,
+        "mean_one_kl": 1.1534264097200273,
+        "mean_shift_cost": 1.0
+      },
+      "1.0": {
+        "mean_zero_kl": 0.0,
+        "mean_one_kl": 0.5,
+        "mean_shift_cost": 0.5
+      },
+      "2.0": {
+        "mean_zero_kl": 0.0965735902799727,
+        "mean_one_kl": 0.3465735902799727,
+        "mean_shift_cost": 0.25
+      }
+    },
+    "checker_probes": {
+      "reverse_kl": {
+        "rejected": true,
+        "exception_type": "AssertionError",
+        "exception": "\nNot equal to tolerance rtol=1e-10, atol=1e-12\n\nMismatched elements: 1 / 1 (100%)\nMax absolute difference among violations: 1.13719\nMax relative difference among violations: 0.17134\n ACTUAL: array(5.499787)\n DESIRED: array(6.63698)"
+      },
+      "coordinate_mean": {
+        "rejected": true,
+        "exception_type": "AssertionError",
+        "exception": "\nNot equal to tolerance rtol=1e-10, atol=1e-12\n\nMismatched elements: 1 / 1 (100%)\nMax absolute difference among violations: 4.42465\nMax relative difference among violations: 0.66667\n ACTUAL: array(2.212327)\n DESIRED: array(6.63698)"
+      },
+      "missing_batch_mean": {
+        "rejected": true,
+        "exception_type": "AssertionError",
+        "exception": "\nNot equal to tolerance rtol=1e-07, atol=0\n\nMismatched elements: 1 / 1 (100%)\nMax absolute difference among violations: 6.63698\nMax relative difference among violations: 1.\n ACTUAL: array(13.273959)\n DESIRED: array(6.63698)"
+      },
+      "logvar_as_logstd": {
+        "rejected": true,
+        "exception_type": "AssertionError",
+        "exception": "\nNot equal to tolerance rtol=1e-10, atol=1e-12\n\nMismatched elements: 1 / 1 (100%)\nMax absolute difference among violations: 4.86864\nMax relative difference among violations: 0.73356\n ACTUAL: array(11.505616)\n DESIRED: array(6.63698)"
+      },
+      "logvar_gradient_factor": {
+        "rejected": true,
+        "exception_type": "AssertionError",
+        "exception": ""
+      },
+      "wrong_shape": {
+        "rejected": true,
+        "exception_type": "AssertionError",
+        "exception": ""
+      },
+      "empty_return": {
+        "rejected": true,
+        "exception_type": "ValueError",
+        "exception": "not enough values to unpack (expected 3, got 0)"
+      }
+    },
+    "shared_nll_replication_verified": true,
+    "independent_mc": {
+      "q_sample_count": 50000,
+      "exact_kl": 3.009668633049075,
+      "estimated_kl": 3.032197587755304,
+      "standard_error": 0.016236302483333482,
+      "standardized_error": 1.3875668262127399
+    }
+  }
+}

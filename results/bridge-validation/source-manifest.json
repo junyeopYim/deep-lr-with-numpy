@@ -1,0 +1,51 @@
+{
+  "source_hash_definition": "SHA256 of UTF-8 json.dumps([{cell_type,source}, ...], ensure_ascii=False); outputs excluded",
+  "notebooks": [
+    {
+      "notebook": "notebooks/02_연결/11_linear_algebra.ipynb",
+      "source_sha256": "58de08ea499aa377ad21917e4dd38c533fa740899f48955be10996a19d0e2e1a"
+    },
+    {
+      "notebook": "notebooks/02_연결/12_gaussian_information.ipynb",
+      "source_sha256": "0cc757e97ff88cf3df1962c6c3da136009ec9075e9ae09b89bdd82f7bdf0773b"
+    },
+    {
+      "notebook": "notebooks/02_연결/13_autodiff.ipynb",
+      "source_sha256": "3b00edd991eadd07d175ecd29b2b7dbb945710ef683b916d148700ae270dd475"
+    },
+    {
+      "notebook": "notebooks/02_연결/14_losses_regularization.ipynb",
+      "source_sha256": "16d8bca735f8a8ca1d6d3b042bda249b868792c3c806c89695d09653714ce743"
+    },
+    {
+      "notebook": "notebooks/02_연결/15_experiments_evaluation.ipynb",
+      "source_sha256": "acccd6f9ab4b26a11e0b8ba9df9c625a113dff06f860f1db77debf833bcf470d"
+    }
+  ],
+  "supporting_files": [
+    {
+      "file": "src/utils/bridge_plots.py",
+      "sha256": "58cd0bace331cc5feabce133980bfdfa53d2b431c61f72bb2dabfd2d7791ef89"
+    },
+    {
+      "file": "scripts/verify_notebooks.py",
+      "sha256": "ea33a165118165bf6f2914e26b61ae174a0e995205e4c13b54a1843634c38d6a"
+    },
+    {
+      "file": "pyproject.toml",
+      "sha256": "70349e13d03e0fc662fef0d1f2e08a1edbfa294d80dca683cb6baf656c818582"
+    },
+    {
+      "file": "README.md",
+      "sha256": "cfd37c0673dcf8daec07a7b632a92e6696f251d52a14627da951eed571bdbe31"
+    },
+    {
+      "file": "docs/CURRICULUM.md",
+      "sha256": "9b2df733c88d8a591559bea8e94113a88f6519247e6743dc2a0de85163830f12"
+    },
+    {
+      "file": "docs/LEARNING_MAP.md",
+      "sha256": "870f760084374dcb9bd60a390dfeb62d48af410f1954d7299bcfd3802a09fa1f"
+    }
+  ]
+}

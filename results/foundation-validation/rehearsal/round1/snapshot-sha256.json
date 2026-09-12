@@ -1,0 +1,22 @@
+{
+  "requirements.txt": "35e3e434c4194a70458e8514cd3dd1b0c6b30ec5d53bc1a186b9869dd0698b11",
+  "README.md": "77ef4e29894776c260ed6cd3980eeacd1e8e9b3f222ce839536fa721c4ab9553",
+  "pyproject.toml": "5c1aea693a9aee62264b27821a1d9deb59b7791e33226da25a85b13374381c2a",
+  "tests/test_gradcheck.py": "fb6184066dabe42ad488a551e59012074279f9572a5e5c5893d682272ce66003",
+  "src/__init__.py": "f004dee79f725c96305e214b3cb7cb24879f81d75bfc3f5aa4880061dc0da4b5",
+  "scripts/verify_notebooks.py": "35022573ba294a15a4b5969c2463592e45df05b1fb52b353e63db3e8ece18395",
+  "docs/CURRICULUM.md": "4001a3e49a2289718ab4e0fb489c43afcd97a625ec1390f29c144b58edabe370",
+  "docs/LEARNING_MAP.md": "ba0a41d947666c02bdf45416b98f174df6fa8d50ecdbb2853d71c177f7b49970",
+  "docs/derivations/00_notation.md": "1112d78d24c4aef66f55f7d9fafd7aa218ddbda5a909dd4537a9978d80bbfa94",
+  "notebooks/00_기초/00_math_to_numpy.ipynb": "696d38ea4ccf8d0288d0e068cd1371da48f469472f75cbe1ab5f5c5fa87a2bb8",
+  "notebooks/00_기초/01_gradients_and_learning.ipynb": "516a2e0a0e643c9fea87daf4be0c3fe7e7bc0afdf16e7eb3af8d0637b7e21c6d",
+  "src/utils/gradient_plots.py": "213e53edbffcd7f0b260038ba7ad773fd3fe016b23702888c277696b92e57fcf",
+  "src/utils/plotting.py": "4a2e80c60b4cf1cc0257da26a92e576dacedc1d18c2ab21b17f6a072ba0077b3",
+  "src/utils/array_plots.py": "63b87f1910549db307a66dd427465c55f9d8d0fb9cb7535e7300b1d85b732834",
+  "src/utils/gradcheck.py": "df7264d80ac01ab3cd2c8cd143d95df0376570191592d7b0f873bbcc5f7c30f9",
+  "src/utils/__init__.py": "34f90c84060b95413819418b31930b1aa30ad64c1705c130b31cfbdfd2b04620",
+  "src/data/mnist.py": "2e924510e1db632cfafce5dcfd1f092e365d20101e95063e2cc3fd1c5c035603",
+  "src/data/toy.py": "17c3c4dbcc5e268b70ac0dfc47d168fc766e6de269f9a7aac9fadfd0196361d6",
+  "src/data/__init__.py": "c85e7d37dd07b277fd7e9f5ab8fad4fb6276907297a404fa2b8d8604c7d0bcb5",
+  "src/data/dataset.py": "319b43b0e98cbbb499149fcb441029c0478fa6fa852d8b7ba895197b957de671"
+}
