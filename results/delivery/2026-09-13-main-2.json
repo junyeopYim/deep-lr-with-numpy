@@ -1,0 +1,54 @@
+{
+  "observed_at": "2026-09-13T17:07:46+09:00",
+  "scope": "코드 주석 규칙(WRITING.md 7절)과 00·01b 시범 재작성(D-013), 점검·비교 스크립트, 나머지 16개 적용 HANDOFF",
+  "branch": "main",
+  "content_commits": [
+    "873981a71e8836287b1eff41185ce235c8b095dc"
+  ],
+  "remote_main_sha_observed": "873981a71e8836287b1eff41185ce235c8b095dc",
+  "remote_main_before_push": "118e789",
+  "changed_files_in_content_commit": 13,
+  "remote_verified_via": "git ls-remote와 GitHub branches/main API",
+  "prepush_validation": {
+    "pytest_passed": 22,
+    "fresh_kernel_runs": {
+      "00": {
+        "cells": 75,
+        "images": 13,
+        "errors": 0,
+        "seconds": 4.0
+      },
+      "01b": {
+        "cells": 45,
+        "images": 6,
+        "errors": 0,
+        "seconds": 7.1
+      }
+    },
+    "exercise_fill_runs": {
+      "exercises": 6,
+      "failures": 0
+    },
+    "check_code_comments": "00·01b 통과",
+    "output_comparison": {
+      "00": "출력 문장 동일(검산만 있던 2셀에 통과 print 2줄 추가), 그림 13/13 바이트 동일",
+      "01b": "출력 문장 동일(시간 수치·연습 C 힌트 math.ceil 제외), 그림 4/6 동일·시간 측정 그림 2장만 다름"
+    }
+  },
+  "ci": {
+    "registered_workflows": 0,
+    "workflow_runs_for_commit": 0,
+    "check_runs_for_commit": 0,
+    "commit_status_contexts": 0,
+    "combined_status_api_state": "pending",
+    "interpretation": "등록된 workflow와 status context가 없어 실행된 CI 검사는 없음"
+  },
+  "excluded_by_existing_gitignore": [
+    "data/ (MNIST 캐시)",
+    "figures/ (check_notebook PNG, compare 스냅샷)",
+    "__pycache__/"
+  ],
+  "intentionally_not_in_repo": "00·01b 재작성 스크립트(rewrite_00.py·rewrite_01b.py)와 재작성 전 사본은 세션 scratchpad에만 두었음. 산출물은 노트북 자체이며, 셀 편집 도우미는 scripts/nbedit.py로 저장소에 있음",
+  "remaining_worktree_changes_after_content_push": 0,
+  "delivery_record": "이 파일과 세션 로그·체크포인트 갱신은 후속 기록 커밋에 포함됩니다."
+}
