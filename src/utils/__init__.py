@@ -6,6 +6,7 @@ from .gradcheck import (
     numerical_gradient,
     rel_error,
 )
+from .exercise import run_check
 from .plotting import (
     COLOR_ACCENT,
     COLOR_MUTED,
@@ -20,6 +21,7 @@ from .plotting import (
 __all__ = [
     "numerical_gradient", "rel_error",
     "check_function", "check_layer", "check_loss", "GradCheckError",
+    "run_check",
     "setup_plots", "COLOR_POS", "COLOR_NEG", "COLOR_ACCENT", "COLOR_MUTED",
     "plot_history", "plot_decision_boundary", "plot_gradcheck",
 ]

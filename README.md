@@ -3,7 +3,7 @@
 모델의 이름을 아는 데서 출발해, **왜 그 수식인지 설명하고 NumPy로 직접 구현하는 것**을 목표로 합니다.
 행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
-현재 **00–15의 16개 노트북**을 실행하며 공부할 수 있습니다.
+현재 **00–15에 00b·01b를 더한 18개 노트북**을 실행하며 공부할 수 있습니다.
 [전체 커리큘럼](docs/CURRICULUM.md)은 64개 학습 단위의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
 ## 여기서 시작합니다
@@ -11,7 +11,9 @@
 | 순서 | 노트북 | 끝나면 직접 해 볼 것 |
 |---|---|---|
 | 00 | [수식을 NumPy로 옮기기](notebooks/00_기초/00_math_to_numpy.ipynb) | 기호의 shape와 합하는 축을 정하고, 반복문을 행렬곱으로 옮기기 |
+| 00b | [벡터화: 반복문을 배열 연산으로](notebooks/00_기초/00b_vectorization.ipynb) | 원소별·축 합·브로드캐스팅·인덱싱으로 반복문을 없애고 시간 차이를 재기 |
 | 01 | [미분으로 학습시키기](notebooks/00_기초/01_gradients_and_learning.ipynb) | 손실의 미분을 유도하고, 검산한 기울기로 회귀 모델 학습시키기 |
+| 01b | [미니배치: 왜 데이터를 나누어 학습하나](notebooks/00_기초/01b_minibatch.ipynb) | 배치 기울기의 잡음과 비용을 재고 에폭·스텝·셔플로 미니배치 루프 쓰기 |
 | 02 | [확률에서 손실 만들기](notebooks/00_기초/02_probability_and_losses.ipynb) | 관측 모형에서 MSE·BCE·softmax CE를 유도하고 안정적으로 구현하기 |
 | 03 | [퍼셉트론에서 MLP까지](notebooks/00_기초/03_perceptron_to_mlp.ipynb) | XOR의 선형 분리 한계를 설명하고 다층 forward·backward를 직접 검산하기 |
 | 04 | [optimizer의 계산](notebooks/00_기초/04_optimizers.ipynb) | SGD·Momentum·RMSProp·Adam의 상태와 갱신을 손계산하고 미니배치로 학습하기 |
@@ -19,6 +21,7 @@
 ## 기본 아키텍처
 
 각 노트북은 필요한 수식·shape를 설명하고, NumPy 구현·역전파 검산·작은 학습·직접 변형으로 이어집니다.
+00–04의 마크다운에는 🔑 핵심 / 🔍 확인 / 📎 참고 / ✏️ 연습 표시가 있고, 연습은 함수 뼈대에서 핵심 한두 줄만 채우는 형식입니다([글 규칙](docs/WRITING.md)).
 공통 기초를 마치셨다면 05부터 시작하시면 됩니다. 데이터는 본문에서 생성하며 CPU에서 실행합니다.
 
 | 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
@@ -68,7 +71,7 @@ python -m pip install -e ".[dev,framework]"
 ### Jupyter에서 셀 실행하기
 
 1. 저장된 출력은 지난 실행의 기록입니다. 노트북을 열면 첫 셀부터 선택하고 **Shift+Enter**로 실행하며 내려갑니다. 코드를 실행해야 그 셀의 변수와 함수를 현재 커널에서 쓸 수 있습니다.
-2. 변형 문제에서는 검사 예제 셀을 선택하고 **Esc → B**를 눌러 아래에 셀을 추가합니다. 위쪽 셀 종류가 `Code`인지 확인하고, 자신이 작성한 함수를 정의해 실행합니다. 00번에서 `my_affine(X, W, b)`를 작성했다면 다음 셀에 `check_three_outputs(my_affine)`을 입력해 실행합니다. 01번에서는 `my_mse_backward(residual)`을 작성하고 `check_mse_backward(my_mse_backward)`로 확인합니다.
+2. 연습 문제는 함수 뼈대가 미리 있고 핵심 한두 줄만 비어 있습니다. `raise NotImplementedError` 줄을 지우고 그 자리에 코드를 쓴 뒤 셀을 실행하고, 바로 아래 `run_check(...)` 셀을 실행하면 손계산 값과 비교해 줍니다. 막히면 그 아래 "정답 보기"를 펼칩니다.
 3. 처음부터 다시 확인할 때는 **Run → Restart Kernel and Run All**을 선택합니다. 커널은 실행 중인 Python의 변수와 함수를 보관하며, 재시작하면 이 상태가 초기화됩니다. 모든 셀이 위에서부터 실행되는지 확인한 뒤 저장합니다.
 
 조작 이름과 단축키는 [JupyterLab 공식 명령 안내](https://jupyterlab.readthedocs.io/en/stable/user/commands.html)를 기준으로 합니다.
@@ -108,7 +111,7 @@ python -m pip install -e ".[dev,framework]"
 ## 프로젝트 구성
 
 ```text
-notebooks/00_기초/       배열·미분·확률·MLP·optimizer
+notebooks/00_기초/       배열·벡터화·미분·미니배치·확률·MLP·optimizer
 notebooks/01_아키텍처/  CNN·RNN·LSTM/GRU·Attention·Transformer·GNN
 notebooks/02_연결/      선형대수·정보이론·자동미분·정규화·평가
 src/utils/         수치미분 검산기와 그림 보조 코드

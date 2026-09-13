@@ -93,3 +93,22 @@ def load_mnist(root: str = DEFAULT_ROOT, *, download: bool = False, flatten: boo
         X_test = X_test.reshape(len(X_test), 1, 28, 28)
 
     return X_train, arrays["train_labels"].astype(np.int64), X_test, arrays["test_labels"].astype(np.int64)
+
+
+# 개념 그림에서 같은 예시를 계속 쓰기 위한 고정 인덱스 (학습 집합, 숫자 0~9 각 하나).
+# 획이 또렷하고 가운데에 놓인 것을 골랐습니다. 노트북 사이에서 같은 이미지가 나오게 합니다.
+EXAMPLE_INDICES = {0: 1, 1: 3, 2: 5, 3: 7, 4: 2, 5: 0, 6: 13, 7: 42, 8: 17, 9: 4}
+
+
+def load_examples(root: str = DEFAULT_ROOT, *, download: bool = False, digits=(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)):
+    """숫자마다 고정된 예시 이미지 하나씩을 (images (n, 28, 28), labels (n,)) 로 돌려준다.
+
+    개념 설명 그림은 항상 이 예시로 그립니다. 그래야 00번에서 본 그림의 숫자가
+    05번의 합성곱, 11번의 PCA에서도 그대로 나옵니다.
+    """
+    X, y, _, _ = load_mnist(root, download=download, flatten=False)
+    idx = np.array([EXAMPLE_INDICES[d] for d in digits])
+    images = X[idx, 0]
+    labels = y[idx]
+    assert np.array_equal(labels, np.array(digits)), "EXAMPLE_INDICES와 실제 label이 다릅니다."
+    return images, labels
