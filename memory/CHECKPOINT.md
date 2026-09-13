@@ -1,17 +1,24 @@
-# Checkpoint — D-011 완료, 05–15 인계 준비 — 2026-09-13 13:35
+# Checkpoint — D-012 완료, 05–15 글·그림·연습 규칙 적용 — 2026-09-13 15:10
 
 ## The story so far
-사용자가 그림이 빈약하다고 보고 3B1B풍 개념 그림과 구조 도식을 요청했고, 이어서 초보자 기준의 글 규칙(중요도 표시·용어 상자·상황 도입·🔑 절마다 그림·그림은 설명 바로 뒤)을 정했습니다. 규칙은 docs/WRITING.md·docs/DESIGN.md·AGENTS.md에 있고, 00–04 다섯 노트북에 모두 적용해 새 커널 실행을 확인했습니다. 미커밋 상태입니다.
+사용자가 정한 글 규칙(🔑/🔍/📎/✏️ 표시, 첫 등장 용어 상자, 상황 도입, 🔑 절마다 예시 그림)과 코딩 테스트형 연습(run_check + 접힌 정답)을 00–04에 이어 05–15 열한 개 노트북에 모두 적용했습니다. 원본 코드 셀은 조립 스크립트로 그대로 복사했으므로 수식·구현·검산·실험 설정은 바뀌지 않았습니다. 새 그림 보조 파일 11개(`src/utils/cnn_plots.py` … `evaluation_plots.py`)와 공용 부품 `schematic_plots.draw_unrolled_chain`이 생겼습니다. 전부 미커밋 상태입니다.
 
 ## Decided
-D-009 개념 그림 문법, D-010 00–04 적용, D-011 코딩 테스트형 연습(run_check + 정답 보기)과 00b 벡터화·01b 미니배치 추가. 상황은 과일과 MNIST 7 판별을 잇습니다.
+D-009 개념 그림 문법, D-010 00–04 적용, D-011 코딩 테스트형 연습·00b·01b, D-012 05–15 적용(그림 파일은 노트북별 `<이름>_plots.py`, 옛 `my_xxx` 연습은 뼈대 연습 4개 + 🔍 완성 예제로 교체).
+
+## Verified
+11개 노트북을 마지막에 한 번에 새 커널로 재실행: 셀 735, 그림 94, 연습 44, 오류·stderr·표시 없는 셀 0, 정답 실패 0, 실행 38.7초. pytest 22개 통과. PNG 94장 직접 확인. 기록은 `results/architecture-validation/2026-09-13-writing-rules-exercises.md`, `results/bridge-validation/2026-09-13-writing-rules-exercises.md`, `figures/check/<노트북>/cellNN.png`(gitignore).
 
 ## Waiting on the user
-연습 형식과 00b·01b 검토, b 접미사 번호 유지 여부. 커밋·푸시 여부.
+05–15 결과 검토(특히 그림과 연습 난이도), 커밋·푸시 지시. 조립 스크립트(scratchpad의 `nbbuild.py`, `build_05.py`–`build_15.py`)는 세션 임시 폴더에만 있으므로 노트북 자체가 산출물입니다.
 
 ## Next first action
-`memory/HANDOFF.md`를 읽고 지운 뒤, `notebooks/01_아키텍처/05_cnn.ipynb`를 열어 HANDOFF의 체크리스트대로 고치고 `python scripts/check_notebook.py notebooks/01_아키텍처/05_cnn.ipynb`로 확인합니다. DESIGN.md 3절의 05 계획(커널 창·풀링·블록 흐름 도식, 7 위의 합성곱 개념 그림)과 WRITING.md 규칙을 따릅니다. 실행 검증은 scratchpad의 run_nb.py 방식(새 커널·그림 추출·표시 통계)을 다시 만듭니다.
+사용자 피드백을 반영합니다. 노트북 하나를 다시 손볼 때는 `notebooks/...ipynb`를 직접 고친 뒤 `python scripts/check_notebook.py <노트북>`과 `python scripts/verify_exercises.py <노트북>`을 돌리고 `figures/check/<노트북>/`의 PNG를 눈으로 봅니다. 새 노트북(16 이후)을 만들 때는 05–15의 첫 셀·📎 예시 셀·🔑 절 구성을 본뜨고 DESIGN.md 3절에 그림 표를 먼저 적습니다.
 
 ## Tried
-검증 도구는 scripts/check_notebook.py(새 커널 실행·그림 추출·표시 통계)와 scripts/verify_exercises.py(정답 채워 실행)로 저장소에 넣어 두었습니다.
-mathtext에 \tfrac·\frac1N·\ge·\text 없음. 새 계산 셀 변수는 본문과 충돌하지 않게 이름을 붙일 것(g1·corners 충돌 사례). 정사각형 이미지 옆 화살표는 concept_plots.connect가 처리하지만 제목이 패널보다 넓으면 제목을 화살표 뒤에 붙일 것.
+- 그림 함수의 `connect` 화살표 글자는 짧게(한두 단어). 길면 옆 판의 눈금 라벨과 겹칩니다.
+- `draw_cells` 판끼리 칸 크기를 맞추려면 `xlim/ylim`을 같은 크기의 틀로 다시 잡습니다(`cnn_plots._frame`).
+- 막대 그림에서 `ax.text(i, v, …)`로 값 라벨을 붙일 때 `ylim`이 값보다 작으면 tight bbox가 라벨까지 포함해 그림이 세로로 수천 픽셀 늘어납니다(15 분할 그림에서 겪음).
+- `np.trapezoid`로 KL을 적분할 때 격자를 꼬리까지 넓게(−10부터 12까지) 잡아야 닫힌 식과 1e-5 안에서 맞습니다.
+- 마크다운 정답 블록의 `~`는 check_notebook 경고를 냅니다. `np.isin(..., invert=True)`처럼 물결표 없는 표현을 씁니다.
+- `np.float64`/`np.int64`가 f-string에 섞이지 않게 `f"{v:g}"`나 `int(v)`로 적습니다.

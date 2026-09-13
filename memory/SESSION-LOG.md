@@ -85,3 +85,10 @@ D-008 완료 관찰(2026-09-12 17:31 KST): 작업물 215개 파일을 19e4a61ee6
 `src/utils/exercise.py`의 `run_check`(미구현·불일치·통과를 예외 없이 안내)를 만들고 00–04의 연습 15개를 뼈대+핵심 한두 줄 형식으로 바꿨습니다. 정답은 `<details>`로 접어 두고, scratchpad의 verify_solutions.py로 정답을 채워 실행해 모두 통과함을 확인했습니다.
 `00b_vectorization`(48셀, 그림 6, 연습 4)과 `01b_minibatch`(41셀, 그림 6, 연습 3)를 새로 만들었습니다. 00b는 반복문 vs 배열 시간(수백 배), 중심화, 브로드캐스팅 규칙 표, 최근접 평균 분류기(5,000장 81%), 인덱싱·one-hot. 01b는 60,000장 전체로 스텝 비용, 배치 기울기 이미지와 1/√B 잡음, 에폭·셔플 도식, 같은 표본 처리량에서 미니배치 vs 전체 배치, 배치 크기 절충. 04의 2절은 01b를 가리키는 복습으로 줄였습니다.
 문서: CURRICULUM·README에 두 노트북과 읽는 순서 추가, DESIGN.md에 그림 표, WRITING.md에 연습 형식(5절)과 적용 현황, AGENTS.md에 연습 형식 한 줄. tests/test_exercise.py 3개 추가. 커밋은 하지 않았습니다.
+
+## 2026-09-13 · D-012 05–15 글·그림·연습 규칙 적용
+
+HANDOFF.md를 읽고 삭제한 뒤 05 CNN부터 15 실험·평가까지 11개 노트북을 00–04와 같은 형식으로 고쳤습니다. 조립 방식은 scratchpad의 `nbbuild.py`(원본 코드 셀을 인덱스로 그대로 가져오고 새 마크다운·그림 계산 셀·일치 검산 줄만 끼움)라서 수식·구현·검산·실험 설정 코드는 원본과 같습니다.
+새 그림 보조 파일 11개(`cnn_plots`부터 `evaluation_plots`까지)와 공용 부품 `schematic_plots.draw_unrolled_chain`을 만들었고, 각 파일은 `concept_plots`·`schematic_plots` 부품만 씁니다. MNIST 7을 05 합성곱·풀링, 06·07 28행 시퀀스, 08 4×4 패치 attention, 11 PCA 복원, 12 클래스별 Gaussian, 14 L2 템플릿·dropout 마스크, 15 혼동 행렬·틀린 예에 썼고 10·13은 그래프·계산 그래프 도식만 씁니다.
+검증: 노트북마다 `check_notebook`(새 커널)과 `verify_exercises`(정답 채움)를 돌렸고 마지막에 11개를 한 번에 재실행했습니다. 셀 735개, 그림 94장, 연습 44개, 오류·stderr·표시 없는 셀 0, 정답 실패 0, 실행 38.7초. pytest 22개 통과. PNG 94장을 직접 열어 라벨 겹침·화살표·색 눈금을 확인하고 20곳 남짓을 고쳤습니다(대표: 15 분할 그림이 막대 라벨 때문에 세로 25,000픽셀로 늘어난 것, 12 KL 수치 적분의 꼬리 절단).
+문서: DESIGN.md 3절 05–15를 계획→완료로 바꾸고 파일명·그림 표를 적음, 2-1 부품표에 `draw_unrolled_chain` 추가, WRITING.md 적용 현황 11행 추가, results/architecture-validation·bridge-validation에 검증 표 저장. DECISIONS.md에 D-012 추가. 커밋·푸시는 하지 않았습니다.

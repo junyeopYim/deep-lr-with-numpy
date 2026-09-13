@@ -124,6 +124,58 @@ def draw_blocks(ax, blocks, *, colors=None, width=1.7, height=0.9, gap=0.55, fon
     return ax
 
 
+# ---------------------------------------------------------------- 시간축으로 펼친 순환 셀
+def draw_unrolled_chain(ax, times, *, cell_text="tanh", state="h", inp="x", w_state="$W_h$", w_input="$W_x$",
+                        highlight=None, backward=False, width=1.15, height=0.75, gap=1.25, fontsize=9.5):
+    """시간축으로 펼친 순환 셀 도식. times는 아래첨자 라벨 목록이고 "⋯"은 점으로 그린다.
+
+    같은 파라미터 라벨(w_state, w_input)을 모든 화살표에 적어 "매 시각 같은 W"를 보여 준다.
+    highlight는 금색 테두리로 강조할 시각 라벨. backward=True면 손실에서 직접 오는 g_t(위→아래)와
+    미래에서 돌아오는 r_t(오른쪽→왼쪽)를 금색으로 덧그린다. 06 RNN·07 LSTM에서 쓴다.
+    """
+    ax.set_axis_off()
+    ax.set_aspect("equal")
+    step = width + gap
+    xs = [i * step for i in range(len(times))]
+    arrow = dict(arrowstyle="-|>", mutation_scale=10, color=MUTED, lw=1.0)
+    gold = dict(arrowstyle="-|>", mutation_scale=10, color=GOLD, lw=1.6)
+    for x, t in zip(xs, times):
+        cx = x + width / 2
+        if t == "⋯":
+            ax.text(cx, height / 2, "⋯", ha="center", va="center", fontsize=14, color=INK)
+            continue
+        hl = highlight is not None and str(t) == str(highlight)
+        ax.add_patch(FancyBboxPatch((x, 0), width, height, boxstyle="round,pad=0.02,rounding_size=0.1",
+                                    facecolor=FILL, edgecolor=GOLD if hl else MUTED, lw=1.8 if hl else 1.0))
+        ax.text(cx, height / 2, cell_text, ha="center", va="center", fontsize=fontsize, color=INK)
+        ax.add_patch(FancyArrowPatch((cx, -0.85), (cx, -0.03), **arrow))                      # 입력 x_t (아래에서)
+        ax.text(cx, -0.95, f"${inp}_{{{t}}}$", ha="center", va="top", fontsize=fontsize, color=INK)
+        ax.text(cx + 0.08, -0.45, w_input, ha="left", va="center", fontsize=8.5, color=INK)
+        ax.add_patch(FancyArrowPatch((cx, height + 0.03), (cx, height + 0.7), **arrow))       # 상태 h_t (위로)
+        ax.text(cx, height + 0.78, f"${state}_{{{t}}}$", ha="center", va="bottom", fontsize=fontsize, color=INK)
+        if backward:
+            ax.add_patch(FancyArrowPatch((cx + 0.3, height + 0.7), (cx + 0.3, height + 0.03), **gold))
+            ax.text(cx + 0.38, height + 0.42, f"$g_{{{t}}}$", ha="left", va="center", fontsize=8.5, color=GOLD)
+    y_mid = height / 2
+    x_prev = xs[0] - gap + 0.15
+    ax.text(x_prev - 0.05, y_mid, f"${state}_0$", ha="right", va="center", fontsize=fontsize, color=INK)
+    for i, (x, t) in enumerate(zip(xs, times)):
+        x_in = x + (width * 0.25 if t == "⋯" else 0)
+        ax.add_patch(FancyArrowPatch((x_prev + 0.03, y_mid), (x_in - 0.03, y_mid), **arrow))   # 상태를 다음 시각으로
+        if t != "⋯" and (i == 0 or times[i - 1] != "⋯"):
+            ax.text((x_prev + x_in) / 2, y_mid + 0.08, w_state, ha="center", va="bottom", fontsize=8.5, color=INK)
+        if backward and i > 0 and t != "⋯" and times[i - 1] != "⋯":
+            ax.add_patch(FancyArrowPatch((x_in - 0.03, y_mid - 0.22), (x_prev + 0.03, y_mid - 0.22), **gold))
+            ax.text((x_prev + x_in) / 2, y_mid - 0.3, f"$r_{{{times[i - 1]}}}$", ha="center", va="top", fontsize=8.5, color=GOLD)
+        x_prev = x + (width * 0.75 if t == "⋯" else width)
+    if backward:
+        ax.add_patch(FancyArrowPatch((xs[0] - 0.03, y_mid - 0.22), (xs[0] - gap + 0.18, y_mid - 0.22), **gold))
+        ax.text(xs[0] - gap / 2 + 0.07, y_mid - 0.3, f"$d{state}_0$", ha="center", va="top", fontsize=8.5, color=GOLD)
+    ax.set_xlim(xs[0] - gap - 0.5, xs[-1] + width + 0.5)
+    ax.set_ylim(-1.5, height + 1.4)
+    return xs
+
+
 # ---------------------------------------------------------------- 격자 위의 창
 def draw_cells(ax, M, title=None, *, window=None, fill=None, fmt="{:g}", fontsize=9.5,
                cell_colors=None, highlight_cells=None):

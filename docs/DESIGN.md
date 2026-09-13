@@ -17,7 +17,7 @@
 - **흰 배경.** 노트북의 다른 그림, 인쇄, 문서 공유와 어울리게 유지합니다.
 - **계산은 본문, 그리기는 보조 파일.** 템플릿·점수·평균·기울기 같은 수학은 노트북 셀에서 계산하고,
   `src/utils/<노트북>_plots.py`의 조합 함수는 받은 배열만 그립니다. 조합 함수는 `concept_plots`의 부품을 씁니다.
-- **자리.** 🔑 수식·설명 바로 뒤에 둡니다. 순서는 🔑 설명 → 계산 셀 → 그림 셀 → 🔍 해석 → 구현 → 검산입니다. 그림 계산 셀은 뒤에 나올 구현 함수를 쓰지 않고 NumPy 연산만 씁니다. 구현 함수와의 일치 검산은 구현 뒤 검산 셀에 둡니다.
+- **자리.** 🔑 수식·설명 바로 뒤에 둡니다. 순서는 🔑 설명 → 계산 셀 → 그림 셀 → 🔍 해석 → 구현 → 검산입니다. 그림 계산 셀은 뒤에 나올 구현 함수를 쓰지 않고 NumPy 연산만 씁니다(앞 절에서 이미 구현한 함수는 써도 됩니다). 구현 함수와의 일치 검산은 구현 뒤 검산 셀에 둡니다.
 - **🔑 핵심 절마다 최소 하나.** [WRITING.md](WRITING.md)의 규칙입니다. 절의 "가져갈 것" 문장을 보여 주는 그림이어야 하며, 🔑 소절도 포함합니다.
 - **학습 결과를 보여 주는 그림**(XOR 학습, optimizer 비교처럼 본문의 학습 루프가 있어야 나오는 것)은 그 학습 셀 바로 뒤에 둡니다. 이때는 본문의 구현 함수를 써도 됩니다.
 - **잘못 그려지는 mathtext.** 그림 제목·라벨의 수식은 matplotlib mathtext라 `\tfrac`, `\frac1N`, `\ge`, `\text`를 지원하지 않습니다. `\frac{1}{2}`, `\geq`처럼 씁니다.
@@ -49,6 +49,7 @@
 | `draw_blocks(ax, [("conv 3×3, 8", "8×26×26"), …])` | 상자와 화살표의 블록 흐름. 아래에 텐서 모양을 적는다. | 05 CNN, 09 Transformer, 17–19 |
 | `draw_cells(ax, M, window=(r, c, h, w), cell_colors, highlight_cells)` | 숫자 격자 위의 금색 창. 합성곱 한 장면, 풀링 구역 색칠. | 05 CNN, 08 attention 점수표 |
 | `draw_surface_paths(ax3d, xx, yy, zz, paths)` / `draw_contour_paths(ax, …)` | 손실 곡면과 optimizer 경로. 시작 점, 끝 네모. | 01 경사하강, 04 optimizer 비교 |
+| `draw_unrolled_chain(ax, times, highlight, backward)` | 시간축으로 펼친 순환 셀 도식. 같은 $W_x, W_h$ 라벨을 모든 화살표에 적고, `backward=True`면 직접 기여 $g_t$와 미래 기여 $r_t$를 금색으로 덧그린다. | 06 RNN (07의 LSTM 셀 도식은 `lstm_plots.draw_lstm_cell`) |
 
 구조 도식의 규칙은 개념 그림과 같습니다. 축·격자 없음, 회색 선, 강조는 금색 하나, 출력 노드만 옅은 파랑.
 도식은 **본문 수식의 기호를 그대로** 적습니다. 도식에 나온 $w_0$가 코드의 `w[0]`이고, 선 하나가 $W$의 원소 하나입니다.
@@ -161,36 +162,141 @@
 | 7 경로 🔍 | `plot_optimizer_landscape` | 네 optimizer의 경로(곡면·등고선·손실) | 기존 `run_quadratic` 결과 |
 | 8 MNIST 🔍 | `plot_optimizer_templates` (학습 셀 뒤) | 가중치 이미지가 자라나는 속도, Adam의 가장자리 화소 | `train_regression` 1·10·100스텝 |
 
-### 05 · CNN — `architecture_plots.py` — 계획
+### 05 · CNN — `cnn_plots.py` — 완료
 
-개념 그림: 3×3 커널이 7 위를 지나는 한 장면(입력 패치 금색 테두리, 커널, 출력 한 칸), 특성 맵, 풀링 전후.
-도식: `draw_cells`로 5×5 입력·3×3 커널·3×3 출력의 숫자 격자와 금색 창, 2×2 max pooling의 구역 색칠과 stride 비교, `draw_blocks`로 입력→conv→ReLU→pool→펼침→선형→softmax 블록 흐름과 각 단계의 텐서 모양.
+상황: 5×5 숫자 격자에 3×3 커널, MNIST 7, 본문에서 만드는 8×8 숫자 도안. 학습 곡선·도안 묶음은 `architecture_plots`의 `plot_curves`·`plot_images`를 그대로 씁니다.
 
-### 06–09 · RNN·LSTM·Attention·Transformer — 계획
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 합성곱 🔑 | `plot_conv_scene` (`draw_cells` 창), `plot_conv_on_image` | 창 하나의 내적을 모든 자리에서 반복, 7의 가로·세로 경계 특성 맵 | 5×5 격자의 3×3 출력(반복문), 7의 26×26 특성 맵 두 장 |
+| 2 패치 행렬 🔑 | `plot_patch_matrix` | 창 9개를 행으로 쌓으면 행렬곱 하나 | `sliding_window_view`로 (9, 9) $P$, $P@k$ |
+| 3 backward 🔑 | `plot_overlap_count` | 겹친 자리로 돌아온 기여를 `+=`로 더함 | 2×2 창 네 자리의 0/1 기여와 그 합 |
+| 4 풀링 🔑 | `plot_pooling` | 구역마다 값 하나, 최댓값 자리 | 4×4 → 2×2 최대·평균, 7 특성 맵의 13×13 |
+| 5 완성 모델 🔑 | `plot_cnn_blocks` (`draw_blocks`) | 텐서 모양 흐름과 파라미터가 있는 층 | 파라미터 수 60 + 550 |
 
-06·07은 7을 28행의 시퀀스로 읽으며 은닉 상태를 시간축 띠로 그립니다.
-08·09는 7을 4×4 패치 토큰 49개로 자르고, 한 패치가 어느 패치를 보는지 attention 가중치를 이미지 위에 겹칩니다.
-도식: 06은 시간축으로 펼친 RNN 셀 도식(같은 $W$가 매 시각 반복), 09는 `draw_blocks`로 embedding→attention→FFN→LayerNorm 블록 흐름.
+### 06 · RNN — `rnn_plots.py` — 완료
 
-### 10 GNN · 13 자동미분 — 계획
+상황: A/B 순서 문장, MNIST 7을 28행 시퀀스로.
 
-MNIST를 쓰지 않습니다. 작은 그래프와 계산 그래프 도식을 `concept_plots`의 색·여백 규칙으로 그립니다.
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 한 스텝 🔑 | `plot_rnn_unrolled` (`draw_unrolled_chain`) | 같은 $W$를 매 시각 다시 씀, 7을 읽은 상태 띠 | 난수 $W_x, W_h$로 28×8 상태 |
+| 2 BPTT 🔑 | `plot_bptt` | 직접 기여 $g_t$와 미래 기여 $r_t$를 더함 | 스칼라 $T=3$의 $\delta_t, r_t, dh_0, dW_h$ |
+| 3 완성 실험 🔑 | `plot_order_examples`, `plot_state_paths` (학습 셀 뒤) | 평균은 같고 순서만 다른 문장, 학습된 상태 경로 | one-hot과 시각 평균 |
+| 4 시간 미분 🔑 | `plot_gradient_decay` | $w_h^{T-t}$로 사라지거나 커짐 | 기존 temporal_gradients |
 
-### 11 · 선형대수 — `bridge_plots.py` — 계획
+### 07 · LSTM·GRU — `lstm_plots.py` — 완료
 
-평균 이미지, 상위 고유 이미지 8장, 주성분 1·5·20·50개로 복원한 7과 복원 오차 막대.
+상황: 손계산 셀($f=i=o=0.5$, $g=0.8$), MNIST 7 시퀀스, 지연 기억 데이터.
 
-### 12 · Gaussian·정보 — 계획
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 LSTM 셀 🔑 | `plot_lstm_cell` (`draw_lstm_cell` 도식) | 덧셈 경로와 게이트가 곱하는 자리 | 손계산 $c=0.5$, $h$ |
+| 2 backward 🔑 | `plot_lstm_backward` | $c$로 오는 두 기울기 경로 | $do, dc, df, dc_{prev}, di, dg$ |
+| 3 덧셈 경로 🔑 | `plot_retention` | $\prod f=f^t$ | 기존 retention |
+| 4 GRU 🔑 | `plot_gru_mix` | $z$로 옛 상태와 후보를 섞음 | $z\in\{0,\ldots,1\}$의 $h$ |
+| 5 시간 펼치기 🔑 | `plot_gated_sequence` | 7 시퀀스의 $h_t, c_t, f_t$ 띠 | 학습 전 LSTM 28스텝 |
+| 6 완성 실험 🔑 | `plot_memory_examples`, `plot_gate_traces` (학습 셀 뒤) | 첫 시각의 ±1 신호, 학습된 게이트 | 손으로 만든 예 두 개 |
 
-클래스별 평균 이미지 10장과 표준편차 이미지, 예측 분포 세 개(확신·애매·틀림)의 entropy 막대.
+### 08 · Attention — `attention_plots.py` — 완료
 
-### 14 · 손실·정규화 — 계획
+상황: 손계산 검색(항목 2개), MNIST 7의 4×4 패치 49개, 값 검색 문제.
 
-7에 dropout 마스크를 씌운 모습 3장, L2 세기별 템플릿 이미지 3장.
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 Q·K·V 🔑 | `plot_attention_lookup`, `plot_patch_attention` | 점수→softmax→가중합, 7의 한 패치가 어느 패치를 읽나 | 손계산 $[3/4, 1/4]$, 화소를 $Q=K=V$로 한 49개 가중치 |
+| 2 $\sqrt{d_k}$ 🔑 | `plot_score_variance` | 분산 $d_k$와 softmax 몰림 | 기존 분산 + $d=128$의 softmax 8개 |
+| 3 softmax backward 🔑 | `plot_softmax_backward` | Jacobian $p_i(\delta_{ij}-p_j)$와 원소별 오답 | 2×2 Jacobian, $ds$ |
+| 4 mask 🔑 | `plot_masks` | causal AND padding, 허용 위치에서만 합 1 | 기존 combined, $P$ |
+| 5 검색 학습 🔑 | `plot_retrieval_example`, `plot_attention_weights` (학습 셀 뒤) | query 정체와 같은 key의 값, 학습 전후 가중치 | 손으로 만든 예제 하나 |
 
-### 15 · 실험·평가 — 계획
+### 09 · Transformer — `transformer_plots.py` — 완료
 
-혼동 행렬을 `draw_grid`로 축 없이, 틀린 예시 이미지 6장과 예측·정답 표시.
+상황: 손계산 토큰(특성 4), 토큰 3·폭 4의 head 나누기, 역순 변환.
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 LayerNorm 🔑 | `plot_layernorm` | 토큰마다 D축 정규화, 전체 +3의 차이가 사라짐 | $\mu$, $\sqrt{v+\epsilon}$, $\hat x$ |
+| 2 MHA 🔑 | `plot_head_split` | 열을 head로 나눠 $P$를 따로 만들고 합침 | head 2개의 $P$와 merge |
+| 3 블록 🔑 | `plot_transformer_block` (도식) | 두 잔차의 항등 경로 | — |
+| 4 embedding·위치 🔑 | `plot_embedding_positions` | $E$의 행 고르기 + 위치 표, sinusoidal 표 | $E[\mathrm{tokens}]$, $P[:T]$, 12×12 sin 표 |
+| 5 역순 변환 🔑 | `plot_reverse_examples`, `plot_trained_heads` (학습 셀 뒤) | 위치 $t$의 출력은 위치 $T-1-t$의 입력 | 예 세 개 |
+
+### 10 · GNN — `gnn_plots.py` — 완료
+
+MNIST를 쓰지 않습니다. `draw_graph`로 3노드 방향 그래프, 5노드 사슬, 사슬·별을 그립니다.
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 인접 행렬 🔑 | `plot_aggregation` | 화살표 방향과 행·열, $AX$와 $SX$ | 3노드 예제 |
+| 2 message passing 🔑 | `plot_layer_paths` | self·neighbor 경로를 더해 tanh | 노드 0의 $z, h$ 손계산 |
+| 3 층 쌓기 🔑 | `plot_hops` | $(I+A)^k>0$의 범위 | 5노드 사슬 |
+| 4 완성 학습 🔑 | `plot_two_graphs` | 사슬과 별의 degree 분포 | 기존 좌표 |
+| 5 순열 🔑 | `plot_permutation` | 행과 열을 함께 바꿈 | perm [2, 0, 1] |
+| 6 한계 🔍 | `plot_two_graphs` | 고리 하나와 두 고리 | 기존 |
+
+### 11 · 선형대수 — `linalg_plots.py` — 완료
+
+상황: 2차원 점(손계산·타원 구름), MNIST 5,000장.
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 투영 🔑 | `plot_projection_2d`, `plot_projection_images` | 가장 가까운 점과 수직 잔차, 7을 템플릿 방향에 투영 | $z, \hat x, r$ |
+| 1 최소제곱 🔑 | `plot_least_squares` | 잔차가 모든 열에 직교 | 정규방정식 해 |
+| 2 공분산 🔑 | `plot_covariance_small`, `plot_covariance_images` | $X_c^\top X_c/N$, 평균·분산 이미지와 784×784 $C$ | 3×2 예제, 5,000장 |
+| 3 고유벡터·SVD 🔑 | `plot_eigen_images`, `plot_eigen_directions` | 고유 이미지 8장과 스펙트럼, 2차원 고유 방향 | `eigh(C)`, 누적 비율 |
+| 4 PCA 🔑 | `plot_pca_reconstruction`, `plot_pca_clouds` | $k=1,5,20,50$ 복원과 오차 | 닫힌 해 복원 |
+| 5 단위 🔑 | `plot_pca_clouds` | 단위·표준화가 방향을 바꿈 | 기존 |
+
+### 12 · Gaussian·정보 — `gaussian_plots.py` — 완료
+
+상황: 2차원 Gaussian, 예측 분포 세 개(확신·애매·틀림), MNIST 클래스별 Gaussian.
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 샘플 🔑 | `plot_sampling_flow` | $\epsilon\to\mu+L\epsilon$ | 600점 |
+| 2 로그 밀도 🔑 | `plot_log_density` | 등고선과 세 항 | 격자 $d^2$, 점 A·B |
+| 3 entropy·KL 🔑 | `plot_entropy_examples`, `plot_ce_kl_curves` | 확신·애매·틀림의 $H$와 CE, $H(p,q)=H(p)+KL$ | 세 분포 |
+| 4 MLE 🔑 | `plot_class_gaussians`, `plot_two_covariances` | 클래스별 $\mu_c, \sigma_c$ 이미지 | 5,000장의 평균·표준편차 |
+| 4 MAP 🔑 | `plot_map_shrink` | $\tau^2$에 따라 0 쪽으로 | 닫힌 해 |
+| 5 Gaussian KL 🔑 | `plot_gaussian_kl` | $q$ 가중 $\log(q/p)$의 넓이 | 1차원 밀도, 닫힌 식과 적분 |
+| 6 재매개화 🔑 | `plot_reparameterization` | 같은 $\epsilon$, 다른 $\mu$ | 잡음 40개 |
+| 7 완성 예제 🔍 | `plot_kl_vs_mean` | $p$ 분산과 이동 비용 | 기존 |
+
+### 13 · 자동미분 — `autodiff_plots.py` — 완료
+
+MNIST를 쓰지 않습니다. `draw_compute_graph`로 값 노드(원)·연산(상자)·국소 미분(금색)을 그립니다.
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 VJP 🔑 | `plot_shared_path`, `plot_vjp` | 국소 미분의 곱과 경로의 합, $J^\top g$ | $u=x^2, y=u+u$; 2×2 $J$ |
+| 2 broadcast 🔑 | `plot_broadcast_backward` | 복사한 만큼 더함 | (2, 3) 합 |
+| 3 Node 🔑 | `plot_mlp_graph`, `plot_local_rules` | MLP 손실의 그래프와 위상 순서, pullback 한 줄씩 | 순서 목록, row·column 예제 |
+| 5 학습 루프 🔑 | `plot_training_cycle`, `plot_fit` (학습 셀 뒤), `plot_stop_gradient` | 새 그래프→backward→갱신, 한 경로 끊기 | — |
+
+### 14 · 손실·정규화 — `regularization_plots.py` — 완료
+
+상황: 이상치가 있는 직선, 작은 손계산 배열, MNIST 7(판별 가중치·dropout mask).
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 손실 🔑 | `plot_loss_shapes` | 잔차→손실·미분 | 세 곡선 |
+| 2 가중치 🔑 | `plot_weighted_mean` | 가중 평균과 상수배 불변 | 관측 3개 |
+| 3 L2 🔑 | `plot_l2_templates`, `plot_outlier_fits`, `plot_ridge_norms` | $\lambda$별 7 판별 가중치 이미지, 이상치 직선 | ridge 닫힌 해 3개 |
+| 4 AdamW 🔑 | `plot_decay_comparison` | 상태에 무엇을 넣었는지가 방향을 바꿈 | 첫 스텝 세 방식 |
+| 5 dropout 🔑 | `plot_dropout_masks`, `plot_dropout_objective` | 7의 mask 3장과 평균, 기대 손실 = 기본 + 분산 항 | 2,000 mask 평균 |
+
+### 15 · 실험·평가 — `evaluation_plots.py` — 완료
+
+상황: 사람 120명의 반복 관측, 특성 8개 분류 실험, MNIST 7 판별(템플릿).
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 분할 단위 🔑 | `plot_split_units` | 행 vs 사람 분할, 겹친 사람 수 | seed 150 분할 |
+| 2 전처리 🔑 | `plot_standardize` | 학습 통계로 표준화 | 수직선 |
+| 4 검증 선택 🔑 | `plot_selection_table`, `plot_training_curves` | $\lambda\times$seed 표와 평균, 곡선 | runs |
+| 5 지표 🔑 | `plot_metrics_hand`, `plot_confusion_examples`, `plot_reliability` | 임계값→혼동 행렬→지표, MNIST 7 판별의 혼동 행렬(축 없음)과 틀린 예 6장, 신뢰도 곡선 | 손계산, 템플릿 분류 |
+| 6 test 🔍 | `plot_confusion` | 축 없는 혼동 행렬 | 기존 |
 
 ## 4. 작업 순서
 
