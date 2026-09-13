@@ -102,3 +102,17 @@ D-012 main 반영(2026-09-13 15:13 KST): 사용자 요청으로 원격을 fetch�
 검증: 00 75셀·그림 13(바이트 동일)·오류 0, 01b 45셀·그림 6(4 동일, 시간 그림 2 다름)·오류 0, 출력 문장은 추가 print 2줄과 시간 수치·힌트 외 동일. verify_exercises 6/6, check_code_comments 통과, pytest 22 통과. 새 스크립트 `scripts/check_code_comments.py`. 커밋은 하지 않았습니다.
 
 D-013 main 반영(2026-09-13 17:07 KST): 사용자 요청으로 origin을 fetch해 로컬·원격이 118e789로 같음을 확인한 뒤 13개 파일을 873981a71e8836287b1eff41185ce235c8b095dc에 커밋하고 origin/main에 푸시했습니다. git ls-remote와 GitHub API의 main SHA가 로컬 HEAD와 같았고, 등록된 workflow·check-run·status context는 0개입니다. HANDOFF.md(나머지 16개 적용 지시)와 새 스크립트 3개(check_code_comments·compare_notebook_outputs·nbedit)도 함께 올렸습니다. 사용자 전역 지침에 따라 AI 공동 저자 표기는 넣지 않았습니다. 배포 기록은 results/delivery/2026-09-13-main-2.json이며 이 기록·체크포인트는 후속 기록 커밋으로 반영합니다.
+
+## 2026-09-13 · D-013 나머지 16개 노트북에 코드 주석 규칙 적용
+
+HANDOFF.md를 읽고 삭제한 뒤 01 → 00b → 02 → 03 → 04 → 05 → … → 15 순서로 16개 노트북의 코드 셀을 재작성했습니다. 노트북마다 재작성 전 출력 스냅샷(`compare_notebook_outputs.py snapshot`)과 사본을 두고, `scripts/nbedit.py`를 부르는 rewrite_NN.py(고유 문자열로 셀을 찾아 통째로 바꿈)를 적용한 뒤 `check_code_comments.py` → `check_notebook.py`(새 커널) → `verify_exercises.py` → `compare_notebook_outputs.py compare`(출력 문장·PNG md5)를 돌렸습니다. 마지막에 16개를 한 번에 재실행·재비교했고 pytest 22개가 통과했습니다.
+바뀐 것(16개 합계): 셀 1,090 → 1,150(25줄 초과 셀과 정의/실행 셀 분리), def 332 → 382(검사기용 lambda 54개를 이름 있는 def로, 중첩 포함)에 docstring 4 → 382, `# 쓰는 것:` 출처 줄 260셀, 코드 상자 123개, `;` 두 문장 80곳 분리, `assert a and b` 분리, 검산 주석·assert 메시지 전부. 구현·수식·검산·실험 설정 코드는 그대로이고 `run_check` 셀의 `False` 표시와 `src/utils/*_plots.py`는 손대지 않았습니다.
+출력 비교: 그림 143장 중 141장 바이트 동일(00b의 시간 측정 그림 2장만 다름). 출력 문장은 검산만 있던 셀 4곳(01 8절 격자, 03 2절 결정 경계, 07 3절 유지량, 09 5절 데이터 분할)에 통과 print 1줄씩과 00b의 반복문 대비 배열 배율 수치 외 동일.
+에이전트가 정한 것(사용자 확인 대상): (1) 13의 `Node` 클래스(51줄)와 `check_matmul`(37줄)은 정의 하나뿐이라 셀을 나눌 수 없어 `check_code_comments.py`가 class/def 하나뿐인 정의 셀을 25줄 제한에서 빼도록 고치고 WRITING.md 7절 5번 규칙에 그 예외를 한 문장 적었습니다. (2) 10의 오답 검출 셀에서 예외 변수 `error`가 검사기 지역 이름과 겹쳐 점검이 오탐해 `failure`로 이름만 바꿨습니다(assert 메시지 튜플은 그대로라 출력 동일).
+문서·기록: WRITING.md 6절 머리 문장과 16행 갱신, results/foundation-validation(01·00b·02–04)·architecture-validation(05–10)·bridge-validation(11–15)에 결과 표 저장, 이전 체크포인트는 memory/checkpoints/20260913-1840-D-013-16-notebooks-before-review.md. 커밋·푸시는 하지 않았습니다.
+
+## 2026-09-13 · D-014 `run_check` 반환값 제거와 main 반영 준비
+
+사용자가 16개 적용 결과를 보고 "알아서 학습용으로 적합하게 진행하고 나머지 커밋이랑 메인브랜치 푸시해"라고 지시했습니다(D-014). 에이전트 결정 2건(정의 하나뿐인 셀의 25줄 예외, 10의 `failure`)은 그대로 두고, 미뤄 둔 `run_check` 셀의 `False` 표시를 정리했습니다.
+`src/utils/exercise.py`의 `run_check`가 값을 돌려주지 않게 바꿔(반환 없음) 18개 노트북 66개 검사 셀 아래의 `False` execute_result를 없앴습니다. 검사 결과는 ☐ 미완성 / ✗ 불일치·오류 / 통과 메시지의 출력으로만 전하고, `verify_exercises.py`는 출력 문장만 보므로 영향이 없습니다. `tests/test_exercise.py` 3개는 반환값 None과 출력 문장 확인으로 고쳤고, WRITING.md 5절에 한 문장 적었습니다. 노트북 코드 셀은 바꾸지 않았습니다.
+검증: 바꾸기 전 18개의 출력 스냅샷을 새로 찍은 뒤 18개를 새 커널로 재실행·비교했습니다. 오류·stderr 0, 연습 66개 통과, check_code_comments 18개 통과, pytest 22 통과. 출력 차이는 `False` 66개가 사라진 것과 00b·01b의 시간 측정 그림 4장·00b 배율 수치뿐입니다. 결과 표는 `results/foundation-validation/2026-09-13-run-check-no-return.md`. 01·02·03 그림 셀의 `<Axes: ylabel='상대오차'>` 표시는 그림 함수 반환값으로 이전과 같고 이번 범위 밖입니다.

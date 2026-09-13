@@ -4,7 +4,7 @@
 
 보고하는 것:
 - docstring 없는 def (연습 뼈대·검사 함수 포함)
-- 코드 줄(주석·docstring·빈 줄 제외)이 25줄을 넘는 셀
+- 코드 줄(주석·docstring·빈 줄 제외)이 25줄을 넘는 셀 (class 하나 또는 def 하나만 있는 정의 셀은 나눌 수 없으므로 제외)
 - 한 줄에 세미콜론으로 이어 붙인 두 문장
 - 메시지 없는 assert, 줄 끝 `# 검산:` 주석이 없는 np.testing.assert_*
 - lambda
@@ -147,7 +147,8 @@ def check(path: Path) -> list[str]:
                     problems.append(f"셀 {index}: {name} 에 `# 검산:` 주석 없음 (줄 {node.lineno})")
 
         lines = code_line_count(src, tree)
-        if lines > MAX_CODE_LINES:
+        single_definition = len(tree.body) == 1 and isinstance(tree.body[0], (ast.ClassDef, ast.FunctionDef))
+        if lines > MAX_CODE_LINES and not single_definition:   # 정의 하나뿐인 셀은 셀로 나눌 수 없으므로 단계 번호 주석으로 대신합니다
             problems.append(f"셀 {index}: 코드 {lines}줄 > {MAX_CODE_LINES}줄 → 정의/실행/검산으로 나누기")
         for line in semicolon_lines(tokens):
             problems.append(f"셀 {index}: 한 줄에 두 문장 ';' (줄 {line})")
