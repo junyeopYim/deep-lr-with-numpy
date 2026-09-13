@@ -94,3 +94,9 @@ HANDOFF.md를 읽고 삭제한 뒤 05 CNN부터 15 실험·평가까지 11개 �
 문서: DESIGN.md 3절 05–15를 계획→완료로 바꾸고 파일명·그림 표를 적음, 2-1 부품표에 `draw_unrolled_chain` 추가, WRITING.md 적용 현황 11행 추가, results/architecture-validation·bridge-validation에 검증 표 저장. DECISIONS.md에 D-012 추가. 커밋·푸시는 하지 않았습니다.
 
 D-012 main 반영(2026-09-13 15:13 KST): 사용자 요청으로 원격을 fetch해 새 커밋이 없음을 확인한 뒤(로컬은 이전 세션의 741f730만큼 앞서 있었음) 32개 파일을 4798abfd3f1d73893781316d7944756f0e414c2f에 커밋하고 origin/main에 푸시했습니다. 푸시로 741f730(00–04 적용)과 4798abf(05–15 적용)가 함께 올라갔고, GitHub API의 main SHA가 로컬 HEAD와 같았습니다. 등록된 workflow·check-run·status context는 모두 0개입니다. 사용자 전역 지침에 따라 AI 공동 저자 표기는 넣지 않았습니다. 배포 기록은 results/delivery/2026-09-13-main.json이며 이 기록·체크포인트는 후속 기록 커밋으로 반영합니다.
+
+## 2026-09-13 · D-013 코드 주석 규칙과 00·01b 시범 재작성
+
+사용자가 캡처한 셀 다섯 개(00의 dot_loop·검산 셀, 01b의 배치 기울기·epoch_batches·train_minibatch)를 들어 주석 부족을 지적했습니다. 18개 노트북 코드 셀을 세어 진단(def 354개 중 docstring 8개, 25줄 초과 셀 23개, `;` 두 문장 122곳, 메시지 없는 assert 126곳, lambda 57곳, 4셀 이상 떨어진 이름 752곳)을 보고하고, WRITING.md 7절로 여섯 규칙을 제안했습니다. 사용자 확정(D-013) 뒤 00·01b에 적용했습니다.
+바뀐 것: 00은 def 12개 docstring, `# 쓰는 것:` 13셀, 코드 상자 2개(`_`·assert, 컴프리헨션·np.stack), 검산 주석·메시지 전부, 체인 비교 분리, 검산만 있던 2셀에 통과 print. 01b는 정의·실행 분리 3곳(📎 함수 셀 신설, epoch_batches, train_minibatch), `-(-N // 64)`→`math.ceil(N / 64)`(본문·연습 C 힌트·정답), `lambda to_image`→def, `;` 분리 3곳, 코드 상자 3개(2·3·4절), 연습 검사 함수의 assert 메시지.
+검증: 00 75셀·그림 13(바이트 동일)·오류 0, 01b 45셀·그림 6(4 동일, 시간 그림 2 다름)·오류 0, 출력 문장은 추가 print 2줄과 시간 수치·힌트 외 동일. verify_exercises 6/6, check_code_comments 통과, pytest 22 통과. 새 스크립트 `scripts/check_code_comments.py`. 커밋은 하지 않았습니다.

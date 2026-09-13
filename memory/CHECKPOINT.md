@@ -1,24 +1,27 @@
-# Checkpoint — D-012 완료·main 반영, 05–15 글·그림·연습 규칙 적용 — 2026-09-13 15:15
+# Checkpoint — D-013 코드 주석 규칙, 00·01b 시범 재작성 완료 — 2026-09-13 15:45
 
 ## The story so far
-사용자가 정한 글 규칙(🔑/🔍/📎/✏️ 표시, 첫 등장 용어 상자, 상황 도입, 🔑 절마다 예시 그림)과 코딩 테스트형 연습(run_check + 접힌 정답)을 00–04에 이어 05–15 열한 개 노트북에 모두 적용했습니다. 원본 코드 셀은 조립 스크립트로 그대로 복사했으므로 수식·구현·검산·실험 설정은 바뀌지 않았습니다. 새 그림 보조 파일 11개(`src/utils/cnn_plots.py` … `evaluation_plots.py`)와 공용 부품 `schematic_plots.draw_unrolled_chain`이 생겼습니다. 사용자 요청으로 741f730(00–04)과 4798abf(05–15)를 origin/main에 푸시했고 원격 SHA가 로컬과 같음을 확인했습니다(`results/delivery/2026-09-13-main.json`).
+사용자가 코드 셀의 주석 부족(초보·중급 독자가 이해하기 어려움)을 지적했습니다. 18개 노트북을 세어 주석 개수가 아니라 **빠진 자리의 종류**가 문제라고 진단했습니다(def 354개 중 docstring 8개, 25줄 초과 셀 23개, 세미콜론 두 문장 122곳, 메시지 없는 assert 126곳, 4셀 이상 떨어진 이름 사용 752곳). 여섯 규칙(모든 def docstring, 셀 첫 줄 `# 쓰는 것:`, 관용구는 쉬운 형태 또는 코드 상자, 검산에 주장 문장, 한 셀 한 역할 25줄, 주석 순서 모양→수식 항→이유)을 제안했고 사용자가 "구현은 바꾸지 않되 출력이 동일한 가독성 재작성은 허용, 시범으로 00·01b"로 확정했습니다(D-013).
+`docs/WRITING.md` 7절, AGENTS.md 한 줄, `scripts/check_code_comments.py`(정적 점검)를 만들고 00·01b의 코드 셀을 재작성했습니다. 01b는 데이터/함수, epoch_batches 정의/검산, train_minibatch 정의/실험 셀을 나누고 `-(-N // B)`→`math.ceil`, `lambda`→`def`, 세미콜론 문장을 분리했습니다. 00은 검산만 있던 6절·7절 셀에 통과 print를 한 줄씩 추가했습니다.
 
 ## Decided
-D-009 개념 그림 문법, D-010 00–04 적용, D-011 코딩 테스트형 연습·00b·01b, D-012 05–15 적용(그림 파일은 노트북별 `<이름>_plots.py`, 옛 `my_xxx` 연습은 뼈대 연습 4개 + 🔍 완성 예제로 교체).
+D-013 코드 주석 규칙, 출력이 같은 가독성 재작성 허용, 00·01b 먼저 적용 후 검토.
 
 ## Verified
-11개 노트북을 마지막에 한 번에 새 커널로 재실행: 셀 735, 그림 94, 연습 44, 오류·stderr·표시 없는 셀 0, 정답 실패 0, 실행 38.7초. pytest 22개 통과. PNG 94장 직접 확인. 기록은 `results/architecture-validation/2026-09-13-writing-rules-exercises.md`, `results/bridge-validation/2026-09-13-writing-rules-exercises.md`, `figures/check/<노트북>/cellNN.png`(gitignore).
+- 00: 새 커널 75셀·그림 13·오류 0·4.0초. 재작성 전 스냅샷과 비교해 그림 13장 바이트 동일, 출력 문장 동일(추가된 통과 print 2줄 제외).
+- 01b: 새 커널 45셀(41→45)·그림 6·오류 0·7.1초. 그림 4장 바이트 동일, 시간 측정에 의존하는 2장(스텝 비용, 배치 크기 효과)만 다름. 출력 문장은 시간 수치 자릿수와 연습 C 힌트(`math.ceil`)만 다름.
+- verify_exercises 3+3 통과, check_code_comments 두 노트북 통과(미적용 01은 81건 보고), pytest 22 통과.
+- 재작성 전 사본·출력 스냅샷·재작성 스크립트(nbedit.py, rewrite_00.py, rewrite_01b.py)는 세션 scratchpad에만 있음. 노트북 자체가 산출물.
 
 ## Waiting on the user
-05–15 결과 검토(특히 그림과 연습 난이도)와 다음 범위 선택(16 정규화 층부터 구조 조합, 또는 22 Autoencoder부터 생성 경로). 조립 스크립트(scratchpad의 `nbbuild.py`, `build_05.py`–`build_15.py`)는 세션 임시 폴더에만 있으므로 노트북 자체가 산출물입니다.
+00·01b 재작성 검토: 주석 밀도, 코드 상자 위치, `# 쓰는 것:` 형식, 추가한 통과 print 2줄. 검토 뒤 나머지 16개 적용 여부. 커밋·푸시는 지시 전에 하지 않음.
 
 ## Next first action
-사용자 피드백을 반영합니다. 노트북 하나를 다시 손볼 때는 `notebooks/...ipynb`를 직접 고친 뒤 `python scripts/check_notebook.py <노트북>`과 `python scripts/verify_exercises.py <노트북>`을 돌리고 `figures/check/<노트북>/`의 PNG를 눈으로 봅니다. 새 노트북(16 이후)을 만들 때는 05–15의 첫 셀·📎 예시 셀·🔑 절 구성을 본뜨고 DESIGN.md 3절에 그림 표를 먼저 적습니다.
+`memory/HANDOFF.md`(나머지 16개 적용 지시)를 읽고 삭제한 뒤 그 절차대로 01부터 진행합니다. `scripts/compare_notebook_outputs.py`(출력 스냅샷·비교)와 `scripts/nbedit.py`(셀 편집)를 저장소에 넣어 두었습니다.
+검토 피드백을 WRITING.md 7절에 반영한 뒤 01부터 같은 방식으로 적용합니다. 노트북마다 (1) 재작성 전 사본과 출력 스냅샷 저장 → (2) 고유 문자열로 셀을 찾아 바꾸는 스크립트 → (3) `check_notebook.py` → `verify_exercises.py` → `check_code_comments.py` → (4) 출력 문장·PNG md5 비교. 07·09·13은 46–54줄 셀을 함수별 셀로 나눠야 합니다.
 
 ## Tried
-- 그림 함수의 `connect` 화살표 글자는 짧게(한두 단어). 길면 옆 판의 눈금 라벨과 겹칩니다.
-- `draw_cells` 판끼리 칸 크기를 맞추려면 `xlim/ylim`을 같은 크기의 틀로 다시 잡습니다(`cnn_plots._frame`).
-- 막대 그림에서 `ax.text(i, v, …)`로 값 라벨을 붙일 때 `ylim`이 값보다 작으면 tight bbox가 라벨까지 포함해 그림이 세로로 수천 픽셀 늘어납니다(15 분할 그림에서 겪음).
-- `np.trapezoid`로 KL을 적분할 때 격자를 꼬리까지 넓게(−10부터 12까지) 잡아야 닫힌 식과 1e-5 안에서 맞습니다.
-- 마크다운 정답 블록의 `~`는 check_notebook 경고를 냅니다. `np.isin(..., invert=True)`처럼 물결표 없는 표현을 씁니다.
-- `np.float64`/`np.int64`가 f-string에 섞이지 않게 `f"{v:g}"`나 `int(v)`로 적습니다.
+- 출력 동일성은 stream 텍스트 diff + PNG md5로 증명. `perf_counter` 시간 수치는 마스킹해서 비교.
+- check_code_comments의 "멀리서 온 이름"은 그림 호출만 있는 셀과 `exercise_*` 안(`return Z` 같은 채울 자리)에서 오탐이 나서 제외함.
+- `run_check(...)` 셀은 반환값 `False`가 execute_result로 표시됨(18개 노트북 공통, 이번에 바꾸지 않음). 초보자에게 헷갈릴 수 있어 후속 검토 대상.
+- 마크다운 코드 상자 안의 수식은 `$\lceil N/B\rceil$`처럼 mathtext로 두고, 코드 주석 안에서는 유니코드 ⌈ ⌉를 써도 렌더링에 문제 없음.
