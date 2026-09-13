@@ -1,4 +1,4 @@
-# Checkpoint — D-013·D-014 main 반영 완료(705e3fe) — 2026-09-13 21:54
+# Checkpoint — D-014 적용 완료, main 반영 진행 — 2026-09-13 19:05
 
 ## The story so far
 D-013으로 코드 주석 규칙(WRITING.md 7절)을 18개 노트북 전부에 적용했습니다(00·01b 시범 뒤 나머지 16개). 사용자가 결과를 보고 "알아서 학습용으로 적합하게 진행하고 나머지 커밋이랑 메인브랜치 푸시해"라고 해서(D-014) 미뤄 둔 `run_check` 셀의 `False` 표시를 정리했습니다: `src/utils/exercise.py`의 `run_check`가 값을 돌려주지 않게 바꿔 66개 검사 셀의 `False` execute_result를 없앴고, 18개 노트북을 새 커널로 재실행해 저장했습니다.
@@ -11,13 +11,13 @@ D-014: 16개 재작성 결과와 에이전트 결정 2건(class/def 하나뿐인
 - 18개 새 커널 재실행: 오류·stderr 0, 실행 2.3–12.4초. verify_exercises 66/66, check_code_comments 18/18, pytest 22 통과.
 - 출력 비교(직전 상태 스냅샷 대비): `False` 66개 사라짐 외 문장 동일. 그림 162장 중 158장 바이트 동일(00b·01b 시간 측정 그림 4장만 다름).
 - 결과 기록: `results/foundation-validation/2026-09-13-code-comments-00b-04.md`, `…/2026-09-13-run-check-no-return.md`, `results/architecture-validation/2026-09-13-code-comments-05-10.md`, `results/bridge-validation/2026-09-13-code-comments-11-15.md`.
-- 원격: 시작 시 fetch해 로컬·원격 main이 3ba8c83으로 같음을 확인한 뒤 705e3fe(32개 파일) 푸시. GitHub API main SHA 일치, workflow·check-run·status context 0개.
+- 원격: 시작 시 fetch해 로컬·원격 main이 3ba8c83으로 같음을 확인. 등록된 workflow 0개.
 
 ## Waiting on the user
-없음. 705e3fe를 origin/main에 푸시했고 원격 SHA가 로컬과 같음을 확인했습니다(`results/delivery/2026-09-13-main-3.json`). 이 기록·체크포인트는 후속 기록 커밋으로 올립니다.
+없음. 푸시 뒤 `results/delivery/2026-09-13-main-3.json`과 이 체크포인트·세션 로그를 후속 기록 커밋으로 올립니다.
 
 ## Next first action
-새 지시를 기다립니다. 후속 후보(사용자 결정): (1) 01·02·03 그림 셀 하나가 표시하는 `<Axes: ylabel='상대오차'>`(그림 함수 반환값) 정리 여부, (2) 학습자 시점에서 노트북 한 권을 통독하며 주석·코드 상자가 실제로 읽히는지 검토, (3) CURRICULUM의 다음 경로(구조 조합 또는 Autoencoder) 노트북 설계. 작업 전에는 fetch로 원격 main과 차이를 확인합니다.
+`git add -A`로 전부 담아 커밋(AI 공동 저자 표기 없이) → `git push origin main` → `git ls-remote`와 GitHub API로 main SHA 확인 → 배포 기록 작성 → 기록 커밋·푸시. 그 뒤 후속 후보: 01·02·03 그림 셀의 `<Axes: …>` 표시(그림 함수 반환값) 정리 여부, 학습자 시점의 노트북 통독 검토.
 
 ## Tried
 - 출력 동일성은 stream 텍스트 diff(시간 수치 마스킹) + PNG md5 + execute_result 목록 비교. 검사 셀의 `False`는 execute_result라 "그 밖의 출력 차이"로 잡힘.
