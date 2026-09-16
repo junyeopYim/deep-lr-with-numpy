@@ -88,7 +88,7 @@ def plot_perceptron_decision(images, scores, decisions, targets, labels):
     for i, (d, t) in enumerate(zip(decisions, targets)):
         ok = d == t
         ax_d.text(0.15, i, f"{int(d)}", ha="center", va="center", fontsize=10, color=cp.INK if ok else cp.RED,
-                  fontweight="bold" if not ok else None)
+                  )   # bold는 한글 폰트에 없어 요청하지 않음(findfont 경고)
         ax_d.text(0.6, i, "✓" if ok else f"✗ (정답 {int(t)})", ha="left", va="center", fontsize=9, color=cp.INK if ok else cp.RED)
     ax_d.set_title("판정 $\\hat y = 1[z \\geq 0]$", color=cp.INK, fontsize=10.5, pad=6)
     cp.connect(fig, fig.axes[cols - 1], ax_z, "$w$와 내적"); cp.connect(fig, ax_z, ax_d, "$z \\geq 0$?")

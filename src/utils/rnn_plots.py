@@ -57,7 +57,7 @@ def _draw_tokens(ax, tokens, title=None):
     for j, tok in enumerate(tokens):
         ax.add_patch(Rectangle((j, 0), 1, 1, facecolor="white", edgecolor=cp.MUTED, lw=0.8))
         ax.text(j + 0.5, 0.5, SYMBOLS[int(tok)], ha="center", va="center", fontsize=11,
-                color=cp.INK if tok else cp.MUTED, fontweight="bold" if tok else None)
+                color=cp.INK if tok else cp.MUTED)   # bold는 한글 폰트에 없어 요청하지 않음(findfont 경고)
     ax.set_xlim(-0.15, len(tokens) + 0.15)
     ax.set_ylim(-0.15, 1.15)
     if title:
