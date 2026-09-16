@@ -298,6 +298,162 @@ MNIST를 쓰지 않습니다. `draw_compute_graph`로 값 노드(원)·연산(�
 | 5 지표 🔑 | `plot_metrics_hand`, `plot_confusion_examples`, `plot_reliability` | 임계값→혼동 행렬→지표, MNIST 7 판별의 혼동 행렬(축 없음)과 틀린 예 6장, 신뢰도 곡선 | 손계산, 템플릿 분류 |
 | 6 test 🔍 | `plot_confusion` | 축 없는 혼동 행렬 | 기존 |
 
+### 05b · LeNet: 05의 합성곱을 실제 손글씨에 적용하기 — `lenet_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 padding·두 단 🔑 | `plot_padding_scene` | 왜 p=(k−1)/2를 두르면 출력이 입력과 같은 크기인가: 회색 0 칸 위의 금색 창 | 4×4 격자에 np.pad 한 겹, 3×3 창의 반복문 출력 4×4 |
+| 1 padding·두 단 🔑 | `plot_feature_flow` | conv→pool→conv→pool에서 크기가 28→28→14→10→5로 줄고, 마지막 한 칸이 입력 16×16을 본다 | 난수 커널로 7의 네 층 특성 맵, 커널 1·평균 풀링의 backward로 잰 수용 영역 상자 |
+| 2 조립 🔑 | `plot_lenet_blocks (draw_blocks 두 줄)` | 텐서 모양 흐름과 파라미터가 있는 다섯 층 | 층별 (이름, 모양) 목록, 파라미터 수 61,706 |
+| 2 조립 🔑 | `plot_lenet_trace` | 7 한 장이 conv1 6장 → pool2 16장 → A3·A4 → logit 10개로 바뀌는 값 | 05 함수와 행렬곱으로 손으로 이은 forward(학습 전), lenet_forward와 일치 검산 |
+| 3 학습 루프 🔑 | `plot_data_plan` | 6만 장을 학습·검증·안 씀으로 나누고 test는 따로; 한 에폭 313스텝, 마지막 배치 32장, 첫 배치 64장 | math.ceil(20000/64), 마지막 배치 크기, rng.permutation의 첫 배치 |
+| 3 학습 루프 🔑 (학습 셀 뒤) | `plot_training_result`, `plot_kernels_before_after (전/뒤/변화)`, `plot_feature_maps` | 배치 CE와 에폭별 검증 정확도, 학습이 conv1 커널에 더한 변화, 학습된 커널이 7에서 본 것 | train_lenet history, K1_before/lenet_p['K1']/K1_delta, conv_forward(mnist_7, 학습된 K1) |
+| 4 이동 반응 🔑 | `plot_shift_response` | 입력을 1·2·3칸 옮기면 conv1 특성 맵은 정확히 따라 옮겨지고(금색 칸) softmax 확률은 조금 변한다 | np.roll 입력의 학습된 conv1 특성 맵·logit·softmax, 원본 최댓값 자리, 등변 차이 0 |
+| 5 test 보고 🔍 | `plot_confusion_matrix`, `plot_wrong_examples` | 어느 숫자끼리 헷갈리나, 자신 있게 틀린 8장 | np.add.at 혼동 행렬(대각선 합/N = 정확도 검산), 틀린 장 중 예측 확률 상위 8 |
+
+### 18b · 물체 검출: 격자마다 상자·신뢰도·클래스를 예측하기 (YOLO) — `detection_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 📎 데이터 | `plot_canvases` | 검출 문제의 입력과 답은 무엇인가: 캔버스 한 장에 숫자 여러 개와 상자 여러 개 | make_canvases가 만든 학습 캔버스 4장, 물체별 (cx, cy, w, h) 캔버스 비율과 클래스 |
+| 1 상자와 IoU 🔑 | `plot_iou_boxes` | 겹침을 왜 넓이의 비로 재는가: 교집합 ÷ 합집합 | 두 상자의 모서리, 겹친 가로·세로 6×6, 넓이 144·72, 교집합 36, 합집합 180, IoU 0.2 |
+| 2 격자 출력과 타깃 인코딩 🔑 | `plot_grid_targets` | 어느 셀이 어느 물체를 책임지고 그 셀의 15칸에 무엇이 들어가나 | 고정 예시 7·3을 놓은 캔버스, 중심 × S의 내림으로 얻은 책임 셀 (1,1)·(3,2), obj mask 4×4, 금색 셀의 타깃 15칸 |
+| 3 YOLO 손실 🔑 | `plot_loss_terms` | mask가 어느 셀에 어느 항을 걸고, 네 항의 크기는 어떻게 다른가 | 2×2 손계산의 신뢰도 격자와 네 항 0.4 / 0.04 / 0.03 / 0.05 (합 0.52) |
+| 4 완성 모델 🔑 | `plot_detector_blocks` | 텐서 모양이 (N,1,32,32)에서 (N,4,4,15)로 어떻게 가고 파라미터는 어느 층에 있나 | 블록별 텐서 모양 목록, 파라미터 수 백본 5,888 + head 495 = 6,383, 완전 연결 head면 123,120 |
+| 4 학습 결과 | `plot_curves`(bridge_plots 재수출), `plot_detections` | 네 항이 각각 어떻게 줄고, 학습한 셀 16개는 무엇을 내놓는가 | 700스텝 동안 50스텝마다 평균낸 네 항, decode_boxes로 푼 검증 상자·신뢰도·클래스 argmax |
+| 5 NMS 🔑 | `plot_nms_hand` | 겹친 상자 중 무엇을 남기고 무엇을 지우는가 | 상자 셋의 IoU 표(A–B 0.667), 점수 내림차순, 손계산 keep {A, C} |
+| 5 NMS 결과 | `plot_nms_result` | 학습한 모델의 상자가 실제로 몇 개로 줄어드는가 | 검증 캔버스 0의 신뢰도 0.3 통과 6개와 NMS 뒤 5개, 정답 3개 |
+| 5 precision–recall과 AP 🔑 | `plot_pr_curve` | 임계값을 낮추면 precision과 recall이 어떻게 맞바뀌고 그 전체를 어떻게 한 숫자로 요약하나 | 손계산 tp [1,1,0,1]·정답 5개의 누적 precision·recall·오른쪽 최댓값 상한과 AP 0.55, 검증 검출 639개의 같은 곡선과 AP 0.4761 |
+
+### 23 · 잠재변수: 보이지 않는 선택을 더해서 없애기 (혼합 모형과 EM) — `mixture_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 주변 밀도 🔑 | `plot_marginal_sum` | 왜 성분 밀도를 더하면 관측의 밀도인가, 그리고 로그에서도 작은 항은 왜 보이지 않는가 | 격자 (701,)의 가중 성분 밀도 π_k N(x;μ_k,σ_k²) (701,2)와 그 합 (701,), x=0의 두 항 (2,)와 log p(0) |
+| 1 2차원 🔍 소절 | `plot_mixture2_density` | 성분이 2차원 Gaussian이어도 더해서 없애는 구조는 같은가 | 161×161 격자의 성분별 π_k N(x;μ_k,Σ_k) 두 판과 합, 격자 합 × 칸 넓이 |
+| 2 책임확률 🔑 | `plot_responsibility` | 거꾸로 물으면 답이 어떻게 나뉘고, 경계는 어디인가. 784차원에서는 왜 0 아니면 1인가 | r_k(x) 곡선 (701,2), 이차식 계수와 두 근, x=0의 r, MNIST 10성분 로그 항(최댓값 대비)과 책임확률 (10,) |
+| 3 미분 🔑 | `plot_score_field` | score는 어느 쪽을 가리키고, 파라미터 기울기는 왜 책임확률로 가중되는가 | 자리 21곳의 score (21,), x=0의 s(0)·∂log p/∂μ (2,), 2차원 log p 등고선 격자와 벡터장 (143,2) |
+| 4 EM 🔑 | `plot_em_progress` | E·M 두 단계를 반복하면 성분이 어떻게 갈라지고 로그우도는 어떻게 움직이는가 | 관측 800개, 반복 0·2·10의 가중 성분 곡선 (701,2)와 합, 반복 40회의 평균 로그우도 (40,) |
+| 4 2차원 🔍 소절 | `plot_em2_progress` | 2차원에서 책임확률이 어떻게 갈리고 공분산 타원이 어떻게 기우는가 | 관측 600개, 반복 0·2·10·30의 μ (2,2)·Σ (2,2,2)·책임확률 (600,2), z를 훔쳐본 MLE와의 대조 |
+| 5 샘플링 🔑 | `plot_ancestral_sampling` | 밀도를 뒤집지 않고 어떻게 점을 만드는가, 성분별 히스토그램을 쌓으면 왜 p(x)인가 | z 4,000개와 x=μ_z+σ_z ε (4000,), 1절의 밀도 곡선, 표본 평균·분산과 닫힌식 0.8·4.135 |
+| 5 최적 복원 🔑 소절 | `plot_denoiser_curves` | 잡음이 커질수록 최선의 추측이 왜 전체 평균으로 수축하는가 | σ=0.25·1·3의 E[x\|x̃] 곡선 (701,3)과 잡음 낀 밀도 q_σ (701,3), 손계산 점 (0, 0.403833) |
+| 6 완성 예제 🔍 | `plot_em_variants` | 같은 EM인데 시작값이 다르면 왜 다른 곳에 도착하는가 | 성분 3개 관측 900개, 시작값 두 가지의 학습된 성분 곡선 (701,3)과 60반복 평균 로그우도 |
+
+### 24 · 하한으로 학습하기: Jensen 부등식과 ELBO — `elbo_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 Jensen 🔑 | `plot_jensen_chord` | 왜 평균을 먼저 취한 로그가 로그의 평균보다 큰가 (오목 함수와 현) | log 곡선 격자, 두 값 (1, 4)와 그 가중 평균 2.5, log E[f]·E[log f]·차이, 가중치 w_1을 0에서 1까지 바꾼 두 곡선 |
+| 2 ELBO 🔑 | `plot_elbo_gap` | 하한은 증거를 넘지 않고 어디서 정확히 닿나, 남은 차이는 무엇인가 | q_1 격자 999개의 ELBO 곡선과 KL 곡선, 증거 log p(0) = −3.273491, posterior r(0), q=(0.5,0.5)에서의 세 숫자 |
+| 3 두 항 🔑 | `plot_two_terms` | 재구성 항과 사전분포 KL이 q에 따라 어떻게 절충되나 | q 세 가지(균등·π·posterior)의 E_q[log p(x\|z)], KL(q‖π), 그 차이 = ELBO |
+| 4 φ 경사 상승 🔑 | `plot_phi_ascent` | 기울기가 0이 되는 자리가 왜 정확히 posterior인가 | x = −1에서 q_1 격자의 ELBO 곡선과 ∂ELBO/∂φ_1 곡선, 경사 상승 61스텝의 q_1·ELBO·KL 기록 |
+| 5 연속 잠재 🔑 | `plot_gaussian_elbo_landscape` | 연속 잠재에서 최적 q가 왜 닫힌식 posterior이고 그 높이가 왜 증거인가 | prior N(0,1)·닫힌식 posterior N(0.4706, 0.0588)·시작 q의 밀도, μ 축과 ℓ 축을 따라 본 정확한 ELBO(각 361점) |
+| 5 🔍 소절 (샘플 수) | `plot_elbo_sample_spread` | 샘플 수 K는 추정의 무엇을 바꾸고 무엇을 바꾸지 않나 | K = 1·4·16·64에서 4,000번 되풀이한 ELBO 추정값과 표준편차 (2.041 / 0.993 / 0.482 / 0.246) |
+| 5 🔍 소절 (학습 셀 뒤) | `plot_gaussian_q_learning` | 샘플로만 계산한 잡음 섞인 기울기가 닫힌식 posterior로 데려가나 | 600스텝의 정확한 ELBO 기록, 학습 전후 q 밀도, (μ, σ) 경로와 닫힌식 목표 (0.4706, 0.2425) |
+| 🔍 완성 예제 | `plot_posterior_variants` | a와 s가 posterior의 폭을 어떻게 정하나 (a²/s²가 정보의 양) | (a, s) = (2, 0.5)·(2, 1.5)·(0.5, 0.5)의 닫힌식 posterior 밀도와 같은 하이퍼파라미터로 학습한 q 밀도 |
+
+### 25 · VAE: encoder가 q를, decoder가 p(x|z)를 계산하는 ELBO 학습 — `vae_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 구조 🔑 | `plot_vae_flow` | 이미지 한 장이 어떻게 숫자 두 개가 되었다가 다시 784개가 되나 (그리고 그 사이의 '뽑기'는 어디 있나) | 학습 전 파라미터로 고정 예시 7을 직접 통과시킨 H·μ·ℓ·σ·ε·z·logit·확률 (NumPy 인라인, 1절 함수 정의 전) |
+| 2 두 항 🔑 | `plot_loss_terms` | 재구성 항이 무엇을 재는가, 그리고 KL 항과 크기가 얼마나 다른가 | 전체 평균 이미지의 logit, 후보 세 개(평균 이미지 156.73 / 학습 전 559.00 / 거의 맞힘 68.75)의 화소별 BCE와 그 합, 학습 전 KL 0.1562 |
+| 3 backward 🔑 | `plot_reparam_graph` | 샘플 z를 지나 기울기가 어떻게 μ와 ℓ 두 갈래로 갈리나, ε은 왜 되돌아가지 않나 | dz=0.30, ε=−0.80, ℓ=−0.40에서 σ=0.819, z 경로 dμ 0.3000·dℓ −0.0982, KL 경로 dμ 0.5000·dℓ −0.1648 |
+| 4 완성 학습 🔑 | `plot_eps_draws` | ε을 다시 뽑을 때마다 z와 −ELBO가 얼마나 달라지나, 그래도 왜 평균으로 학습할 수 있나 | 고정 예시 7의 (μ, σ)에서 뽑은 z 200개, 같은 배치 32장에 ε만 바꿔 잰 −ELBO 12개 (569.98–580.16, 평균 575.00) |
+| 4 학습 셀 뒤 | `plot_loss_history` | 재구성 항과 KL 항은 학습 동안 각각 어느 쪽으로 가나 | 3,000스텝 중 50스텝마다 기록한 미니배치 재구성(575.5 → 155.3)과 KL(0.25 → 6.10) |
+| 4 학습 셀 뒤 | `plot_recon_pairs` | 잠재 2차원으로 좁힌 목을 지나면 고정 예시 10장이 어떻게 돌아오나 | encoder_forward의 μ만 decoder에 넣은 복원 확률 (10, 28, 28), 화소 평균 절대오차 10개 |
+| 4 학습 셀 뒤 | `plot_latent_map` | 잠재 평면의 자리마다 어떤 그림이 나오고, 학습 데이터의 μ는 어디에 놓이나 | μ의 2–98% 분위수 8×8 격자를 decoder에 넣은 (224, 224) 타일, 5,000장의 μ (5000, 2)와 숫자 라벨, μ 평균 (0.62, −0.83)·표준편차 (1.35, 1.21) |
+| 4 🔍 소절 (혼합) | `plot_mixture_vae` | 밀도를 아는 데이터에서 학습한 하한이 정말 진짜 평균 log 밀도 아래에 있나 | mix2_sample 2,000점, 잠재 1차원 VAE의 decoder 곡선 m(z) 200점과 모델 샘플 600점, ELBO 평균 −3.0823, mix2_logpdf 평균 −2.8674 |
+| 5 사용 🔑 | `plot_vae_uses` | 복원·생성·보간이 어떻게 모두 같은 decoder 하나에서 나오나 | 고정 예시 네 장의 복원, 사전분포에서 뽑은 z 8개의 화소 확률과 잉크 평균, 7의 μ에서 1의 μ로 가는 보간 z (8, 2)와 그 그림 |
+| 🔍 완성 예제 | `plot_latent_dim_variants` | 잠재 차원을 넓히면 두 항이 어느 쪽으로 움직이고, 차원마다 실제로 쓰이고 있나 | 잠재 2/8의 전체 데이터 재구성(147.2 / 93.1)·KL(6.31 / 16.48), 차원별 μ 표준편차 |
+| 🔍 완성 예제 | `plot_recon_pairs` | 잠재 8차원이면 4절에서 뭉개졌던 숫자가 돌아오나 | wide_p로 vae_reconstruct한 고정 예시 10장 (10, 28, 28) |
+
+### 28 · GAN: 판별기의 분류 손실을 생성기가 거꾸로 타고 오르기 — `gan_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 두 손실 🔑 | `plot_generator_losses` | 왜 minimax 대신 non-saturating을 쓰나: 학습 초기 p≈0에서 기울기 크기가 p와 1−p로 갈린다 | p 격자 999개의 판별기 두 항, 생성기 두 손실 log(1−p)·−log p, logit 기울기 −p·−(1−p), p=0.01 손계산 자리 |
+| 2 기울기 경로 🔑 | `plot_gan_paths` | 생성기 갱신과 판별기 갱신에서 어떤 기울기가 흐르고 무엇을 버리나 | 작은 두 층 G·D의 raw NumPy forward(z (8,16) → x̂ (8,32) → a (8,1))와 ∂L_G/∂a, 각 상자에 적을 shape |
+| 3 최적 판별기 🔑 | `plot_optimal_discriminator` | 생성기를 고정하면 판별기의 정답이 두 밀도의 비율로 정해진다 | 격자 4001개의 p_data, 선형 G의 p_g = N(0.5, 1.5²), logit* = log p_data − log p_g, D*, x=−2의 손계산 0.78312 |
+| 3 판별기 학습 결과 🔍 | `plot_discriminator_fit` | 학습한 판별기가 닫힌식 D*에 얼마나 가까운가, 어디서 어긋나는가 | D만 3,000스텝 학습한 D(x) 곡선, 격자 적분 L_D 1.155538 vs 최적 1.152090, 밀도 가중 RMS 0.0266, 두 밀도 합이 최댓값 5%를 넘는 구간 |
+| 3 1차원 GAN 결과 🔍 | `plot_gan_1d` | 교대 갱신이 진행되면 생성 히스토그램이 진짜 밀도를 덮고 판별기는 1/2에서 포기한다 | 학습 전·200스텝·2,000스텝의 생성 샘플 4,000개, 학습이 끝난 D(x) 곡선, 진짜 밀도 격자 |
+| 4 봉우리 세기 🔑 | `plot_mode_counting` | 책임확률 argmax로 배정해 세면 mode 붕괴가 왜 숫자로 보이나 | 손으로 만든 세 구름(진짜·덮음·몰림) 2,000개씩, 배정 라벨과 개수 표 [[770,1230],[800,1200],[0,2000]], 책임확률 1/2 경계 격자 161×161 |
+| 4 coverage 🔍 | `plot_mode_coverage` | 판별기가 약하면 같은 코드가 seed에 따라 붕괴하기도 하고 안 하기도 한다 | 균형·약한 D 두 설정 × seed 3개의 1,200스텝 학습 샘플 4,000개, 봉우리별 개수 6쌍, 기대 개수 4000·π |
+| 5 PCA 왕복 🔑 | `plot_pca_roundtrip` | 생성기가 만들 것은 이미지가 아니라 좌표 32개다 | 앞 5,000장의 공분산·eigh, mnist_Q (784,32)·규모 s·mnist_Z, 고정 예시 7의 좌표 32개와 복원 이미지, 기저 이미지 6장, 남긴 분산 74.9% |
+| 5 생성 결과 🔍 | `plot_generated_images · plot_digit_counts · plot_curves` | 생성한 좌표를 되돌린 숫자는 어떤 모습이고 열 가지 숫자를 모두 덮는가 | 3,000스텝 학습한 좌표 4,000개, 디코딩 16장(0–1로 자름), 클래스 평균 최근접 개수(생성·진짜), 50스텝 평균 손실 곡선 60점 |
+| 🔍 완성 예제 | `plot_variant_bars` | k_D와 학습률 비대칭이 두 손실과 coverage를 어떻게 바꾸나 | 세 설정 800스텝 학습의 마지막 100스텝 평균 L_D·L_G와 봉우리 1 비율, 균형점 기준선 2log2·log2·0.4 |
+
+### 32 · score: 밀도 대신 밀도의 기울기를 배우기 — `score_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 score 🔑 | `plot_score_overview` | 밀도 곡선 위 화살표가 봉우리를 향하고 봉우리에서 score가 0을 지나는가, 2차원에서는 등고선을 가로질러 봉우리로 향하는 벡터장인가 | 격자 p(x), 책임확률 r, s(x)=Σ r_k(μ_k−x)/σ_k², 밀도의 국소 최대(봉우리), 화살표 자리 7개의 s, 2차원 17×12 격자의 Σ r_k Σ_k⁻¹(μ_k−x), 등고선용 mix2_logpdf |
+| 2 score matching 🔑 | `plot_hyvarinen` | 정답을 아는 식과 정답 없는 식의 차이가 s_θ와 무관한 상수 ½E[s²]인가 | 시험 함수 셋(−x, −(x−1)/2, 2 sin x)의 ½E_p[(s_θ−s)²]와 E_p[½s_θ²+s_θ'] 격자 적분(np.trapezoid, np.gradient), ½E_p[s²] |
+| 3 DSM 🔑 | `plot_noisy_scores` | 타깃 −ε/σ가 x로 돌아가는 방향인가, σ가 커질수록 q_σ와 그 score가 봉우리 사이에서 매끈해지는가 | x=1의 잡음 6개 x̃와 −(x̃−x)/σ², σ=0/0.3/1의 q_σ 밀도와 score Σ r_k^σ(μ_k−x)/(σ_k²+σ²) |
+| 4 회귀 데이터 🔑 | `plot_dsm_regression` | 점 하나만 보면 정답이 없어 보이는 시끄러운 타깃의 구간 평균이 q_σ score 곡선 위에 놓이는가 | 학습 데이터 4,000개의 (x̃, −ε/σ) 쌍, np.digitize 구간별 타깃 평균·개수, q_σ score·밀도 |
+| 4 학습 결과 (학습 셀 뒤) | `plot_learned_score_1d`, `plot_learned_field_2d`, `plot_curves`(bridge_plots 재수출) | 학습한 s_θ가 봉우리 근처에서 닫힌식과 겹치고 봉우리 사이·바깥(데이터 없는 곳)에서 틀리는가 | 학습 전후 s_θ 격자값, \|오차\|, 구간별 RMS, 2차원 닫힌식·학습 벡터장, 촘촘한 격자의 오차 크기와 q_σ 밀도 |
+| 5 오르막·Langevin 🔑 | `plot_dynamics` | 오르막은 가까운 봉우리에 멈추고 Langevin은 봉우리 주변을 흔들리며 분포 p를 따라 퍼지는가 | 출발점 7개의 200걸음 오르막 경로, 4,000입자 Langevin의 처음 150걸음 경로와 3,000걸음 뒤 히스토그램, p(x)Δx, TV 거리 |
+| 완성 예제 🔍 | `plot_sigma_comparison` | σ가 클수록 정답 q_σ score가 매끈해지고 학습 오차(특히 봉우리 사이)가 작아지는가 | σ=0.1/0.3/1.0의 닫힌식·학습 score, 구간별 RMS 오차 |
+
+### 33 · 잡음 수준을 잇는 score 모델: NCSN과 annealed Langevin — `ncsn_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 왜 잡음 수준이 여러 개인가 🔑 | `plot_sigma_ladder` | σ가 커지면 봉우리 사이 골이 메워지고 score가 완만해지는가, 사다리가 로그 축에서 등간격인가, 그리고 '원래 분포와의 거리'와 '데이터가 닿지 않는 구간'이 서로 반대 방향인가 | ladder = 3.0(0.1/3)^(i/9), 수준별 q_σ 밀도와 ∇log q_σ (격자 1601점), TV(q_σ,p) 사다리꼴 적분, 폭 0.25 구간의 기대 표본 수 < 1인 구간의 비율과 그 구간의 score RMS |
+| 2 Langevin 🔑 | `plot_langevin_walk` | 경로가 봉우리 주변을 흔들리며 등고선을 채우는가, α가 작으면 아직 못 퍼지고 크면 치우침이 남는가 | 2차원 정확한 score로 800걸음(입자 2,500, 처음 150걸음 경로 4개), 등고선용 111×121 격자의 mix2_logpdf, α=0.01/0.1/0.6의 1,000걸음 히스토그램과 TV 거리 |
+| 3 σ 조건 신경망 🔑 | `plot_loss_weighting` | 타깃 −ε/σ의 크기가 정확히 1/σ이고 최적 score는 그 아래인가, σ² 가중 전에는 작은 σ가 손실을 독차지하고 가중 뒤에는 모든 수준이 0.3–1로 모이는가 | 표본 20,000개에 수준별 잡음을 더해 닫힌식 최적 score를 넣은 E‖s+ε/σ‖²와 E‖σs+ε‖², 최적 score의 RMS √E[s²], 타깃의 제곱 평균 E[(ε/σ)²] |
+| 3 학습 결과 (학습 셀 뒤) | `plot_curves`(bridge_plots 재수출), `plot_learned_ladder` | 하나의 모델이 σ=3부터 σ=0.1까지 닫힌식과 겹치는가, 작은 수준일수록 상대 오차가 커지는가 | 1차원 NCSN 6,000스텝 학습의 100스텝 평균 손실, 수준마다 격자 1601점의 학습 전·후 s_θ와 닫힌식 q_σ score, q_σ 가중 상대 오차 10개 |
+| 4 annealed Langevin 🔑 | `plot_annealed_snapshots` | 왼쪽 봉우리 한 점에서 출발한 구름이 큰 σ에서 퍼졌다가 작은 σ로 내려오며 두 봉우리로 갈라지는가, 비율은 어느 수준에서 정해지는가 | α_i = ε σ_i²/σ_L² (ε=0.01), 정확한 q_σ score로 수준마다 100걸음씩 돈 입자 2,000개의 수준별 스냅숏과 책임확률 평균(오른쪽 봉우리 비율) |
+| 4 coverage 비교 🔍 (학습 셀 뒤) | `plot_coverage_compare` | 같은 출발점·같은 걸음 수에서 단일 σ_L Langevin은 한 봉우리에 갇히고 annealed는 (정확한 score든 학습한 s_θ든) 두 봉우리를 채우는가 | annealed(정확) / 단일 σ_L 1,000걸음(정확) / annealed(3절의 ncsn_p2)의 최종 입자와 mix2_responsibility 평균, 닫힌식 평균·공분산과의 오차 |
+| 5 MNIST PCA-32 🔑 | `plot_pca_ladder` | 좌표 32개만으로 고정 예시 7이 되살아나는가, σ가 커질수록 되돌린 그림에서 무엇이 먼저 사라지는가 | 5,000장의 공분산과 eigh 상위 32 고유벡터 mnist_Q, 좌표 mnist_Z와 규모 c, 7의 좌표·복원, 사다리 네 수준의 잡음을 좌표에 더해 되돌린 28×28 네 장, 앞 두 좌표의 산점 |
+| 5 샘플 (학습 셀 뒤) | `plot_curves`(bridge_plots 재수출), `plot_sample_grid` | 잡음에서 출발한 좌표가 숫자 모양이 되는가, 숫자별로 고르게 나오는가 | 8,000스텝 학습의 100스텝 평균 손실, annealed Langevin(ε=0.05, 수준마다 100걸음)으로 만든 좌표 16개와 mnist_decode 복원, 클래스 평균 최근접으로 센 숫자별 개수 |
+| 완성 예제 🔍 | `plot_variant_bars` | 사다리를 없애거나(L=1) 걸음을 1/400로 줄이면 봉우리 비율·평균·공분산이 얼마나 나빠지는가 | 총 1,000걸음 고정으로 L=1·3·10과 ε/400의 annealed 샘플 1,000개, 오른쪽 봉우리 비율·닫힌식 평균과의 거리·공분산 최대 오차 |
+
+### 34 · Diffusion 전방 과정: 잡음을 조금씩 더하고 그 잡음을 맞히기 — `diffusion_forward_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 전방 과정 🔑 | `plot_forward_band` | 한 걸음 규칙을 t번 이으면 정말 한 줄로 건너뛸 수 있나: 고정 예시 7이 다섯 시각에 지워지는 띠와 ᾱ_t·1−ᾱ_t 곡선 | 선형 β 스케줄(T=200, 1e−4→0.02)과 누적곱 alpha_bar, 화소를 [−1,1]로 옮긴 7에 닫힌식 한 줄로 만든 t=0·25·50·100·200 이미지 |
+| 1-1 혼합 전체 🔍 | `plot_mixture_forward` | 분포 전체는 시각 t에서 어떤 모양인가: 두 봉우리가 N(0,1) 하나로 뭉개지는 과정 | q_t_logpdf(성분 평균 √ᾱ_t μ_k, 분산 ᾱ_t σ_k²+1−ᾱ_t)의 밀도와 q_sample 표본 10,000개의 히스토그램, TV 거리 |
+| 2 되묻기 🔑 | `plot_posterior_coefficients` | 되묻기의 평균은 x₀와 x_t를 어떻게 섞고, 한 걸음 잡음보다 얼마나 확실한가 | t별 계수 c₀(t)·c_t(t), 비율 β̃_t/β_t, t=50·x₀=1.5·x_t=0.9에서 격자 120,001점의 Bayes 적분 posterior(평균·분산) |
+| 3 학습 타깃 🔑 | `plot_targets` | x₀ 예측과 ε 예측은 어떻게 생겼고 왜 서로 한 줄로 바뀌는가 | t=20·80·160의 q(x_t) 밀도, mix_denoiser(x_t/√ᾱ, σ_t)로 만든 E[x₀\|x_t], ε* = (x_t − √ᾱ x̂₀)/√(1−ᾱ), 잡음 무시선 x_t/√ᾱ |
+| 4 신경망 🔑 | `plot_denoiser_blocks` | 모델은 지금이 몇 번째 시각인지를 어떻게 입력으로 받나: sinusoidal 시간 표와 블록 흐름 | t=0…200의 시간 표 (201, 16)을 09번 4절 식으로 직접 계산, 텐서 모양 블록 목록과 파라미터가 있는 층 두 개 |
+| 4 학습 결과 🔍 | `plot_learned_eps` | 학습한 ε̂가 닫힌식 ε*와 얼마나 같은가, 어느 시각에서 덜 맞나 | t=20·80·160에서 학습 전·후 ε̂ 곡선, 시각 50개(4,8,…,200)의 E‖ε̂ − ε*‖² |
+| 4 학습 결과 🔍 | `plot_eps_field_2d` | 2차원에서도 같은 코드가 되는가: 화살표장 비교 | t=80 격자 221점의 optimal_eps2(mix2_denoiser)와 학습한 ε̂, 좌표 변환·야코비안까지 넣은 q(x_t) 등고선 |
+| 4 학습 결과 🔍 | `plot_denoised_examples` | 한 번에 되돌리면 왜 흐려지는가 (35번 역과정의 동기) | MNIST PCA-32 좌표에서 q_sample로 만든 x_t, ε̂로 되돌린 x̂₀ = (x_t − √(1−ᾱ)ε̂)/√ᾱ, decode_pca로 28×28 복원 |
+| 5 SNR 🔍 | `plot_loss_by_t` | 같은 예측을 ε 자와 x₀ 자로 재면 왜 정반대로 보이는가 | 시각 100개의 ε 손실(모델·최적 바닥), x₀ 손실, SNR(t)=ᾱ_t/(1−ᾱ_t), t 네 구간의 평균 막대 |
+| 완성 예제 🔍 | `plot_schedule_comparison` | 코사인 스케줄로 바꾸면 무엇이 달라지는가 | cosine_schedule의 ᾱ_t·SNR과 선형 스케줄의 그것, 같은 데이터·seed로 다시 학습한 시각별 ε 손실(모델·바닥) |
+
+### 35 · Diffusion 역과정: 잡음 예측으로 $T$걸음 되돌리기, DDIM, 조건부 생성 — `diffusion_reverse_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 🔑 1 | `plot_reverse_step` | 역과정 한 걸음은 지금 자리 x_t를 어디로, 얼마나 움직이나? 두 분산 선택은 얼마나 다른가? | 세 시각(t=160·100·40)에서 x̂₀(x_t)·μ_θ(x_t)·σ_t 곡선과 x_t=1.2의 값, q(x_t) 밀도, √β_t와 √β̃_t의 t별 값 |
+| 🔍 1-1 | `plot_reverse_histograms` | 정답 ε*를 알면 200걸음으로 원래 분포가 정말 나오나? 34번 스케줄로는 왜 틀어지나? | 두 스케줄에서 20,000개 역과정 표본의 히스토그램, 원래 밀도, TV 거리·평균·봉우리 비율 |
+| 🔑 2 | `plot_reverse_paths` | 잡음 하나가 T걸음 동안 어떻게 두 봉우리로 갈라지나? | 60개 경로의 x_t(t) 기록, 도착한 봉우리 mask, 끝점 20,000개의 히스토그램 |
+| 🔑 2 | `plot_samples_2d` | 되돌린 2차원 샘플이 원래 밀도와 같은가? 닫힌식 ε*와 학습한 ε̂의 차이는? | 원래 데이터 4,000점, 닫힌식·학습 모델로 되돌린 샘플 각 4,000점, mix2_logpdf 등고선 |
+| 🔑 2 | `plot_curves`(bridge_plots 재수출) | MNIST PCA-32 좌표의 잡음 예측 학습이 수렴하나? | 미니배치 MSE 손실 3,000스텝 기록 (16.881 → 10.103) |
+| 🔑 2 | `plot_sample_grid` | 좌표 샘플을 되돌려 디코딩하면 숫자로 보이나? 숫자별로 고르게 나오나? | DDPM 200걸음 샘플 16장의 decode_pca 이미지, nearest_class 숫자, 숫자별 개수 |
+| 🔑 2 | `plot_snapshot_strip` | 200걸음 동안 한 장이 어떻게 만들어지나? | 표본 3개의 t=200·150·100·50·20·0 스냅숏을 decode_pca로 디코딩한 이미지와 최종 최근접 숫자 |
+| 🔑 3 | `plot_ddim_paths` | 같은 x_T에서 걸음 수를 줄여도 같은 곳에 도착하나? 비용은 얼마나 줄어드나? | 같은 출발점 6개의 S=10·20·50·200 DDIM 경로와 도착점, 설정별 ε̂ 호출 수 |
+| 🔑 3 | `plot_image_rows` | 같은 x_T에서 걸음 수만 바꾸면 그림이 눈에 띄게 달라지나? | 같은 x_T 8개를 S=200·50·20·10으로 되돌린 좌표의 decode_pca 이미지와 최근접 숫자 |
+| 🔑 4 | `plot_guidance_concept` | guidance는 ε를 어떻게 바꾸고, w를 키우면 분포가 어떻게 왜곡되나? | 1차원 혼합의 닫힌식 ε(x_t,t,y)·ε(x_t,t,∅)·w=1·3 결합 곡선, w별 6,000개 표본 히스토그램과 평균·표준편차 |
+| 🔑 4 | `plot_image_rows` | 숫자를 지정하면 실제로 그 숫자가 나오나? w를 키우면 무엇이 좋아지고 무엇이 나빠지나? | label 0–9 × 3줄 30장 격자(w=1), 같은 x_T 8개에서 label 3을 w=0·1·3으로 바꾼 24장, 맞은 비율과 좌표 평균 길이 |
+| 🔍 5 | `plot_sampler_comparison` | 비용·조건 충실도·규모의 절충을 한눈에 보면 무엇을 골라야 하나? | 7개 설정(DDPM 200 w=0·1·3, DDIM 50·20·10)의 ε̂ 호출 수, 200장의 nearest_class 맞은 비율, 평균 좌표 길이 |
+| ✏️ 6 (🔍 완성 예제) | `plot_reverse_histograms` | 걸음의 분산을 β̃_t 대신 β_t로 두면 표본이 달라지나? | 같은 ε*로 분산만 바꾼 20,000개 표본의 히스토그램, TV 거리·평균·표준편차·봉우리 비율 |
+
+### 35b · EDM: score·DDPM·DDIM을 σ 하나로 다시 쓰기 — `edm_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 🔑 1 | `plot_unified_sigma(families`, `x`, `pdf`, `sigma_show`, `points`, `denoised`, `curve_sigmas`, `curves)` | NCSN·DDPM/DDIM·EDM이 정말 같은 σ 축 위의 서로 다른 일정인가? x에서 D(x;σ)로 가는 화살표가 곧 score인가? | 본문: vp_alpha_bar와 vp_to_sigma로 만든 세 일정의 (진행도, σ) 곡선 sigma_families, mix_logpdf로 만든 q_σ 밀도 tweedie_pdf, 화살표 점 tweedie_points와 mix_denoiser로 만든 tweedie_denoised, σ=0.2·1·4의 denoiser 곡선 denoiser_curves |
+| 🔑 2 | `plot_preconditioning(image_sigmas`, `raw_images`, `scaled_images`, `vmax`, `coef_sigmas`, `coef_curves`, `scale_sigmas`, `scale_rows`, `sigma_data)` | 전처리 없이 신경망에 넣으면 입력의 규모가 얼마나 오가고, c_in을 곱하면 무엇이 같아지는가? 네 계수는 σ에 따라 어떻게 움직이는가? | 본문: 고정 예시 7을 [−1,1]로 옮긴 band_x0에 σ=0.05·0.3·1·4의 같은 잡음을 더한 band_raw와 c_in을 곱한 band_scaled, 닫힌식으로 만든 coef_curves(c_skip·c_out·c_in·c_noise), MNIST 좌표 1,000개로 잰 scale_rows(x·c_in x·F_target의 표준편차) |
+| 🔑 3 | `plot_loss_weighting(log_sigma_samples`, `sigmas`, `weights`, `grid_range`, `bin_labels`, `raw_losses`, `weighted_losses) · plot_training_loss(steps`, `raw`, `smooth_steps`, `smooth`, `title)` | 학습용 σ는 어디에 몰려 있고 샘플러가 지나는 구간과 어떻게 다른가? λ(σ)를 곱하면 구간별 손실이 정말 평평해지는가? 학습은 어디서 멈추는가? | 본문: sample_sigma의 ln σ 표본 weight_log_samples, precondition으로 만든 λ(σ) 곡선 weight_curve, 정확한 mix2_denoiser로 σ 구간마다 잰 bin_raw와 bin_weighted, train_edm의 손실 기록 mixture_history와 100스텝 이동평균 mixture_smooth |
+| 🔑 4 | `plot_ode_paths(rho_grids`, `contour`, `paths) · plot_solver_error(step_counts`, `error_series`, `slopes`, `call_labels`, `call_counts`, `call_errors)` | ρ는 걸음을 어디에 몰아 주는가? 같은 출발점에서 Euler·Heun·기준 해의 궤적은 얼마나 벌어지고, 걸음을 늘리면 오차가 어떤 기울기로 줄어드는가? 모델 오차는 어디서 바닥을 치는가? | 본문: sigma_steps로 만든 ρ=1·3·7 격자 rho_grids, mix2_logpdf 등고선 contour_pdf, euler_sample·heun_sample로 푼 궤적 path_traces, 기준 해 converge_reference(정확한 D로 Heun 512걸음)와 N=5·10·20·40·80의 오차 converge_errors, np.polyfit으로 맞춘 converge_slopes, 같은 D 호출 수 비교 call_errors |
+| 🔍 5 | `plot_sampler_grid(rows`, `labels`, `captions) · plot_sampler_metrics(labels`, `calls`, `distances`, `real_distance`, `norms`, `real_norm)` | 같은 학습 모델을 네 샘플러로 돌리면 같은 잡음에서 같은 숫자가 나오는가? 비용과 지표는 실제 데이터와 얼마나 다른가? | 본문: train_edm으로 학습한 mnist_p와 mnist_denoiser, heun_sample·euler_sample·stochastic_heun으로 만든 sampler_coords(각 200장), decode_pca로 되돌린 sampler_rows, nearest_class로 잰 sampler_distances·sampler_classes와 좌표 노름 sampler_norms, 실제 데이터의 real_distance·real_norm |
+| 🔍 완성 예제 | `plot_variants(step_counts`, `rho_errors`, `sigma_data_labels`, `grid_errors`, `sigmas`, `coefficient_sets)` | ρ와 σ_data를 바꾸면 무엇이 달라지는가? 전처리 계수를 틀리게 잡으면 얼마나 나빠지는가? | 본문: ρ=1·3·7로 다시 푼 Heun 오차 variant_rho_errors, σ_data를 1.62·0.5·4.0으로 두고 train_edm을 다시 돌려 mix2_denoiser와 비교한 variant_grid_errors, precondition으로 만든 σ_data별 c_skip 곡선 variant_skip_curves |
+
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.

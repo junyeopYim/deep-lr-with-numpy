@@ -2,7 +2,7 @@
 
 사용: python scripts/verify_notebooks.py [노트북 경로 ...]
 경로를 생략하면 foundation은 00_기초, architecture는 01_아키텍처,
-bridge는 02_연결을 실행합니다.
+bridge는 02_연결, composition은 03_구조조합, generative는 04_생성을 실행합니다.
 """
 
 import argparse
@@ -26,10 +26,11 @@ def main():
     root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("notebooks", nargs="*", type=Path)
-    parser.add_argument("--suite", default="foundation", choices=("foundation", "architecture", "bridge"),
+    parser.add_argument("--suite", default="foundation", choices=("foundation", "architecture", "bridge", "composition", "generative"),
                         help="실행 기록과 그림을 저장할 학습 단위")
     args = parser.parse_args()
-    folder = {"foundation": "00_기초", "architecture": "01_아키텍처", "bridge": "02_연결"}[args.suite]
+    folder = {"foundation": "00_기초", "architecture": "01_아키텍처", "bridge": "02_연결",
+              "composition": "03_구조조합", "generative": "04_생성"}[args.suite]
     paths = args.notebooks or sorted((root / "notebooks" / folder).rglob("*.ipynb"))
     paths = [p.resolve() for p in paths if ".ipynb_checkpoints" not in p.parts]
     if not paths:

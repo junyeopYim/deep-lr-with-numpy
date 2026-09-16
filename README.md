@@ -5,8 +5,8 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 모델의 이름을 아는 데서 출발해, **왜 그 수식인지 설명하고 NumPy로 직접 구현하는 것**을 목표로 합니다.
 행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
-현재 **00–15에 00b·01b를 더한 18개 노트북**을 실행하며 공부할 수 있습니다.
-[전체 커리큘럼](docs/CURRICULUM.md)은 64개 학습 단위의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
+현재 **00–15에 00b·01b, 그리고 2026-09-16에 더한 11권을 합친 29개 노트북**을 실행하며 공부할 수 있습니다.
+[전체 커리큘럼](docs/CURRICULUM.md)은 69개 학습 단위(번호 00–63의 64개 주제와 b 단위 5개)의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
 ## 여기서 시작합니다
 
@@ -29,6 +29,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 | 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
 |---|---|---|
 | 05 | [CNN](notebooks/01_아키텍처/05_cnn.ipynb) | 숫자 도안 분류, 패치·합성곱·풀링 미분과 겹침 누적 |
+| 05b | [LeNet](notebooks/01_아키텍처/05b_lenet.ipynb) | 실제 MNIST 분류, 5×5 conv 두 단·padding·수용 영역, 6만 파라미터 gradcheck, 이동 반응 검산 |
 | 06 | [RNN](notebooks/01_아키텍처/06_rnn.ipynb) | 기호 순서 분류, 시간별 캐시·BPTT·길이 변경 |
 | 07 | [LSTM·GRU](notebooks/01_아키텍처/07_lstm_gru.ipynb) | 지연 신호 기억, 게이트·상태별 미분·forget bias 변경 |
 | 08 | [Attention](notebooks/01_아키텍처/08_attention.ipynb) | key의 값 검색, Q·K·V·softmax 미분·mask |
@@ -46,6 +47,23 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 | 13 | [작은 자동미분 엔진](notebooks/02_연결/13_autodiff.ipynb) | VJP·공유 그래프·broadcast, 직접 미분과 PyTorch 대조, MLP 학습 |
 | 14 | [손실과 정규화](notebooks/02_연결/14_losses_regularization.ipynb) | MSE·MAE·Huber, 가중 손실·L2·ridge·AdamW·dropout |
 | 15 | [실험과 평가](notebooks/02_연결/15_experiments_evaluation.ipynb) | 그룹 분할·전처리·학습 진단·지표·calibration·seed 반복 |
+
+## 구조 조합과 생성 모델 (2026-09-16 추가)
+
+05b의 conv 백본과 11의 PCA 좌표, 12의 Gaussian·KL을 바탕으로 물체 검출과 생성 모델을 붙입니다. 생성 단원의 공통 예시는 **두 봉우리 혼합**(밀도·책임확률·score·최적 denoiser가 닫힌식)과 고정 MNIST 예시이며, GAN·score·diffusion의 MNIST는 PCA 좌표 32개에서 학습해 기저로 복원합니다. 읽는 순서는 05 → 05b → 18b, 그리고 12·15 → 23 → 24 → 25 → 28 → 32 → 33 → 34 → 35 → 35b입니다.
+
+| 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
+|---|---|---|
+| 18b | [물체 검출 (YOLO)](notebooks/03_구조조합/18b_detection_yolo.ipynb) | 캔버스 위 숫자 검출, IoU·격자 타깃·네 묶음 손실의 mask 고정 미분·NMS·AP |
+| 23 | [잠재변수·혼합 모형·EM](notebooks/04_생성/23_latent_mixture_em.ipynb) | 두 봉우리 혼합의 주변 밀도·책임확률·score·EM·최적 denoiser 닫힌식 |
+| 24 | [Jensen 부등식과 ELBO](notebooks/04_생성/24_elbo.ipynb) | Jensen 부등식, log p = ELBO + KL 열거 확인, q 학습, Gaussian q의 재매개화 ELBO |
+| 25 | [VAE](notebooks/04_생성/25_vae.ipynb) | encoder·재매개화·decoder의 손 backward와 ε 고정 gradcheck, MNIST 잠재 2차원 복원·생성 |
+| 28 | [GAN](notebooks/04_생성/28_gan.ipynb) | 두 목적과 교대 갱신, D를 지나 G로 오는 기울기, 최적 판별기·mode 세기, PCA 좌표 MNIST |
+| 32 | [score matching](notebooks/04_생성/32_score_matching.ipynb) | score·Hyvärinen 항등식·DSM·Tweedie, MLP score 모델 학습과 닫힌식 대조 |
+| 33 | [NCSN](notebooks/04_생성/33_ncsn.ipynb) | σ 사다리·Langevin·σ 조건 score 모델·annealed Langevin, PCA 좌표 MNIST |
+| 34 | [Diffusion 전방 과정](notebooks/04_생성/34_diffusion_forward.ipynb) | ᾱ 닫힌식 vs 반복 잡음, posterior 계수, ε·x₀ 타깃과 score 관계, 잡음 예측 신경망 |
+| 35 | [Diffusion 역과정·DDIM·guidance](notebooks/04_생성/35_diffusion_reverse.ipynb) | 역과정 한 걸음·전체 루프·DDIM·classifier-free guidance, sampler 비교 |
+| 35b | [EDM](notebooks/04_생성/35b_edm.ipynb) | σ-공간 통일·Tweedie·preconditioning·λ(σ)·ρ 격자·Heun, solver 오차와 모델 오차 분리 |
 
 ## 실행 환경
 
@@ -139,6 +157,8 @@ python -m pytest
 python scripts/verify_notebooks.py --suite foundation
 python scripts/verify_notebooks.py --suite architecture
 python scripts/verify_notebooks.py --suite bridge
+python scripts/verify_notebooks.py --suite composition
+python scripts/verify_notebooks.py --suite generative
 ```
 
 검증기는 각 노트북을 별도 커널에서 실행하고, 저장된 그림을 디코딩해 확인합니다.
