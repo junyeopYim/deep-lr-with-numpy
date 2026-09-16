@@ -65,3 +65,39 @@ def split(nb, key, parts, cell_type="code"):
         new_cells.append(new_code_cell(src) if kind == "code" else new_markdown_cell(src))
     nb.cells[i:i + 1] = new_cells
     return i
+
+
+def insert_before(nb, key, parts, cell_type=None):
+    """key 가 들어 있는 셀 바로 앞에 parts = [("code"|"markdown", source), ...] 셀들을 끼웁니다.
+    절 끝에 연습을 둘 때 key 로 다음 절의 제목("## 🔑 3. ")을 주면 그 앞, 즉 앞 절의 끝에 들어갑니다."""
+    i = find(nb, key, cell_type)
+    new_cells = []
+    for kind, src in parts:
+        src = src.rstrip("\n")
+        new_cells.append(new_code_cell(src) if kind == "code" else new_markdown_cell(src))
+    nb.cells[i:i] = new_cells
+    return i
+
+
+HOW_TO_SOLVE = (
+    "연습은 코딩 테스트처럼 **함수 뼈대가 미리 있고 핵심 한두 줄만 비어 있습니다.** "
+    "`raise NotImplementedError` 줄을 지우고 그 자리에 코드를 쓴 뒤, 셀을 실행하고 바로 아래 검사 셀을 실행하세요. "
+    "아직 채우지 않았으면 안내문만 나오고, 값이 다르면 \"손계산과 다릅니다\"가 나옵니다. 막히면 그 아래 \"정답 보기\"를 펼칩니다."
+)
+
+
+def exercise_cells(label, title, instruction, skeleton, check, answer, intro=False):
+    """절 연습 네 셀을 WRITING.md 5절 형식으로 만듭니다: ✏️ 제목·안내(markdown) / 뼈대(code) / 검사와 run_check(code) / 접힌 정답(markdown).
+    label: "3" 또는 "3-2" 처럼 절 번호, title: 제목 한 줄, instruction: 무엇을 채우는지 한두 문장,
+    skeleton: exercise_* 함수 소스(raise NotImplementedError 한 줄 포함), check: check_* 함수와 run_check(...) 줄,
+    answer: raise 줄 자리에 들어갈 정답 코드(들여쓰기 없이). intro=True 면 노트북의 첫 연습이라 푸는 법 문단을 붙입니다."""
+    head = f"### ✏️ 연습 {label} · {title}\n\n"
+    if intro:
+        head += HOW_TO_SOLVE + "\n\n"
+    head += instruction.strip("\n")
+    solution = (
+        "📎 **정답** · 막히면 펼쳐 보고, 다시 접고 스스로 써 보세요.\n\n"
+        "<details>\n<summary>정답 보기</summary>\n\n"
+        f"```python\n{answer.strip(chr(10))}\n```\n\n</details>"
+    )
+    return [("markdown", head), ("code", skeleton), ("code", check), ("markdown", solution)]
