@@ -26,3 +26,8 @@ venv/
 # 에이전트 작업 지침 (로컬 전용)
 AGENTS.md
 CLAUDE.md
+
+# 작업 기록과 내부 문서 (로컬 전용)
+/memory/
+/docs/
+/results/

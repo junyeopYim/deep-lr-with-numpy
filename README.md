@@ -6,7 +6,6 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
 현재 **00–15에 00b·01b를 더한 18개 노트북**을 실행하며 공부할 수 있습니다.
-[전체 커리큘럼](docs/CURRICULUM.md)은 64개 학습 단위의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
 ## 여기서 시작합니다
 
@@ -23,7 +22,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 ## 기본 아키텍처
 
 각 노트북은 필요한 수식·shape를 설명하고, NumPy 구현·역전파 검산·작은 학습·직접 변형으로 이어집니다.
-모든 노트북의 마크다운에는 🔑 핵심 / 🔍 확인 / 📎 참고 / ✏️ 연습 표시가 있고, 🔑 절마다 끝에 절 연습 하나와 노트북 끝에 연습 A–D가 있으며, 연습은 함수 뼈대에서 핵심 한두 줄만 채우는 형식입니다([글 규칙](docs/WRITING.md)).
+모든 노트북의 마크다운에는 🔑 핵심 / 🔍 확인 / 📎 참고 / ✏️ 연습 표시가 있고, 🔑 절마다 끝에 절 연습 하나와 노트북 끝에 연습 A–D가 있으며, 연습은 함수 뼈대에서 핵심 한두 줄만 채우는 형식입니다.
 공통 기초를 마치셨다면 05부터 시작하시면 됩니다. 데이터는 본문에서 생성하며 CPU에서 실행합니다.
 
 | 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
@@ -49,25 +48,32 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 
 ## 실행 환경
 
-저장소 최상위 폴더에서 실행합니다. `root_dir`을 지정하면 노트북 안의 문서·보조 코드 링크도 열 수 있습니다.
+Python 3.10 이상이 필요합니다. 쓰는 패키지는 다음과 같고, 전부 `pyproject.toml`에 적혀 있습니다.
+
+| 패키지 | 용도 |
+|---|---|
+| NumPy | 모든 모델·미분·학습 구현 |
+| matplotlib | 그림 |
+| Jupyter, ipykernel | 노트북 실행 |
+| pytest | 검산기와 연습 검사 테스트 |
+| PyTorch (선택) | 13번 자동미분 노트북의 비교 대조에만 사용 |
+
+저장소 최상위 폴더에서 아래 한 줄을 실행하면 가상환경을 만들고 위 패키지를 전부 설치합니다.
+
+```bash
+python -m venv .venv && source .venv/bin/activate && python -m pip install -e ".[dev]"
+```
+
+Windows PowerShell에서는 `source .venv/bin/activate` 대신 `.venv\Scripts\Activate.ps1`을 실행합니다.
+13번의 PyTorch 비교까지 실행하려면 `".[dev]"` 자리에 `".[dev,framework]"`를 넣습니다. NumPy 구현과 PyTorch 비교 모두 CPU에서 실행합니다.
+
+그림의 한글은 시스템에 설치된 한글 폰트(Apple SD Gothic Neo, Malgun Gothic, Noto Sans CJK KR, NanumGothic 등) 중 하나를 자동으로 고릅니다.
+한글 폰트가 하나도 없으면 그림의 한글이 깨지니 하나를 설치합니다.
+
+설치가 끝나면 저장소 최상위 폴더에서 JupyterLab을 엽니다. `root_dir`을 지정하면 노트북 안의 보조 코드 링크도 열 수 있습니다.
 
 ```bash
 python -m jupyter lab --ServerApp.root_dir=. notebooks/00_기초/00_math_to_numpy.ipynb
-```
-
-새 Python 환경에서는 다음과 같이 준비합니다.
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -e ".[dev]"
-python -m jupyter lab
-```
-
-13번의 PyTorch 비교에는 다음 추가 환경을 사용합니다. NumPy 구현과 PyTorch 비교 모두 CPU에서 실행합니다.
-
-```bash
-python -m pip install -e ".[dev,framework]"
 ```
 
 ### Jupyter에서 셀 실행하기
@@ -89,7 +95,6 @@ python -m pip install -e ".[dev,framework]"
 5. 차원·계수·목적을 바꾸어 자신의 구현을 확인합니다.
 
 각 노트북 마지막의 준비도 질문으로 다음에 복습할 절을 찾습니다.
-자세한 방식은 [학습 설계](docs/LEARNING_MAP.md), 주제와 전제의 연결은 [전체 학습 경로](docs/CURRICULUM.md)에 있습니다.
 
 ## 이어지는 경로
 
@@ -118,10 +123,7 @@ notebooks/01_아키텍처/  CNN·RNN·LSTM/GRU·Attention·Transformer·GNN
 notebooks/02_연결/      선형대수·정보이론·자동미분·정규화·평가
 src/utils/         수치미분 검산기와 그림 보조 코드
 src/data/          이후 실험에서 사용할 작은 데이터와 MNIST 로더
-docs/              학습 방식, 전체 경로, 표기 규약
 scripts/           노트북 실행 검증
-results/           실행 검증 기록
-memory/            학습 방향과 작업 상태
 ```
 
 모델·손실·역전파·갱신·실험 계산은 노트북 본문에 둡니다.
@@ -137,11 +139,7 @@ python scripts/verify_notebooks.py --suite bridge
 ```
 
 검증기는 각 노트북을 별도 커널에서 실행하고, 저장된 그림을 디코딩해 확인합니다.
-11–15의 수치와 독립 실습은 [연결 기초 검증](results/bridge-validation/bridges.md), 실행 출력은 [실행 기록](results/bridge-validation/execution.json)에 있습니다.
-실행 결과는 [공통 기초 실행 기록](results/foundation-validation/execution.json)과 [아키텍처 실행 기록](results/architecture-validation/execution.json)에 각각 남습니다.
-아키텍처의 수치·직접 변형·독립 점검은 [아키텍처 검증](results/architecture-validation/architectures.md)에 있습니다.
-공통 기초 다섯 단원의 계산 결과와 독립 실습 점검은 [공통 기초 검증](results/foundation-validation/common-foundations.md)에 있습니다.
-초기 00·01의 설치·실습 점검은 [첫 두 단원 점검](results/foundation-validation/rehearsal.md)에 남겨 두었습니다.
+실행 기록은 `results/<suite>-validation/`에 남으며, 이 폴더는 저장소에 올리지 않습니다.
 
 ## 라이선스
 
