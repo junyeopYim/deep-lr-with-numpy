@@ -27,7 +27,10 @@ venv/
 AGENTS.md
 CLAUDE.md
 
-# 작업 기록과 내부 문서 (로컬 전용)
+# 작업 기록과 내부 문서 (로컬 전용). docs는 노트북이 링크하는 세 파일만 공개
 /memory/
-/docs/
 /results/
+/docs/*
+!/docs/CURRICULUM.md
+!/docs/WRITING.md
+!/docs/DESIGN.md
