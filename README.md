@@ -5,8 +5,8 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 모델의 이름을 아는 데서 출발해, **왜 그 수식인지 설명하고 NumPy로 직접 구현하는 것**을 목표로 합니다.
 행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
-현재 **00–15에 00b·01b, 그리고 2026-09-16에 더한 11권을 합친 29개 노트북**을 실행하며 공부할 수 있습니다.
-[전체 커리큘럼](docs/CURRICULUM.md)은 69개 학습 단위(번호 00–63의 64개 주제와 b 단위 5개)의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
+현재 **00–15에 00b·01b, 2026-09-16에 더한 11권, 2026-09-17에 더한 2권(07b SNN·10b CVNN)을 합친 31개 노트북**을 실행하며 공부할 수 있습니다.
+[전체 커리큘럼](docs/CURRICULUM.md)은 71개 학습 단위(번호 00–63의 64개 주제와 b 단위 7개)의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
 ## 여기서 시작합니다
 
@@ -32,9 +32,11 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 | 05b | [LeNet](notebooks/01_아키텍처/05b_lenet.ipynb) | 실제 MNIST 분류, 5×5 conv 두 단·padding·수용 영역, 6만 파라미터 gradcheck, 이동 반응 검산 |
 | 06 | [RNN](notebooks/01_아키텍처/06_rnn.ipynb) | 기호 순서 분류, 시간별 캐시·BPTT·길이 변경 |
 | 07 | [LSTM·GRU](notebooks/01_아키텍처/07_lstm_gru.ipynb) | 지연 신호 기억, 게이트·상태별 미분·forget bias 변경 |
+| 07b | [SNN](notebooks/01_아키텍처/07b_snn.ipynb) | 스파이크 MNIST 분류, LIF·rate coding·대리 도함수 BPTT·부드러운 LIF gradcheck·추론 시각 수와 덧셈 수 |
 | 08 | [Attention](notebooks/01_아키텍처/08_attention.ipynb) | key의 값 검색, Q·K·V·softmax 미분·mask |
 | 09 | [Transformer](notebooks/01_아키텍처/09_transformer.ipynb) | 토큰열 역순 변환, MHA·LayerNorm·잔차·FFN·embedding |
 | 10 | [GNN](notebooks/01_아키텍처/10_gnn.ipynb) | 그래프 분류, 이웃 집계·readout·순열 성질과 표현 한계 |
+| 10b | [CVNN](notebooks/01_아키텍처/10b_cvnn.ipynb) | 소리 방향 분류, 복소 선형층·켤레전치 backward·modReLU, 실수부·허수부 gradcheck, 표본 수별 실수 MLP 비교와 위상 회전 불변 검산 |
 
 ## 구조와 목적을 잇는 기초
 
@@ -120,7 +122,7 @@ python -m jupyter lab --ServerApp.root_dir=. notebooks/00_기초/00_math_to_nump
 
 **공통 기초:** 배열 → 미분과 학습 → 확률과 손실 → 퍼셉트론·MLP → optimizer
 
-**기본 아키텍처:** CNN → RNN → LSTM·GRU → attention → Transformer → GNN
+**기본 아키텍처:** CNN → RNN → LSTM·GRU → SNN → attention → Transformer → GNN → CVNN
 
 **연결 기초:** 선형대수·정보이론 → 자동미분 → 손실·정규화 → 실험·평가
 
@@ -139,7 +141,7 @@ python -m jupyter lab --ServerApp.root_dir=. notebooks/00_기초/00_math_to_nump
 
 ```text
 notebooks/00_기초/       배열·벡터화·미분·미니배치·확률·MLP·optimizer
-notebooks/01_아키텍처/  CNN·RNN·LSTM/GRU·Attention·Transformer·GNN
+notebooks/01_아키텍처/  CNN·LeNet·RNN·LSTM/GRU·SNN·Attention·Transformer·GNN·CVNN
 notebooks/02_연결/      선형대수·정보이론·자동미분·정규화·평가
 src/utils/         수치미분 검산기와 그림 보조 코드
 src/data/          이후 실험에서 사용할 작은 데이터와 MNIST 로더
