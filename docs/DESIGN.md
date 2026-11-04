@@ -993,6 +993,21 @@ Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·
 | 5. 모델 오차와 계획 길이의 효과를 나누어 봅니다 | `plot_panels` | `[results], ['참 환경의 실제 MPC 평가'], [['평균 반환', '조건부 SE', '범위 밖 비율']]` |
 | 5. 모델 오차와 계획 길이의 효과를 나누어 봅니다 | `plot_trajectories` | `np.arange(16), traces, [s[0] for s in settings]` |
 
+### 58 · PPO의 ratio·clip·업데이트 — `ppo_plots.py` — 완료
+
+old 확률·GAE 타깃 고정, 부호별 clip·value·entropy 전체 미분, 3설정×3seed 실제 여러 epoch 학습·KL·반환 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. old policy가 선택한 행동의 확률을 저장합니다 | `plot_policy_ratios` | `example_old, example_current, example_ratio` |
+| 2. advantage 부호에 따라 clip의 평평한 쪽이 바뀝니다 | `plot_signed_clip` | `ratio_axis, raw_curves, clipped_curves, branch_table` |
+| 3. rollout의 old 가치와 GAE 타깃을 먼저 고정합니다 | `plot_ppo_rollout` | `rollout_states, rollout_values, rollout_advantage, rollout_returns` |
+| 4. policy·value·entropy 목적을 각각 미분합니다 | `plot_ppo_objective` | `objective_components, objective_coefficients, objective_contributions` |
+| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_protocol` | `protocol_budgets, names, protocol_stored` |
+| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_learning` | `update_axis, exact_values, mean_metrics, names` |
+| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_epochs` | `first_audits, names` |
+| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_final` | `names, exact_values[:, :, -1], evaluation` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
