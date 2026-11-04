@@ -863,6 +863,19 @@ Flow Matching 논문의 한 주장 재현, 정확 Gaussian 기울기·최소제�
 | 5. 생성 그림과 근거의 한계를 함께 남깁니다 | `plot_paired_evidence` | `metrics, ['시간 없음', '시간2차']` |
 | 5. 생성 그림과 근거의 한계를 함께 남깁니다 | `plot_paired_samples` | `display_initial, display_samples, display_reference, ['seed6301 시간 없음', 'seed6301 시간2차']` |
 
+### 49 · 선호 쌍에서 DPO 목적 만들기 — `dpo_plots.py` — 완료
+
+EOS까지의 sequence 로그확률·고정 reference DPO 전체 미분, 실제 SFT/DPO 학습과 후보 순위·절대 확률·자유 생성 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 답변 두 개의 점수 차이를 확률로 읽습니다 | `plot_preference_probability` | `score_differences, preference_probabilities` |
+| 2. 답변의 로그확률은 token 축으로 더합니다 | `plot_sequence_sum` | `selected_log_hand, response_mask_hand, sequence_sum_hand` |
+| 3. 고정 기준 대비 선호 변화에 미분합니다 | `plot_reference_margin` | `policy_hand, reference_hand, margin_hand` |
+| 4. 동일한 출발점에서 SFT와 DPO를 실제 학습합니다 | `plot_objective_signals` | `sft_signal_hand, dpo_signal_hand` |
+| 4. 동일한 출발점에서 SFT와 DPO를 실제 학습합니다 | `plot_dpo_learning` | `[preference_histories[name] for name in ['SFT', 'DPO']], ['chosen SFT', 'DPO']` |
+| 5. 선호 후보의 순위와 자유 생성을 따로 봅니다 | `plot_absolute_probabilities` | `absolute_log_probs, list(models)` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
