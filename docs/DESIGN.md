@@ -948,6 +948,21 @@ Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·
 | 5. 정책을 고정하고 새 경로의 보상을 평가합니다 | `plot_pg_panels` | `[final_policy_rows], ['시작 행동 확률: 안전 · 위험'], [final_labels]` |
 | 5. 정책을 고정하고 새 경로의 보상을 평가합니다 | `plot_pg_evaluation` | `final_labels, evaluation[:, 2], evaluation[:, 0], evaluation[:, 1]` |
 
+### 57 · Actor–Critic·advantage·GAE — `actor_critic_plots.py` — 완료
+
+종료·수집 경계별 GAE, 4경로 정확 기울기 편향/분산·두 모델 전체 미분, 3λ×3seed 실제 actor/critic 학습. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. actor의 행동과 critic의 기대값을 연결합니다 | `plot_actor_critic_values` | `example_policy[0], example_q, np.array([example_value]), example_advantage` |
+| 2. 종료와 수집 경계는 다른 마스크입니다 | `plot_gae_masks` | `boundary_rewards, boundary_values, boundary_next, terminal_mask, boundary_mask, boundary_delta` |
+| 3. GAE는 여러 TD잔차를 할인해 연결합니다 | `plot_gae_mixture` | `lambda_examples, gae_coefficients, gae_examples, return_examples` |
+| 3. GAE는 여러 TD잔차를 할인해 연결합니다 | `plot_gae_bias_variance` | `statistics, stat_labels` |
+| 4. actor와 critic의 고정 타깃 손실을 따로 미분합니다 | `plot_ac_gradients` | `manual_actor_gradient, manual_critic_gradient, np.column_stack([fixed_advantage, fixed_return])` |
+| 5. 새 rollout마다 두 모델을 실제로 갱신합니다 | `plot_ac_protocol` | `protocol_settings, protocol_sequence` |
+| 5. 새 rollout마다 두 모델을 실제로 갱신합니다 | `plot_ac_learning` | `update_axis, exact_values, critic_errors, mean_values, mean_errors, names` |
+| 5. 새 rollout마다 두 모델을 실제로 갱신합니다 | `plot_ac_final` | `names, exact_values[:, :, -1], evaluation` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
