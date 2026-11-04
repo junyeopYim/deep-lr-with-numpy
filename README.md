@@ -66,7 +66,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 
 ## 생성 모델
 
-생성 단원의 공통 예시는 **두 봉우리 혼합**(밀도·책임확률·score·최적 denoiser가 닫힌식)과 고정 MNIST 예시입니다. GAN·score·diffusion의 MNIST는 PCA 좌표 32개에서 학습해 기저로 복원합니다. 읽는 순서는 11–15 → 22 → 23 → 24 → 27 → 25 → 26 → 28 → 29 → 30 → 32 → 33 → 34 → 35 → 35b입니다. 37은 11·12·15·23을 바탕으로 관심 생성 모델의 평가에 연결합니다. 이미 VAE·score를 읽었다면 27에서 표본 기울기와 평가 오차를 되짚어도 좋습니다.
+생성 단원의 공통 예시는 **두 봉우리 혼합**(밀도·책임확률·score·최적 denoiser가 닫힌식)과 고정 MNIST 예시입니다. GAN·score·diffusion의 MNIST는 PCA 좌표 32개에서 학습해 기저로 복원합니다. 읽는 순서는 11–15 → 22 → 23 → 24 → 27 → 25 → 26 → 28 → 29 → 30 → 31 → 32 → 33 → 34 → 35 → 35b → 36입니다. 37은 11·12·15·23을 바탕으로 관심 생성 모델의 평가에 연결합니다. 이미 VAE·score를 읽었다면 27에서 표본 기울기와 평가 오차를 되짚어도 좋습니다.
 26·29·30은 조건부 분포·mode coverage·가역 밀도를 보기 위해 각각 조건이 있는 과일 측정값·네 봉우리·곡선형 2D 합성 자료를 사용합니다.
 
 | 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
@@ -80,46 +80,68 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 | 28 | [GAN](notebooks/04_생성/28_gan.ipynb) | 두 목적과 교대 갱신, D를 지나 G로 오는 기울기, 최적 판별기·mode 세기, PCA 좌표 MNIST |
 | 29 | [GAN 목적과 안정화 비교](notebooks/04_생성/29_gan_objectives.ipynb) | Wasserstein critic·gradient penalty의 미분, spectral 제약, 고정 예산·seed별 생성 품질과 coverage 비교 |
 | 30 | [변수 변환과 normalizing flow](notebooks/04_생성/30_normalizing_flow.ipynb) | 가역 affine coupling·log Jacobian·정확한 밀도, 전체 미분·역변환·적분 검산과 2차원 학습 |
+| 31 | [에너지 기반 모델과 MCMC](notebooks/04_생성/31_energy_mcmc.ipynb) | log-partition과 positive/negative phase, 격자 우도 학습, Langevin·MALA·chain 의존성 비교 |
 | 32 | [score matching](notebooks/04_생성/32_score_matching.ipynb) | score·Hyvärinen 항등식·DSM·Tweedie, MLP score 모델 학습과 닫힌식 대조 |
 | 33 | [NCSN](notebooks/04_생성/33_ncsn.ipynb) | σ 사다리·Langevin·σ 조건 score 모델·annealed Langevin, PCA 좌표 MNIST |
 | 34 | [Diffusion 전방 과정](notebooks/04_생성/34_diffusion_forward.ipynb) | ᾱ 닫힌식 vs 반복 잡음, posterior 계수, ε·x₀ 타깃과 score 관계, 잡음 예측 신경망 |
 | 35 | [Diffusion 역과정·DDIM·guidance](notebooks/04_생성/35_diffusion_reverse.ipynb) | 역과정 한 걸음·전체 루프·DDIM·classifier-free guidance, sampler 비교 |
 | 35b | [EDM](notebooks/04_생성/35b_edm.ipynb) | σ-공간 통일·Tweedie·preconditioning·λ(σ)·ρ 격자·Heun, solver 오차와 모델 오차 분리 |
+| 36 | [Flow matching과 ODE 생성](notebooks/04_생성/36_flow_matching.ipynb) | 조건부·주변 속도 목적의 연결, 시간 조건부 MLP 전체 미분·실제 학습, 정확 Gaussian 기준과 같은 NFE의 ODE 생성 |
 | 37 | [생성 모델 평가와 비교 실험](notebooks/04_생성/37_generative_evaluation.ipynb) | 학습한 혼합모형의 우도·mode 질량, MMD·특징 통계·복제 진단, 고정 평가 계획과 샘플 비용 |
 
-## 이어지는 목적·표현·언어·강화학습
+## 표현 학습과 자기지도
+
+입력 변형·대조·교사·분산·mask·잠재 타깃을 직접 계산하고 학습한 표현을 평가합니다.
 
 | 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
 |---|---|---|
-| 31 | [에너지 기반 모델과 MCMC](notebooks/04_생성/31_energy_mcmc.ipynb) | log-partition과 positive/negative phase, 격자 우도 학습, Langevin·MALA·chain 의존성 비교 |
 | 38 | [데이터 변형과 불변성](notebooks/05_표현학습/38_augmentations.ipynb) | 라벨 보존·양성 쌍·순열, 전체 미분과 변형 강도별 분류 학습·배경 이동 평가 |
-| 44 | [토큰화·언어 데이터·자기회귀 목적](notebooks/06_언어모델/44_tokenization.ipynb) | UTF-8·byte BPE, 문서 경계·shift·padding, bigram 전체 학습과 held-out NLL·생성 |
 | 39 | [대조학습과 InfoNCE](notebooks/05_표현학습/39_contrastive_infonce.ipynb) | 대칭 InfoNCE·정규화 전체 미분, 실제 무라벨 encoder 학습과 동결 선형 probe 평가 |
-| 51 | [Bandit·기대 보상·탐색](notebooks/07_강화학습/51_bandits.ipynb) | 표본평균·epsilon-greedy·pseudo-regret, 48개 seed의 실제 탐색 학습과 고정 정책 독립 평가 |
-| 45 | [작은 decoder GPT 전체 학습](notebooks/06_언어모델/45_decoder_gpt.ipynb) | causal decoder의 tied·untied 전체 backward, 실제 문자 학습·held-out NLL·greedy 생성·padding 검산 |
 | 40 | [교사·학생·stop-gradient](notebooks/05_표현학습/40_teacher_student.ipynb) | online·predictor 전체 미분과 고정 타깃, optimizer 뒤 EMA, 상수 표현 대조·교사 속도별 학습·probe |
-| 52 | [MDP·return·Bellman·동적 계획](notebooks/07_강화학습/52_mdp_bellman.ipynb) | 전이표·정확한 정책 가치·value/policy iteration, 정책 전수열거와 종료·수집 제한별 rollout 비교 |
-| 46 | [생성 규칙과 KV cache](notebooks/06_언어모델/46_generation_kv_cache.ipynb) | temperature·top-k·top-p, 실제 학습 모델의 prefix별 full/cache 동등성·같은 난수 생성·시간·저장량 |
 | 41 | [분산·공분산으로 표현 제약하기](notebooks/05_표현학습/41_variance_covariance.ipynb) | 정렬·표준편차 하한·비대각 공분산의 전체 미분, 상수·복제 대조와 목적항별 실제 학습·probe |
-| 36 | [Flow matching과 ODE 생성](notebooks/04_생성/36_flow_matching.ipynb) | 조건부·주변 속도 목적의 연결, 시간 조건부 MLP 전체 미분·실제 학습, 정확 Gaussian 기준과 같은 NFE의 ODE 생성 |
-| 47 | [encoder 목적과 BERT식 MLM](notebooks/06_언어모델/47_masked_language_model.ipynb) | 양방향 문맥·80/10/10 corruption·선택 위치 CE 전체 미분, 실제 MLM·AR 학습과 held-out 빈칸 복원 |
-| 53 | [Monte Carlo·TD·다단계 타깃](notebooks/07_강화학습/53_mc_td.ipynb) | 완료 return·TD·n-step·유한 lambda, 경로 전수열거의 정확한 편향·분산과 32 seed 실제 가치 학습 |
 | 42 | [masked reconstruction](notebooks/05_표현학습/42_masked_reconstruction.ipynb) | visible patch encoder·위치 decoder·masked-only 화소 손실 전체 미분, mask 비율별 실제 복원·평균 이미지 기준·동결 probe |
-| 48 | [SFT·전이 학습·LoRA](notebooks/06_언어모델/48_sft_lora.ipynb) | 답변·EOS 손실, 고정 base를 통과하는 LoRA 전체 미분·merge, full/frozen/LoRA 실제 적응·기존 과제 평가 |
 | 43 | [JEPA와 잠재 타깃 예측](notebooks/05_표현학습/43_jepa.ipynb) | 분리된 context·target과 위치 조건 잠재 예측 전체 미분, optimizer 뒤 EMA·실제 화소/잠재 학습·동결 probe |
-| 63 | [논문에서 수식·구현·실험으로](notebooks/08_종합/63_paper_reproduction.ipynb) | Flow Matching 논문의 한 주장 재현, 정확 Gaussian 기울기·최소제곱 기준과 3 seed 실제 학습·같은 초기값 ODE 생성 |
+
+## 언어모델과 적응·다중모달
+
+토큰 확률에서 decoder 전체 학습·생성·적응·선호·이미지 조건까지 연결합니다.
+
+| 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
+|---|---|---|
+| 44 | [토큰화·언어 데이터·자기회귀 목적](notebooks/06_언어모델/44_tokenization.ipynb) | UTF-8·byte BPE, 문서 경계·shift·padding, bigram 전체 학습과 held-out NLL·생성 |
+| 45 | [작은 decoder GPT 전체 학습](notebooks/06_언어모델/45_decoder_gpt.ipynb) | causal decoder의 tied·untied 전체 backward, 실제 문자 학습·held-out NLL·greedy 생성·padding 검산 |
+| 46 | [생성 규칙과 KV cache](notebooks/06_언어모델/46_generation_kv_cache.ipynb) | temperature·top-k·top-p, 실제 학습 모델의 prefix별 full/cache 동등성·같은 난수 생성·시간·저장량 |
+| 47 | [encoder 목적과 BERT식 MLM](notebooks/06_언어모델/47_masked_language_model.ipynb) | 양방향 문맥·80/10/10 corruption·선택 위치 CE 전체 미분, 실제 MLM·AR 학습과 held-out 빈칸 복원 |
+| 48 | [SFT·전이 학습·LoRA](notebooks/06_언어모델/48_sft_lora.ipynb) | 답변·EOS 손실, 고정 base를 통과하는 LoRA 전체 미분·merge, full/frozen/LoRA 실제 적응·기존 과제 평가 |
 | 49 | [선호 쌍에서 DPO 목적 만들기](notebooks/06_언어모델/49_dpo.ipynb) | EOS까지의 sequence 로그확률·고정 reference DPO 전체 미분, 실제 SFT/DPO 학습과 후보 순위·절대 확률·자유 생성 평가 |
-| 54 | [SARSA·Expected SARSA·Q-learning](notebooks/07_강화학습/54_sarsa_q_learning.ipynb) | 실제 다음 행동·기대·max 타깃과 importance support, 32 seed 제어 학습·탐색 유지/제거의 정확한 정책 가치 |
 | 50 | [이미지·텍스트 정렬과 조건부 생성](notebooks/06_언어모델/50_multimodal.ipynb) | 대칭 InfoNCE·두 encoder 전체 미분, 실제 RGB 도형/설명 정렬·검색, 연속 image prefix decoder 전체 학습·조건 교환 생성 |
+
+## 강화학습
+
+표본 수집·가치·정책·타깃·종료 경계를 구분하고 작은 환경에서 실제 갱신과 독립 평가를 수행합니다.
+
+| 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
+|---|---|---|
+| 51 | [Bandit·기대 보상·탐색](notebooks/07_강화학습/51_bandits.ipynb) | 표본평균·epsilon-greedy·pseudo-regret, 48개 seed의 실제 탐색 학습과 고정 정책 독립 평가 |
+| 52 | [MDP·return·Bellman·동적 계획](notebooks/07_강화학습/52_mdp_bellman.ipynb) | 전이표·정확한 정책 가치·value/policy iteration, 정책 전수열거와 종료·수집 제한별 rollout 비교 |
+| 53 | [Monte Carlo·TD·다단계 타깃](notebooks/07_강화학습/53_mc_td.ipynb) | 완료 return·TD·n-step·유한 lambda, 경로 전수열거의 정확한 편향·분산과 32 seed 실제 가치 학습 |
+| 54 | [SARSA·Expected SARSA·Q-learning](notebooks/07_강화학습/54_sarsa_q_learning.ipynb) | 실제 다음 행동·기대·max 타깃과 importance support, 32 seed 제어 학습·탐색 유지/제거의 정확한 정책 가치 |
 | 55 | [DQN·replay·target network](notebooks/07_강화학습/55_dqn.ipynb) | Q 신경망 전체 미분, 환형 replay·고정 타깃·Double 선택/평가 분리, 3설정×3seed 실제 제어 학습 |
-| 59 | [연속 행동·DDPG/TD3·SAC](notebooks/07_강화학습/59_continuous_control.ipynb) | Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·critic·target 학습과 독립 제어 평가 |
 | 56 | [REINFORCE와 정책 기울기 유도](notebooks/07_강화학습/56_reinforce.ipynb) | 4경로 정확 J·전체 미분과 score 기대의 대조, 할인 reward-to-go·baseline 편향/분산, 3seed 실제 정책 학습·독립 평가 |
 | 57 | [Actor–Critic·advantage·GAE](notebooks/07_강화학습/57_actor_critic_gae.ipynb) | 종료·수집 경계별 GAE, 4경로 정확 기울기 편향/분산·두 모델 전체 미분, 3λ×3seed 실제 actor/critic 학습 |
-| 62 | [선호 보상과 RLHF 연결](notebooks/07_강화학습/62_rlhf.ipynb) | 실제 선호 reward 학습·고정 reference KL·토큰 rollout·PPO, 7답변 정확 평가로 SFT/DPO/3seed PPO 비교 |
-| 60 | [모델 기반 RL과 계획](notebooks/07_강화학습/60_model_based_rl.ipynb) | 전이·보상 MLP 전체 미분·실제 학습, shooting·MPC와 oracle 대조, 같은 후보은행의 horizon·모델 외삽·실제 반환 평가 |
 | 58 | [PPO의 ratio·clip·업데이트](notebooks/07_강화학습/58_ppo.ipynb) | old 확률·GAE 타깃 고정, 부호별 clip·value·entropy 전체 미분, 3설정×3seed 실제 여러 epoch 학습·KL·반환 평가 |
+| 59 | [연속 행동·DDPG/TD3·SAC](notebooks/07_강화학습/59_continuous_control.ipynb) | Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·critic·target 학습과 독립 제어 평가 |
+| 60 | [모델 기반 RL과 계획](notebooks/07_강화학습/60_model_based_rl.ipynb) | 전이·보상 MLP 전체 미분·실제 학습, shooting·MPC와 oracle 대조, 같은 후보은행의 horizon·모델 외삽·실제 반환 평가 |
 | 61 | [오프라인 RL과 정책 평가](notebooks/07_강화학습/61_offline_rl.ipynb) | 고정 자료·logging support, IS/WIS/ESS와 CQL 전체 미분·실제 Q 학습, greedy 정확 감사와 별도 지원 정책 OPE |
-<!-- curriculum-completion-units -->
+| 62 | [선호 보상과 RLHF 연결](notebooks/07_강화학습/62_rlhf.ipynb) | 실제 선호 reward 학습·고정 reference KL·토큰 rollout·PPO, 7답변 정확 평가로 SFT/DPO/3seed PPO 비교 |
+
+## 종합: 논문 한 주장 재현
+
+Flow Matching의 Gaussian 예제로 가정·수식·전체 미분·학습·같은 초기값 생성을 연결합니다.
+
+| 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
+|---|---|---|
+| 63 | [논문에서 수식·구현·실험으로](notebooks/08_종합/63_paper_reproduction.ipynb) | Flow Matching 논문의 한 주장 재현, 정확 Gaussian 기울기·최소제곱 기준과 3 seed 실제 학습·같은 초기값 ODE 생성 |
 
 ## 실행 환경
 
@@ -199,7 +221,11 @@ notebooks/00_기초/       배열·벡터화·미분·미니배치·확률·MLP�
 notebooks/01_아키텍처/  CNN·LeNet·RNN·LSTM/GRU·SNN·Attention·Transformer·GNN·CVNN
 notebooks/02_연결/      선형대수·정보이론·자동미분·정규화·평가
 notebooks/03_구조조합/  정규화 층·ResNet·U-Net·ViT·시퀀스·집합·그래프·물체 검출
-notebooks/04_생성/      AE·혼합·ELBO·VAE·Monte Carlo·GAN·flow·score·diffusion·생성 평가
+notebooks/04_생성/      AE·혼합·ELBO·VAE·Monte Carlo·GAN·flow·에너지·score·diffusion·flow matching·평가
+notebooks/05_표현학습/  변형·대조·교사·공분산·masked reconstruction·JEPA
+notebooks/06_언어모델/  토큰화·GPT·KV cache·MLM·SFT/LoRA·DPO·다중모달
+notebooks/07_강화학습/  Bandit부터 가치·정책 학습·PPO·연속 제어·계획·오프라인·RLHF
+notebooks/08_종합/      논문의 한 주장을 수식·코드·실험으로 재현
 src/utils/         수치미분 검산기와 그림 보조 코드
 src/data/          이후 실험에서 사용할 작은 데이터와 MNIST 로더
 docs/              전체 커리큘럼, 글 규칙, 그림 설계 원칙
@@ -218,13 +244,17 @@ python scripts/verify_notebooks.py --suite architecture
 python scripts/verify_notebooks.py --suite bridge
 python scripts/verify_notebooks.py --suite composition
 python scripts/verify_notebooks.py --suite generative
+python scripts/verify_notebooks.py --suite representation
+python scripts/verify_notebooks.py --suite language
+python scripts/verify_notebooks.py --suite reinforcement
+python scripts/verify_notebooks.py --suite capstone
 python scripts/verify_exercises.py notebooks/*/*.ipynb
 ```
 
 검증기는 명령을 실행한 Python과 같은 인터프리터의 별도 커널에서 각 노트북을 실행하고, 저장된 그림을 디코딩해 확인합니다.
 실행 예외·커널 종료·미실행 셀·stderr 경고·연습 실패(`✗`)가 있으면 실패로 종료합니다.
 원본의 미작성 연습 안내(`☐`)는 허용합니다. 마지막 명령은 정답 보기의 코드를 메모리에서 채워 다시 실행하며, 미작성 연습도 실패로 판정하고 원본 파일은 바꾸지 않습니다.
-실행 기록은 `results/<suite>-validation/`에 남으며, 이 폴더는 저장소에 올리지 않습니다.
+실행 기록은 `results/<suite>-validation/`에 남으며, 이 폴더는 저장소에 올리지 않습니다. 전체 본문을 한 번에 검사하려면 `python scripts/verify_notebooks.py --suite all`을 사용합니다. 2026-11-04에 추가한 28개 단원의 본문·정답 개별 실행 결과와 커밋은 [검증 기록](docs/VALIDATION.md)에 정리했습니다.
 
 ## 라이선스
 

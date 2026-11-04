@@ -636,131 +636,6 @@ log-partition과 positive/negative phase, 격자 우도 학습, Langevin·MALA·
 | 5. chain의 길이와 독립 표본 수를 구별합니다 | `plot_chains` | `chain_paths, sampling_labels` |
 | 5. chain의 길이와 독립 표본 수를 구별합니다 | `plot_chain_density` | `grid, learned_density, hist_centers, histograms, sampling_labels, np.asarray(chain_summary)` |
 
-### 38 · 데이터 변형과 불변성 — `augmentation_plots.py` — 완료
-
-라벨 보존·양성 쌍·순열, 전체 미분과 변형 강도별 분류 학습·배경 이동 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. 같은 과일이라는 조건부터 정합니다 | `plot_panels` | `[example, flip_example, rotate_example, label_table], ['원본: 상태·배경', '배경 부호 반전', '90도 회전', '원본·반전·회전 라벨']` |
-| 2. 두 번 뽑은 변형이 양성 쌍을 만듭니다 | `plot_panels` | `[view_one, view_two, pair_gap], ['같은 원본의 뷰 1', '같은 원본의 뷰 2', '좌표별 제곱 차이']` |
-| 3. 순서를 바꾸면 출력은 어떻게 바뀌어야 하나요? | `plot_panels` | `[features[0], reordered[0], box_means], ['원소별 특징', '같은 특징의 순서 변경', '원본·재정렬 평균']` |
-| 4. 변형한 입력에서 실제 손실을 미분합니다 | `plot_panels` | `[small_x, small_view, small_h, small_logits], ['입력 X', '고정 변형 V', 'tanh 은닉 H', '익음 logit']` |
-| 5. 강도를 미리 정하고 다른 배경에서 평가합니다 | `plot_panels` | `[preview, plan, strength_plan], ['train 과일: 상태·배경', 'train·valid·test: N·seed', '조건: 잡음 σ·부호 파괴']` |
-| 5. 강도를 미리 정하고 다른 배경에서 평가합니다 | `plot_curves` | `histories, [s[0] for s in settings], 'validation 표본 평균 BCE'` |
-| 5. 강도를 미리 정하고 다른 배경에서 평가합니다 | `plot_panels` | `[train_scores[:, 1:2], scores], ['조건별 train 정확도', 'test: CE·정확도·특징분산'], [None, ['CE', '정확도', '분산']]` |
-
-### 44 · 토큰화·언어 데이터·자기회귀 목적 — `tokenization_plots.py` — 완료
-
-UTF-8·byte BPE, 문서 경계·shift·padding, bigram 전체 학습과 held-out NLL·생성. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. 같은 글자도 문자 수와 byte 수가 다릅니다 | `plot_token_units` | `unit_text, unit_characters, unit_bytes` |
-| 2. 자주 붙는 byte 쌍을 train 문서에서만 합칩니다 | `plot_pair_merge` | `merge_before, merge_counts, ['(0,1)', '(1,0)'], merge_after_hand` |
-| 3. 문서마다 한 칸 이동하고 유효 정답만 셉니다 | `plot_shift` | `shift_inputs_hand, shift_targets_hand, shift_valid_hand` |
-| 4. token 번호로 고른 행을 다음 확률로 바꿉니다 | `plot_embedding_path` | `embedding_ids, embedding_rows, embedding_probabilities` |
-| 5. 같은 tokenizer의 held-out 문장과 생성 결과를 읽습니다 | `plot_token_budget` | `budget_counts, ['문자', 'byte', 'toy BPE'], budget_costs` |
-| 5. 같은 tokenizer의 held-out 문장과 생성 결과를 읽습니다 | `plot_learning` | `training_history` |
-
-### 39 · 대조학습과 InfoNCE — `contrastive_plots.py` — 완료
-
-대칭 InfoNCE·정규화 전체 미분, 실제 무라벨 encoder 학습과 동결 선형 probe 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. 길이를 줄이고 방향을 비교합니다 | `plot_panels` | `[vectors, unit, similarity], ['정규화 전 Z', '행별 방향 U', '모든 쌍 내적']` |
-| 2. 자기 자신을 빼고 짝의 확률을 높입니다 | `plot_panels` | `[demo_u, demo_map, demo_p], ['A0,A1,B0,B1', 'anchor·양성 인덱스', 'τ=1의 후보 확률']` |
-| 3. 점수표의 양쪽 경로를 모두 미분합니다 | `plot_panels` | `[anchor_path, candidate_path, both_paths], ['anchor 행 경로', '후보 열 경로', 'τ=1에서 합한 dU']` |
-| 4. 라벨 없이 실제 표현기를 학습합니다 | `plot_panels` | `[view_preview_a, view_preview_b, plan], ['품종 상태·배경: 뷰 A', '같은 상태·새 배경: 뷰 B', 'train·valid·test: N·seed']` |
-| 4. 라벨 없이 실제 표현기를 학습합니다 | `plot_curves` | `[history], ['고정 valid 32쌍'], '대칭 InfoNCE · τ=.2'` |
-| 5. 고정 표현 위의 선형 평가를 따로 합니다 | `plot_panels` | `[probe_features, probe_weights, probe_scores, probe_prob], ['고정 표현', '학습할 선형 Wq', '품종 점수', '품종 확률']` |
-| 5. 고정 표현 위의 선형 평가를 따로 합니다 | `plot_panels` | `[summary], ['초기·학습 후 독립 평가'], [['정확도', '평균', '분산', '쌍 거리']]` |
-| 5. 고정 표현 위의 선형 평가를 따로 합니다 | `plot_points` | `[u[:, :2] for u in representations], [test_y, test_y], ['초기 표현 앞 두 축', '학습 표현 앞 두 축']` |
-
-### 51 · Bandit·기대 보상·탐색 — `bandit_plots.py` — 완료
-
-표본평균·epsilon-greedy·pseudo-regret, 48개 seed의 실제 탐색 학습과 고정 정책 독립 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. 선택 확률과 보상 확률을 구분합니다 | `plot_reward_expectation` | `true_means, example_policy, reward_contributions` |
-| 2. 선택한 행동의 표본평균만 갱신합니다 | `plot_average_update` | `small_rewards, small_averages, small_table` |
-| 3. 동률까지 포함한 ε-greedy 확률을 씁니다 | `plot_epsilon_policy` | `tie_values, policy_rows, ['ε=0', 'ε=.3', 'ε=1']` |
-| 4. 관측 보상과 pseudo-regret를 분리합니다 | `plot_regret_paths` | `regret_steps, np.cumsum(regret_rewards), regret_pseudo, regret_realized` |
-| 5. 같은 예산으로 배우고 정책을 멈춘 뒤 평가합니다 | `plot_bandit_protocol` | `protocol_settings, protocol_table, protocol_policy` |
-| 5. 같은 예산으로 배우고 정책을 멈춘 뒤 평가합니다 | `plot_bandit_learning` | `learning_steps, learning_reward_mean, learning_regret_mean, learning_regret_se, experiment_names` |
-| 5. 같은 예산으로 배우고 정책을 멈춘 뒤 평가합니다 | `plot_bandit_evaluation` | `experiment_names, exact_evaluation, sampled_evaluation, pseudo_regrets[:, :, -1]` |
-
-### 45 · 작은 decoder GPT 전체 학습 — `decoder_gpt_plots.py` — 완료
-
-causal decoder의 tied·untied 전체 backward, 실제 문자 학습·held-out NLL·greedy 생성·padding 검산. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. 앞부분으로 다음 문자 하나를 예측합니다 | `plot_decoder_contract` | `contract_inputs, contract_targets, contract_valid` |
-| 2. 미래와 padding을 동시에 막는 attention | `plot_causal_attention` | `attention_scores, attention_allowed, attention_probabilities` |
-| 3. 정규화·FFN·잔차의 모든 경로를 미분합니다 | `plot_residual_block` | `residual_x, residual_normalized, residual_output` |
-| 4. 전체 decoder를 고정 예산으로 실제 학습합니다 | `plot_loss_path` | `loss_probabilities, loss_values, loss_gradients` |
-| 4. 전체 decoder를 고정 예산으로 실제 학습합니다 | `plot_decoder_learning` | `history` |
-| 5. held-out NLL과 정답 없는 생성을 구분합니다 | `plot_next_token` | `prefix_ids, prefix_prob[shown], shown_labels, selected_id` |
-
-### 40 · 교사·학생·stop-gradient — `teacher_student_plots.py` — 완료
-
-online·predictor 전체 미분과 고정 타깃, optimizer 뒤 EMA, 상수 표현 대조·교사 속도별 학습·probe. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. 타깃의 값은 쓰고 미분 경로는 멈춥니다 | `plot_panels` | `[scalar_paths, pu, tu, row_losses], ['p=2,t=1: L·dp·dt', '정규화 예측', '고정 정규화 타깃', '관측별 반 제곱거리']` |
-| 2. 예측기와 학생의 모든 경로를 연결합니다 | `plot_panels` | `[demo_x, demo_h, demo_z, demo_pred], ['두 촬영 입력', '공유 tanh 특징', 'encoder 표현 Z', 'predictor 출력 P']` |
-| 3. 학생을 갱신한 뒤 교사를 천천히 옮깁니다 | `plot_panels` | `[old_teacher, new_student, ema_cases], ['이전 교사', 'optimizer 뒤 학생', 'm=0, .9, 1의 새 교사']` |
-| 4. 손실이 작아도 모든 과일이 같아질 수 있습니다 | `plot_panels` | `[constant, separate, statistics], ['상수 표현', '구분되는 표현', '각 경우: 평균·평균분산']` |
-| 5. 교사 속도별로 실제 학습하고 독립 평가합니다 | `plot_panels` | `[preview_x, preview_pair, plan], ['뷰 A: 상태·배경', '뷰 B: 같은 상태·새 배경', 'train·valid·test: N·seed']` |
-| 5. 교사 속도별로 실제 학습하고 독립 평가합니다 | `plot_curves` | `histories, [f'EMA m={m}' for m in momenta], '고정 valid alignment'` |
-| 5. 교사 속도별로 실제 학습하고 독립 평가합니다 | `plot_panels` | `[report], ['초기와 교사 속도별 독립 평가'], [['정확도', '평균', '분산', '다른 거리']]` |
-
-### 52 · MDP·return·Bellman·동적 계획 — `mdp_plots.py` — 완료
-
-전이표·정확한 정책 가치·value/policy iteration, 정책 전수열거와 종료·수집 제한별 rollout 비교. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. 전이와 보상을 같은 세 축에 적습니다 | `plot_mdp_transition` | `start_transition, start_rewards, start_expected_reward` |
-| 2. 보상을 할인해 더하고 마지막 경계를 표시합니다 | `plot_return_path` | `return_rewards, return_powers, return_contributions, return_totals` |
-| 3. 정책의 가치를 Bellman 방정식으로 풉니다 | `plot_bellman_backup` | `backup_contributions, backup_q, policy[0], backup_v` |
-| 3. 정책의 가치를 Bellman 방정식으로 풉니다 | `plot_policy_solution` | `policy_transition, policy_immediate, exact_policy_value` |
-| 4. 행동 평균을 최댓값으로 바꾸어 계획합니다 | `plot_policy_improvement` | `exact_policy_value, improvement_q, policy, improvement_policy` |
-| 4. 행동 평균을 최댓값으로 바꾸어 계획합니다 | `plot_value_iterations` | `value_history, enumerated_optimum, pi_history` |
-| 5. rollout을 정확한 유한·무한 목적과 비교합니다 | `plot_rollout_boundary` | `boundary_states, boundary_rewards, boundary_terminal, boundary_bootstrap` |
-| 5. rollout을 정확한 유한·무한 목적과 비교합니다 | `plot_rollout_comparison` | `horizons, finite_means, finite_ses, finite_exact, bootstrap_means, bootstrap_ses, exact_policy_value[0]` |
-
-### 46 · 생성 규칙과 KV cache — `generation_kv_cache_plots.py` — 완료
-
-temperature·top-k·top-p, 실제 학습 모델의 prefix별 full/cache 동등성·같은 난수 생성·시간·저장량. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. 같은 logits에서 다른 생성 분포를 만듭니다 | `plot_temperature` | `temperature_logits, temperature_rows, temperatures` |
-| 2. top-k와 top-p는 남길 후보를 다르게 정합니다 | `plot_truncation` | `truncation_original, truncation_keep, truncation_filtered` |
-| 3. prefix 전체를 처리해 K와 V를 저장합니다 | `plot_prefill` | `prefill_features, prefill_k, prefill_v` |
-| 4. 새 token의 query 하나만 과거를 읽습니다 | `plot_cached_step` | `cache_keys, new_query, new_weights, new_mixed` |
-| 5. 같은 난수로 생성하고 비용을 따로 측정합니다 | `plot_cache_budget` | `budget_lengths, score_counts, cache_bytes` |
-| 5. 같은 난수로 생성하고 비용을 따로 측정합니다 | `plot_cache_timing` | `budget_lengths, timing_results` |
-
-### 41 · 분산·공분산으로 표현 제약하기 — `variance_covariance_plots.py` — 완료
-
-정렬·표준편차 하한·비대각 공분산의 전체 미분, 상수·복제 대조와 목적항별 실제 학습·probe. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. 관측 축을 중심화하고 특징끼리 비교합니다 | `plot_panels` | `[stats_z, stats_center, stats_cov], ['복제된 두 특징', '특징별 중심화', '표본 공분산']` |
-| 2. 특징마다 표준편차 하한을 둡니다 | `plot_panels` | `[variance_table[:, :2], variance_table[:, 2:]], ['상수·작음·충분: 각 std', '같은 순서: 각 hinge 비용']` |
-| 3. 복제 차원은 비대각 공분산에서 드러납니다 | `plot_panels` | `comparison_cov + comparison_off, ['복제 특징 공분산', '비상관 특징 공분산', '복제의 비대각', '비상관의 비대각']` |
-| 4. 세 항을 합하고 공유 표현기까지 미분합니다 | `plot_panels` | `[term_a, term_b, term_table, weighted_table], ['뷰 A', '뷰 B', '정렬·분산·공분산 항', '가중치 5·5·1 적용']` |
-| 5. 목적항을 빼 보며 실제 표현을 평가합니다 | `plot_panels` | `[weights_table, plan, collapsed_terms], ['조건별 정렬·분산·공분산 가중치', 'train·valid·test: N·seed', '상수 쌍의 세 비용']` |
-| 5. 목적항을 빼 보며 실제 표현을 평가합니다 | `plot_curves` | `[h[:, [0, 1]] for h in histories], [s[0] for s in settings], '공통 validation 정렬 항'` |
-| 5. 목적항을 빼 보며 실제 표현을 평가합니다 | `plot_panels` | `[report[:, :3], report[:, 3:]], ['초기·정렬·분산추가·전체: 정확도·평균·최소std', '같은 순서: 공분산 비용·다른 거리']` |
-
 ### 36 · Flow matching과 ODE 생성 — `flow_matching_plots.py` — 완료
 
 조건부·주변 속도 목적의 연결, 시간 조건부 MLP 전체 미분·실제 학습, 정확 Gaussian 기준과 같은 NFE의 ODE 생성. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
@@ -777,32 +652,62 @@ temperature·top-k·top-p, 실제 학습 모델의 prefix별 full/cache 동등�
 | 5. 학습한 속도를 적분하고 오차를 나눕니다 | `plot_flow_fields` | `grid_points, [grid_exact, grid_learned], ['t=.5 정답 주변 속도', 't=.5 학습한 속도']` |
 | 5. 학습한 속도를 적분하고 오차를 나눕니다 | `plot_flow_samples` | `[test_data, euler_path[-1], heun_path[-1]], ['독립 test 관측', 'Euler40 · NFE40', 'Heun20 · NFE40'], [None, euler_path[:, :8], heun_path[:, :8]]` |
 
-### 47 · encoder 목적과 BERT식 MLM — `masked_language_model_plots.py` — 완료
+### 38 · 데이터 변형과 불변성 — `augmentation_plots.py` — 완료
 
-양방향 문맥·80/10/10 corruption·선택 위치 CE 전체 미분, 실제 MLM·AR 학습과 held-out 빈칸 복원. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. 같은 token열에서도 읽을 수 있는 위치가 다릅니다 | `plot_context_masks` | `context_tokens, bidirectional, causal` |
-| 2. 선택한 위치와 바꾼 위치를 구분합니다 | `plot_corruption` | `corruption_clean, corruption_selected, corruption_hand` |
-| 3. 선택 CE를 전체 encoder로 역전파합니다 | `plot_selected_loss` | `selected_probabilities, selected_positions, selected_delta` |
-| 4. 같은 정답이어도 주는 정보가 다릅니다 | `plot_information_access` | `information_mlm, information_ar, information_answer` |
-| 4. 같은 정답이어도 주는 정보가 다릅니다 | `plot_mlm_learning` | `mlm_history` |
-| 5. 빈칸 복원은 자유 생성과 다른 사용법입니다 | `plot_fill` | `fill_original, fill_masked, fill_prediction` |
-
-### 53 · Monte Carlo·TD·다단계 타깃 — `mc_td_plots.py` — 완료
-
-완료 return·TD·n-step·유한 lambda, 경로 전수열거의 정확한 편향·분산과 32 seed 실제 가치 학습. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+라벨 보존·양성 쌍·순열, 전체 미분과 변형 강도별 분류 학습·배경 이동 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
 
 | 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
 |---|---|---|
-| 1. 끝까지 관측한 return으로 가치를 배웁니다 | `plot_mc_path` | `path_states, path_rewards, path_returns` |
-| 2. 한 전이와 현재 가치로 TD 오차를 만듭니다 | `plot_td_update` | `td_current, td_next, td_rewards, td_targets, td_errors` |
-| 3. n-step과 유한 λ-return을 연결합니다 | `plot_lambda_weights` | `step_targets, lambda_weights, lambda_contributions` |
-| 4. 타깃의 편향·분산을 모든 경로에서 계산합니다 | `plot_target_distribution` | `path_probabilities, example_targets, example_moments, method_names` |
-| 5. 같은 episode에서 네 가지 가치 학습을 비교합니다 | `plot_prediction_protocol` | `plan_settings, plan_values, plan_targets, plan_updated` |
-| 5. 같은 episode에서 네 가지 가치 학습을 비교합니다 | `plot_prediction_learning` | `episode_numbers, mean_rmse, se_rmse, method_names` |
-| 5. 같은 episode에서 네 가지 가치 학습을 비교합니다 | `plot_prediction_final` | `method_names, rmse_records[:, :, -1], mean_final_values, truth[:3]` |
+| 1. 같은 과일이라는 조건부터 정합니다 | `plot_panels` | `[example, flip_example, rotate_example, label_table], ['원본: 상태·배경', '배경 부호 반전', '90도 회전', '원본·반전·회전 라벨']` |
+| 2. 두 번 뽑은 변형이 양성 쌍을 만듭니다 | `plot_panels` | `[view_one, view_two, pair_gap], ['같은 원본의 뷰 1', '같은 원본의 뷰 2', '좌표별 제곱 차이']` |
+| 3. 순서를 바꾸면 출력은 어떻게 바뀌어야 하나요? | `plot_panels` | `[features[0], reordered[0], box_means], ['원소별 특징', '같은 특징의 순서 변경', '원본·재정렬 평균']` |
+| 4. 변형한 입력에서 실제 손실을 미분합니다 | `plot_panels` | `[small_x, small_view, small_h, small_logits], ['입력 X', '고정 변형 V', 'tanh 은닉 H', '익음 logit']` |
+| 5. 강도를 미리 정하고 다른 배경에서 평가합니다 | `plot_panels` | `[preview, plan, strength_plan], ['train 과일: 상태·배경', 'train·valid·test: N·seed', '조건: 잡음 σ·부호 파괴']` |
+| 5. 강도를 미리 정하고 다른 배경에서 평가합니다 | `plot_curves` | `histories, [s[0] for s in settings], 'validation 표본 평균 BCE'` |
+| 5. 강도를 미리 정하고 다른 배경에서 평가합니다 | `plot_panels` | `[train_scores[:, 1:2], scores], ['조건별 train 정확도', 'test: CE·정확도·특징분산'], [None, ['CE', '정확도', '분산']]` |
+
+### 39 · 대조학습과 InfoNCE — `contrastive_plots.py` — 완료
+
+대칭 InfoNCE·정규화 전체 미분, 실제 무라벨 encoder 학습과 동결 선형 probe 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 길이를 줄이고 방향을 비교합니다 | `plot_panels` | `[vectors, unit, similarity], ['정규화 전 Z', '행별 방향 U', '모든 쌍 내적']` |
+| 2. 자기 자신을 빼고 짝의 확률을 높입니다 | `plot_panels` | `[demo_u, demo_map, demo_p], ['A0,A1,B0,B1', 'anchor·양성 인덱스', 'τ=1의 후보 확률']` |
+| 3. 점수표의 양쪽 경로를 모두 미분합니다 | `plot_panels` | `[anchor_path, candidate_path, both_paths], ['anchor 행 경로', '후보 열 경로', 'τ=1에서 합한 dU']` |
+| 4. 라벨 없이 실제 표현기를 학습합니다 | `plot_panels` | `[view_preview_a, view_preview_b, plan], ['품종 상태·배경: 뷰 A', '같은 상태·새 배경: 뷰 B', 'train·valid·test: N·seed']` |
+| 4. 라벨 없이 실제 표현기를 학습합니다 | `plot_curves` | `[history], ['고정 valid 32쌍'], '대칭 InfoNCE · τ=.2'` |
+| 5. 고정 표현 위의 선형 평가를 따로 합니다 | `plot_panels` | `[probe_features, probe_weights, probe_scores, probe_prob], ['고정 표현', '학습할 선형 Wq', '품종 점수', '품종 확률']` |
+| 5. 고정 표현 위의 선형 평가를 따로 합니다 | `plot_panels` | `[summary], ['초기·학습 후 독립 평가'], [['정확도', '평균', '분산', '쌍 거리']]` |
+| 5. 고정 표현 위의 선형 평가를 따로 합니다 | `plot_points` | `[u[:, :2] for u in representations], [test_y, test_y], ['초기 표현 앞 두 축', '학습 표현 앞 두 축']` |
+
+### 40 · 교사·학생·stop-gradient — `teacher_student_plots.py` — 완료
+
+online·predictor 전체 미분과 고정 타깃, optimizer 뒤 EMA, 상수 표현 대조·교사 속도별 학습·probe. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 타깃의 값은 쓰고 미분 경로는 멈춥니다 | `plot_panels` | `[scalar_paths, pu, tu, row_losses], ['p=2,t=1: L·dp·dt', '정규화 예측', '고정 정규화 타깃', '관측별 반 제곱거리']` |
+| 2. 예측기와 학생의 모든 경로를 연결합니다 | `plot_panels` | `[demo_x, demo_h, demo_z, demo_pred], ['두 촬영 입력', '공유 tanh 특징', 'encoder 표현 Z', 'predictor 출력 P']` |
+| 3. 학생을 갱신한 뒤 교사를 천천히 옮깁니다 | `plot_panels` | `[old_teacher, new_student, ema_cases], ['이전 교사', 'optimizer 뒤 학생', 'm=0, .9, 1의 새 교사']` |
+| 4. 손실이 작아도 모든 과일이 같아질 수 있습니다 | `plot_panels` | `[constant, separate, statistics], ['상수 표현', '구분되는 표현', '각 경우: 평균·평균분산']` |
+| 5. 교사 속도별로 실제 학습하고 독립 평가합니다 | `plot_panels` | `[preview_x, preview_pair, plan], ['뷰 A: 상태·배경', '뷰 B: 같은 상태·새 배경', 'train·valid·test: N·seed']` |
+| 5. 교사 속도별로 실제 학습하고 독립 평가합니다 | `plot_curves` | `histories, [f'EMA m={m}' for m in momenta], '고정 valid alignment'` |
+| 5. 교사 속도별로 실제 학습하고 독립 평가합니다 | `plot_panels` | `[report], ['초기와 교사 속도별 독립 평가'], [['정확도', '평균', '분산', '다른 거리']]` |
+
+### 41 · 분산·공분산으로 표현 제약하기 — `variance_covariance_plots.py` — 완료
+
+정렬·표준편차 하한·비대각 공분산의 전체 미분, 상수·복제 대조와 목적항별 실제 학습·probe. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 관측 축을 중심화하고 특징끼리 비교합니다 | `plot_panels` | `[stats_z, stats_center, stats_cov], ['복제된 두 특징', '특징별 중심화', '표본 공분산']` |
+| 2. 특징마다 표준편차 하한을 둡니다 | `plot_panels` | `[variance_table[:, :2], variance_table[:, 2:]], ['상수·작음·충분: 각 std', '같은 순서: 각 hinge 비용']` |
+| 3. 복제 차원은 비대각 공분산에서 드러납니다 | `plot_panels` | `comparison_cov + comparison_off, ['복제 특징 공분산', '비상관 특징 공분산', '복제의 비대각', '비상관의 비대각']` |
+| 4. 세 항을 합하고 공유 표현기까지 미분합니다 | `plot_panels` | `[term_a, term_b, term_table, weighted_table], ['뷰 A', '뷰 B', '정렬·분산·공분산 항', '가중치 5·5·1 적용']` |
+| 5. 목적항을 빼 보며 실제 표현을 평가합니다 | `plot_panels` | `[weights_table, plan, collapsed_terms], ['조건별 정렬·분산·공분산 가중치', 'train·valid·test: N·seed', '상수 쌍의 세 비용']` |
+| 5. 목적항을 빼 보며 실제 표현을 평가합니다 | `plot_curves` | `[h[:, [0, 1]] for h in histories], [s[0] for s in settings], '공통 validation 정렬 항'` |
+| 5. 목적항을 빼 보며 실제 표현을 평가합니다 | `plot_panels` | `[report[:, :3], report[:, 3:]], ['초기·정렬·분산추가·전체: 정확도·평균·최소std', '같은 순서: 공분산 비용·다른 거리']` |
 
 ### 42 · masked reconstruction — `masked_reconstruction_plots.py` — 완료
 
@@ -818,19 +723,6 @@ visible patch encoder·위치 decoder·masked-only 화소 손실 전체 미분, 
 | 5. mask 비율과 복원·표현 평가를 분리합니다 | `plot_curves` | `histories, ['train mask25%', 'train mask50%', 'train mask75%'], '공통 50% validation mask 반 MSE'` |
 | 5. mask 비율과 복원·표현 평가를 분리합니다 | `plot_panels` | `[report], ['초기·mask25·50·75%의 동일 test 평가'], [['반 MSE', '정확도', '평균', '분산']]` |
 | 5. mask 비율과 복원·표현 평가를 분리합니다 | `plot_images` | `[test_images[display_id], masked_pixels, reconstructions[1], completed_image], ['고정 test0 원본', '같은 test mask 입력', '50%학습 모델 원시 예측', 'visible 원본+masked 예측']` |
-
-### 48 · SFT·전이 학습·LoRA — `sft_lora_plots.py` — 완료
-
-답변·EOS 손실, 고정 base를 통과하는 LoRA 전체 미분·merge, full/frozen/LoRA 실제 적응·기존 과제 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. prompt를 읽되 답변 위치에서만 손실을 냅니다 | `plot_response_mask` | `response_inputs_hand, response_targets_hand, response_weights_hand` |
-| 2. 큰 행렬을 고정하고 작은 두 행렬을 배웁니다 | `plot_lora_weights` | `lora_base_hand, lora_delta_hand, lora_effective_hand` |
-| 3. 고정 가중치도 입력의 미분 경로에 남습니다 | `plot_frozen_gradient` | `gradient_upstream, gradient_base_path, gradient_adapter_path` |
-| 4. 같은 base에서 full·frozen·LoRA를 비교합니다 | `plot_trainable_budget` | `trainable_counts, ['frozen', 'full', 'LoRA']` |
-| 4. 같은 base에서 full·frozen·LoRA를 비교합니다 | `plot_adaptation_learning` | `[adaptation_histories[method] for method in methods], methods` |
-| 5. merge의 동등성과 정답 없는 답변을 확인합니다 | `plot_merge_logits` | `unmerged_logits[0, -2:, :4], merged_logits[0, -2:, :4], merge_difference[0, -2:, :4]` |
 
 ### 43 · JEPA와 잠재 타깃 예측 — `jepa_plots.py` — 완료
 
@@ -848,20 +740,70 @@ visible patch encoder·위치 decoder·masked-only 화소 손실 전체 미분, 
 | 5. 같은 자료에서 두 목적을 실제로 학습합니다 | `plot_panels` | `[content_variances], ['teacher의 위치별 이미지 분산'], [['초기 teacher', 'EMA teacher']]` |
 | 5. 같은 자료에서 두 목적을 실제로 학습합니다 | `plot_images` | `[test_images[0], shown, pixel_prediction_image, combined_image], ['고정 test0 원본', '두 목적의 같은 context', 'pixel 모델 원시 예측', 'context 원본+target 예측']` |
 
-### 63 · 논문에서 수식·구현·실험으로 — `paper_reproduction_plots.py` — 완료
+### 44 · 토큰화·언어 데이터·자기회귀 목적 — `tokenization_plots.py` — 완료
 
-Flow Matching 논문의 한 주장 재현, 정확 Gaussian 기울기·최소제곱 기준과 3 seed 실제 학습·같은 초기값 ODE 생성. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+UTF-8·byte BPE, 문서 경계·shift·padding, bigram 전체 학습과 held-out NLL·생성. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
 
 | 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
 |---|---|---|
-| 1. 논문의 주장과 재현할 범위를 먼저 고정합니다 | `plot_scope_table` | `scope_values` |
-| 2. 기호를 배열과 갱신 대상에 대응시킵니다 | `plot_specification` | `np.column_stack([spec_x, spec_t]), spec_design, spec_outputs` |
-| 3. 같은 구현을 믿기 전에 독립 기준을 붙입니다 | `plot_independent_checks` | `check_design, check_residual, check_gradient` |
-| 4. 한 요소를 바꾼 실제 학습과 기준해를 기록합니다 | `plot_reproduction_plan` | `plan` |
-| 4. 한 요소를 바꾼 실제 학습과 기준해를 기록합니다 | `plot_reproduction_learning` | `histories[:2], ['seed6301 시간 없음', 'seed6301 시간2차']` |
-| 5. 생성 그림과 근거의 한계를 함께 남깁니다 | `plot_exact_paths` | `path_times, exact_paths` |
-| 5. 생성 그림과 근거의 한계를 함께 남깁니다 | `plot_paired_evidence` | `metrics, ['시간 없음', '시간2차']` |
-| 5. 생성 그림과 근거의 한계를 함께 남깁니다 | `plot_paired_samples` | `display_initial, display_samples, display_reference, ['seed6301 시간 없음', 'seed6301 시간2차']` |
+| 1. 같은 글자도 문자 수와 byte 수가 다릅니다 | `plot_token_units` | `unit_text, unit_characters, unit_bytes` |
+| 2. 자주 붙는 byte 쌍을 train 문서에서만 합칩니다 | `plot_pair_merge` | `merge_before, merge_counts, ['(0,1)', '(1,0)'], merge_after_hand` |
+| 3. 문서마다 한 칸 이동하고 유효 정답만 셉니다 | `plot_shift` | `shift_inputs_hand, shift_targets_hand, shift_valid_hand` |
+| 4. token 번호로 고른 행을 다음 확률로 바꿉니다 | `plot_embedding_path` | `embedding_ids, embedding_rows, embedding_probabilities` |
+| 5. 같은 tokenizer의 held-out 문장과 생성 결과를 읽습니다 | `plot_token_budget` | `budget_counts, ['문자', 'byte', 'toy BPE'], budget_costs` |
+| 5. 같은 tokenizer의 held-out 문장과 생성 결과를 읽습니다 | `plot_learning` | `training_history` |
+
+### 45 · 작은 decoder GPT 전체 학습 — `decoder_gpt_plots.py` — 완료
+
+causal decoder의 tied·untied 전체 backward, 실제 문자 학습·held-out NLL·greedy 생성·padding 검산. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 앞부분으로 다음 문자 하나를 예측합니다 | `plot_decoder_contract` | `contract_inputs, contract_targets, contract_valid` |
+| 2. 미래와 padding을 동시에 막는 attention | `plot_causal_attention` | `attention_scores, attention_allowed, attention_probabilities` |
+| 3. 정규화·FFN·잔차의 모든 경로를 미분합니다 | `plot_residual_block` | `residual_x, residual_normalized, residual_output` |
+| 4. 전체 decoder를 고정 예산으로 실제 학습합니다 | `plot_loss_path` | `loss_probabilities, loss_values, loss_gradients` |
+| 4. 전체 decoder를 고정 예산으로 실제 학습합니다 | `plot_decoder_learning` | `history` |
+| 5. held-out NLL과 정답 없는 생성을 구분합니다 | `plot_next_token` | `prefix_ids, prefix_prob[shown], shown_labels, selected_id` |
+
+### 46 · 생성 규칙과 KV cache — `generation_kv_cache_plots.py` — 완료
+
+temperature·top-k·top-p, 실제 학습 모델의 prefix별 full/cache 동등성·같은 난수 생성·시간·저장량. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 같은 logits에서 다른 생성 분포를 만듭니다 | `plot_temperature` | `temperature_logits, temperature_rows, temperatures` |
+| 2. top-k와 top-p는 남길 후보를 다르게 정합니다 | `plot_truncation` | `truncation_original, truncation_keep, truncation_filtered` |
+| 3. prefix 전체를 처리해 K와 V를 저장합니다 | `plot_prefill` | `prefill_features, prefill_k, prefill_v` |
+| 4. 새 token의 query 하나만 과거를 읽습니다 | `plot_cached_step` | `cache_keys, new_query, new_weights, new_mixed` |
+| 5. 같은 난수로 생성하고 비용을 따로 측정합니다 | `plot_cache_budget` | `budget_lengths, score_counts, cache_bytes` |
+| 5. 같은 난수로 생성하고 비용을 따로 측정합니다 | `plot_cache_timing` | `budget_lengths, timing_results` |
+
+### 47 · encoder 목적과 BERT식 MLM — `masked_language_model_plots.py` — 완료
+
+양방향 문맥·80/10/10 corruption·선택 위치 CE 전체 미분, 실제 MLM·AR 학습과 held-out 빈칸 복원. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 같은 token열에서도 읽을 수 있는 위치가 다릅니다 | `plot_context_masks` | `context_tokens, bidirectional, causal` |
+| 2. 선택한 위치와 바꾼 위치를 구분합니다 | `plot_corruption` | `corruption_clean, corruption_selected, corruption_hand` |
+| 3. 선택 CE를 전체 encoder로 역전파합니다 | `plot_selected_loss` | `selected_probabilities, selected_positions, selected_delta` |
+| 4. 같은 정답이어도 주는 정보가 다릅니다 | `plot_information_access` | `information_mlm, information_ar, information_answer` |
+| 4. 같은 정답이어도 주는 정보가 다릅니다 | `plot_mlm_learning` | `mlm_history` |
+| 5. 빈칸 복원은 자유 생성과 다른 사용법입니다 | `plot_fill` | `fill_original, fill_masked, fill_prediction` |
+
+### 48 · SFT·전이 학습·LoRA — `sft_lora_plots.py` — 완료
+
+답변·EOS 손실, 고정 base를 통과하는 LoRA 전체 미분·merge, full/frozen/LoRA 실제 적응·기존 과제 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. prompt를 읽되 답변 위치에서만 손실을 냅니다 | `plot_response_mask` | `response_inputs_hand, response_targets_hand, response_weights_hand` |
+| 2. 큰 행렬을 고정하고 작은 두 행렬을 배웁니다 | `plot_lora_weights` | `lora_base_hand, lora_delta_hand, lora_effective_hand` |
+| 3. 고정 가중치도 입력의 미분 경로에 남습니다 | `plot_frozen_gradient` | `gradient_upstream, gradient_base_path, gradient_adapter_path` |
+| 4. 같은 base에서 full·frozen·LoRA를 비교합니다 | `plot_trainable_budget` | `trainable_counts, ['frozen', 'full', 'LoRA']` |
+| 4. 같은 base에서 full·frozen·LoRA를 비교합니다 | `plot_adaptation_learning` | `[adaptation_histories[method] for method in methods], methods` |
+| 5. merge의 동등성과 정답 없는 답변을 확인합니다 | `plot_merge_logits` | `unmerged_logits[0, -2:, :4], merged_logits[0, -2:, :4], merge_difference[0, -2:, :4]` |
 
 ### 49 · 선호 쌍에서 DPO 목적 만들기 — `dpo_plots.py` — 완료
 
@@ -875,20 +817,6 @@ EOS까지의 sequence 로그확률·고정 reference DPO 전체 미분, 실제 S
 | 4. 동일한 출발점에서 SFT와 DPO를 실제 학습합니다 | `plot_objective_signals` | `sft_signal_hand, dpo_signal_hand` |
 | 4. 동일한 출발점에서 SFT와 DPO를 실제 학습합니다 | `plot_dpo_learning` | `[preference_histories[name] for name in ['SFT', 'DPO']], ['chosen SFT', 'DPO']` |
 | 5. 선호 후보의 순위와 자유 생성을 따로 봅니다 | `plot_absolute_probabilities` | `absolute_log_probs, list(models)` |
-
-### 54 · SARSA·Expected SARSA·Q-learning — `control_plots.py` — 완료
-
-실제 다음 행동·기대·max 타깃과 importance support, 32 seed 제어 학습·탐색 유지/제거의 정확한 정책 가치. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. Q 표에서 실제 행동정책을 만듭니다 | `plot_control_environment` | `example_next, example_reward, example_policy` |
-| 2. SARSA는 실제로 할 다음 행동을 사용합니다 | `plot_sarsa_targets` | `next_q, next_probabilities, sarsa_targets, np.array([expected_target])` |
-| 3. Q-learning은 다음 최대 행동을 타깃에 넣습니다 | `plot_q_target_comparison` | `next_q, comparison_targets, comparison_updated` |
-| 4. 다른 정책의 경로 평균에는 확률비가 필요합니다 | `plot_importance_paths` | `np.column_stack([behavior_paths, target_paths]), path_ratios, path_returns, path_contributions` |
-| 5. 실제 Q 학습과 두 배포 규약을 비교합니다 | `plot_control_protocol` | `protocol_settings, protocol_policies, protocol_values` |
-| 5. 실제 Q 학습과 두 배포 규약을 비교합니다 | `plot_control_learning` | `checkpoints, mean_values, se_values, methods` |
-| 5. 실제 Q 학습과 두 배포 규약을 비교합니다 | `plot_control_final` | `methods, final_values, observed_returns` |
 
 ### 50 · 이미지·텍스트 정렬과 조건부 생성 — `multimodal_plots.py` — 완료
 
@@ -904,6 +832,63 @@ EOS까지의 sequence 로그확률·고정 reference DPO 전체 미분, 실제 S
 | 4. 이미지 표현을 연속 prefix로 넣어 설명을 학습합니다 | `plot_multimodal_learning` | `caption_history, 'valid token NLL', '고정 image encoder · bridge+decoder 학습'` |
 | 5. 조건을 교환하고 한 token씩 직접 생성합니다 | `plot_condition_swap` | `test_images[show_indices], shown_text, swapped_text` |
 
+### 51 · Bandit·기대 보상·탐색 — `bandit_plots.py` — 완료
+
+표본평균·epsilon-greedy·pseudo-regret, 48개 seed의 실제 탐색 학습과 고정 정책 독립 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 선택 확률과 보상 확률을 구분합니다 | `plot_reward_expectation` | `true_means, example_policy, reward_contributions` |
+| 2. 선택한 행동의 표본평균만 갱신합니다 | `plot_average_update` | `small_rewards, small_averages, small_table` |
+| 3. 동률까지 포함한 ε-greedy 확률을 씁니다 | `plot_epsilon_policy` | `tie_values, policy_rows, ['ε=0', 'ε=.3', 'ε=1']` |
+| 4. 관측 보상과 pseudo-regret를 분리합니다 | `plot_regret_paths` | `regret_steps, np.cumsum(regret_rewards), regret_pseudo, regret_realized` |
+| 5. 같은 예산으로 배우고 정책을 멈춘 뒤 평가합니다 | `plot_bandit_protocol` | `protocol_settings, protocol_table, protocol_policy` |
+| 5. 같은 예산으로 배우고 정책을 멈춘 뒤 평가합니다 | `plot_bandit_learning` | `learning_steps, learning_reward_mean, learning_regret_mean, learning_regret_se, experiment_names` |
+| 5. 같은 예산으로 배우고 정책을 멈춘 뒤 평가합니다 | `plot_bandit_evaluation` | `experiment_names, exact_evaluation, sampled_evaluation, pseudo_regrets[:, :, -1]` |
+
+### 52 · MDP·return·Bellman·동적 계획 — `mdp_plots.py` — 완료
+
+전이표·정확한 정책 가치·value/policy iteration, 정책 전수열거와 종료·수집 제한별 rollout 비교. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 전이와 보상을 같은 세 축에 적습니다 | `plot_mdp_transition` | `start_transition, start_rewards, start_expected_reward` |
+| 2. 보상을 할인해 더하고 마지막 경계를 표시합니다 | `plot_return_path` | `return_rewards, return_powers, return_contributions, return_totals` |
+| 3. 정책의 가치를 Bellman 방정식으로 풉니다 | `plot_bellman_backup` | `backup_contributions, backup_q, policy[0], backup_v` |
+| 3. 정책의 가치를 Bellman 방정식으로 풉니다 | `plot_policy_solution` | `policy_transition, policy_immediate, exact_policy_value` |
+| 4. 행동 평균을 최댓값으로 바꾸어 계획합니다 | `plot_policy_improvement` | `exact_policy_value, improvement_q, policy, improvement_policy` |
+| 4. 행동 평균을 최댓값으로 바꾸어 계획합니다 | `plot_value_iterations` | `value_history, enumerated_optimum, pi_history` |
+| 5. rollout을 정확한 유한·무한 목적과 비교합니다 | `plot_rollout_boundary` | `boundary_states, boundary_rewards, boundary_terminal, boundary_bootstrap` |
+| 5. rollout을 정확한 유한·무한 목적과 비교합니다 | `plot_rollout_comparison` | `horizons, finite_means, finite_ses, finite_exact, bootstrap_means, bootstrap_ses, exact_policy_value[0]` |
+
+### 53 · Monte Carlo·TD·다단계 타깃 — `mc_td_plots.py` — 완료
+
+완료 return·TD·n-step·유한 lambda, 경로 전수열거의 정확한 편향·분산과 32 seed 실제 가치 학습. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 끝까지 관측한 return으로 가치를 배웁니다 | `plot_mc_path` | `path_states, path_rewards, path_returns` |
+| 2. 한 전이와 현재 가치로 TD 오차를 만듭니다 | `plot_td_update` | `td_current, td_next, td_rewards, td_targets, td_errors` |
+| 3. n-step과 유한 λ-return을 연결합니다 | `plot_lambda_weights` | `step_targets, lambda_weights, lambda_contributions` |
+| 4. 타깃의 편향·분산을 모든 경로에서 계산합니다 | `plot_target_distribution` | `path_probabilities, example_targets, example_moments, method_names` |
+| 5. 같은 episode에서 네 가지 가치 학습을 비교합니다 | `plot_prediction_protocol` | `plan_settings, plan_values, plan_targets, plan_updated` |
+| 5. 같은 episode에서 네 가지 가치 학습을 비교합니다 | `plot_prediction_learning` | `episode_numbers, mean_rmse, se_rmse, method_names` |
+| 5. 같은 episode에서 네 가지 가치 학습을 비교합니다 | `plot_prediction_final` | `method_names, rmse_records[:, :, -1], mean_final_values, truth[:3]` |
+
+### 54 · SARSA·Expected SARSA·Q-learning — `control_plots.py` — 완료
+
+실제 다음 행동·기대·max 타깃과 importance support, 32 seed 제어 학습·탐색 유지/제거의 정확한 정책 가치. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. Q 표에서 실제 행동정책을 만듭니다 | `plot_control_environment` | `example_next, example_reward, example_policy` |
+| 2. SARSA는 실제로 할 다음 행동을 사용합니다 | `plot_sarsa_targets` | `next_q, next_probabilities, sarsa_targets, np.array([expected_target])` |
+| 3. Q-learning은 다음 최대 행동을 타깃에 넣습니다 | `plot_q_target_comparison` | `next_q, comparison_targets, comparison_updated` |
+| 4. 다른 정책의 경로 평균에는 확률비가 필요합니다 | `plot_importance_paths` | `np.column_stack([behavior_paths, target_paths]), path_ratios, path_returns, path_contributions` |
+| 5. 실제 Q 학습과 두 배포 규약을 비교합니다 | `plot_control_protocol` | `protocol_settings, protocol_policies, protocol_values` |
+| 5. 실제 Q 학습과 두 배포 규약을 비교합니다 | `plot_control_learning` | `checkpoints, mean_values, se_values, methods` |
+| 5. 실제 Q 학습과 두 배포 규약을 비교합니다 | `plot_control_final` | `methods, final_values, observed_returns` |
+
 ### 55 · DQN·replay·target network — `dqn_plots.py` — 완료
 
 Q 신경망 전체 미분, 환형 replay·고정 타깃·Double 선택/평가 분리, 3설정×3seed 실제 제어 학습. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
@@ -917,21 +902,6 @@ Q 신경망 전체 미분, 환형 replay·고정 타깃·Double 선택/평가 �
 | 5. 실제 replay 학습을 정확한 작은 환경과 대조합니다 | `plot_dqn_protocol` | `protocol_settings, protocol_counts` |
 | 5. 실제 replay 학습을 정확한 작은 환경과 대조합니다 | `plot_dqn_learning` | `episode_axis, q_rmse, policy_values, target_gap, mean_rmse, mean_values, mean_gap, names` |
 | 5. 실제 replay 학습을 정확한 작은 환경과 대조합니다 | `plot_dqn_final` | `names, training_returns, final_mean_q, q_truth[:3].reshape(6)` |
-
-### 59 · 연속 행동·DDPG/TD3·SAC — `continuous_control_plots.py` — 완료
-
-Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·critic·target 학습과 독립 제어 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. 연속 힘으로 상태를 원점에 가깝게 만듭니다 | `plot_panels` | `[transition], ['s=1에서 힘에 따른 한 step'], [['s', 'a', 's 다음', '보상']]` |
-| 2. Gaussian을 tanh로 보내고 밀도를 보정합니다 | `plot_panels` | `[u_demo, a_demo, logjac_demo, transformed_log], ['예시 base u · σ=1', '범위 제한 행동 tanh(u)', 'log Jacobian', '보정한 행동 log밀도']` |
-| 3. 두 Q·타깃과 actor의 미분을 연결합니다 | `plot_panels` | `[q_pair, terminal_demo, target_demo, delay_table], ['다음 두 Q', '실제 종료 d', 'min Q의 TD target', 'TD3: update·Q갱신·actor갱신']` |
-| 4. replay를 모으고 세 알고리즘을 실제로 갱신합니다 | `plot_panels` | `[replay_demo, schedule, update_demo], ['전이: s·a·r·s다음·종료·시간경계', 'DDPG·TD3·SAC: 환경·Q·actor 수', '이전target·새online·rate=.01']` |
-| 4. replay를 모으고 세 알고리즘을 실제로 갱신합니다 | `plot_curves` | `[r[4][:, [0, 1]] for r in runs], [f'{r[0]} seed{r[1]}' for r in runs], 'replay Q의 반 MSE · 품질 순위 아님'` |
-| 5. entropy를 뺀 실제 제어 보상으로 평가합니다 | `plot_panels` | `[return_examples, episode_returns, evaluation_plan], ['두 episode의 시각별 보상', '시각 할인합: 관측은episode', '평가N·길이·seed / 학습seed수·step·warmup']` |
-| 5. entropy를 뺀 실제 제어 보상으로 평가합니다 | `plot_panels` | `[evaluation], ['출력 순서의 독립 평가'], [['평균 반환', '조건부 SE', '포화율']]` |
-| 5. entropy를 뺀 실제 제어 보상으로 평가합니다 | `plot_trajectories` | `np.arange(21), traces, ['행동0', '고정 feedback', 'DDPG', 'TD3', 'SAC tanhμ']` |
 
 ### 56 · REINFORCE와 정책 기울기 유도 — `reinforce_plots.py` — 완료
 
@@ -963,19 +933,35 @@ Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·
 | 5. 새 rollout마다 두 모델을 실제로 갱신합니다 | `plot_ac_learning` | `update_axis, exact_values, critic_errors, mean_values, mean_errors, names` |
 | 5. 새 rollout마다 두 모델을 실제로 갱신합니다 | `plot_ac_final` | `names, exact_values[:, :, -1], evaluation` |
 
-### 62 · 선호 보상과 RLHF 연결 — `rlhf_plots.py` — 완료
+### 58 · PPO의 ratio·clip·업데이트 — `ppo_plots.py` — 완료
 
-실제 선호 reward 학습·고정 reference KL·토큰 rollout·PPO, 7답변 정확 평가로 SFT/DPO/3seed PPO 비교. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+old 확률·GAE 타깃 고정, 부호별 clip·value·entropy 전체 미분, 3설정×3seed 실제 여러 epoch 학습·KL·반환 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
 
 | 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
 |---|---|---|
-| 1. 선호 쌍으로 보상 모델을 먼저 학습합니다 | `plot_reward_preference` | `reward_scores_hand, reward_probabilities_hand` |
-| 2. 작은 token 환경을 끝까지 열거합니다 | `plot_token_outcomes` | `conditional_probabilities_hand, sequence_probabilities_hand, outcome_names` |
-| 3. 고정 reference의 KL을 token 보상에 넣습니다 | `plot_kl_rewards` | `log_ratios_hand, shaped_rewards_hand, returns_hand` |
-| 4. rollout을 고정한 채 PPO를 여러 epoch 갱신합니다 | `plot_ppo_clip` | `ratio_hand, unclipped_hand, surrogate_hand` |
-| 5. 실제 보상 학습·SFT·DPO·PPO를 연결해 비교합니다 | `plot_rlhf_budgets` | `method_budgets, ['SFT: 답변', 'DPO: 선호 쌍', 'PPO: 새 episode']` |
-| 5. 실제 보상 학습·SFT·DPO·PPO를 연결해 비교합니다 | `plot_rlhf_learning` | `list(ppo_histories.values()), list(ppo_histories)` |
-| 5. 실제 보상 학습·SFT·DPO·PPO를 연결해 비교합니다 | `plot_policy_metrics` | `metrics, list(models)` |
+| 1. old policy가 선택한 행동의 확률을 저장합니다 | `plot_policy_ratios` | `example_old, example_current, example_ratio` |
+| 2. advantage 부호에 따라 clip의 평평한 쪽이 바뀝니다 | `plot_signed_clip` | `ratio_axis, raw_curves, clipped_curves, branch_table` |
+| 3. rollout의 old 가치와 GAE 타깃을 먼저 고정합니다 | `plot_ppo_rollout` | `rollout_states, rollout_values, rollout_advantage, rollout_returns` |
+| 4. policy·value·entropy 목적을 각각 미분합니다 | `plot_ppo_objective` | `objective_components, objective_coefficients, objective_contributions` |
+| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_protocol` | `protocol_budgets, names, protocol_stored` |
+| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_learning` | `update_axis, exact_values, mean_metrics, names` |
+| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_epochs` | `first_audits, names` |
+| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_final` | `names, exact_values[:, :, -1], evaluation` |
+
+### 59 · 연속 행동·DDPG/TD3·SAC — `continuous_control_plots.py` — 완료
+
+Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·critic·target 학습과 독립 제어 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 연속 힘으로 상태를 원점에 가깝게 만듭니다 | `plot_panels` | `[transition], ['s=1에서 힘에 따른 한 step'], [['s', 'a', 's 다음', '보상']]` |
+| 2. Gaussian을 tanh로 보내고 밀도를 보정합니다 | `plot_panels` | `[u_demo, a_demo, logjac_demo, transformed_log], ['예시 base u · σ=1', '범위 제한 행동 tanh(u)', 'log Jacobian', '보정한 행동 log밀도']` |
+| 3. 두 Q·타깃과 actor의 미분을 연결합니다 | `plot_panels` | `[q_pair, terminal_demo, target_demo, delay_table], ['다음 두 Q', '실제 종료 d', 'min Q의 TD target', 'TD3: update·Q갱신·actor갱신']` |
+| 4. replay를 모으고 세 알고리즘을 실제로 갱신합니다 | `plot_panels` | `[replay_demo, schedule, update_demo], ['전이: s·a·r·s다음·종료·시간경계', 'DDPG·TD3·SAC: 환경·Q·actor 수', '이전target·새online·rate=.01']` |
+| 4. replay를 모으고 세 알고리즘을 실제로 갱신합니다 | `plot_curves` | `[r[4][:, [0, 1]] for r in runs], [f'{r[0]} seed{r[1]}' for r in runs], 'replay Q의 반 MSE · 품질 순위 아님'` |
+| 5. entropy를 뺀 실제 제어 보상으로 평가합니다 | `plot_panels` | `[return_examples, episode_returns, evaluation_plan], ['두 episode의 시각별 보상', '시각 할인합: 관측은episode', '평가N·길이·seed / 학습seed수·step·warmup']` |
+| 5. entropy를 뺀 실제 제어 보상으로 평가합니다 | `plot_panels` | `[evaluation], ['출력 순서의 독립 평가'], [['평균 반환', '조건부 SE', '포화율']]` |
+| 5. entropy를 뺀 실제 제어 보상으로 평가합니다 | `plot_trajectories` | `np.arange(21), traces, ['행동0', '고정 feedback', 'DDPG', 'TD3', 'SAC tanhμ']` |
 
 ### 60 · 모델 기반 RL과 계획 — `model_based_plots.py` — 완료
 
@@ -993,21 +979,6 @@ Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·
 | 5. 모델 오차와 계획 길이의 효과를 나누어 봅니다 | `plot_panels` | `[results], ['참 환경의 실제 MPC 평가'], [['평균 반환', '조건부 SE', '범위 밖 비율']]` |
 | 5. 모델 오차와 계획 길이의 효과를 나누어 봅니다 | `plot_trajectories` | `np.arange(16), traces, [s[0] for s in settings]` |
 
-### 58 · PPO의 ratio·clip·업데이트 — `ppo_plots.py` — 완료
-
-old 확률·GAE 타깃 고정, 부호별 clip·value·entropy 전체 미분, 3설정×3seed 실제 여러 epoch 학습·KL·반환 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
-
-| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
-|---|---|---|
-| 1. old policy가 선택한 행동의 확률을 저장합니다 | `plot_policy_ratios` | `example_old, example_current, example_ratio` |
-| 2. advantage 부호에 따라 clip의 평평한 쪽이 바뀝니다 | `plot_signed_clip` | `ratio_axis, raw_curves, clipped_curves, branch_table` |
-| 3. rollout의 old 가치와 GAE 타깃을 먼저 고정합니다 | `plot_ppo_rollout` | `rollout_states, rollout_values, rollout_advantage, rollout_returns` |
-| 4. policy·value·entropy 목적을 각각 미분합니다 | `plot_ppo_objective` | `objective_components, objective_coefficients, objective_contributions` |
-| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_protocol` | `protocol_budgets, names, protocol_stored` |
-| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_learning` | `update_axis, exact_values, mean_metrics, names` |
-| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_epochs` | `first_audits, names` |
-| 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_final` | `names, exact_values[:, :, -1], evaluation` |
-
 ### 61 · 오프라인 RL과 정책 평가 — `offline_rl_plots.py` — 완료
 
 고정 자료·logging support, IS/WIS/ESS와 CQL 전체 미분·실제 Q 학습, greedy 정확 감사와 별도 지원 정책 OPE. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
@@ -1023,6 +994,35 @@ old 확률·GAE 타깃 고정, 부호별 clip·value·entropy 전체 미분, 3�
 | 5. 학습 결과와 평가 가능한 정책을 분리합니다 | `plot_panels` | `[greedy_audit], ['원래 greedy · 정확한 환경 감사'], [['참 반환', '범위 밖 비율', 'Q 낙관성']]` |
 | 5. 학습 결과와 평가 가능한 정책을 분리합니다 | `plot_panels` | `[supported_audit], ['별도 support 정책 · 독립 test 1024 episode'], [['참 반환', 'IS', 'WIS', 'ESS', 'IS SE']]` |
 | 5. 학습 결과와 평가 가능한 정책을 분리합니다 | `plot_panels` | `[repeat_table], ['같은 정책 · 각 64 episode 평가를 20회 반복'], [['IS 평균', 'IS SD', 'WIS 평균', 'WIS SD', '평균 ESS']]` |
+
+### 62 · 선호 보상과 RLHF 연결 — `rlhf_plots.py` — 완료
+
+실제 선호 reward 학습·고정 reference KL·토큰 rollout·PPO, 7답변 정확 평가로 SFT/DPO/3seed PPO 비교. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 선호 쌍으로 보상 모델을 먼저 학습합니다 | `plot_reward_preference` | `reward_scores_hand, reward_probabilities_hand` |
+| 2. 작은 token 환경을 끝까지 열거합니다 | `plot_token_outcomes` | `conditional_probabilities_hand, sequence_probabilities_hand, outcome_names` |
+| 3. 고정 reference의 KL을 token 보상에 넣습니다 | `plot_kl_rewards` | `log_ratios_hand, shaped_rewards_hand, returns_hand` |
+| 4. rollout을 고정한 채 PPO를 여러 epoch 갱신합니다 | `plot_ppo_clip` | `ratio_hand, unclipped_hand, surrogate_hand` |
+| 5. 실제 보상 학습·SFT·DPO·PPO를 연결해 비교합니다 | `plot_rlhf_budgets` | `method_budgets, ['SFT: 답변', 'DPO: 선호 쌍', 'PPO: 새 episode']` |
+| 5. 실제 보상 학습·SFT·DPO·PPO를 연결해 비교합니다 | `plot_rlhf_learning` | `list(ppo_histories.values()), list(ppo_histories)` |
+| 5. 실제 보상 학습·SFT·DPO·PPO를 연결해 비교합니다 | `plot_policy_metrics` | `metrics, list(models)` |
+
+### 63 · 논문에서 수식·구현·실험으로 — `paper_reproduction_plots.py` — 완료
+
+Flow Matching 논문의 한 주장 재현, 정확 Gaussian 기울기·최소제곱 기준과 3 seed 실제 학습·같은 초기값 ODE 생성. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 논문의 주장과 재현할 범위를 먼저 고정합니다 | `plot_scope_table` | `scope_values` |
+| 2. 기호를 배열과 갱신 대상에 대응시킵니다 | `plot_specification` | `np.column_stack([spec_x, spec_t]), spec_design, spec_outputs` |
+| 3. 같은 구현을 믿기 전에 독립 기준을 붙입니다 | `plot_independent_checks` | `check_design, check_residual, check_gradient` |
+| 4. 한 요소를 바꾼 실제 학습과 기준해를 기록합니다 | `plot_reproduction_plan` | `plan` |
+| 4. 한 요소를 바꾼 실제 학습과 기준해를 기록합니다 | `plot_reproduction_learning` | `histories[:2], ['seed6301 시간 없음', 'seed6301 시간2차']` |
+| 5. 생성 그림과 근거의 한계를 함께 남깁니다 | `plot_exact_paths` | `path_times, exact_paths` |
+| 5. 생성 그림과 근거의 한계를 함께 남깁니다 | `plot_paired_evidence` | `metrics, ['시간 없음', '시간2차']` |
+| 5. 생성 그림과 근거의 한계를 함께 남깁니다 | `plot_paired_samples` | `display_initial, display_samples, display_reference, ['seed6301 시간 없음', 'seed6301 시간2차']` |
 
 ## 4. 작업 순서
 
