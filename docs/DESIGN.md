@@ -663,6 +663,21 @@ UTF-8·byte BPE, 문서 경계·shift·padding, bigram 전체 학습과 held-out
 | 5. 같은 tokenizer의 held-out 문장과 생성 결과를 읽습니다 | `plot_token_budget` | `budget_counts, ['문자', 'byte', 'toy BPE'], budget_costs` |
 | 5. 같은 tokenizer의 held-out 문장과 생성 결과를 읽습니다 | `plot_learning` | `training_history` |
 
+### 39 · 대조학습과 InfoNCE — `contrastive_plots.py` — 완료
+
+대칭 InfoNCE·정규화 전체 미분, 실제 무라벨 encoder 학습과 동결 선형 probe 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 길이를 줄이고 방향을 비교합니다 | `plot_panels` | `[vectors, unit, similarity], ['정규화 전 Z', '행별 방향 U', '모든 쌍 내적']` |
+| 2. 자기 자신을 빼고 짝의 확률을 높입니다 | `plot_panels` | `[demo_u, demo_map, demo_p], ['A0,A1,B0,B1', 'anchor·양성 인덱스', 'τ=1의 후보 확률']` |
+| 3. 점수표의 양쪽 경로를 모두 미분합니다 | `plot_panels` | `[anchor_path, candidate_path, both_paths], ['anchor 행 경로', '후보 열 경로', 'τ=1에서 합한 dU']` |
+| 4. 라벨 없이 실제 표현기를 학습합니다 | `plot_panels` | `[view_preview_a, view_preview_b, plan], ['품종 상태·배경: 뷰 A', '같은 상태·새 배경: 뷰 B', 'train·valid·test: N·seed']` |
+| 4. 라벨 없이 실제 표현기를 학습합니다 | `plot_curves` | `[history], ['고정 valid 32쌍'], '대칭 InfoNCE · τ=.2'` |
+| 5. 고정 표현 위의 선형 평가를 따로 합니다 | `plot_panels` | `[probe_features, probe_weights, probe_scores, probe_prob], ['고정 표현', '학습할 선형 Wq', '품종 점수', '품종 확률']` |
+| 5. 고정 표현 위의 선형 평가를 따로 합니다 | `plot_panels` | `[summary], ['초기·학습 후 독립 평가'], [['정확도', '평균', '분산', '쌍 거리']]` |
+| 5. 고정 표현 위의 선형 평가를 따로 합니다 | `plot_points` | `[u[:, :2] for u in representations], [test_y, test_y], ['초기 표현 앞 두 축', '학습 표현 앞 두 축']` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
