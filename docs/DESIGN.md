@@ -705,6 +705,20 @@ causal decoder의 tied·untied 전체 backward, 실제 문자 학습·held-out N
 | 4. 전체 decoder를 고정 예산으로 실제 학습합니다 | `plot_decoder_learning` | `history` |
 | 5. held-out NLL과 정답 없는 생성을 구분합니다 | `plot_next_token` | `prefix_ids, prefix_prob[shown], shown_labels, selected_id` |
 
+### 40 · 교사·학생·stop-gradient — `teacher_student_plots.py` — 완료
+
+online·predictor 전체 미분과 고정 타깃, optimizer 뒤 EMA, 상수 표현 대조·교사 속도별 학습·probe. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 타깃의 값은 쓰고 미분 경로는 멈춥니다 | `plot_panels` | `[scalar_paths, pu, tu, row_losses], ['p=2,t=1: L·dp·dt', '정규화 예측', '고정 정규화 타깃', '관측별 반 제곱거리']` |
+| 2. 예측기와 학생의 모든 경로를 연결합니다 | `plot_panels` | `[demo_x, demo_h, demo_z, demo_pred], ['두 촬영 입력', '공유 tanh 특징', 'encoder 표현 Z', 'predictor 출력 P']` |
+| 3. 학생을 갱신한 뒤 교사를 천천히 옮깁니다 | `plot_panels` | `[old_teacher, new_student, ema_cases], ['이전 교사', 'optimizer 뒤 학생', 'm=0, .9, 1의 새 교사']` |
+| 4. 손실이 작아도 모든 과일이 같아질 수 있습니다 | `plot_panels` | `[constant, separate, statistics], ['상수 표현', '구분되는 표현', '각 경우: 평균·평균분산']` |
+| 5. 교사 속도별로 실제 학습하고 독립 평가합니다 | `plot_panels` | `[preview_x, preview_pair, plan], ['뷰 A: 상태·배경', '뷰 B: 같은 상태·새 배경', 'train·valid·test: N·seed']` |
+| 5. 교사 속도별로 실제 학습하고 독립 평가합니다 | `plot_curves` | `histories, [f'EMA m={m}' for m in momenta], '고정 valid alignment'` |
+| 5. 교사 속도별로 실제 학습하고 독립 평가합니다 | `plot_panels` | `[report], ['초기와 교사 속도별 독립 평가'], [['정확도', '평균', '분산', '다른 거리']]` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.

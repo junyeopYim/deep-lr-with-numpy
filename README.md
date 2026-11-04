@@ -5,7 +5,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 모델의 이름을 아는 데서 출발해, **왜 그 수식인지 설명하고 NumPy로 직접 구현하는 것**을 목표로 합니다.
 행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
-현재 **49개 노트북**을 실행하며 공부할 수 있습니다. 각 단원은 작은 완성 예제, 직접 구현·검산, 절 연습과 끝 연습 A–D를 담습니다.
+현재 **50개 노트북**을 실행하며 공부할 수 있습니다. 각 단원은 작은 완성 예제, 직접 구현·검산, 절 연습과 끝 연습 A–D를 담습니다.
 [전체 커리큘럼](docs/CURRICULUM.md)은 71개 학습 단위(번호 00–63의 64개 주제와 b 단위 7개)의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
 ## 여기서 시작합니다
@@ -97,6 +97,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 | 39 | [대조학습과 InfoNCE](notebooks/05_표현학습/39_contrastive_infonce.ipynb) | 대칭 InfoNCE·정규화 전체 미분, 실제 무라벨 encoder 학습과 동결 선형 probe 평가 |
 | 51 | [Bandit·기대 보상·탐색](notebooks/07_강화학습/51_bandits.ipynb) | 표본평균·epsilon-greedy·pseudo-regret, 48개 seed의 실제 탐색 학습과 고정 정책 독립 평가 |
 | 45 | [작은 decoder GPT 전체 학습](notebooks/06_언어모델/45_decoder_gpt.ipynb) | causal decoder의 tied·untied 전체 backward, 실제 문자 학습·held-out NLL·greedy 생성·padding 검산 |
+| 40 | [교사·학생·stop-gradient](notebooks/05_표현학습/40_teacher_student.ipynb) | online·predictor 전체 미분과 고정 타깃, optimizer 뒤 EMA, 상수 표현 대조·교사 속도별 학습·probe |
 <!-- curriculum-completion-units -->
 
 ## 실행 환경
