@@ -761,6 +761,22 @@ temperature·top-k·top-p, 실제 학습 모델의 prefix별 full/cache 동등�
 | 5. 목적항을 빼 보며 실제 표현을 평가합니다 | `plot_curves` | `[h[:, [0, 1]] for h in histories], [s[0] for s in settings], '공통 validation 정렬 항'` |
 | 5. 목적항을 빼 보며 실제 표현을 평가합니다 | `plot_panels` | `[report[:, :3], report[:, 3:]], ['초기·정렬·분산추가·전체: 정확도·평균·최소std', '같은 순서: 공분산 비용·다른 거리']` |
 
+### 36 · Flow matching과 ODE 생성 — `flow_matching_plots.py` — 완료
+
+조건부·주변 속도 목적의 연결, 시간 조건부 MLP 전체 미분·실제 학습, 정확 Gaussian 기준과 같은 NFE의 ODE 생성. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 잡음 점과 자료 점을 직선으로 잇습니다 | `plot_straight_paths` | `demo_paths, demo_mid, demo_u` |
+| 2. 같은 위치의 여러 속도를 평균합니다 | `plot_conditional_average` | `conditional_targets, conditional_mean, decomposition` |
+| 3. 시간까지 입력으로 받아 전체를 미분합니다 | `plot_velocity_network` | `network_inputs, network_hidden, network_prediction, network_upstream` |
+| 4. 이동을 시뮬레이션하지 않고 실제 학습합니다 | `plot_flow_data` | `source_preview, target_preview, training_plan` |
+| 4. 이동을 시뮬레이션하지 않고 실제 학습합니다 | `plot_flow_learning` | `history` |
+| 5. 학습한 속도를 적분하고 오차를 나눕니다 | `plot_ode_steps` | `one_step, step_terms` |
+| 5. 학습한 속도를 적분하고 오차를 나눕니다 | `plot_solver_error` | `solver_nfes, solver_errors, ['Euler', 'Heun']` |
+| 5. 학습한 속도를 적분하고 오차를 나눕니다 | `plot_flow_fields` | `grid_points, [grid_exact, grid_learned], ['t=.5 정답 주변 속도', 't=.5 학습한 속도']` |
+| 5. 학습한 속도를 적분하고 오차를 나눕니다 | `plot_flow_samples` | `[test_data, euler_path[-1], heun_path[-1]], ['독립 test 관측', 'Euler40 · NFE40', 'Heun20 · NFE40'], [None, euler_path[:, :8], heun_path[:, :8]]` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.

@@ -3,7 +3,7 @@
 학습 목적은 **문제 → 가정·수식 → 배열 연산 → 미분·갱신 → 실험 → 직접 변형**의 연결입니다.
 행렬·미분·확률을 실제 계산과 함께 다시 확인하고, 작은 완성 예제를 재구성한 뒤 조건을 바꿉니다.
 
-**현재 실행 자료는 총 53개 노트북입니다.** 아래 표의 노트북 링크가 있는 단원은 본문과 연습 정답의 새 커널 실행을 마쳤습니다. 전체 71개 중 남은 18개 단원은 순서대로 제작·검증하고 있습니다.
+**현재 실행 자료는 총 54개 노트북입니다.** 아래 표의 노트북 링크가 있는 단원은 본문과 연습 정답의 새 커널 실행을 마쳤습니다. 전체 71개 중 남은 17개 단원은 순서대로 제작·검증하고 있습니다.
 2026-09-16부터 사용자가 요청한 모델을 더합니다: LeNet은 **05b**, 물체 검출(YOLO)은 **18b**, EDM은 **35b**로 기존 번호를 유지한 채 b 번호로 끼우고(00b·01b와 같은 규칙), VAE(23–25)·GAN(28)·NCSN(32–33)·DDPM(34–35)은 아래 표의 자리 그대로 제작합니다. 11권 모두 제작을 마쳤습니다. 2026-09-17에는 같은 규칙으로 스파이킹 신경망(SNN)을 **07b**, 복소수 신경망(CVNN)을 **10b**에 끼웠습니다.
 전체 71개 단위(번호 00–63의 64개 주제와 b 단위 7개)는 주제를 찾는 지도이며, 선수 개념을 확인하면서 관심 경로를 선택합니다.
 한 단위를 마치면 **설명 / 수식 구성 / 직접 구현 / 변형 검산**을 각각 기록합니다.
@@ -136,7 +136,7 @@ CNN의 공유, RNN의 공유, GNN의 공유를 비교하면서 같은 미분 규
 | 34 | [Diffusion의 전방 과정과 학습 타깃](../notebooks/04_생성/34_diffusion_forward.ipynb) | 12·24·32 | beta/alpha 누적곱, q(x_t\|x_0), posterior 계수, epsilon/x0/v 타깃 | 닫힌식과 반복 잡음의 평균·분산 대조, 작은 denoiser 학습 |
 | 35 | [Diffusion 역과정·DDIM·조건부 생성](../notebooks/04_생성/35_diffusion_reverse.ipynb) | 09·12·23·33–34 | reverse mean/variance, timestep indexing, DDIM, guidance | 같은 모델의 스텝 수·sampler·guidance 변경, 생성 경로·비용 비교 |
 | 35b | [EDM: σ-공간에서 통일한 diffusion 설계](../notebooks/04_생성/35b_edm.ipynb) | 32–35 | VE/VP를 σ(t)·s(t)로 통일, Tweedie의 score–denoiser 관계, c_skip·c_out·c_in·c_noise 유도, λ(σ)·σ 분포, ρ 시간 격자, Heun 2차 샘플러 | 혼합 분포의 정확한 denoiser로 solver 오차와 모델 오차 분리, 같은 학습 모델을 DDPM·DDIM·Heun으로 샘플링 비교 |
-| 36 | Flow matching과 ODE 생성 | 27·30·33 | 조건부 경로, 목표 velocity, 회귀 목적, Euler/Heun 적분 | 2차원 분포 수송, 벡터장 오차와 solver 오차를 나누어 확인 |
+| 36 | [Flow matching과 ODE 생성](../notebooks/04_생성/36_flow_matching.ipynb) | 03·04·12·27·30·33 | 조건부 경로, 목표 velocity, 회귀 목적, Euler/Heun 적분 | 2차원 분포 수송, 벡터장 오차와 solver 오차를 나누어 확인 |
 | 37 | [생성 모델 평가와 비교 실험](../notebooks/04_생성/37_generative_evaluation.ipynb) | 00b·11–12·15·23 | likelihood·복원·품질·coverage, MMD·특징 통계·샘플 비용 | 학습한 EM-GMM과 정답·성분 누락·복제 진단을 같은 조건에서 비교 |
 
 ### VAE를 공부할 때의 다섯 연결
