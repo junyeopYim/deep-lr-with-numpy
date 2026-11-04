@@ -650,6 +650,19 @@ log-partition과 positive/negative phase, 격자 우도 학습, Langevin·MALA·
 | 5. 강도를 미리 정하고 다른 배경에서 평가합니다 | `plot_curves` | `histories, [s[0] for s in settings], 'validation 표본 평균 BCE'` |
 | 5. 강도를 미리 정하고 다른 배경에서 평가합니다 | `plot_panels` | `[train_scores[:, 1:2], scores], ['조건별 train 정확도', 'test: CE·정확도·특징분산'], [None, ['CE', '정확도', '분산']]` |
 
+### 44 · 토큰화·언어 데이터·자기회귀 목적 — `tokenization_plots.py` — 완료
+
+UTF-8·byte BPE, 문서 경계·shift·padding, bigram 전체 학습과 held-out NLL·생성. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 같은 글자도 문자 수와 byte 수가 다릅니다 | `plot_token_units` | `unit_text, unit_characters, unit_bytes` |
+| 2. 자주 붙는 byte 쌍을 train 문서에서만 합칩니다 | `plot_pair_merge` | `merge_before, merge_counts, ['(0,1)', '(1,0)'], merge_after_hand` |
+| 3. 문서마다 한 칸 이동하고 유효 정답만 셉니다 | `plot_shift` | `shift_inputs_hand, shift_targets_hand, shift_valid_hand` |
+| 4. token 번호로 고른 행을 다음 확률로 바꿉니다 | `plot_embedding_path` | `embedding_ids, embedding_rows, embedding_probabilities` |
+| 5. 같은 tokenizer의 held-out 문장과 생성 결과를 읽습니다 | `plot_token_budget` | `budget_counts, ['문자', 'byte', 'toy BPE'], budget_costs` |
+| 5. 같은 tokenizer의 held-out 문장과 생성 결과를 읽습니다 | `plot_learning` | `training_history` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
