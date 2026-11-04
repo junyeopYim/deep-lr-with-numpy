@@ -1008,6 +1008,22 @@ old 확률·GAE 타깃 고정, 부호별 clip·value·entropy 전체 미분, 3�
 | 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_epochs` | `first_audits, names` |
 | 5. 같은 배치의 여러 epoch와 실제 return을 추적합니다 | `plot_ppo_final` | `names, exact_values[:, :, -1], evaluation` |
 
+### 61 · 오프라인 RL과 정책 평가 — `offline_rl_plots.py` — 완료
+
+고정 자료·logging support, IS/WIS/ESS와 CQL 전체 미분·실제 Q 학습, greedy 정확 감사와 별도 지원 정책 OPE. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 기록에 없는 행동은 어떻게 다뤄야 할까요? | `plot_panels` | `[demo_mu, demo_wide, demo_count], ['좁은 행동확률 μ', '넓은 행동확률 μ', '작은 기록의 관측 횟수']` |
+| 2. 다른 정책의 반환을 기록에서 추정합니다 | `plot_panels` | `[np.column_stack([hand_weights, hand_returns, hand_contribution]), hand_summary[None, :]], ['두 궤적: w·G·wG', 'IS·WIS·ESS·IS SE']` |
+| 3. 관측 행동의 Bellman 오차와 보수적 벌점을 미분합니다 | `plot_panels` | `[demo_Q, demo_P, demo_G], ['손계산용 세 행동 Q', 'softmax 확률', 'CQL 벌점만의 dQ']` |
+| 4. 고정 자료에서 네 모델을 끝까지 학습합니다 | `plot_panels` | `coverage + [budget], ['좁은 μ 실제 train 횟수', '넓은 μ 실제 train 횟수', '각 α: episode·전이·갱신·batch']` |
+| 4. 고정 자료에서 네 모델을 끝까지 학습합니다 | `plot_curves` | `[h[:, [0, 1]] for h in histories], settings, '배치의 반 TD MSE'` |
+| 5. 학습 결과와 평가 가능한 정책을 분리합니다 | `plot_panels` | `[policy_illustration], ['행: μ·원래 greedy·새 support 정책'], [['힘−2', '힘−1', '힘0', '힘1', '힘2']]` |
+| 5. 학습 결과와 평가 가능한 정책을 분리합니다 | `plot_panels` | `[greedy_audit], ['원래 greedy · 정확한 환경 감사'], [['참 반환', '범위 밖 비율', 'Q 낙관성']]` |
+| 5. 학습 결과와 평가 가능한 정책을 분리합니다 | `plot_panels` | `[supported_audit], ['별도 support 정책 · 독립 test 1024 episode'], [['참 반환', 'IS', 'WIS', 'ESS', 'IS SE']]` |
+| 5. 학습 결과와 평가 가능한 정책을 분리합니다 | `plot_panels` | `[repeat_table], ['같은 정책 · 각 64 episode 평가를 20회 반복'], [['IS 평균', 'IS SD', 'WIS 평균', 'WIS SD', '평균 ESS']]` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
