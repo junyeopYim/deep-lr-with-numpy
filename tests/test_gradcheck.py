@@ -14,6 +14,7 @@ import pytest
 
 from src import check_function, check_layer, numerical_gradient, rel_error
 from src.utils import GradCheckError
+from src.utils.gradcheck import check_loss
 
 
 class _Param:
@@ -221,6 +222,47 @@ def test_check_function_does_not_mutate_input():
     before = x.copy()
     check_function(np.tanh, lambda dout, x: dout * (1 - np.tanh(x) ** 2), x)
     assert np.array_equal(x, before)
+
+
+class _MSELoss(_MiniLayer):
+    """유한한 손실과 비유한 기울기를 각각 검사할 작은 손실 레이어."""
+
+    def __init__(self, bad_gradient=None, bad_loss=None):
+        super().__init__()
+        self.bad_gradient = bad_gradient
+        self.bad_loss = bad_loss
+
+    def forward(self, x, target):
+        self.residual = x - target
+        if self.bad_loss is not None:
+            return self.bad_loss
+        return 0.5 * np.mean(self.residual ** 2)
+
+    def backward(self, dout):
+        if self.bad_gradient is not None:
+            return np.full_like(self.residual, self.bad_gradient)
+        return dout * self.residual / self.residual.size
+
+
+def test_check_loss_passes_correct_gradient():
+    assert check_loss(_MSELoss(), np.array([1., 2.]), np.zeros(2))["dx"] < 1e-8
+
+
+@pytest.mark.parametrize("bad", [np.nan, np.inf, -np.inf])
+@pytest.mark.parametrize("where", ["bad_gradient", "bad_loss"])
+def test_check_loss_rejects_nonfinite_values(bad, where):
+    with pytest.raises(GradCheckError):
+        check_loss(_MSELoss(**{where: bad}), np.array([1., 2.]), np.zeros(2))
+
+
+def test_check_loss_reports_nonfinite_failure_without_raising():
+    result = check_loss(_MSELoss(bad_gradient=np.nan), np.ones(2), np.zeros(2), raise_on_fail=False)
+    assert result["dx"] == np.inf
+
+
+def test_check_loss_rejects_vector_loss():
+    with pytest.raises(ValueError, match="스칼라"):
+        check_loss(_MSELoss(bad_loss=np.ones(2)), np.ones(2), np.zeros(2))
 
 
 # --- 그림 설정 ----------------------------------------------------------------

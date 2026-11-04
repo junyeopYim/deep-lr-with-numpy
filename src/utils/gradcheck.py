@@ -252,19 +252,20 @@ def check_loss(
     손실은 이미 스칼라이므로 상류 기울기 v가 필요 없다. dout=1.0으로 둔다.
     """
     x = np.array(y_pred, dtype=np.float64)
-    loss = float(loss_layer.forward(x, y_true))
-    if not np.isscalar(loss) and np.asarray(loss).ndim != 0:
+    loss = np.asarray(loss_layer.forward(x, y_true))
+    if loss.ndim != 0:
         raise ValueError("손실 레이어는 스칼라를 반환해야 합니다")
 
     loss_layer.zero_grad()
     analytic = np.array(loss_layer.backward(1.0), dtype=np.float64)
     numeric = numerical_gradient(lambda: float(loss_layer.forward(x, y_true)), x, eps)
 
-    err = rel_error(analytic, numeric)
+    finite = np.isfinite(loss) and np.all(np.isfinite(analytic)) and np.all(np.isfinite(numeric))
+    err = rel_error(analytic, numeric) if finite else float("inf")
     if verbose:
         mark = "ok  " if err <= tol else "FAIL"
         print(f"[gradcheck] {type(loss_layer).__name__}\n  {mark} dx  rel_err = {err:.3e}")
-    if err > tol and raise_on_fail:
+    if (not np.isfinite(err) or err > tol) and raise_on_fail:
         raise GradCheckError(
             f"{type(loss_layer).__name__} gradient check 실패: 상대오차 {err:.3e} > tol {tol:.1e}"
         )

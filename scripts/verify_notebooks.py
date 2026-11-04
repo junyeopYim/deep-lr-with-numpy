@@ -9,16 +9,12 @@ import argparse
 import base64
 from datetime import datetime, timezone
 import json
-import os
 from pathlib import Path
 import sys
-import tempfile
 import time
 
 import nbformat
-from nbclient import NotebookClient
-from jupyter_client import KernelManager
-from jupyter_client.kernelspec import KernelSpecManager
+from notebook_validation import execute_notebook, execution_issues
 from PIL import Image
 
 
@@ -39,45 +35,21 @@ def main():
     figure_dir = root / "figures" / f"{args.suite}-validation"
     report_dir.mkdir(parents=True, exist_ok=True)
     figure_dir.mkdir(parents=True, exist_ok=True)
-    os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
-    os.environ.setdefault("OMP_NUM_THREADS", "1")
     reports = []
-
-    # 가상환경에서도 이 스크립트를 실행한 Python과 같은 인터프리터를 사용합니다.
-    with tempfile.TemporaryDirectory(prefix="dlfs-kernel-") as temporary:
-        kernel_root = Path(temporary)
-        spec_dir = kernel_root / "dlfs-current"
-        spec_dir.mkdir()
-        (spec_dir / "kernel.json").write_text(json.dumps({
-            "argv": [sys.executable, "-m", "ipykernel_launcher", "-f", "{connection_file}"],
-            "display_name": "Current Python", "language": "python",
-        }))
-        specs = KernelSpecManager(kernel_dirs=[str(kernel_root)])
-
-        for path in paths:
-            nb = nbformat.read(path, as_version=4)
-            nbformat.validate(nb)
-            start = time.perf_counter()
-            print(f"실행: {path.relative_to(root)}", flush=True)
-            connection = {"transport": "ipc", "ip": str(kernel_root / path.stem)} if os.name == "posix" else {}
-            manager = KernelManager(kernel_name="dlfs-current", kernel_spec_manager=specs, **connection)
-            client = NotebookClient(nb, km=manager, timeout=180,
-                                    resources={"metadata": {"path": str(path.parent)}})
-            try:
-                client.execute()
-            except Exception:
-                nbformat.write(nb, report_dir / f"{path.stem}-failed.ipynb")
-                raise
-            finally:
-                if manager.has_kernel:
-                    manager.shutdown_kernel(now=True)
-
+    report_path = report_dir / "execution.json"
+    report_path.write_text("[]")  # 이전 실행의 성공 기록을 이번 실행으로 오인하지 않게 합니다.
+    for path in paths:
+        nb = nbformat.read(path, as_version=4)
+        nbformat.validate(nb)
+        start = time.perf_counter()
+        print(f"실행: {path.relative_to(root)}", flush=True)
+        try:
+            execute_notebook(nb, path)
+            issues = execution_issues(nb)
+            if any(issues.values()):
+                raise RuntimeError(f"실행 결과를 확인해 주세요: {path.name}\n{issues}")
             cells = [c for c in nb.cells if c.cell_type == "code" and c.source.strip()]
             outputs = [o for cell in cells for o in cell.get("outputs", [])]
-            errors = [o for o in outputs if o.output_type == "error"]
-            stderr = [o.text for o in outputs if o.output_type == "stream" and o.name == "stderr"]
-            if errors or stderr or any(c.execution_count is None for c in cells):
-                raise RuntimeError(f"실행 결과를 확인해 주세요: {path.name}\n{errors}\n{stderr}")
             figures = []
             for output in outputs:
                 raw = output.get("data", {}).get("image/png")
@@ -87,20 +59,24 @@ def main():
                     with Image.open(dest) as img:
                         img.verify()
                     figures.append(str(dest.relative_to(root)))
-            nb.metadata.setdefault("learning", {})["status"] = "executed"
-            nbformat.write(nb, path)
-            report = {
-                "notebook": str(path.relative_to(root)),
-                "executed_at": datetime.now(timezone.utc).isoformat(),
-                "python": sys.version.split()[0],
-                "code_cells": len(cells), "figures": figures,
-                "seconds": round(time.perf_counter() - start, 3),
-                "errors": len(errors), "warnings": stderr,
-                "stdout": "\n".join(o.text for o in outputs if o.output_type == "stream" and o.name == "stdout"),
-            }
-            reports.append(report)
-            print(f"확인: 코드 {len(cells)}개 · 그림 {len(figures)}개 · {report['seconds']}초", flush=True)
-    (report_dir / "execution.json").write_text(json.dumps(reports, ensure_ascii=False, indent=2))
+        except Exception:
+            nb.metadata.setdefault("learning", {})["status"] = "failed"
+            nbformat.write(nb, report_dir / f"{path.stem}-failed.ipynb")
+            raise
+        nb.metadata.setdefault("learning", {})["status"] = "executed"
+        nbformat.write(nb, path)
+        report = {
+            "notebook": str(path.relative_to(root)),
+            "executed_at": datetime.now(timezone.utc).isoformat(),
+            "python": sys.version.split()[0],
+            "code_cells": len(cells), "figures": figures,
+            "seconds": round(time.perf_counter() - start, 3),
+            "errors": 0, "warnings": [],
+            "stdout": "\n".join(o.text for o in outputs if o.output_type == "stream" and o.name == "stdout"),
+        }
+        reports.append(report)
+        report_path.write_text(json.dumps(reports, ensure_ascii=False, indent=2))
+        print(f"확인: 코드 {len(cells)}개 · 그림 {len(figures)}개 · {report['seconds']}초", flush=True)
 
 
 if __name__ == "__main__":

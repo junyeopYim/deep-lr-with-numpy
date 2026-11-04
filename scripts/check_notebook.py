@@ -9,7 +9,6 @@
 
 import argparse
 import base64
-import os
 import re
 import sys
 import time
@@ -17,7 +16,7 @@ from collections import Counter
 from pathlib import Path
 
 import nbformat
-from nbclient import NotebookClient
+from notebook_validation import execute_notebook, execution_issues
 
 TAGS = ("🔑", "🔍", "📎", "✏️")
 
@@ -36,11 +35,15 @@ def main():
 
     nb = nbformat.read(path, as_version=4)
     start = time.time()
+    execution_error = None
     try:
-        NotebookClient(nb, timeout=args.timeout, kernel_name="python3",
-                       resources={"metadata": {"path": str(path.parent)}}).execute()
+        execute_notebook(nb, path, timeout=args.timeout)
     except Exception as error:  # 실패해도 여기까지의 출력을 저장하고 보고합니다
+        execution_error = error
         print("EXEC ERROR:", str(error)[:1500])
+    issues = execution_issues(nb)
+    failed = execution_error is not None or any(issues.values())
+    nb.metadata.setdefault("learning", {})["status"] = "failed" if failed else "executed"
     nbformat.write(nb, path)
 
     images = errors = 0
@@ -75,7 +78,9 @@ def main():
 
     print(f"{path.name}: {time.time() - start:.1f}s · cells {len(nb.cells)} · images {images} · errors {errors} · stderr {stderr}")
     print(f"tags {dict(tags)} · untagged {untagged} · header-in-line {broken_headers} · 그림 폴더 {out}")
-    return 1 if errors else 0
+    if issues["unexecuted"] or issues["exercise_failures"]:
+        print(f"미실행 셀 {issues['unexecuted']} · 연습 실패 {issues['exercise_failures']}")
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":

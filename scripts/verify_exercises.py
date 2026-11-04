@@ -6,13 +6,12 @@
 `<details>` 마크다운 안 ```python 블록에서 읽습니다.
 """
 
-import os
 import re
 import sys
 from pathlib import Path
 
 import nbformat
-from nbclient import NotebookClient
+from notebook_validation import execute_notebook, execution_issues
 
 
 def verify(path: Path) -> int:
@@ -36,18 +35,9 @@ def verify(path: Path) -> int:
         lines[k:k + 1] = [indent + line for line in answer]
         cell.source = "\n".join(lines)
         filled += 1
-    NotebookClient(nb, timeout=600, kernel_name="python3",
-                   resources={"metadata": {"path": str(path.parent)}}).execute()
-    failures = []
-    for i, cell in enumerate(cells):
-        if cell.cell_type != "code":
-            continue
-        for output in cell.get("outputs", []):
-            text = "".join(output.get("text", "")) if output.get("output_type") == "stream" else ""
-            if "☐" in text or "✗" in text:
-                failures.append((i, text.strip()[:120]))
-            if output.get("output_type") == "error":
-                failures.append((i, output.get("ename")))
+    execute_notebook(nb, path, timeout=600)
+    issues = execution_issues(nb, require_answers=True)
+    failures = [item for group in issues.values() for item in group]
     print(f"{path.name}: 채운 연습 {filled}개 · 실패 {len(failures)}개 {failures}")
     return 1 if failures else 0
 

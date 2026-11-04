@@ -261,22 +261,22 @@ def plot_latent_map(tiled_grid, x_values, y_values, points, digits):
 
 # ---------------------------------------------------------------- 4절 🔍 소절: 혼합 데이터
 def plot_mixture_vae(data, model_samples, curve, elbo_value, true_value):
-    """왼쪽은 데이터와 모델 샘플·decoder 곡선, 오른쪽은 하한과 진짜 평균 log 밀도 막대."""
+    """평가 데이터와 모델 샘플·decoder 곡선, 같은 표본에서의 ELBO와 데이터 로그 밀도 추정치."""
     fig = cp.new_figure((11.5, 3.9))
     gs = fig.add_gridspec(1, 2, width_ratios=[1.35, 1], wspace=0.34)
 
     ax = fig.add_subplot(gs[0])
     _clean_axes(ax, "$x_0$", "$x_1$", "두 봉우리 혼합과 잠재 1차원 VAE")
-    ax.scatter(data[:, 0], data[:, 1], s=8, color=cp.MUTED, alpha=0.45, label="데이터")
+    ax.scatter(data[:, 0], data[:, 1], s=8, color=cp.MUTED, alpha=0.45, label="평가 데이터")
     ax.scatter(model_samples[:, 0], model_samples[:, 1], s=8, color=RECON_COLOR, alpha=0.5, label="모델 샘플")
     ax.plot(curve[:, 0], curve[:, 1], color=MARK_COLOR, lw=2.4, label="decoder 평균 $m(z)$")
     ax.legend(frameon=False, fontsize=8.5, loc="upper left")
 
     ax_b = fig.add_subplot(gs[1])
-    _clean_axes(ax_b, None, "nat", "하한은 진짜 평균 log 밀도를 넘지 못합니다")
-    _value_bars(ax_b, ["ELBO 평균", "진짜 $\\log p(x)$ 평균"], [elbo_value, true_value],
+    _clean_axes(ax_b, None, "nat", "평가 표본에서의 비교 (부등식 검산 아님)")
+    _value_bars(ax_b, ["ELBO 추정치", "데이터 $\\log p(x)$ 평균"], [elbo_value, true_value],
                 [RECON_COLOR, MARK_COLOR], fmt="{:.3f}")
-    cp.label(ax_b, f"모자란 양 {true_value - elbo_value:.3f} nat", y=-0.2)
+    cp.label(ax_b, f"관측한 차이 {true_value - elbo_value:.3f} nat · 표본 오차 포함", y=-0.2)
     cp.show(fig)
 
 
@@ -306,26 +306,28 @@ def plot_vae_uses(originals, recons, samples, interpolation):
 
 
 # ---------------------------------------------------------------- 완성 예제: 잠재 차원 변형
-def plot_latent_dim_variants(names, recon_values, kl_values, mu_stds):
-    """잠재 차원을 바꾼 두 모델의 재구성 항·KL 항과 차원별 μ 표준편차."""
+def plot_latent_dim_variants(names, recon_values, kl_values, mu_stds, recon_mc_se):
+    """평가 데이터의 기대 재구성 항·KL과 학습 데이터의 μ 표준편차. 오차선은 전달받은 잠재 MC SE."""
     fig = cp.new_figure((13, 3.6))
     gs = fig.add_gridspec(1, 3, width_ratios=[1, 1, 1.35], wspace=0.4)
 
     ax = fig.add_subplot(gs[0])
-    _clean_axes(ax, None, "nat", "재구성 항 (작을수록 잘 복원)")
+    _clean_axes(ax, None, "nat", "평가 기대 재구성 항 (±1 MC SE)")
     _value_bars(ax, names, recon_values, [cp.MUTED, RECON_COLOR], fmt="{:.1f}")
+    ax.errorbar(np.arange(len(names)), recon_values, yerr=recon_mc_se,
+                fmt="none", ecolor=cp.INK, capsize=5, lw=1.2)
 
     ax_b = fig.add_subplot(gs[1])
     _clean_axes(ax_b, None, "nat", "KL 항 (클수록 사전분포에서 멂)")
     _value_bars(ax_b, names, kl_values, [cp.MUTED, KL_COLOR], fmt="{:.2f}")
 
     ax_c = fig.add_subplot(gs[2])
-    _clean_axes(ax_c, "잠재 차원 번호", "$\\mu$ 의 표준편차", "차원마다 실제로 쓰이고 있나")
+    _clean_axes(ax_c, "잠재 차원 번호", "$\\mu$ 의 표준편차", "학습 이미지에 따른 평균 잠재의 변화")
     for (name, values), color in zip(zip(names, mu_stds), [cp.MUTED, RECON_COLOR]):
         values = np.asarray(values, float)
         ax_c.plot(np.arange(len(values)), values, marker="o", ms=5, lw=1.6, color=color, label=name)
     ax_c.axhline(0.3, color=MARK_COLOR, lw=1.3, ls="--")
     ax_c.set_ylim(0.0, None)
-    ax_c.text(0.05, 0.36, "0.3 (쓰이는 것으로 보는 기준)", fontsize=8.5, color=MARK_COLOR)
+    ax_c.text(0.05, 0.36, "0.3 (이 그림의 참고선)", fontsize=8.5, color=MARK_COLOR)
     ax_c.legend(frameon=False, fontsize=8.5, loc="lower right")
     cp.show(fig)
