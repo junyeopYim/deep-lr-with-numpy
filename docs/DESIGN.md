@@ -963,6 +963,20 @@ Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·
 | 5. 새 rollout마다 두 모델을 실제로 갱신합니다 | `plot_ac_learning` | `update_axis, exact_values, critic_errors, mean_values, mean_errors, names` |
 | 5. 새 rollout마다 두 모델을 실제로 갱신합니다 | `plot_ac_final` | `names, exact_values[:, :, -1], evaluation` |
 
+### 62 · 선호 보상과 RLHF 연결 — `rlhf_plots.py` — 완료
+
+실제 선호 reward 학습·고정 reference KL·토큰 rollout·PPO, 7답변 정확 평가로 SFT/DPO/3seed PPO 비교. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 선호 쌍으로 보상 모델을 먼저 학습합니다 | `plot_reward_preference` | `reward_scores_hand, reward_probabilities_hand` |
+| 2. 작은 token 환경을 끝까지 열거합니다 | `plot_token_outcomes` | `conditional_probabilities_hand, sequence_probabilities_hand, outcome_names` |
+| 3. 고정 reference의 KL을 token 보상에 넣습니다 | `plot_kl_rewards` | `log_ratios_hand, shaped_rewards_hand, returns_hand` |
+| 4. rollout을 고정한 채 PPO를 여러 epoch 갱신합니다 | `plot_ppo_clip` | `ratio_hand, unclipped_hand, surrogate_hand` |
+| 5. 실제 보상 학습·SFT·DPO·PPO를 연결해 비교합니다 | `plot_rlhf_budgets` | `method_budgets, ['SFT: 답변', 'DPO: 선호 쌍', 'PPO: 새 episode']` |
+| 5. 실제 보상 학습·SFT·DPO·PPO를 연결해 비교합니다 | `plot_rlhf_learning` | `list(ppo_histories.values()), list(ppo_histories)` |
+| 5. 실제 보상 학습·SFT·DPO·PPO를 연결해 비교합니다 | `plot_policy_metrics` | `metrics, list(models)` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
