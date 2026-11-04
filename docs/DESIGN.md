@@ -719,6 +719,21 @@ online·predictor 전체 미분과 고정 타깃, optimizer 뒤 EMA, 상수 표�
 | 5. 교사 속도별로 실제 학습하고 독립 평가합니다 | `plot_curves` | `histories, [f'EMA m={m}' for m in momenta], '고정 valid alignment'` |
 | 5. 교사 속도별로 실제 학습하고 독립 평가합니다 | `plot_panels` | `[report], ['초기와 교사 속도별 독립 평가'], [['정확도', '평균', '분산', '다른 거리']]` |
 
+### 52 · MDP·return·Bellman·동적 계획 — `mdp_plots.py` — 완료
+
+전이표·정확한 정책 가치·value/policy iteration, 정책 전수열거와 종료·수집 제한별 rollout 비교. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 전이와 보상을 같은 세 축에 적습니다 | `plot_mdp_transition` | `start_transition, start_rewards, start_expected_reward` |
+| 2. 보상을 할인해 더하고 마지막 경계를 표시합니다 | `plot_return_path` | `return_rewards, return_powers, return_contributions, return_totals` |
+| 3. 정책의 가치를 Bellman 방정식으로 풉니다 | `plot_bellman_backup` | `backup_contributions, backup_q, policy[0], backup_v` |
+| 3. 정책의 가치를 Bellman 방정식으로 풉니다 | `plot_policy_solution` | `policy_transition, policy_immediate, exact_policy_value` |
+| 4. 행동 평균을 최댓값으로 바꾸어 계획합니다 | `plot_policy_improvement` | `exact_policy_value, improvement_q, policy, improvement_policy` |
+| 4. 행동 평균을 최댓값으로 바꾸어 계획합니다 | `plot_value_iterations` | `value_history, enumerated_optimum, pi_history` |
+| 5. rollout을 정확한 유한·무한 목적과 비교합니다 | `plot_rollout_boundary` | `boundary_states, boundary_rewards, boundary_terminal, boundary_bootstrap` |
+| 5. rollout을 정확한 유한·무한 목적과 비교합니다 | `plot_rollout_comparison` | `horizons, finite_means, finite_ses, finite_exact, bootstrap_means, bootstrap_ses, exact_policy_value[0]` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
