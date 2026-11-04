@@ -819,6 +819,19 @@ visible patch encoder·위치 decoder·masked-only 화소 손실 전체 미분, 
 | 5. mask 비율과 복원·표현 평가를 분리합니다 | `plot_panels` | `[report], ['초기·mask25·50·75%의 동일 test 평가'], [['반 MSE', '정확도', '평균', '분산']]` |
 | 5. mask 비율과 복원·표현 평가를 분리합니다 | `plot_images` | `[test_images[display_id], masked_pixels, reconstructions[1], completed_image], ['고정 test0 원본', '같은 test mask 입력', '50%학습 모델 원시 예측', 'visible 원본+masked 예측']` |
 
+### 48 · SFT·전이 학습·LoRA — `sft_lora_plots.py` — 완료
+
+답변·EOS 손실, 고정 base를 통과하는 LoRA 전체 미분·merge, full/frozen/LoRA 실제 적응·기존 과제 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. prompt를 읽되 답변 위치에서만 손실을 냅니다 | `plot_response_mask` | `response_inputs_hand, response_targets_hand, response_weights_hand` |
+| 2. 큰 행렬을 고정하고 작은 두 행렬을 배웁니다 | `plot_lora_weights` | `lora_base_hand, lora_delta_hand, lora_effective_hand` |
+| 3. 고정 가중치도 입력의 미분 경로에 남습니다 | `plot_frozen_gradient` | `gradient_upstream, gradient_base_path, gradient_adapter_path` |
+| 4. 같은 base에서 full·frozen·LoRA를 비교합니다 | `plot_trainable_budget` | `trainable_counts, ['frozen', 'full', 'LoRA']` |
+| 4. 같은 base에서 full·frozen·LoRA를 비교합니다 | `plot_adaptation_learning` | `[adaptation_histories[method] for method in methods], methods` |
+| 5. merge의 동등성과 정답 없는 답변을 확인합니다 | `plot_merge_logits` | `unmerged_logits[0, -2:, :4], merged_logits[0, -2:, :4], merge_difference[0, -2:, :4]` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
