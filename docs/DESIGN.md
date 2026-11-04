@@ -832,6 +832,22 @@ visible patch encoder·위치 decoder·masked-only 화소 손실 전체 미분, 
 | 4. 같은 base에서 full·frozen·LoRA를 비교합니다 | `plot_adaptation_learning` | `[adaptation_histories[method] for method in methods], methods` |
 | 5. merge의 동등성과 정답 없는 답변을 확인합니다 | `plot_merge_logits` | `unmerged_logits[0, -2:, :4], merged_logits[0, -2:, :4], merge_difference[0, -2:, :4]` |
 
+### 43 · JEPA와 잠재 타깃 예측 — `jepa_plots.py` — 완료
+
+분리된 context·target과 위치 조건 잠재 예측 전체 미분, optimizer 뒤 EMA·실제 화소/잠재 학습·동결 probe. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. context와 target 영역을 겹치지 않게 고릅니다 | `plot_images` | `[preview, context_image, target_image, pixel_region], ['전체 이미지', '학생 context만', '교사가 읽는 target 영역', 'M=1: 예측할 영역']` |
+| 2. 같은 위치를 화소 또는 표현으로 맞힙니다 | `plot_panels` | `[demo_pixels, demo_latent, demo_units], ['두 patch의 원본4화소', '작은 teacher의2특징', '실제 폭·한 target patch의 2D 분모']` |
+| 3. 학생의 전 경로만 미분하고 타깃은 고정합니다 | `plot_panels` | `[path_input[0], path_visible[0], path_scatter[0]], ['원래 네 위치', '학생이 본0·3 위치', '학생 입력 미분:1·2 위치는0']` |
+| 4. EMA와 위치만 남는 붕괴를 구분합니다 | `plot_panels` | `[position_only[0], position_only[1], position_statistics, ema_example], ['이미지0: 위치만 특징', '이미지1: 같은 위치 특징', '전체 분산·위치별 이미지 분산', '이전교사·새학생·m=.9교사']` |
+| 5. 같은 자료에서 두 목적을 실제로 학습합니다 | `plot_panels` | `[budget, view_sizes, same_state], ['train·valid·test: N·seed', 'pixel·latent: context·target·출력폭', '두 조건: 초기·배치·영역 seed']` |
+| 5. 같은 자료에서 두 목적을 실제로 학습합니다 | `plot_objectives` | `[pixel_history, latent_history], ['pixel · 원본 화소 단위', 'latent · 현재 teacher 단위']` |
+| 5. 같은 자료에서 두 목적을 실제로 학습합니다 | `plot_panels` | `[report], ['초기·pixel·latent의 공통 독립 평가'], [['정확도', '평균', '분산', '다른 거리']]` |
+| 5. 같은 자료에서 두 목적을 실제로 학습합니다 | `plot_panels` | `[content_variances], ['teacher의 위치별 이미지 분산'], [['초기 teacher', 'EMA teacher']]` |
+| 5. 같은 자료에서 두 목적을 실제로 학습합니다 | `plot_images` | `[test_images[0], shown, pixel_prediction_image, combined_image], ['고정 test0 원본', '두 목적의 같은 context', 'pixel 모델 원시 예측', 'context 원본+target 예측']` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
