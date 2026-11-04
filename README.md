@@ -5,7 +5,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 모델의 이름을 아는 데서 출발해, **왜 그 수식인지 설명하고 NumPy로 직접 구현하는 것**을 목표로 합니다.
 행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
-현재 **63개 노트북**을 실행하며 공부할 수 있습니다. 각 단원은 작은 완성 예제, 직접 구현·검산, 절 연습과 끝 연습 A–D를 담습니다.
+현재 **64개 노트북**을 실행하며 공부할 수 있습니다. 각 단원은 작은 완성 예제, 직접 구현·검산, 절 연습과 끝 연습 A–D를 담습니다.
 [전체 커리큘럼](docs/CURRICULUM.md)은 71개 학습 단위(번호 00–63의 64개 주제와 b 단위 7개)의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
 ## 여기서 시작합니다
@@ -111,6 +111,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 | 49 | [선호 쌍에서 DPO 목적 만들기](notebooks/06_언어모델/49_dpo.ipynb) | EOS까지의 sequence 로그확률·고정 reference DPO 전체 미분, 실제 SFT/DPO 학습과 후보 순위·절대 확률·자유 생성 평가 |
 | 54 | [SARSA·Expected SARSA·Q-learning](notebooks/07_강화학습/54_sarsa_q_learning.ipynb) | 실제 다음 행동·기대·max 타깃과 importance support, 32 seed 제어 학습·탐색 유지/제거의 정확한 정책 가치 |
 | 50 | [이미지·텍스트 정렬과 조건부 생성](notebooks/06_언어모델/50_multimodal.ipynb) | 대칭 InfoNCE·두 encoder 전체 미분, 실제 RGB 도형/설명 정렬·검색, 연속 image prefix decoder 전체 학습·조건 교환 생성 |
+| 55 | [DQN·replay·target network](notebooks/07_강화학습/55_dqn.ipynb) | Q 신경망 전체 미분, 환형 replay·고정 타깃·Double 선택/평가 분리, 3설정×3seed 실제 제어 학습 |
 <!-- curriculum-completion-units -->
 
 ## 실행 환경

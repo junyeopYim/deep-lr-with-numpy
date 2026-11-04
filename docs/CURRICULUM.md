@@ -3,7 +3,7 @@
 학습 목적은 **문제 → 가정·수식 → 배열 연산 → 미분·갱신 → 실험 → 직접 변형**의 연결입니다.
 행렬·미분·확률을 실제 계산과 함께 다시 확인하고, 작은 완성 예제를 재구성한 뒤 조건을 바꿉니다.
 
-**현재 실행 자료는 총 63개 노트북입니다.** 아래 표의 노트북 링크가 있는 단원은 본문과 연습 정답의 새 커널 실행을 마쳤습니다. 전체 71개 중 남은 8개 단원은 순서대로 제작·검증하고 있습니다.
+**현재 실행 자료는 총 64개 노트북입니다.** 아래 표의 노트북 링크가 있는 단원은 본문과 연습 정답의 새 커널 실행을 마쳤습니다. 전체 71개 중 남은 7개 단원은 순서대로 제작·검증하고 있습니다.
 2026-09-16부터 사용자가 요청한 모델을 더합니다: LeNet은 **05b**, 물체 검출(YOLO)은 **18b**, EDM은 **35b**로 기존 번호를 유지한 채 b 번호로 끼우고(00b·01b와 같은 규칙), VAE(23–25)·GAN(28)·NCSN(32–33)·DDPM(34–35)은 아래 표의 자리 그대로 제작합니다. 11권 모두 제작을 마쳤습니다. 2026-09-17에는 같은 규칙으로 스파이킹 신경망(SNN)을 **07b**, 복소수 신경망(CVNN)을 **10b**에 끼웠습니다.
 전체 71개 단위(번호 00–63의 64개 주제와 b 단위 7개)는 주제를 찾는 지도이며, 선수 개념을 확인하면서 관심 경로를 선택합니다.
 한 단위를 마치면 **설명 / 수식 구성 / 직접 구현 / 변형 검산**을 각각 기록합니다.
@@ -198,7 +198,7 @@ GPT의 next-token 학습, SFT의 타깃 선택, DPO의 선호 목적을 각각 �
 | 52 | [MDP·return·Bellman·동적 계획](../notebooks/07_강화학습/52_mdp_bellman.ipynb) | 11·27·51 | 전이 행렬, discounted return, 정책 가치 방정식, value/policy iteration | 네 장소의 확률 전이표에서 정확한 V·Q와 rollout 평균 비교 |
 | 53 | [Monte Carlo·TD·다단계 타깃](../notebooks/07_강화학습/53_mc_td.ipynb) | 27·52 | return 추정, TD error, bootstrapping, n-step·lambda return | 같은 정책의 가치 추정, 편향·분산·종료 상태 처리 |
 | 54 | [SARSA·Expected SARSA·Q-learning](../notebooks/07_강화학습/54_sarsa_q_learning.ipynb) | 51·52·53 | on/off-policy 타깃, epsilon 행동, importance ratio의 역할 | 표 기반 제어, 수집 정책을 바꾸며 Q·행동 변화 확인 |
-| 55 | DQN·replay·target network | 03·13·15·54 | Q 신경망, TD loss, replay sampling, 고정 target·Double DQN | 작은 환경 학습, terminal mask·target gradient·업데이트 주기 검산 |
+| 55 | [DQN·replay·target network](../notebooks/07_강화학습/55_dqn.ipynb) | 03·04·13·54 | Q 신경망, TD loss, replay sampling, 고정 target·Double DQN | 작은 환경 학습, terminal mask·target gradient·업데이트 주기 검산 |
 | 56 | REINFORCE와 정책 기울기 유도 | 12·27·51–53 | trajectory 확률, log-derivative trick, reward-to-go·baseline | 열거 가능한 정책의 정확한 기대 보상 미분과 샘플 추정 대조 |
 | 57 | Actor–Critic·advantage·GAE | 13·53·56 | actor/critic 목적, TD residual, GAE 재귀, 고정 타깃 | rollout의 경계·bootstrap·advantage 계산, 두 모델 기울기 분리 |
 | 58 | PPO의 ratio·clip·업데이트 | 15·57 | old log-prob, 확률비, clipped surrogate, value·entropy 항 | 작은 한 배치의 손계산, 여러 epoch 재사용과 KL·return 추적 |

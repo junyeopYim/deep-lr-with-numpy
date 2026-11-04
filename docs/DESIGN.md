@@ -904,6 +904,20 @@ EOS까지의 sequence 로그확률·고정 reference DPO 전체 미분, 실제 S
 | 4. 이미지 표현을 연속 prefix로 넣어 설명을 학습합니다 | `plot_multimodal_learning` | `caption_history, 'valid token NLL', '고정 image encoder · bridge+decoder 학습'` |
 | 5. 조건을 교환하고 한 token씩 직접 생성합니다 | `plot_condition_swap` | `test_images[show_indices], shown_text, swapped_text` |
 
+### 55 · DQN·replay·target network — `dqn_plots.py` — 완료
+
+Q 신경망 전체 미분, 환형 replay·고정 타깃·Double 선택/평가 분리, 3설정×3seed 실제 제어 학습. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 상태에서 행동별 Q를 한 번에 계산합니다 | `plot_q_network` | `small_x, small_hidden, small_q, small_selected` |
+| 2. replay 배치의 고정 타깃을 향해 미분합니다 | `plot_td_batch` | `example_batch, batch_targets, batch_residual, batch_dq` |
+| 3. target은 optimizer 대신 정한 시점에 복사합니다 | `plot_target_freeze` | `copy_steps, online_values, target_values, copy_flags` |
+| 4. Double DQN은 선택과 평가를 나눕니다 | `plot_double_selection` | `selection_online, selection_target, np.column_stack([direct_dqn, direct_double])` |
+| 5. 실제 replay 학습을 정확한 작은 환경과 대조합니다 | `plot_dqn_protocol` | `protocol_settings, protocol_counts` |
+| 5. 실제 replay 학습을 정확한 작은 환경과 대조합니다 | `plot_dqn_learning` | `episode_axis, q_rmse, policy_values, target_gap, mean_rmse, mean_values, mean_gap, names` |
+| 5. 실제 replay 학습을 정확한 작은 환경과 대조합니다 | `plot_dqn_final` | `names, training_returns, final_mean_q, q_truth[:3].reshape(6)` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
