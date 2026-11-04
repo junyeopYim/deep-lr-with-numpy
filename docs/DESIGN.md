@@ -692,6 +692,19 @@ UTF-8·byte BPE, 문서 경계·shift·padding, bigram 전체 학습과 held-out
 | 5. 같은 예산으로 배우고 정책을 멈춘 뒤 평가합니다 | `plot_bandit_learning` | `learning_steps, learning_reward_mean, learning_regret_mean, learning_regret_se, experiment_names` |
 | 5. 같은 예산으로 배우고 정책을 멈춘 뒤 평가합니다 | `plot_bandit_evaluation` | `experiment_names, exact_evaluation, sampled_evaluation, pseudo_regrets[:, :, -1]` |
 
+### 45 · 작은 decoder GPT 전체 학습 — `decoder_gpt_plots.py` — 완료
+
+causal decoder의 tied·untied 전체 backward, 실제 문자 학습·held-out NLL·greedy 생성·padding 검산. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 앞부분으로 다음 문자 하나를 예측합니다 | `plot_decoder_contract` | `contract_inputs, contract_targets, contract_valid` |
+| 2. 미래와 padding을 동시에 막는 attention | `plot_causal_attention` | `attention_scores, attention_allowed, attention_probabilities` |
+| 3. 정규화·FFN·잔차의 모든 경로를 미분합니다 | `plot_residual_block` | `residual_x, residual_normalized, residual_output` |
+| 4. 전체 decoder를 고정 예산으로 실제 학습합니다 | `plot_loss_path` | `loss_probabilities, loss_values, loss_gradients` |
+| 4. 전체 decoder를 고정 예산으로 실제 학습합니다 | `plot_decoder_learning` | `history` |
+| 5. held-out NLL과 정답 없는 생성을 구분합니다 | `plot_next_token` | `prefix_ids, prefix_prob[shown], shown_labels, selected_id` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
