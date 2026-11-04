@@ -890,6 +890,20 @@ EOS까지의 sequence 로그확률·고정 reference DPO 전체 미분, 실제 S
 | 5. 실제 Q 학습과 두 배포 규약을 비교합니다 | `plot_control_learning` | `checkpoints, mean_values, se_values, methods` |
 | 5. 실제 Q 학습과 두 배포 규약을 비교합니다 | `plot_control_final` | `methods, final_values, observed_returns` |
 
+### 50 · 이미지·텍스트 정렬과 조건부 생성 — `multimodal_plots.py` — 완료
+
+대칭 InfoNCE·두 encoder 전체 미분, 실제 RGB 도형/설명 정렬·검색, 연속 image prefix decoder 전체 학습·조건 교환 생성. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 같은 장면을 두 입력으로 나타냅니다 | `plot_image_text_pairs` | `concept_images, caption_names` |
+| 2. 맞는 이미지·설명 쌍을 양방향으로 고릅니다 | `plot_alignment_scores` | `image_vector_hand, text_vector_hand, alignment_score_hand` |
+| 3. 실제 정렬 학습과 새 이미지 검색을 확인합니다 | `plot_positive_pairs` | `unique_positives, repeated_positives` |
+| 3. 실제 정렬 학습과 새 이미지 검색을 확인합니다 | `plot_multimodal_learning` | `alignment_history, 'valid image→text 정확도', '네 설명 후보의 실제 정렬 학습'` |
+| 4. 이미지 표현을 연속 prefix로 넣어 설명을 학습합니다 | `plot_continuous_prefix` | `feature_hand, bridge_hand, prefix_hand` |
+| 4. 이미지 표현을 연속 prefix로 넣어 설명을 학습합니다 | `plot_multimodal_learning` | `caption_history, 'valid token NLL', '고정 image encoder · bridge+decoder 학습'` |
+| 5. 조건을 교환하고 한 token씩 직접 생성합니다 | `plot_condition_swap` | `test_images[show_indices], shown_text, swapped_text` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
