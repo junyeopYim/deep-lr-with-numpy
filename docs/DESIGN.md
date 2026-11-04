@@ -848,6 +848,21 @@ visible patch encoder·위치 decoder·masked-only 화소 손실 전체 미분, 
 | 5. 같은 자료에서 두 목적을 실제로 학습합니다 | `plot_panels` | `[content_variances], ['teacher의 위치별 이미지 분산'], [['초기 teacher', 'EMA teacher']]` |
 | 5. 같은 자료에서 두 목적을 실제로 학습합니다 | `plot_images` | `[test_images[0], shown, pixel_prediction_image, combined_image], ['고정 test0 원본', '두 목적의 같은 context', 'pixel 모델 원시 예측', 'context 원본+target 예측']` |
 
+### 63 · 논문에서 수식·구현·실험으로 — `paper_reproduction_plots.py` — 완료
+
+Flow Matching 논문의 한 주장 재현, 정확 Gaussian 기울기·최소제곱 기준과 3 seed 실제 학습·같은 초기값 ODE 생성. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 논문의 주장과 재현할 범위를 먼저 고정합니다 | `plot_scope_table` | `scope_values` |
+| 2. 기호를 배열과 갱신 대상에 대응시킵니다 | `plot_specification` | `np.column_stack([spec_x, spec_t]), spec_design, spec_outputs` |
+| 3. 같은 구현을 믿기 전에 독립 기준을 붙입니다 | `plot_independent_checks` | `check_design, check_residual, check_gradient` |
+| 4. 한 요소를 바꾼 실제 학습과 기준해를 기록합니다 | `plot_reproduction_plan` | `plan` |
+| 4. 한 요소를 바꾼 실제 학습과 기준해를 기록합니다 | `plot_reproduction_learning` | `histories[:2], ['seed6301 시간 없음', 'seed6301 시간2차']` |
+| 5. 생성 그림과 근거의 한계를 함께 남깁니다 | `plot_exact_paths` | `path_times, exact_paths` |
+| 5. 생성 그림과 근거의 한계를 함께 남깁니다 | `plot_paired_evidence` | `metrics, ['시간 없음', '시간2차']` |
+| 5. 생성 그림과 근거의 한계를 함께 남깁니다 | `plot_paired_samples` | `display_initial, display_samples, display_reference, ['seed6301 시간 없음', 'seed6301 시간2차']` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
