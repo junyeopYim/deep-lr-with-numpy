@@ -933,6 +933,21 @@ Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·
 | 5. entropy를 뺀 실제 제어 보상으로 평가합니다 | `plot_panels` | `[evaluation], ['출력 순서의 독립 평가'], [['평균 반환', '조건부 SE', '포화율']]` |
 | 5. entropy를 뺀 실제 제어 보상으로 평가합니다 | `plot_trajectories` | `np.arange(21), traces, ['행동0', '고정 feedback', 'DDPG', 'TD3', 'SAC tanhμ']` |
 
+### 56 · REINFORCE와 정책 기울기 유도 — `reinforce_plots.py` — 완료
+
+4경로 정확 J·전체 미분과 score 기대의 대조, 할인 reward-to-go·baseline 편향/분산, 3seed 실제 정책 학습·독립 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 행동 확률을 곱해 경로의 확률을 만듭니다 | `plot_pg_panels` | `[uniform_path_probability, path_reward_example, path_returns[:, None], path_contribution[:, None]], ['경로 확률', '시점0·1 보상', '시작 return', '확률 × return']` |
+| 2. log-derivative로 정확한 정책 기울기를 구성합니다 | `plot_pg_panels` | `[hand_branches[:, None], hand_value, hand_gradient], ['시작 두 행동의 후속 가치', '현재 정확 J', '직접 미분: 상태 × 행동']` |
+| 3. 과거 보상과 상태 baseline을 빼도 기대 미분은 같습니다 | `plot_pg_panels` | `[full_weights, hand_discounted, hand_baseline_weight], ['전체 return을 두 시점에', 'γ^t × reward-to-go', 'γ^t × (G_t−V)']` |
+| 3. 과거 보상과 상태 baseline을 빼도 기대 미분은 같습니다 | `plot_pg_variance` | `['전체 return', 'reward-to-go', '상태 baseline', '잘못된 G_t 빼기'], variance_trace, gradient_bias` |
+| 4. 새 경로를 모아 REINFORCE를 실제 학습합니다 | `plot_pg_panels` | `[pg_plan], ['seed · 갱신 · 경로/배치 · 전이/경로 · 총전이'], [['baseline 없음', '학습 baseline']]` |
+| 4. 새 경로를 모아 REINFORCE를 실제 학습합니다 | `plot_pg_learning` | `pg_histories, method_names, 1.7` |
+| 5. 정책을 고정하고 새 경로의 보상을 평가합니다 | `plot_pg_panels` | `[final_policy_rows], ['시작 행동 확률: 안전 · 위험'], [final_labels]` |
+| 5. 정책을 고정하고 새 경로의 보상을 평가합니다 | `plot_pg_evaluation` | `final_labels, evaluation[:, 2], evaluation[:, 0], evaluation[:, 1]` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
