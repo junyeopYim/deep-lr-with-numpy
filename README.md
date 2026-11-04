@@ -5,7 +5,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 모델의 이름을 아는 데서 출발해, **왜 그 수식인지 설명하고 NumPy로 직접 구현하는 것**을 목표로 합니다.
 행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
-현재 **68개 노트북**을 실행하며 공부할 수 있습니다. 각 단원은 작은 완성 예제, 직접 구현·검산, 절 연습과 끝 연습 A–D를 담습니다.
+현재 **69개 노트북**을 실행하며 공부할 수 있습니다. 각 단원은 작은 완성 예제, 직접 구현·검산, 절 연습과 끝 연습 A–D를 담습니다.
 [전체 커리큘럼](docs/CURRICULUM.md)은 71개 학습 단위(번호 00–63의 64개 주제와 b 단위 7개)의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
 ## 여기서 시작합니다
@@ -116,6 +116,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 | 56 | [REINFORCE와 정책 기울기 유도](notebooks/07_강화학습/56_reinforce.ipynb) | 4경로 정확 J·전체 미분과 score 기대의 대조, 할인 reward-to-go·baseline 편향/분산, 3seed 실제 정책 학습·독립 평가 |
 | 57 | [Actor–Critic·advantage·GAE](notebooks/07_강화학습/57_actor_critic_gae.ipynb) | 종료·수집 경계별 GAE, 4경로 정확 기울기 편향/분산·두 모델 전체 미분, 3λ×3seed 실제 actor/critic 학습 |
 | 62 | [선호 보상과 RLHF 연결](notebooks/07_강화학습/62_rlhf.ipynb) | 실제 선호 reward 학습·고정 reference KL·토큰 rollout·PPO, 7답변 정확 평가로 SFT/DPO/3seed PPO 비교 |
+| 60 | [모델 기반 RL과 계획](notebooks/07_강화학습/60_model_based_rl.ipynb) | 전이·보상 MLP 전체 미분·실제 학습, shooting·MPC와 oracle 대조, 같은 후보은행의 horizon·모델 외삽·실제 반환 평가 |
 <!-- curriculum-completion-units -->
 
 ## 실행 환경

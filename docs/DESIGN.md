@@ -977,6 +977,22 @@ Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·
 | 5. 실제 보상 학습·SFT·DPO·PPO를 연결해 비교합니다 | `plot_rlhf_learning` | `list(ppo_histories.values()), list(ppo_histories)` |
 | 5. 실제 보상 학습·SFT·DPO·PPO를 연결해 비교합니다 | `plot_policy_metrics` | `metrics, list(models)` |
 
+### 60 · 모델 기반 RL과 계획 — `model_based_plots.py` — 완료
+
+전이·보상 MLP 전체 미분·실제 학습, shooting·MPC와 oracle 대조, 같은 후보은행의 horizon·모델 외삽·실제 반환 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 환경을 아는 것과 모델로 예측하는 것은 다릅니다 | `plot_panels` | `[example_input, example_target], ['관측 입력: s·a', '학습 정답: s다음·보상']` |
+| 2. 다음 상태와 보상을 실제로 학습합니다 | `plot_panels` | `[learning_example, learning_hidden, learning_prediction, learning_target], ['상태·행동', 'tanh 은닉 예시', '미학습 두 출력', '관측된 두 정답']` |
+| 2. 다음 상태와 보상을 실제로 학습합니다 | `plot_curves` | `[history[:, [0, 1]], history[:, [0, 2]]], ['다음 상태', '보상'], '독립 validation 좌표별 MSE'` |
+| 3. 후보 행동열을 모델 안에서 펼칩니다 | `plot_panels` | `[candidate_actions[0], np.array(candidate_paths), np.array(candidate_scores)[:, None]], ['세 후보의 두 행동', '학습모델의 상태0·1·2', '각 후보의 예측 할인합']` |
+| 4. 첫 행동만 실행하고 다시 계획합니다 | `plot_panels` | `[first_plans, replan_table[:1]], ['처음·재계획 행동열', '현재상태·첫행동·예측다음·실제다음']` |
+| 5. 모델 오차와 계획 길이의 효과를 나누어 봅니다 | `plot_panels` | `[planning_budget, error_types, fixed_action_examples], ['H·후보수·한 결정당 전이예측수', 'one-step·open-loop·MPC: 표본·길이', '길이가 늘면 비교할 행동열도 늘어남']` |
+| 5. 모델 오차와 계획 길이의 효과를 나누어 봅니다 | `plot_curves` | `[error_curve], ['open-loop 같은 행동열'], '상태 MSE'` |
+| 5. 모델 오차와 계획 길이의 효과를 나누어 봅니다 | `plot_panels` | `[results], ['참 환경의 실제 MPC 평가'], [['평균 반환', '조건부 SE', '범위 밖 비율']]` |
+| 5. 모델 오차와 계획 길이의 효과를 나누어 봅니다 | `plot_trajectories` | `np.arange(16), traces, [s[0] for s in settings]` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
