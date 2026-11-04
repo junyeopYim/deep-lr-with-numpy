@@ -678,6 +678,20 @@ UTF-8·byte BPE, 문서 경계·shift·padding, bigram 전체 학습과 held-out
 | 5. 고정 표현 위의 선형 평가를 따로 합니다 | `plot_panels` | `[summary], ['초기·학습 후 독립 평가'], [['정확도', '평균', '분산', '쌍 거리']]` |
 | 5. 고정 표현 위의 선형 평가를 따로 합니다 | `plot_points` | `[u[:, :2] for u in representations], [test_y, test_y], ['초기 표현 앞 두 축', '학습 표현 앞 두 축']` |
 
+### 51 · Bandit·기대 보상·탐색 — `bandit_plots.py` — 완료
+
+표본평균·epsilon-greedy·pseudo-regret, 48개 seed의 실제 탐색 학습과 고정 정책 독립 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 선택 확률과 보상 확률을 구분합니다 | `plot_reward_expectation` | `true_means, example_policy, reward_contributions` |
+| 2. 선택한 행동의 표본평균만 갱신합니다 | `plot_average_update` | `small_rewards, small_averages, small_table` |
+| 3. 동률까지 포함한 ε-greedy 확률을 씁니다 | `plot_epsilon_policy` | `tie_values, policy_rows, ['ε=0', 'ε=.3', 'ε=1']` |
+| 4. 관측 보상과 pseudo-regret를 분리합니다 | `plot_regret_paths` | `regret_steps, np.cumsum(regret_rewards), regret_pseudo, regret_realized` |
+| 5. 같은 예산으로 배우고 정책을 멈춘 뒤 평가합니다 | `plot_bandit_protocol` | `protocol_settings, protocol_table, protocol_policy` |
+| 5. 같은 예산으로 배우고 정책을 멈춘 뒤 평가합니다 | `plot_bandit_learning` | `learning_steps, learning_reward_mean, learning_regret_mean, learning_regret_se, experiment_names` |
+| 5. 같은 예산으로 배우고 정책을 멈춘 뒤 평가합니다 | `plot_bandit_evaluation` | `experiment_names, exact_evaluation, sampled_evaluation, pseudo_regrets[:, :, -1]` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
