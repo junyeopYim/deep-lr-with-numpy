@@ -5,7 +5,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 모델의 이름을 아는 데서 출발해, **왜 그 수식인지 설명하고 NumPy로 직접 구현하는 것**을 목표로 합니다.
 행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
-현재 **00–15에 00b·01b, 2026-09-16에 더한 11권, 2026-09-17에 더한 2권(07b SNN·10b CVNN)을 합친 31개 노트북**을 실행하며 공부할 수 있습니다.
+현재 **43개 노트북**을 실행하며 공부할 수 있습니다. 2026-11-04에는 **16 정규화 층·17 ResNet·18 U-Net**, **19 ViT·20 시퀀스 encoder–decoder·21 집합과 graph attention**, **22 Autoencoder·27 Monte Carlo와 샘플 기울기·37 생성 모델 평가**, **26 VAE 분포 읽기·29 GAN 목적과 안정화·30 normalizing flow**를 추가했습니다.
 [전체 커리큘럼](docs/CURRICULUM.md)은 71개 학습 단위(번호 00–63의 64개 주제와 b 단위 7개)의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
 ## 여기서 시작합니다
@@ -50,22 +50,42 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 | 14 | [손실과 정규화](notebooks/02_연결/14_losses_regularization.ipynb) | MSE·MAE·Huber, 가중 손실·L2·ridge·AdamW·dropout |
 | 15 | [실험과 평가](notebooks/02_연결/15_experiments_evaluation.ipynb) | 그룹 분할·전처리·학습 진단·지표·calibration·seed 반복 |
 
-## 구조 조합과 생성 모델 (2026-09-16 추가)
+## 구조 조합
 
-05b의 conv 백본과 11의 PCA 좌표, 12의 Gaussian·KL을 바탕으로 물체 검출과 생성 모델을 붙입니다. 생성 단원의 공통 예시는 **두 봉우리 혼합**(밀도·책임확률·score·최적 denoiser가 닫힌식)과 고정 MNIST 예시이며, GAN·score·diffusion의 MNIST는 PCA 좌표 32개에서 학습해 기저로 복원합니다. 읽는 순서는 05 → 05b → 18b, 그리고 12·15 → 23 → 24 → 25 → 28 → 32 → 33 → 34 → 35 → 35b입니다.
+05의 합성곱과 09의 Transformer, 11–15의 미분·실험 기초를 실제 구성 요소로 연결합니다. **16 정규화 층 → 17 잔차 연결 → 18 U-Net** 순서로 통계의 축, 기울기의 두 경로, 해상도와 위치 정보를 확인합니다. 19는 이미지 패치를 토큰으로 바꾸는 ViT, 20은 입력을 읽고 기호열을 생성하는 encoder–decoder, 21은 집합·그래프의 순열 성질과 이웃 attention으로 이어집니다. 물체 검출은 05 → 05b → 14–15 → 18b로 이어지는 별도 예제입니다.
 
 | 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
 |---|---|---|
+| 16 | [정규화 층](notebooks/03_구조조합/16_normalization.ipynb) | BatchNorm·LayerNorm·RMSNorm의 축과 전체 미분, running 통계·train/eval, MNIST MLP 비교 |
+| 17 | [ResNet과 잔차 연결](notebooks/03_구조조합/17_resnet.ipynb) | 항등·투영 shortcut의 두 경로 미분, 채널·해상도 변경, 깊이별 신호와 MNIST CNN 비교 |
+| 18 | [U-Net과 화소별 예측](notebooks/03_구조조합/18_unet.ipynb) | down/up sampling·concatenate skip·전체 역전파, BCE·Dice, 도형 segmentation과 홀수 해상도 |
 | 18b | [물체 검출 (YOLO)](notebooks/03_구조조합/18b_detection_yolo.ipynb) | 캔버스 위 숫자 검출, IoU·격자 타깃·네 묶음 손실의 mask 고정 미분·NMS·AP |
+| 19 | [ViT와 이미지 패치](notebooks/03_구조조합/19_vit.ipynb) | patch embedding·위치·CLS/mean pooling, 전체 미분, 순열 검산과 MNIST 학습 |
+| 20 | [시퀀스 encoder–decoder](notebooks/03_구조조합/20_sequence_encoder_decoder.ipynb) | self/cross attention·padding/causal mask, teacher forcing·전체 미분, 가변 길이 학습과 autoregressive 생성 |
+| 21 | [집합과 graph attention](notebooks/03_구조조합/21_sets_graph_attention.ipynb) | Deep Sets·GAT의 전체 미분과 실제 학습, 이웃 mask·고립 노드·순열 등변/불변 검산 |
+
+## 생성 모델
+
+생성 단원의 공통 예시는 **두 봉우리 혼합**(밀도·책임확률·score·최적 denoiser가 닫힌식)과 고정 MNIST 예시입니다. GAN·score·diffusion의 MNIST는 PCA 좌표 32개에서 학습해 기저로 복원합니다. 읽는 순서는 11–15 → 22 → 23 → 24 → 27 → 25 → 26 → 28 → 29 → 30 → 32 → 33 → 34 → 35 → 35b입니다. 37은 11·12·15·23을 바탕으로 관심 생성 모델의 평가에 연결합니다. 이미 VAE·score를 읽었다면 27에서 표본 기울기와 평가 오차를 되짚어도 좋습니다.
+26·29·30은 조건부 분포·mode coverage·가역 밀도를 보기 위해 각각 조건이 있는 과일 측정값·네 봉우리·곡선형 2D 합성 자료를 사용합니다.
+
+| 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
+|---|---|---|
+| 22 | [Autoencoder와 압축 표현](notebooks/04_생성/22_autoencoder.ipynb) | 선형 AE와 PCA의 투영, 비선형 AE 전체 backward, MNIST 복원·잡음 제거와 독립 평가 |
 | 23 | [잠재변수·혼합 모형·EM](notebooks/04_생성/23_latent_mixture_em.ipynb) | 두 봉우리 혼합의 주변 밀도·책임확률·score·EM·최적 denoiser 닫힌식 |
 | 24 | [Jensen 부등식과 ELBO](notebooks/04_생성/24_elbo.ipynb) | Jensen 부등식, log p = ELBO + KL 열거 확인, q 학습, Gaussian q의 재매개화 ELBO |
 | 25 | [VAE](notebooks/04_생성/25_vae.ipynb) | encoder·재매개화·decoder의 손 backward와 ε 고정 gradcheck, MNIST 잠재 2차원 복원·생성 |
+| 26 | [VAE가 배운 분포 읽기](notebooks/04_생성/26_vae_distribution.ipynb) | posterior·prior·β·KL warmup, 조건부 VAE 전체 미분, 잠재 사용량과 복원·실제 생성 비교 |
+| 27 | [Monte Carlo·샘플 기울기](notebooks/04_생성/27_monte_carlo_gradients.ipynb) | 표본 평균·표준오차·importance sampling, 고정 잡음 미분, pathwise·score-function과 baseline |
 | 28 | [GAN](notebooks/04_생성/28_gan.ipynb) | 두 목적과 교대 갱신, D를 지나 G로 오는 기울기, 최적 판별기·mode 세기, PCA 좌표 MNIST |
+| 29 | [GAN 목적과 안정화 비교](notebooks/04_생성/29_gan_objectives.ipynb) | Wasserstein critic·gradient penalty의 미분, spectral 제약, 고정 예산·seed별 생성 품질과 coverage 비교 |
+| 30 | [변수 변환과 normalizing flow](notebooks/04_생성/30_normalizing_flow.ipynb) | 가역 affine coupling·log Jacobian·정확한 밀도, 전체 미분·역변환·적분 검산과 2차원 학습 |
 | 32 | [score matching](notebooks/04_생성/32_score_matching.ipynb) | score·Hyvärinen 항등식·DSM·Tweedie, MLP score 모델 학습과 닫힌식 대조 |
 | 33 | [NCSN](notebooks/04_생성/33_ncsn.ipynb) | σ 사다리·Langevin·σ 조건 score 모델·annealed Langevin, PCA 좌표 MNIST |
 | 34 | [Diffusion 전방 과정](notebooks/04_생성/34_diffusion_forward.ipynb) | ᾱ 닫힌식 vs 반복 잡음, posterior 계수, ε·x₀ 타깃과 score 관계, 잡음 예측 신경망 |
 | 35 | [Diffusion 역과정·DDIM·guidance](notebooks/04_생성/35_diffusion_reverse.ipynb) | 역과정 한 걸음·전체 루프·DDIM·classifier-free guidance, sampler 비교 |
 | 35b | [EDM](notebooks/04_생성/35b_edm.ipynb) | σ-공간 통일·Tweedie·preconditioning·λ(σ)·ρ 격자·Heun, solver 오차와 모델 오차 분리 |
+| 37 | [생성 모델 평가와 비교 실험](notebooks/04_생성/37_generative_evaluation.ipynb) | 학습한 혼합모형의 우도·mode 질량, MMD·특징 통계·복제 진단, 고정 평가 계획과 샘플 비용 |
 
 ## 실행 환경
 
@@ -73,7 +93,7 @@ Python 3.10 이상이 필요합니다. 쓰는 패키지는 다음과 같고, 전
 
 | 패키지 | 용도 |
 |---|---|
-| NumPy | 모든 모델·미분·학습 구현 |
+| NumPy 2.0 이상 | 모든 모델·미분·학습 구현, `np.trapezoid` 수치 적분 |
 | matplotlib | 그림 |
 | Jupyter, ipykernel | 노트북 실행 |
 | pytest | 검산기와 연습 검사 테스트 |
@@ -87,6 +107,7 @@ python -m venv .venv && source .venv/bin/activate && python -m pip install -e ".
 
 Windows PowerShell에서는 `source .venv/bin/activate` 대신 `.venv\Scripts\Activate.ps1`을 실행합니다.
 13번의 PyTorch 비교까지 실행하려면 `".[dev]"` 자리에 `".[dev,framework]"`를 넣습니다. NumPy 구현과 PyTorch 비교 모두 CPU에서 실행합니다.
+PyTorch가 없으면 13번의 선택 비교 셀만 건너뛰며, NumPy 엔진·손 backward·중심차분·학습·연습은 끝까지 실행합니다.
 
 그림의 한글은 시스템에 설치된 한글 폰트(Apple SD Gothic Neo, Malgun Gothic, Noto Sans CJK KR, NanumGothic 등) 중 하나를 자동으로 고릅니다.
 한글 폰트가 하나도 없으면 그림의 한글이 깨지니 하나를 설치합니다.
@@ -143,6 +164,8 @@ python -m jupyter lab --ServerApp.root_dir=. notebooks/00_기초/00_math_to_nump
 notebooks/00_기초/       배열·벡터화·미분·미니배치·확률·MLP·optimizer
 notebooks/01_아키텍처/  CNN·LeNet·RNN·LSTM/GRU·SNN·Attention·Transformer·GNN·CVNN
 notebooks/02_연결/      선형대수·정보이론·자동미분·정규화·평가
+notebooks/03_구조조합/  정규화 층·ResNet·U-Net·ViT·시퀀스·집합·그래프·물체 검출
+notebooks/04_생성/      AE·혼합·ELBO·VAE·Monte Carlo·GAN·flow·score·diffusion·생성 평가
 src/utils/         수치미분 검산기와 그림 보조 코드
 src/data/          이후 실험에서 사용할 작은 데이터와 MNIST 로더
 docs/              전체 커리큘럼, 글 규칙, 그림 설계 원칙
@@ -161,9 +184,12 @@ python scripts/verify_notebooks.py --suite architecture
 python scripts/verify_notebooks.py --suite bridge
 python scripts/verify_notebooks.py --suite composition
 python scripts/verify_notebooks.py --suite generative
+python scripts/verify_exercises.py notebooks/*/*.ipynb
 ```
 
-검증기는 각 노트북을 별도 커널에서 실행하고, 저장된 그림을 디코딩해 확인합니다.
+검증기는 명령을 실행한 Python과 같은 인터프리터의 별도 커널에서 각 노트북을 실행하고, 저장된 그림을 디코딩해 확인합니다.
+실행 예외·커널 종료·미실행 셀·stderr 경고·연습 실패(`✗`)가 있으면 실패로 종료합니다.
+원본의 미작성 연습 안내(`☐`)는 허용합니다. 마지막 명령은 정답 보기의 코드를 메모리에서 채워 다시 실행하며, 미작성 연습도 실패로 판정하고 원본 파일은 바꾸지 않습니다.
 실행 기록은 `results/<suite>-validation/`에 남으며, 이 폴더는 저장소에 올리지 않습니다.
 
 ## 라이선스

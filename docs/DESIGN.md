@@ -363,9 +363,9 @@ MNIST를 쓰지 않습니다. `draw_compute_graph`로 값 노드(원)·연산(�
 | 4 학습 셀 뒤 | `plot_loss_history` | 재구성 항과 KL 항은 학습 동안 각각 어느 쪽으로 가나 | 3,000스텝 중 50스텝마다 기록한 미니배치 재구성(575.5 → 155.3)과 KL(0.25 → 6.10) |
 | 4 학습 셀 뒤 | `plot_recon_pairs` | 잠재 2차원으로 좁힌 목을 지나면 고정 예시 10장이 어떻게 돌아오나 | encoder_forward의 μ만 decoder에 넣은 복원 확률 (10, 28, 28), 화소 평균 절대오차 10개 |
 | 4 학습 셀 뒤 | `plot_latent_map` | 잠재 평면의 자리마다 어떤 그림이 나오고, 학습 데이터의 μ는 어디에 놓이나 | μ의 2–98% 분위수 8×8 격자를 decoder에 넣은 (224, 224) 타일, 5,000장의 μ (5000, 2)와 숫자 라벨, μ 평균 (0.62, −0.83)·표준편차 (1.35, 1.21) |
-| 4 🔍 소절 (혼합) | `plot_mixture_vae` | 밀도를 아는 데이터에서 학습한 하한이 정말 진짜 평균 log 밀도 아래에 있나 | mix2_sample 2,000점, 잠재 1차원 VAE의 decoder 곡선 m(z) 200점과 모델 샘플 600점, ELBO 평균 −3.0823, mix2_logpdf 평균 −2.8674 |
+| 4 🔍 소절 (혼합) | `plot_mixture_vae` | 데이터 로그 밀도의 표본 평균과 모델 ELBO 추정치는 무엇이 다른가 | 학습과 독립인 평가 1,000점, 잠재 32회 평균 ELBO와 잠재 MC 표준오차, 데이터 로그 밀도 평균과 데이터 표준오차; 부등식 자체는 별도 선형 Gaussian 닫힌식으로 검산 |
 | 5 사용 🔑 | `plot_vae_uses` | 복원·생성·보간이 어떻게 모두 같은 decoder 하나에서 나오나 | 고정 예시 네 장의 복원, 사전분포에서 뽑은 z 8개의 화소 확률과 잉크 평균, 7의 μ에서 1의 μ로 가는 보간 z (8, 2)와 그 그림 |
-| 🔍 완성 예제 | `plot_latent_dim_variants` | 잠재 차원을 넓히면 두 항이 어느 쪽으로 움직이고, 차원마다 실제로 쓰이고 있나 | 잠재 2/8의 전체 데이터 재구성(147.2 / 93.1)·KL(6.31 / 16.48), 차원별 μ 표준편차 |
+| 🔍 완성 예제 | `plot_latent_dim_variants` | 같은 평가 데이터에서 기대 재구성 항·KL과 잠재 MC 오차는 어떻게 달라지는가 | 학습에서 제외한 500장, 잠재 16회 평균의 재구성 항·정확한 KL·MC 표준오차, 학습 데이터의 차원별 μ 표준편차; 손실 방향과 잠재 사용 여부를 차원 수만으로 단정하지 않음 |
 | 🔍 완성 예제 | `plot_recon_pairs` | 잠재 8차원이면 4절에서 뭉개졌던 숫자가 돌아오나 | wide_p로 vae_reconstruct한 고정 예시 10장 (10, 28, 28) |
 
 ### 28 · GAN: 판별기의 분류 손실을 생성기가 거꾸로 타고 오르기 — `gan_plots.py` — 완료
@@ -487,6 +487,139 @@ MNIST를 쓰지 않습니다. `draw_compute_graph`로 값 노드(원)·연산(�
 | 5 학습 결과 (학습 셀 뒤) | `plot_sample_curves` | 학습 표본 수별 test 정확도: 복소 모델(103개)은 30개에서 0.878, 실수 MLP(742개)는 0.531이고 300개에서 0.871, 크기만 MLP는 우연 수준, 빔포머 0.934 | 표본 수 6개 × seed 3개 × 모델 3개의 full batch Adam 400스텝 학습 |
 | 5 학습 결과 (학습 셀 뒤) | `plot_phase_invariance` | 입력 위상을 돌려도 복소 모델의 정답 확률은 한 값이고 실수 MLP는 0.420–1.000으로 흔들린다; 예측이 바뀐 비율 0% vs 16.3% | test 표본 0번의 돌린 각도 181개 softmax, 표본마다 무작위 위상의 argmax 비교 |
 
+
+### 16 · 정규화 층: 어느 축의 통계를 사용하는가 — `normalization_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 통계와 축 🔑 | `plot_axis_normalization` | 같은 열의 값에서 평균을 빼고 크기를 나누면 무엇이 남나 | 작은 배열의 평균·중심화·분산·정규화, 손계산·반복문·벡터화, ε를 포함한 정확한 출력 분산 |
+| 2 BatchNorm 🔑 | `plot_bn_modes` | 현재 배치 통계를 쓸 때와 저장 통계를 쓸 때 무엇이 다른가 | train 출력·현재 배치 평균/분산, 별도로 갱신한 running 통계·eval 출력, 두 모드의 입력·affine 파라미터 기울기 |
+| 3 LayerNorm 🔑 | `plot_batch_independence` | 같은 표본의 동료만 바꾸면 어떤 정규화가 변하나 | 두 배치의 고정 첫 표본에 대한 LN·BN 출력, 표본별 특징 축 통계와 전체 backward |
+| 4 RMSNorm 🔑 | `plot_norm_comparison` | 평균을 빼는 계산과 제곱 평균의 크기만 나누는 계산은 어떻게 다른가 | 같은 행렬의 BN·LN·RMS 출력, 이동·배율·상수 입력·배치 하나의 경계 검산 |
+| 5 MNIST 🔑 | `plot_mlp_norm_flow` | 선형 출력과 활성화 사이의 정규화가 어느 배열을 바꾸나 | 고정 MNIST 예시의 선형 출력·LN 출력·tanh·logit |
+| 5 학습 결과 🔍 | `plot_norm_training`, `plot_norm_predictions` | 같은 조건에서 네 방식의 학습과 독립 평가가 어떻게 달라지나 | 정규화 없음·BN·LN·RMS MLP의 학습 기록, 고정 validation·test 예측, 학습 파라미터 수 |
+
+### 17 · ResNet: 입력과 기울기가 두 길로 흐르는 블록 — `resnet_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 두 경로 🔑 | `plot_two_paths` | 입력에 수정량을 더하면 기울기는 어떻게 합쳐지나 | 작은 선형 잔차의 출력·직접 기울기·수정 기울기, 손계산·반복문·벡터화 |
+| 2 블록 🔑 | `plot_dense_block` | 비선형 수정량을 만들며 어떤 중간 배열을 지나나 | 고정 MNIST 예시의 두 특징·tanh 은닉 값·수정량·합, 모든 파라미터와 입력의 미분 |
+| 3 투영 🔑 | `plot_projection` | 채널·해상도가 달라진 입력을 어떻게 더하나 | 3×3 주경로·1×1 stride 투영의 출력 shape, 홀수 크기의 두 경로와 기울기 합 |
+| 4 깊이 🔑 | `plot_depth_flow`, `plot_depth_statistics` | 잔차 경로도 신호와 기울기를 상쇄하거나 키울 수 있나 | 스칼라 반복의 정확한 미분, 같은 가중치의 plain·잔차 모델 깊이별 활성 RMS·기울기 비율, 개별 seed 곡선·평균 |
+| 5 분류기 🔑 | `plot_classifier_flow` | 잔차 블록을 분류 손실과 어떻게 연결하나 | 고정 MNIST 예시의 축소 입력·stem·블록 출력·분류 확률 |
+| 5 학습 결과 🔍 | `plot_training_comparison`, `plot_test_predictions` | 같은 파라미터 수·초기화·학습 예산에서 결과가 어떻게 달라지나 | 세 seed의 학습·검증 곡선·stem 기울기 노름·독립 test 예측, 대응하는 seed별 정확도 차이 |
+
+### 18 · U-Net: 해상도를 되돌리며 화소마다 예측하기 — `unet_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 화소별 예측 🔑 | `plot_pixel_task` | 입력과 같은 좌표에서 무엇을 정답으로 예측하나 | 작은 도형 입력·binary mask·logit·sigmoid 확률 |
+| 2 해상도 🔑 | `plot_resize_coordinates` | 홀수 격자를 줄였다 늘릴 때 어느 화소가 어디로 가나 | 우하단 0 padding·분모 4의 평균 pooling·nearest 확대·원래 해상도로 crop, 역방향 합산 개수 |
+| 3 skip 연결 🔑 | `plot_skip_channels`, `plot_unet_trace` | 서로 다른 경로의 채널을 붙이고 기울기를 어떻게 다시 나누나 | encoder·확대된 bottleneck·concat과 채널별 gradient, 실제 U-Net 중간 특성 맵·logit, 전체 backward |
+| 4 손실 🔑 | `plot_pixel_losses` | 화소 BCE와 soft Dice가 각각 무엇에 반응하나 | 타깃·확률·화소별 BCE·결합 목적의 logit 기울기, 빈 mask와 hard 지표의 별도 규약 |
+| 5 비교 조건 🔑 | `plot_segmentation_plan` | 어떤 자료·학습 예산·파라미터를 고정해 비교하나 | train/validation/test 개수·갱신 예산, skip 사용/0 대조의 전체·활성 파라미터 수 |
+| 5 학습·변형 🔍 | `plot_training_curves`, `plot_segmentation_predictions`, `plot_resolution_variants` | 학습한 확률은 도형 경계를 찾으며 해상도·전경 비율 변경에도 계산이 이어지나 | 같은 조건의 학습 기록·독립 test 확률·hard IoU/Dice, 홀수 해상도와 전경 비율 변형의 실제 forward·backward |
+
+### 19 · ViT: 이미지를 패치 토큰으로 읽기 — `vit_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 패치 🔑 | `plot_patch_flow` | 화소의 어느 축을 옮겨 패치 한 행을 만드는가 | 4×4 숫자판의 손계산·반복문·벡터화 patchify와 역변환 |
+| 2 토큰 🔑 | `plot_token_embedding` | 같은 패치 투영에 CLS와 위치를 어떻게 더하나 | 고정 MNIST 7의 16×49 패치·공유 투영·CLS·위치 표·합 |
+| 3 블록 🔑 | `plot_attention_block` | 토큰별 정규화와 attention 수정량이 잔차 경로에 어떻게 합쳐지나 | LN·QKV·행 softmax·출력 투영·잔차, MLP와 전체 backward |
+| 4 위치·비용 🔑 | `plot_permutation`, `plot_patch_budget` | 패치 순서와 위치를 함께 옮길 때와 내용만 옮길 때 무엇이 다른가 | 위치 유무의 순열 출력, patch 크기별 실제 파라미터 수·토큰 수·attention 원소 수 |
+| 5 분류기 🔑 | `plot_classifier_flow` | 같은 encoder 출력을 CLS 또는 패치 평균으로 어떻게 읽나 | 고정 MNIST 예시의 패치·encoder·최종 LN·readout·학습 전 확률 |
+| 5 학습 결과 🔍 | `plot_vit_training`, `plot_vit_predictions`, `plot_cls_attention` | 동일한 초기값·학습 예산의 두 readout은 어떻게 학습하며 어느 패치를 읽나 | 학습 기록·독립 test 예측·CLS의 원래 attention 확률과 자기 자신에 대한 비중 |
+
+### 20 · 시퀀스 encoder–decoder: 보고, 한 칸씩 이어 쓰기 — `seq2seq_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 한 칸 이동 🔑 | `plot_teacher_shift` | 정답을 직접 읽지 않으려면 입력과 target을 어떻게 옮기나 | source·BOS로 시작하는 decoder 입력·EOS를 포함한 target·padding mask |
+| 2 읽는 범위 🔑 | `plot_attention_masks` | 미래와 PAD를 함께 가리고 빈 행을 어떻게 다루나 | causal·query/key padding mask, 허용 key에서만 정규화한 확률·가중합 |
+| 3 기억·질문 🔑 | `plot_encoder_decoder_flow` | decoder 질문과 encoder 기억은 어느 배열이며 기울기가 어디로 돌아가나 | 작은 항등 투영의 self/cross attention·잔차·중간 특징, 세 attention과 embedding 전체 backward |
+| 4 유효 손실 🔑 | `plot_masked_loss` | 길이가 다른 문자열의 어느 위치를 손실 분모에 넣나 | 위치별 NLL·valid target 평균 CE·logit 미분, 파라미터·연속 특징 중심차분 |
+| 5 자유 생성 🔑 | `plot_generation_protocol` | 정답 prefix와 모델이 생성한 prefix는 어떻게 다른가 | 미학습 모델의 실제 greedy 단계·teacher prefix·EOS 종료 |
+| 5 학습 결과 🔍 | `plot_sequence_history`, `plot_generated_examples` | teacher-forcing 학습 뒤 정답 없이도 끝까지 생성하나 | 고정 학습의 validation 기록·독립 test 자유 생성·토큰/전체 일치·EOS 지표, PAD 폭과 미학습 길이 변형 |
+
+### 21 · 집합과 graph attention — `sets_graph_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 순열 🔑 | `plot_permutation` | 원소 순서를 바꾸면 무엇이 함께 움직이고 무엇이 그대로인가 | 과일 특징·공유 함수·순열 결과·합, 손계산·반복문·벡터화 |
+| 2 집합 크기 🔑 | `plot_pool_cardinality` | 같은 꾸러미를 복제하면 합과 평균이 어떻게 다른가 | 공유 φ 특징·복제된 원소·sum/mean, Deep Sets의 전체 forward·backward |
+| 3 이웃 mask 🔑 | `plot_neighbor_mask` | 고립 노드와 padding을 어떻게 다르게 처리하나 | 인접행렬·valid/self-loop mask·안정적인 이웃 softmax, 차단된 점수의 기울기 |
+| 4 GAT 🔑 | `plot_gat_aggregation` | 공유 특징을 읽는 이웃 비중도 어떻게 학습하나 | 투영 특징·additive 점수·LeakyReLU·이웃 비중·가중합, 값과 점수의 두 미분 경로 |
+| 5 학습 계획 🔑 | `plot_task_plan` | 꾸러미 회귀와 노드 회귀의 정답·분모·예산은 무엇인가 | 과제별 타깃·train/validation/test 개수·갱신 예산 |
+| 5 결과·변형 🔍 | `plot_learning_curves`, `plot_heldout_predictions`, `plot_size_degree_metrics` | 학습과 고정 평가, 순열 성질과 크기·차수 변경은 어떻게 구분하나 | 두 과제의 학습 기록·test 예측·별도 MSE, 고정 모델의 집합 크기·노드 수·이웃 수 변형 |
+
+### 22 · Autoencoder: 압축 좌표에서 복원과 잡음 제거까지 — `autoencoder_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 병목 🔑 | `plot_linear_flow` | 좌표 하나만 남기면 어떤 정보가 사라지고 복원 손실은 어떻게 생기나 | 작은 입력·encoder·decoder의 행렬곱, 잠재 좌표·복원·잔차, 손계산·반복문·벡터화한 half-MSE |
+| 2 선형 AE 🔑 | `plot_pca_projection` | PCA 방향으로 접었다 펼친 결과와 버린 방향은 무엇인가 | 학습 평균으로 중심화한 배열, 상위 주성분 좌표·투영·잔차, 기저를 바꾸어도 같은 복원인지 검산 |
+| 3 비선형 AE 🔑 | `plot_nonlinear_flow` | 화소가 은닉층과 병목을 지나 다시 화소로 돌아오는가 | 고정 MNIST 예시의 은닉 출력·잠재 좌표·초기 복원; 본문의 전체 forward·backward와 작은 모델 중심차분 |
+| 4 비교 조건 🔑 | `plot_comparison_setup` | 같은 잠재 차원에서 평균 복원·PCA·미학습 AE는 무엇을 돌려주나 | train에서 구한 평균·PCA 기저, 고정 예시의 세 복원 |
+| 4 학습 결과 🔍 | `plot_training_history`, `plot_reconstruction_rows` | 학습한 AE가 독립 표본도 복원하며 어떤 획을 잃나 | epoch별 train·validation MSE, 같은 분할·잠재 차원의 기준선과 AE 복원, 별도 test 평가 |
+| 5 잡음 제거 🔑 | `plot_denoising_flow` | 잡음은 어디에 넣고 손실의 타깃은 무엇으로 두나 | 깨끗한 예시·고정 잡음·오염 입력·깨끗한 타깃, 잡음을 고정한 기울기 검산 |
+| 5 학습 결과 🔍 | `plot_training_history`, `plot_reconstruction_rows` | 같은 잡음 입력에 일반 AE와 denoising AE가 어떻게 반응하나 | 두 학습 기록과 같은 오염 test 입력의 복원·MSE; 복원 목적과 잠재 사전분포의 차이 |
+
+### 26 · VAE 분포 읽기: posterior·prior와 조건부 생성 — `vae_distribution_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 분포 역할 🔑 | `plot_distribution_roles` | 관측별 posterior·합친 posterior·prior는 어떻게 다른가 | Gaussian 밀도·혼합 밀도, 같은 평균·분산이어도 다른 분포인 예 |
+| 2 목적·일정 🔑 | `plot_beta_schedule` | β와 warmup은 복원·KL의 비중을 어떻게 바꾸나 | β=0·1·4와 200스텝 warmup 일정, 공통 평가 R+KL과 학습 목적의 구별 |
+| 3 조건부 경로 🔑 | `plot_conditional_flow` | 조건은 encoder와 decoder의 어느 입력에 들어가나 | 두 경로의 연결 배열·posterior·재매개화·decoder 평균, 전체 파라미터·입력·조건의 미분 |
+| 4 평가 축 🔑 | `plot_evaluation_flow` | 관측·MC 반복·학습 seed를 어느 축에서 평균내나 | 독립 분할·고정 평가 잡음·평균 축, 관측별 R·KL |
+| 4 실제 학습 🔍 | `plot_learning`, `plot_test_metrics` | 같은 예산의 네 설정은 공통 평가에서 어떻게 다른가 | 3 seed × 4설정의 400스텝 학습, validation 기록·test R/KL/−ELBO·seed SD·MC SE |
+| 5 생성 경로 🔑 | `plot_generation_path` | decoder 평균과 조건부 관측 표본은 무엇이 다른가 | 공통 prior z·조건·decoder 평균·독립 관측 잡음 |
+| 5 생성·진단 🔍 | `plot_generated_comparison`, `plot_latent_diagnostics` | 조건별 생성과 β 설정별 잠재 사용량은 어떻게 다른가 | 고정 seed의 짝지은 표본, 좌표별 KL·조건 내 평균 분산·decoder 민감도, 의도적으로 만든 collapse 대조 |
+
+### 27 · Monte Carlo: 기대값에서 샘플 기울기까지 — `monte_carlo_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 표본 평균 🔑 | `plot_mean_flow` | 몇 개 뽑은 평균과 분포 전체의 기대값은 어떻게 다른가 | 잡음 네 개의 제곱값·손계산·반복문·벡터화 평균, 닫힌식 기대값 |
+| 2 오차 🔑 | `plot_replication_flow`, `plot_mc_precision` | 한 실행의 SE와 여러 독립 실행 사이의 SD는 어떻게 연결되나 | 반복·표본 축을 나눈 배열, 표본 수별 평균·표본분산·SE와 정확한 SD |
+| 3 중요도 추출 🔑 | `plot_importance_flow`, `plot_importance_results` | 표본을 다르게 뽑은 대가를 p/q로 고칠 수 있으며 무엇을 확인해야 하나 | 유한 상태의 정확한 가중합, Gaussian 제안분포의 log weight, raw·self-normalized 추정·반복 SD·ESS |
+| 4 경로 미분 🔑 | `plot_pathwise_flow`, `plot_optimization` | 고정한 ε에서 계산한 미분과 기대값의 미분을 어떻게 각각 검산하나 | Gaussian 위치 재매개화, 표본 손실·pathwise 미분·고정 잡음 중심차분, 새 잡음으로 갱신한 경로와 정확한 목적값 |
+| 5 score-function 🔑 | `plot_score_flow`, `plot_baselines` | 이산 표본의 확률을 미분하면 어떤 기여가 생기며 baseline은 언제 편향을 만드나 | Bernoulli 두 상태의 확률·보상·score, 작은 배치 전체 열거, 고정·같은 배치 평균·leave-one-out baseline의 정확한 평균·분산 |
+
+### 29 · GAN 목적과 안정화: critic 기울기와 생성 품질 구분 — `gan_objectives_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 분포 차이 🔑 | `plot_distribution_distances` | 완벽히 구별되는 두 분포도 이동 거리가 다른가 | 유한 질량·최적 판별 확률·JS·1D CDF의 W₁ 손계산·반복문·벡터화 |
+| 2 G 목적 🔑 | `plot_generator_objectives` | 같은 fake 점수에서 minimax·NS·Wasserstein의 미분은 어떻게 다른가 | 안정적인 목적값·점수 도함수, tanh G/critic의 전체 backward·수치미분 |
+| 3 GP 🔑 | `plot_gp_path` | 입력 기울기의 벌점은 어떤 지점에서 어떻게 계산하나 | 고정 보간점·입력 기울기·norm·표본별 벌점, 직접·간접 경로의 혼합 미분 |
+| 4 투영 🔑 | `plot_spectral_projection` | 큰 특잇값만 자르면 무엇이 보장되고 무엇이 달라지나 | SVD·특잇값 자르기·투영 행렬·층별 norm 상한, 작은 특잇값 보존과 재투영 검산 |
+| 5 평가 지표 🔑 | `plot_quality_coverage` | 네 mode를 다 덮어도 대부분의 점이 틀릴 수 있나 | 의도적 진단 후보 세 개·최근접 거리·반경 내 판정·전체 표본 분모의 품질과 최소 개수 coverage |
+| 5 실제 학습 🔍 | `plot_training_diagnostics`, `plot_seed_samples` | 제약의 진단값과 최종 생성 품질이 어떻게 다른가 | 3방법 × 3seed의 공통 초기값·표본 계획·160 G/480 D 갱신, critic gap·평균 입력 norm·G 기울기, 모든 생성 표본·지표·시간 |
+
+### 30 · Normalizing Flow: 부피 보정으로 학습하는 밀도 — `flow_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 부피 🔑 | `plot_affine_volume` | 같은 질량의 구간·면적을 늘리면 밀도가 어떻게 바뀌나 | 1D affine 밀도의 손계산·반복문·벡터화, 2D 꼭짓점 변환·행렬식 |
+| 2 coupling 🔑 | `plot_coupling_map` | 한 좌표를 유지하면 어떻게 역변환과 logdet를 계산하나 | conditioner 출력 s,t·변환 좌표·한 점의 삼각 Jacobian, 순·역 logdet |
+| 3 합성 🔑 | `plot_flow_stages` | coupling과 swap을 합쳐 두 축을 모두 바꾸려면 | 층별 좌표·logdet, 전체 역전파와 파라미터·입력 중심차분, 홀수 swap 부호 검산 |
+| 4 학습 계획 🔑 | `plot_training_plan` | 곡선 자료를 어떤 목적·분할·예산으로 학습하나 | 2D 합성 자료, 고정 train/validation/test 개수·500스텝·배치64 |
+| 4 학습 결과 🔍 | `plot_nll_history`, `plot_fitted_density` | 같은 raw 좌표에서 Gaussian 기준선과 어떻게 다른가 | train만으로 적합한 Gaussian, 200개 파라미터 flow의 validation NLL·독립 test·밀도 격자 |
+| 5 적분 🔑 | `plot_quadrature_cells` | 셀 중앙의 밀도를 어떤 면적으로 곱해 질량을 얻나 | 밀도 격자·셀 면적·질량 기여, 알려진 Gaussian 상자 질량 검산 |
+| 5 생성·질량 🔍 | `plot_generation_diagnostics`, `plot_mass_checks` | 역변환 생성과 밀도 적분이 일치하며 오차는 어떻게 나뉘나 | heldout 잠재·독립 생성·왕복, 고정 상자 해상도·고정 간격 영역 확장·20,000개 생성 표본의 MC 질량과 SE |
+
+### 37 · 생성 모델 평가: 지표와 실험 조건을 함께 고정하기 — `generative_evaluation_plots.py` — 완료
+
+| 절 | 그림 | 답하는 질문 | 본문에서 계산하는 것 |
+|---|---|---|---|
+| 1 평가 조건 🔑 | `plot_evaluation_protocol` | 어떤 자료에서 통계를 구하고 어떤 자료를 마지막에 평가하나 | train만으로 구한 평균·규모, 고정 test 변환, train·test·생성 표본 수 |
+| 2 밀도·mode 🔑 | `plot_density_diagnostics`, `plot_em_learning` | 높은 정답 밀도에 모인 생성점이 두 mode를 다 덮는가, 학습한 밀도 자체는 얼마나 맞나 | 격자 밀도·영역별 비율·정답 밀도의 표본 진단, EM 전후 밀도·학습 로그우도와 자기 모델의 held-out NLL |
+| 3 MMD 🔑 | `plot_mmd_terms`, `plot_mmd_sensitivity` | 두 표본 집합의 쌍별 유사도를 어떻게 합하며 대역폭과 표본 수가 수치에 어떻게 작용하나 | RBF 커널 세 행렬·대각항을 포함한 V통계, 반복문·벡터화 대조, 대역폭 변화·독립 반복 |
+| 4 이미지 특징 🔑 | `plot_feature_summary`, `plot_copy_diagnostics` | 특징 평균·공분산이 같아도 복제가 숨어 있을 수 있나 | 고정 MNIST 예시의 직접 정의한 특징, 공분산, 고유 그림 비율, train·test 화소 최근접 거리와 대응 이미지 |
+| 5 비교 실험 🔑 | `plot_paired_protocol`, `plot_comparison_summary` | 같은 표본 예산과 평가 집합에서 후보 차이·seed 변동·비용을 어떻게 함께 기록하나 | oracle·학습 GMM·단일 Gaussian·붕괴 진단·복제 진단의 동일 표본 수 비교, 지표별 평균·seed SD·짝지은 차이·측정 비용 |
 
 ## 4. 작업 순서
 

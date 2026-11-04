@@ -3,7 +3,7 @@
 학습 목적은 **문제 → 가정·수식 → 배열 연산 → 미분·갱신 → 실험 → 직접 변형**의 연결입니다.
 행렬·미분·확률을 실제 계산과 함께 다시 확인하고, 작은 완성 예제를 재구성한 뒤 조건을 바꿉니다.
 
-**현재 실행 자료는 00–15에 00b·01b와 2026-09-16에 더한 11권(05b·18b·23·24·25·28·32·33·34·35·35b), 2026-09-17에 더한 2권(07b SNN·10b CVNN)을 합친 총 31개 노트북입니다.** 16–63 가운데 위 11권을 뺀 나머지는 다음 제작을 위한 학습 설계입니다.
+**현재 실행 자료는 총 43개 노트북입니다.** 2026-11-04에 22 Autoencoder·27 Monte Carlo와 샘플 기울기·37 생성 모델 평가를 더하고, 16 정규화 층·17 ResNet·18 U-Net, 19 ViT·20 시퀀스 encoder–decoder·21 집합과 graph attention, 26 VAE 분포 읽기·29 GAN 목적과 안정화·30 normalizing flow를 이어 제작했습니다. 아래 표에서 노트북 링크가 있는 단원은 실행 자료이며, 나머지 28개 단원은 다음 제작을 위한 학습 설계입니다.
 2026-09-16부터 사용자가 요청한 모델을 더합니다: LeNet은 **05b**, 물체 검출(YOLO)은 **18b**, EDM은 **35b**로 기존 번호를 유지한 채 b 번호로 끼우고(00b·01b와 같은 규칙), VAE(23–25)·GAN(28)·NCSN(32–33)·DDPM(34–35)은 아래 표의 자리 그대로 제작합니다. 11권 모두 제작을 마쳤습니다. 2026-09-17에는 같은 규칙으로 스파이킹 신경망(SNN)을 **07b**, 복소수 신경망(CVNN)을 **10b**에 끼웠습니다.
 전체 71개 단위(번호 00–63의 64개 주제와 b 단위 7개)는 주제를 찾는 지도이며, 선수 개념을 확인하면서 관심 경로를 선택합니다.
 한 단위를 마치면 **설명 / 수식 구성 / 직접 구현 / 변형 검산**을 각각 기록합니다.
@@ -11,7 +11,7 @@
 ## 지금 연결할 순서
 
 00–10을 읽고 계셨다면 **11 → 12 → 13 → 14 → 15**를 이어 보시면 됩니다.
-그 뒤 생성 모델에 관심이 크면 23 잠재변수(23 → 24 → 25 VAE → 28 GAN → 32 → 33 → 34 → 35 → 35b)로, 구조의 조합을 더 보고 싶으면 16 정규화 층으로 이어갑니다.
+그 뒤 생성 모델에 관심이 크면 **22 AE → 23 잠재변수 → 24 ELBO → 27 샘플 추정 → 25 VAE → 26 VAE 분포 읽기 → 28 GAN → 29 안정화 → 30 flow → 32 → 33 → 34 → 35 → 35b**로 이어갑니다. **37 생성 평가**는 11·12·15·23의 평균·확률·실험·EM을 바탕으로 관심 모델의 첫 구현 뒤 연결합니다. 구조 조합은 **16 정규화 층 → 17 ResNet → 18 U-Net**으로 이어 읽을 수 있습니다. 19 ViT·20 시퀀스 encoder–decoder·21 집합과 graph attention도 실행 자료로 이어집니다.
 기초부터 시작할 때는 00–04 다음에 11–15를 읽고 기본 아키텍처로 들어가도 좋습니다.
 
 아래 관심 경로는 **공통 기초 00–04를 바탕으로** 첫 완성 예제에 도달하는 순서를 적었습니다.
@@ -20,11 +20,14 @@
 | 관심 | 첫 완성 예제까지의 경로 | 이후 넓히는 방향 |
 |---|---|---|
 | 수식을 직접 구현하기 | 00–04 → 11–15 → 05–10 | 63 논문 한 편을 계산으로 재구성 |
-| 이미지 구조 | 05 → 05b → 08–09 → 13 → 16–17 | 18–19 U-Net·ViT → 42–43 표현 학습 |
-| 물체 검출 | 05 → 05b → 14–15 → 18b | 18 U-Net → 37 평가 |
-| VAE | 11–15 → 23–25 | 22 AE·26 VAE 읽기 → 27 샘플 추정 → 30 flow |
-| GAN | 13–15 → 28–29 | 27 샘플 추정·37 생성 모델 평가 |
-| score·diffusion | 11–15 → 23 → 32–33 | 34–35 diffusion → 35b EDM → 36 flow matching, 27·31 샘플 추정·에너지 |
+| 이미지 구조 | 05 → 05b → 08–09 → 13–15 → 16–19 | 42–43 표현 학습 (계획) |
+| 물체 검출 | 05 → 05b → 14–15 → 18b | 16–18의 구조·segmentation, 19 ViT |
+| 시퀀스 변환 | 06–09 → 15 → 20 | 44–46 언어 모델과 생성 (계획) |
+| 집합·그래프 | 08·10 → 15 → 21 | 38–43 표현 학습 (계획) |
+| VAE | 11–15 → 22 → 23–24 → 27 → 25 | 26 VAE 읽기 → 37 생성 평가·30 flow |
+| GAN | 11–15 → 23 → 27 → 28 | 29 안정화 → 37 생성 모델 평가 |
+| 밀도와 가역 변환 | 11–15 → 27 → 30 | 37 생성 평가 → 36 flow matching (계획) |
+| score·diffusion | 11–15 → 23 → 27 → 32–33 | 34–35 diffusion → 35b EDM → 37 평가 → 31 에너지·36 flow matching (계획) |
 | GPT | 08–09 → 13–15 → 44–46 | 47 encoder 목적, 48–50 적응·선호·다중모달 |
 | 자기지도 표현 | 05·08·10 → 11–15 → 38–39 | 19–20 구조 조합·22 AE → 40–43 타깃·기울기 경로 |
 | 강화학습 | 11–15 → 27 → 51–58 | 59 연속 행동 → 60–62 계획·오프라인·선호 |
@@ -88,21 +91,21 @@ CNN의 공유, RNN의 공유, GNN의 공유를 비교하면서 같은 미분 규
 
 ## 4. 기본 부품을 조합하는 아키텍처
 
-16–21은 작은 블록의 전체 backward와 구조의 성질을 검산하는 후속 제작 단위입니다.
-09의 LayerNorm·잔차, 04의 초기화·clipping을 출발점으로 사용합니다.
+16–21은 작은 블록의 전체 backward와 실제 학습으로 구조의 성질을 검산하는 실행 자료입니다. 이미지·시퀀스·집합·그래프에 맞는 입력 구조와 위치·순열·mask의 의미를 비교합니다.
+00–05의 배열·미분·확률·학습·합성곱을 바탕으로 각 부품을 다시 구성합니다. 09에서 먼저 본 LayerNorm·잔차와 연결해 읽을 수 있습니다.
 
 | 번호 | 학습 단위 | 선수 개념 | 직접 구현할 계산 | 완성 예제·변형 검산 |
 |---|---|---|---|---|
-| 16 | BatchNorm·LayerNorm·RMSNorm | 03·09·13 | 통계 축, affine 파라미터, running 통계, train/eval, 각 VJP | 같은 입력의 배치 조합을 바꾸고 정규화 출력·기울기 비교 |
-| 17 | 잔차 블록과 ResNet | 05·09·16 | identity·projection shortcut, 해상도·채널 변화, 두 경로 누적 | 깊이를 바꾸고 activation·gradient norm·분류 학습 비교 |
-| 18 | encoder–decoder와 U-Net | 05·17 | down/up sampling, concatenate skip, pixel CE·Dice | 작은 도형 segmentation, 홀수 해상도·foreground 비율 변경 |
+| 16 | [BatchNorm·LayerNorm·RMSNorm](../notebooks/03_구조조합/16_normalization.ipynb) | 00·01·01b·03·04 | 통계 축, affine 파라미터, running 통계, train/eval, 각 VJP | 배치 조합에 따른 출력·기울기와 MNIST 분류 학습 비교 |
+| 17 | [잔차 블록과 ResNet](../notebooks/03_구조조합/17_resnet.ipynb) | 00–02·04·05·13·15 | identity·projection shortcut, 해상도·채널 변화, 두 경로 누적 | 깊이에 따른 activation·gradient norm, 같은 조건의 세 seed MNIST 분류 비교 |
+| 18 | [encoder–decoder와 U-Net](../notebooks/03_구조조합/18_unet.ipynb) | 02–05·15 | down/up sampling, concatenate skip, 화소 BCE·이미지별 soft Dice, hard IoU·Dice | 작은 도형 segmentation과 skip 대조, 홀수 해상도·foreground 비율 변경 |
 | 18b | [물체 검출: 격자 예측과 YOLO 손실](../notebooks/03_구조조합/18b_detection_yolo.ipynb) | 05b·14·15 | 상자·IoU, S×S 격자 출력, 책임 셀 배정, 좌표·신뢰도·클래스 가중 SSE와 mask 고정 미분, NMS | 캔버스 위 숫자 1–3개 검출, λ·격자 크기 변경, IoU≥0.5 precision·recall·AP |
-| 19 | patch embedding과 ViT | 05·09·16 | 이미지→patch→token, 위치·분류 token·pooling | 같은 도안에서 patch 크기·위치 정보 변경, parameter·token 수 계산 |
-| 20 | sequence encoder–decoder | 06–09 | cross-attention, encoder/decoder mask, teacher forcing, 위치 방식 | 가변 길이 기호 변환, padding·미래 정보의 영향 검산 |
-| 21 | 집합·graph attention·구조적 대칭 | 08·10 | Deep Sets의 합, edge mask의 attention, GAT 집계 | 노드/집합 순열에 대한 등변·불변 성질, 이웃 수 변경 |
+| 19 | [patch embedding과 ViT](../notebooks/03_구조조합/19_vit.ipynb) | 00·00b·01·02·04·08–09·16–17 (평가 15) | patchify·embedding·위치·CLS/mean pooling, attention·LN·MLP의 전체 backward | MNIST 분류, patch 순열·위치 이동, patch 크기별 parameter·token·attention 원소 수 |
+| 20 | [sequence encoder–decoder](../notebooks/03_구조조합/20_sequence_encoder_decoder.ipynb) | 00·01–02·04·08–09 | self/cross attention, padding·causal mask, shift·teacher forcing, 유효 target CE·전체 backward | 가변 길이 기호 복사 학습·자유 생성, 미래·padding 불변과 EOS·token·sequence 평가 |
+| 21 | [집합·graph attention·구조적 대칭](../notebooks/03_구조조합/21_sets_graph_attention.ipynb) | 03–04·08·10·15 | Deep Sets의 sum/mean, edge mask·self-loop, GAT 점수·집계와 전체 backward | 집합·노드 회귀 학습, 순열 등변/불변, 고립·padding·집합 크기·이웃 수 변경 |
 
 16의 정규화는 배열 통계를, 14의 regularization은 목적·학습 방식에 주는 제약을 다룹니다.
-18의 복원 경로와 skip은 34의 이미지 잡음 예측기로 다시 사용하고,
+18에서 배운 해상도 확대 경로와 skip은 이미지 잡음 예측기로 확장할 수 있고,
 20의 cross-attention은 조건부 생성과 다중모달 구조로 연결합니다.
 
 <a id="3-학습-목적과-생성"></a>
@@ -111,38 +114,43 @@ CNN의 공유, RNN의 공유, GNN의 공유를 비교하면서 같은 미분 규
 
 아키텍처, 목적, 파라미터 갱신, 샘플 생성 절차를 매번 따로 적습니다.
 22–37은 한 모델의 이름 안에 묶여 있던 중간 계산을 실제 학습 단위로 펼친 설계입니다.
+링크가 있는 단원의 선수 개념은 **현재 노트북 본문을 실행하는 데 필요한 자료**를 기준으로 적었습니다.
+22 AE와 27 샘플 추정은 현재 실행 가능한 연결 자료입니다. 25·32의 본문만으로도 첫 예제를 실행할 수 있고, 22·27에서 압축·기댓값·샘플 기울기를 따로 검산할 수 있습니다.
+26은 조건부 VAE와 β·warmup을, 29는 GAN 목적과 제약을, 30은 가역 변환의 밀도 학습을 실제로 실행합니다.
+31 에너지 모델은 33을 읽은 뒤 연결할 제작 계획입니다. 20 encoder–decoder에서는 cross-attention과 조건부 기호 생성을 먼저 실행해 볼 수 있습니다.
 
 | 번호 | 학습 단위 | 선수 개념 | 직접 구현할 계산 | 완성 예제·변형 검산 |
 |---|---|---|---|---|
-| 22 | Autoencoder와 압축 표현 | 03·11·13–15 | encoder/decoder, 복원 MSE, 병목의 전체 backward | PCA와 선형 AE의 부분공간·복원 비교, 비선형·denoising AE 변형 |
+| 22 | [Autoencoder와 압축 표현](../notebooks/04_생성/22_autoencoder.ipynb) | 00–01·03–04·11 | encoder/decoder, 복원 MSE, 병목의 전체 backward | PCA와 선형 AE의 부분공간·복원 비교, 비선형·denoising AE 변형 |
 | 23 | [잠재변수·주변화·혼합 모형](../notebooks/04_생성/23_latent_mixture_em.ipynb) | 02·12 | 결합 p(x,z), 합으로 p(x), Bayes posterior, 작은 EM | 두 Gaussian 혼합에서 책임 확률과 로그우도, 잠재 label 교환 |
 | 24 | [Jensen 부등식과 ELBO 유도](../notebooks/04_생성/24_elbo.ipynb) | 12·23 | q로 기대값 만들기, log p(x)=ELBO+posterior KL | 잠재 상태를 열거해 증거·하한·차이를 각각 수치 확인 |
-| 25 | [재매개화 VAE의 전체 학습](../notebooks/04_생성/25_vae.ipynb) | 13·22·24 | Gaussian encoder, 관측 likelihood, reconstruction+KL, 샘플 VJP | 2차원 잠재공간에서 복원·prior 샘플, 두 항·전체 미분 확인 |
-| 26 | VAE가 배운 분포 읽기 | 15·25 | posterior/prior, beta 가중치, KL warmup, 조건부 입력 | 잠재 사용량·복원·생성, posterior collapse와 과한 압축 관찰 |
-| 27 | Monte Carlo·importance sampling·샘플 기울기 | 02·12–13 | 기대값 추정, 분산·표준오차, importance weight, pathwise/score-function | 알려진 적분·미분과 추정치 비교, 샘플 수·제안 분포 변경 |
+| 25 | [재매개화 VAE의 전체 학습](../notebooks/04_생성/25_vae.ipynb) | 02–04·12·24 | Gaussian encoder, 관측 likelihood, reconstruction+KL, 샘플 VJP | 2차원 잠재공간에서 복원·prior 샘플, 두 항·전체 미분 확인 |
+| 26 | [VAE가 배운 분포 읽기](../notebooks/04_생성/26_vae_distribution.ipynb) | 04·12·15·25·27 | posterior/prior, beta 가중치, KL warmup, 조건부 VAE의 전체 backward | 세 seed의 복원·KL·공통 −ELBO, 조건부 prior 생성·잠재 사용량·의도적 collapse 대조 |
+| 27 | [Monte Carlo·importance sampling·샘플 기울기](../notebooks/04_생성/27_monte_carlo_gradients.ipynb) | 02·12–13 | 기대값 추정, 분산·표준오차, importance weight, pathwise/score-function | 알려진 적분·미분과 추정치 비교, 샘플 수·제안 분포 변경 |
 | 28 | [GAN의 두 목적과 교대 갱신](../notebooks/04_생성/28_gan.ipynb) | 03–04·13–15 | D의 분류, G의 minimax/non-saturating 목적, gradient 경로 고정 | 1·2차원 혼합 분포 생성, D/G를 따로 갱신하고 mode별 샘플 수 기록 |
-| 29 | GAN 목적과 안정화 비교 | 28 | 분포 거리·critic, Wasserstein 목적, gradient penalty·spectral 제약 | 작은 고정 실험에서 critic·G gradient·coverage·seed 비교 |
-| 30 | 변수 변환과 normalizing flow | 11–13·27 | determinant·log Jacobian, 가역 affine coupling, 정확한 density | forward/inverse 왕복, density 적분, 2차원 flow의 likelihood·샘플 |
+| 29 | [GAN 목적과 안정화 비교](../notebooks/04_생성/29_gan_objectives.ipynb) | 01·03·04·11·28 | 분포 거리·critic, Wasserstein 목적, GP 혼합 미분·SVD 사후 투영 | 세 seed의 고정 예산 학습, critic·G 기울기와 생성 품질·coverage·비용을 구분 |
+| 30 | [변수 변환과 normalizing flow](../notebooks/04_생성/30_normalizing_flow.ipynb) | 03·04·11·12·27 | determinant·log Jacobian, 가역 affine coupling, 부피 항을 포함한 전체 backward | 순·역변환 왕복과 수치 Jacobian, 실제 2D 우도 학습·생성, 격자·영역·MC 오차 분리 |
 | 31 | 에너지 기반 모델과 MCMC | 12·27 | exp(-E)/Z, log-partition 미분, positive/negative phase, Langevin | 1차원 격자 적분과 샘플 추정 비교, chain·step size 변화 |
-| 32 | [score와 denoising score matching](../notebooks/04_생성/32_score_matching.ipynb) | 12–13·27 | score=입력의 log density 기울기, Gaussian 잡음의 조건부 score | 해석 가능한 혼합 분포의 score와 학습 벡터장·샘플 비교 |
-| 33 | [잡음 수준을 잇는 score 모델](../notebooks/04_생성/33_ncsn.ipynb) | 31–32 | noise-conditioned score, annealed Langevin, SDE/ODE의 작은 시간 스텝 | 잡음 크기·적분 간격·초깃값을 바꾸고 분포 이동 확인 |
+| 32 | [score와 denoising score matching](../notebooks/04_생성/32_score_matching.ipynb) | 01·03·12–13·23 | score=입력의 log density 기울기, Gaussian 잡음의 조건부 score | 해석 가능한 혼합 분포의 score와 학습 벡터장·샘플 비교 |
+| 33 | [잡음 수준을 잇는 score 모델](../notebooks/04_생성/33_ncsn.ipynb) | 03–04·11–12·23·32 | noise-conditioned score, annealed Langevin, SDE/ODE의 작은 시간 스텝 | 잡음 크기·적분 간격·초깃값을 바꾸고 분포 이동 확인 |
 | 34 | [Diffusion의 전방 과정과 학습 타깃](../notebooks/04_생성/34_diffusion_forward.ipynb) | 12·24·32 | beta/alpha 누적곱, q(x_t\|x_0), posterior 계수, epsilon/x0/v 타깃 | 닫힌식과 반복 잡음의 평균·분산 대조, 작은 denoiser 학습 |
-| 35 | [Diffusion 역과정·DDIM·조건부 생성](../notebooks/04_생성/35_diffusion_reverse.ipynb) | 20·33–34 | reverse mean/variance, timestep indexing, DDIM, guidance | 같은 모델의 스텝 수·sampler·guidance 변경, 생성 경로·비용 비교 |
+| 35 | [Diffusion 역과정·DDIM·조건부 생성](../notebooks/04_생성/35_diffusion_reverse.ipynb) | 09·12·23·33–34 | reverse mean/variance, timestep indexing, DDIM, guidance | 같은 모델의 스텝 수·sampler·guidance 변경, 생성 경로·비용 비교 |
 | 35b | [EDM: σ-공간에서 통일한 diffusion 설계](../notebooks/04_생성/35b_edm.ipynb) | 32–35 | VE/VP를 σ(t)·s(t)로 통일, Tweedie의 score–denoiser 관계, c_skip·c_out·c_in·c_noise 유도, λ(σ)·σ 분포, ρ 시간 격자, Heun 2차 샘플러 | 혼합 분포의 정확한 denoiser로 solver 오차와 모델 오차 분리, 같은 학습 모델을 DDPM·DDIM·Heun으로 샘플링 비교 |
 | 36 | Flow matching과 ODE 생성 | 27·30·33 | 조건부 경로, 목표 velocity, 회귀 목적, Euler/Heun 적분 | 2차원 분포 수송, 벡터장 오차와 solver 오차를 나누어 확인 |
-| 37 | 생성 모델 평가와 비교 실험 | 15·22–36 중 관심 모델 | likelihood·복원·품질·coverage, MMD·특징 통계·샘플 비용 | 알려진 mode 분포와 복제 샘플을 사용해 지표가 읽는 성질 대조 |
+| 37 | [생성 모델 평가와 비교 실험](../notebooks/04_생성/37_generative_evaluation.ipynb) | 00b·11–12·15·23 | likelihood·복원·품질·coverage, MMD·특징 통계·샘플 비용 | 학습한 EM-GMM과 정답·성분 누락·복제 진단을 같은 조건에서 비교 |
 
 ### VAE를 공부할 때의 다섯 연결
 
 1. **분포 배열화:** 12에서 평균·로그 분산·샘플·로그 밀도를 계산합니다.
 2. **잠재변수 모형:** 23에서 결합·주변·사후분포를 작은 열거로 연결합니다.
 3. **학습 가능한 목적:** 24에서 하한과 posterior KL의 관계를 식과 숫자로 확인합니다.
-4. **샘플을 통과하는 미분:** 25에서 고정 잡음의 미분과 기대값의 샘플 추정을 연결합니다.
+4. **샘플을 통과하는 미분:** 27에서 기대값과 샘플 기울기를 따로 검산하고, 25의 고정 잡음 미분과 Monte Carlo 평가에 연결합니다.
 5. **학습한 모형의 사용:** 26에서 입력 복원·prior 생성·잠재 사용을 각각 관찰합니다.
 
 같은 방식으로 GAN은 28–29, score·diffusion은 31–35와 35b, flow는 30·36으로 나누어 공부합니다.
 생성 단원의 공통 예시는 **두 봉우리 혼합**(1·2차원 Gaussian 혼합, 23에서 정의)과 고정 MNIST 예시입니다. 혼합 분포는 밀도·책임확률·score·최적 denoiser가 모두 닫힌식이라 학습 결과의 정답지가 됩니다. MNIST는 VAE(25)에서 784 화소 Bernoulli로, GAN·score·diffusion(28·33–35b)에서는 11의 PCA 좌표 32개에서 학습한 뒤 고정 기저로 복원합니다.
-37은 관심 모델 하나의 첫 구현을 마친 뒤 바로 붙여도 좋습니다.
+26은 조건이 있는 2D 과일 측정값, 29는 네 봉우리 2D 자료, 30은 곡선형 2D 자료를 본문에서 생성합니다. 각 예제는 조건부 분포·mode coverage·가역 밀도의 계산을 직접 보이도록 골랐으며, 서로 다른 자료의 손실 절댓값을 모델 순위로 비교하지 않습니다.
+37은 00b·11·12·15·23을 준비한 뒤 관심 모델의 첫 구현에 붙입니다. 생성 모델 전부를 먼저 공부할 필요는 없습니다.
 
 ## 6. 표현 학습과 자기지도 목적
 
@@ -243,6 +251,7 @@ GPT의 next-token 학습, SFT의 타깃 선택, DPO의 선호 목적을 각각 �
 - [PyTorch 자동미분 안내](https://docs.pytorch.org/tutorials/beginner/basics/autogradqs_tutorial.html): 계산 그래프·기울기 누적·VJP의 API 대응.
 - [Spinning Up의 RL 알고리즘 분류](https://spinningup.openai.com/en/latest/spinningup/rl_intro2.html)와 [정책 기울기 유도](https://spinningup.openai.com/en/latest/spinningup/rl_intro3.html): 가치·정책·모델 기반 접근과 기대 보상 미분.
 - [VAE](https://arxiv.org/abs/1312.6114), [GAN](https://arxiv.org/abs/1406.2661), [AdamW](https://arxiv.org/abs/1711.05101), [Flow Matching](https://arxiv.org/abs/2210.02747): 각 목적·갱신·생성 절차의 원논문.
+- [조건부 VAE](https://papers.nips.cc/paper_files/paper/2015/hash/8d55a249e6baa5c06772297520da2051-Abstract.html), [Wasserstein GAN](https://arxiv.org/abs/1701.07875), [gradient penalty](https://arxiv.org/abs/1704.00028), [spectral normalization](https://arxiv.org/abs/1802.05957), [Real NVP](https://arxiv.org/abs/1605.08803): 26·29·30의 조건부 생성·목적과 제약·가역 밀도 계산을 잇는 원자료. 축소 실험과 원논문의 구조 차이는 각 노트북에 명시합니다.
 
 학습자의 실제 질문이 모이면 절의 길이·순서·변형 난도를 조정합니다.
 파일의 실행·수치 검산과 독립 실습 기록은 로컬 `results/bridge-validation/bridges.md`에 있습니다(저장소에는 올리지 않습니다).
