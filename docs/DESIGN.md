@@ -734,6 +734,19 @@ online·predictor 전체 미분과 고정 타깃, optimizer 뒤 EMA, 상수 표�
 | 5. rollout을 정확한 유한·무한 목적과 비교합니다 | `plot_rollout_boundary` | `boundary_states, boundary_rewards, boundary_terminal, boundary_bootstrap` |
 | 5. rollout을 정확한 유한·무한 목적과 비교합니다 | `plot_rollout_comparison` | `horizons, finite_means, finite_ses, finite_exact, bootstrap_means, bootstrap_ses, exact_policy_value[0]` |
 
+### 46 · 생성 규칙과 KV cache — `generation_kv_cache_plots.py` — 완료
+
+temperature·top-k·top-p, 실제 학습 모델의 prefix별 full/cache 동등성·같은 난수 생성·시간·저장량. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 같은 logits에서 다른 생성 분포를 만듭니다 | `plot_temperature` | `temperature_logits, temperature_rows, temperatures` |
+| 2. top-k와 top-p는 남길 후보를 다르게 정합니다 | `plot_truncation` | `truncation_original, truncation_keep, truncation_filtered` |
+| 3. prefix 전체를 처리해 K와 V를 저장합니다 | `plot_prefill` | `prefill_features, prefill_k, prefill_v` |
+| 4. 새 token의 query 하나만 과거를 읽습니다 | `plot_cached_step` | `cache_keys, new_query, new_weights, new_mixed` |
+| 5. 같은 난수로 생성하고 비용을 따로 측정합니다 | `plot_cache_budget` | `budget_lengths, score_counts, cache_bytes` |
+| 5. 같은 난수로 생성하고 비용을 따로 측정합니다 | `plot_cache_timing` | `budget_lengths, timing_results` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.

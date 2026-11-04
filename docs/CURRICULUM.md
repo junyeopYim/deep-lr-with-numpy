@@ -3,7 +3,7 @@
 학습 목적은 **문제 → 가정·수식 → 배열 연산 → 미분·갱신 → 실험 → 직접 변형**의 연결입니다.
 행렬·미분·확률을 실제 계산과 함께 다시 확인하고, 작은 완성 예제를 재구성한 뒤 조건을 바꿉니다.
 
-**현재 실행 자료는 총 51개 노트북입니다.** 아래 표의 노트북 링크가 있는 단원은 본문과 연습 정답의 새 커널 실행을 마쳤습니다. 전체 71개 중 남은 20개 단원은 순서대로 제작·검증하고 있습니다.
+**현재 실행 자료는 총 52개 노트북입니다.** 아래 표의 노트북 링크가 있는 단원은 본문과 연습 정답의 새 커널 실행을 마쳤습니다. 전체 71개 중 남은 19개 단원은 순서대로 제작·검증하고 있습니다.
 2026-09-16부터 사용자가 요청한 모델을 더합니다: LeNet은 **05b**, 물체 검출(YOLO)은 **18b**, EDM은 **35b**로 기존 번호를 유지한 채 b 번호로 끼우고(00b·01b와 같은 규칙), VAE(23–25)·GAN(28)·NCSN(32–33)·DDPM(34–35)은 아래 표의 자리 그대로 제작합니다. 11권 모두 제작을 마쳤습니다. 2026-09-17에는 같은 규칙으로 스파이킹 신경망(SNN)을 **07b**, 복소수 신경망(CVNN)을 **10b**에 끼웠습니다.
 전체 71개 단위(번호 00–63의 64개 주제와 b 단위 7개)는 주제를 찾는 지도이며, 선수 개념을 확인하면서 관심 경로를 선택합니다.
 한 단위를 마치면 **설명 / 수식 구성 / 직접 구현 / 변형 검산**을 각각 기록합니다.
@@ -178,7 +178,7 @@ Transformer라는 구조에 데이터의 확률 분해와 토큰 타깃을 붙�
 |---|---|---|---|---|
 | 44 | [토큰화·언어 데이터·자기회귀 목적](../notebooks/06_언어모델/44_tokenization.ipynb) | 02·03·09·15 | 문자/byte/BPE, vocab·embedding, 입력/타깃 한 칸 이동, 문서 경계·padding | 문장별 조건부 확률의 곱과 token CE 합 대조, 토큰 수·perplexity 규약 |
 | 45 | [작은 decoder GPT 전체 학습](../notebooks/06_언어모델/45_decoder_gpt.ipynb) | 09·13–15·44 | causal block, tied/untied head, token NLL, 전체 backward·학습 loop | 작은 문자 언어모델, causal·padding mask, 학습 문장 복원·held-out NLL |
-| 46 | 생성 규칙과 KV cache | 45 | temperature·top-k·top-p, categorical sampling, prefill/한 토큰 cache | 같은 prefix의 logits를 전체 재계산과 대조, 길이·seed·속도·메모리 |
+| 46 | [생성 규칙과 KV cache](../notebooks/06_언어모델/46_generation_kv_cache.ipynb) | 45 | temperature·top-k·top-p, categorical sampling, prefill/한 토큰 cache | 같은 prefix의 logits를 전체 재계산과 대조, 길이·seed·속도·메모리 |
 | 47 | encoder 목적과 BERT식 MLM | 20·42·44 | bidirectional mask, 선택 위치 CE, corruption 방식 | 같은 토큰열의 MLM·next-token 정보 접근 범위와 예측 비교 |
 | 48 | SFT·전이 학습·LoRA | 13–15·45 | trainable 파라미터, response-only loss, 저랭크 delta-W, scaling | 같은 작은 과제의 full/frozen/LoRA 학습, loss mask·gradient·파라미터 수 |
 | 49 | 선호 쌍·Bradley–Terry·DPO | 12·44–48 | sequence log-prob 합, 기준 정책, 선호 확률·log-ratio 목적 | 같은 prompt의 두 답변, 부호·padding·reference 고정과 길이 영향 |
