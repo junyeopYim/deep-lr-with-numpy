@@ -121,3 +121,33 @@ def test_execution_issues_distinguishes_placeholders_warnings_and_unexecuted_cel
     assert issues["stderr"]
     assert not issues["exercise_failures"]
     assert execution_issues(nb, require_answers=True)["exercise_failures"]
+
+
+@pytest.mark.parametrize("suite,folder", [
+    ("representation", "05_표현학습"), ("language", "06_언어모델"),
+    ("reinforcement", "07_강화학습"), ("capstone", "08_종합"), ("all", "08_종합"),
+])
+def test_new_suites_discover_notebooks_without_checkpoints(workspace, suite, folder):
+    """새 단원도 경로 없이 실행되며 checkpoint 복사본·다른 suite는 섞이지 않아야 합니다."""
+    path = workspace / "notebooks" / folder / "lesson.ipynb"
+    path.parent.mkdir(parents=True)
+    nbformat.write(nbformat.v4.new_notebook(cells=[
+        nbformat.v4.new_code_cell("print('NEW SUITE OK')")]), path)
+    checkpoint = path.parent / ".ipynb_checkpoints" / "lesson-checkpoint.ipynb"
+    checkpoint.parent.mkdir()
+    nbformat.write(nbformat.v4.new_notebook(cells=[
+        nbformat.v4.new_code_cell("raise RuntimeError('checkpoint must not execute')")]), checkpoint)
+    other = workspace / "notebooks" / "00_기초" / "other.ipynb"
+    other.parent.mkdir()
+    nbformat.write(nbformat.v4.new_notebook(cells=[
+        nbformat.v4.new_code_cell("print('FOUNDATION OK')")]), other)
+    result = subprocess.run([sys.executable, str(workspace / "scripts/verify_notebooks.py"),
+                             "--suite", suite], cwd=workspace, text=True, capture_output=True, timeout=45)
+    assert result.returncode == 0, result.stdout + result.stderr
+    reports = json.loads((workspace / "results" / f"{suite}-validation/execution.json").read_text())
+    expected = {str(path.relative_to(workspace))}
+    if suite == "all":
+        expected.add(str(other.relative_to(workspace)))
+    assert {item["notebook"] for item in reports} == expected
+    assert all(item["errors"] == 0 and not item["warnings"] for item in reports)
+    assert "NEW SUITE OK" in next(item["stdout"] for item in reports if item["notebook"].endswith("lesson.ipynb"))

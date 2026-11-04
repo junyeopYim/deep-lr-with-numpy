@@ -3,6 +3,8 @@
 사용: python scripts/verify_notebooks.py [노트북 경로 ...]
 경로를 생략하면 foundation은 00_기초, architecture는 01_아키텍처,
 bridge는 02_연결, composition은 03_구조조합, generative는 04_생성을 실행합니다.
+representation은 05_표현학습, language는 06_언어모델,
+reinforcement는 07_강화학습, capstone은 08_종합, all은 전체 폴더를 실행합니다.
 """
 
 import argparse
@@ -18,15 +20,22 @@ from notebook_validation import execute_notebook, execution_issues
 from PIL import Image
 
 
+SUITE_FOLDERS = {
+    "foundation": "00_기초", "architecture": "01_아키텍처", "bridge": "02_연결",
+    "composition": "03_구조조합", "generative": "04_생성", "representation": "05_표현학습",
+    "language": "06_언어모델", "reinforcement": "07_강화학습", "capstone": "08_종합",
+    "all": "",
+}
+
+
 def main():
     root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("notebooks", nargs="*", type=Path)
-    parser.add_argument("--suite", default="foundation", choices=("foundation", "architecture", "bridge", "composition", "generative"),
+    parser.add_argument("--suite", default="foundation", choices=tuple(SUITE_FOLDERS),
                         help="실행 기록과 그림을 저장할 학습 단위")
     args = parser.parse_args()
-    folder = {"foundation": "00_기초", "architecture": "01_아키텍처", "bridge": "02_연결",
-              "composition": "03_구조조합", "generative": "04_생성"}[args.suite]
+    folder = SUITE_FOLDERS[args.suite]
     paths = args.notebooks or sorted((root / "notebooks" / folder).rglob("*.ipynb"))
     paths = [p.resolve() for p in paths if ".ipynb_checkpoints" not in p.parts]
     if not paths:
