@@ -790,6 +790,20 @@ temperature·top-k·top-p, 실제 학습 모델의 prefix별 full/cache 동등�
 | 4. 같은 정답이어도 주는 정보가 다릅니다 | `plot_mlm_learning` | `mlm_history` |
 | 5. 빈칸 복원은 자유 생성과 다른 사용법입니다 | `plot_fill` | `fill_original, fill_masked, fill_prediction` |
 
+### 53 · Monte Carlo·TD·다단계 타깃 — `mc_td_plots.py` — 완료
+
+완료 return·TD·n-step·유한 lambda, 경로 전수열거의 정확한 편향·분산과 32 seed 실제 가치 학습. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 끝까지 관측한 return으로 가치를 배웁니다 | `plot_mc_path` | `path_states, path_rewards, path_returns` |
+| 2. 한 전이와 현재 가치로 TD 오차를 만듭니다 | `plot_td_update` | `td_current, td_next, td_rewards, td_targets, td_errors` |
+| 3. n-step과 유한 λ-return을 연결합니다 | `plot_lambda_weights` | `step_targets, lambda_weights, lambda_contributions` |
+| 4. 타깃의 편향·분산을 모든 경로에서 계산합니다 | `plot_target_distribution` | `path_probabilities, example_targets, example_moments, method_names` |
+| 5. 같은 episode에서 네 가지 가치 학습을 비교합니다 | `plot_prediction_protocol` | `plan_settings, plan_values, plan_targets, plan_updated` |
+| 5. 같은 episode에서 네 가지 가치 학습을 비교합니다 | `plot_prediction_learning` | `episode_numbers, mean_rmse, se_rmse, method_names` |
+| 5. 같은 episode에서 네 가지 가치 학습을 비교합니다 | `plot_prediction_final` | `method_names, rmse_records[:, :, -1], mean_final_values, truth[:3]` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
