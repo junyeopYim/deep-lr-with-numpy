@@ -918,6 +918,21 @@ Q 신경망 전체 미분, 환형 replay·고정 타깃·Double 선택/평가 �
 | 5. 실제 replay 학습을 정확한 작은 환경과 대조합니다 | `plot_dqn_learning` | `episode_axis, q_rmse, policy_values, target_gap, mean_rmse, mean_values, mean_gap, names` |
 | 5. 실제 replay 학습을 정확한 작은 환경과 대조합니다 | `plot_dqn_final` | `names, training_returns, final_mean_q, q_truth[:3].reshape(6)` |
 
+### 59 · 연속 행동·DDPG/TD3·SAC — `continuous_control_plots.py` — 완료
+
+Gaussian/tanh 밀도·재매개화 전체 미분, 실제 3방법 replay·actor·critic·target 학습과 독립 제어 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 연속 힘으로 상태를 원점에 가깝게 만듭니다 | `plot_panels` | `[transition], ['s=1에서 힘에 따른 한 step'], [['s', 'a', 's 다음', '보상']]` |
+| 2. Gaussian을 tanh로 보내고 밀도를 보정합니다 | `plot_panels` | `[u_demo, a_demo, logjac_demo, transformed_log], ['예시 base u · σ=1', '범위 제한 행동 tanh(u)', 'log Jacobian', '보정한 행동 log밀도']` |
+| 3. 두 Q·타깃과 actor의 미분을 연결합니다 | `plot_panels` | `[q_pair, terminal_demo, target_demo, delay_table], ['다음 두 Q', '실제 종료 d', 'min Q의 TD target', 'TD3: update·Q갱신·actor갱신']` |
+| 4. replay를 모으고 세 알고리즘을 실제로 갱신합니다 | `plot_panels` | `[replay_demo, schedule, update_demo], ['전이: s·a·r·s다음·종료·시간경계', 'DDPG·TD3·SAC: 환경·Q·actor 수', '이전target·새online·rate=.01']` |
+| 4. replay를 모으고 세 알고리즘을 실제로 갱신합니다 | `plot_curves` | `[r[4][:, [0, 1]] for r in runs], [f'{r[0]} seed{r[1]}' for r in runs], 'replay Q의 반 MSE · 품질 순위 아님'` |
+| 5. entropy를 뺀 실제 제어 보상으로 평가합니다 | `plot_panels` | `[return_examples, episode_returns, evaluation_plan], ['두 episode의 시각별 보상', '시각 할인합: 관측은episode', '평가N·길이·seed / 학습seed수·step·warmup']` |
+| 5. entropy를 뺀 실제 제어 보상으로 평가합니다 | `plot_panels` | `[evaluation], ['출력 순서의 독립 평가'], [['평균 반환', '조건부 SE', '포화율']]` |
+| 5. entropy를 뺀 실제 제어 보상으로 평가합니다 | `plot_trajectories` | `np.arange(21), traces, ['행동0', '고정 feedback', 'DDPG', 'TD3', 'SAC tanhμ']` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
