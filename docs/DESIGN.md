@@ -636,6 +636,20 @@ log-partition과 positive/negative phase, 격자 우도 학습, Langevin·MALA·
 | 5. chain의 길이와 독립 표본 수를 구별합니다 | `plot_chains` | `chain_paths, sampling_labels` |
 | 5. chain의 길이와 독립 표본 수를 구별합니다 | `plot_chain_density` | `grid, learned_density, hist_centers, histograms, sampling_labels, np.asarray(chain_summary)` |
 
+### 38 · 데이터 변형과 불변성 — `augmentation_plots.py` — 완료
+
+라벨 보존·양성 쌍·순열, 전체 미분과 변형 강도별 분류 학습·배경 이동 평가. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 같은 과일이라는 조건부터 정합니다 | `plot_panels` | `[example, flip_example, rotate_example, label_table], ['원본: 상태·배경', '배경 부호 반전', '90도 회전', '원본·반전·회전 라벨']` |
+| 2. 두 번 뽑은 변형이 양성 쌍을 만듭니다 | `plot_panels` | `[view_one, view_two, pair_gap], ['같은 원본의 뷰 1', '같은 원본의 뷰 2', '좌표별 제곱 차이']` |
+| 3. 순서를 바꾸면 출력은 어떻게 바뀌어야 하나요? | `plot_panels` | `[features[0], reordered[0], box_means], ['원소별 특징', '같은 특징의 순서 변경', '원본·재정렬 평균']` |
+| 4. 변형한 입력에서 실제 손실을 미분합니다 | `plot_panels` | `[small_x, small_view, small_h, small_logits], ['입력 X', '고정 변형 V', 'tanh 은닉 H', '익음 logit']` |
+| 5. 강도를 미리 정하고 다른 배경에서 평가합니다 | `plot_panels` | `[preview, plan, strength_plan], ['train 과일: 상태·배경', 'train·valid·test: N·seed', '조건: 잡음 σ·부호 파괴']` |
+| 5. 강도를 미리 정하고 다른 배경에서 평가합니다 | `plot_curves` | `histories, [s[0] for s in settings], 'validation 표본 평균 BCE'` |
+| 5. 강도를 미리 정하고 다른 배경에서 평가합니다 | `plot_panels` | `[train_scores[:, 1:2], scores], ['조건별 train 정확도', 'test: CE·정확도·특징분산'], [None, ['CE', '정확도', '분산']]` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
