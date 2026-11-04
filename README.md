@@ -5,7 +5,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 모델의 이름을 아는 데서 출발해, **왜 그 수식인지 설명하고 NumPy로 직접 구현하는 것**을 목표로 합니다.
 행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
-현재 **43개 노트북**을 실행하며 공부할 수 있습니다. 2026-11-04에는 **16 정규화 층·17 ResNet·18 U-Net**, **19 ViT·20 시퀀스 encoder–decoder·21 집합과 graph attention**, **22 Autoencoder·27 Monte Carlo와 샘플 기울기·37 생성 모델 평가**, **26 VAE 분포 읽기·29 GAN 목적과 안정화·30 normalizing flow**를 추가했습니다.
+현재 **44개 노트북**을 실행하며 공부할 수 있습니다. 각 단원은 작은 완성 예제, 직접 구현·검산, 절 연습과 끝 연습 A–D를 담습니다.
 [전체 커리큘럼](docs/CURRICULUM.md)은 71개 학습 단위(번호 00–63의 64개 주제와 b 단위 7개)의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
 ## 여기서 시작합니다
@@ -86,6 +86,13 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 | 35 | [Diffusion 역과정·DDIM·guidance](notebooks/04_생성/35_diffusion_reverse.ipynb) | 역과정 한 걸음·전체 루프·DDIM·classifier-free guidance, sampler 비교 |
 | 35b | [EDM](notebooks/04_생성/35b_edm.ipynb) | σ-공간 통일·Tweedie·preconditioning·λ(σ)·ρ 격자·Heun, solver 오차와 모델 오차 분리 |
 | 37 | [생성 모델 평가와 비교 실험](notebooks/04_생성/37_generative_evaluation.ipynb) | 학습한 혼합모형의 우도·mode 질량, MMD·특징 통계·복제 진단, 고정 평가 계획과 샘플 비용 |
+
+## 이어지는 목적·표현·언어·강화학습
+
+| 순서 | 노트북 | 완성 예제와 직접 확인할 것 |
+|---|---|---|
+| 31 | [에너지 기반 모델과 MCMC](notebooks/04_생성/31_energy_mcmc.ipynb) | log-partition과 positive/negative phase, 격자 우도 학습, Langevin·MALA·chain 의존성 비교 |
+<!-- curriculum-completion-units -->
 
 ## 실행 환경
 

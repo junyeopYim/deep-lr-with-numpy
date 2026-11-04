@@ -621,6 +621,21 @@ MNIST를 쓰지 않습니다. `draw_compute_graph`로 값 노드(원)·연산(�
 | 4 이미지 특징 🔑 | `plot_feature_summary`, `plot_copy_diagnostics` | 특징 평균·공분산이 같아도 복제가 숨어 있을 수 있나 | 고정 MNIST 예시의 직접 정의한 특징, 공분산, 고유 그림 비율, train·test 화소 최근접 거리와 대응 이미지 |
 | 5 비교 실험 🔑 | `plot_paired_protocol`, `plot_comparison_summary` | 같은 표본 예산과 평가 집합에서 후보 차이·seed 변동·비용을 어떻게 함께 기록하나 | oracle·학습 GMM·단일 Gaussian·붕괴 진단·복제 진단의 동일 표본 수 비교, 지표별 평균·seed SD·짝지은 차이·측정 비용 |
 
+### 31 · 에너지 기반 모델과 MCMC — `energy_plots.py` — 완료
+
+log-partition과 positive/negative phase, 격자 우도 학습, Langevin·MALA·chain 의존성 비교. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 낮은 에너지의 상태에 더 큰 확률을 줍니다 | `plot_energy_table` | `energy_three, weights_three, masses_three` |
+| 2. 자료와 모형의 평균을 서로 당깁니다 | `plot_phase_terms` | `phase_grid, phase_density, phase_positive, phase_negative, phase_gradient` |
+| 3. 정규화된 우도로 에너지 모형을 실제 학습합니다 | `plot_training_plan` | `grid, true_density, train[:4], training_settings` |
+| 3. 정규화된 우도로 에너지 모형을 실제 학습합니다 | `plot_energy_fit` | `history, grid, [initial_density, learned_density, true_density], ['초기', '학습', '자료 생성']` |
+| 4. 기울기로 제안하고 수락 비율로 보정합니다 | `plot_langevin_proposal` | `proposal_states, proposal_parts, proposal_terms` |
+| 5. chain의 길이와 독립 표본 수를 구별합니다 | `plot_dependent_blocks` | `block_example, block_averages` |
+| 5. chain의 길이와 독립 표본 수를 구별합니다 | `plot_chains` | `chain_paths, sampling_labels` |
+| 5. chain의 길이와 독립 표본 수를 구별합니다 | `plot_chain_density` | `grid, learned_density, hist_centers, histograms, sampling_labels, np.asarray(chain_summary)` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.

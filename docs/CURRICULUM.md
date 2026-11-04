@@ -3,7 +3,7 @@
 학습 목적은 **문제 → 가정·수식 → 배열 연산 → 미분·갱신 → 실험 → 직접 변형**의 연결입니다.
 행렬·미분·확률을 실제 계산과 함께 다시 확인하고, 작은 완성 예제를 재구성한 뒤 조건을 바꿉니다.
 
-**현재 실행 자료는 총 43개 노트북입니다.** 2026-11-04에 22 Autoencoder·27 Monte Carlo와 샘플 기울기·37 생성 모델 평가를 더하고, 16 정규화 층·17 ResNet·18 U-Net, 19 ViT·20 시퀀스 encoder–decoder·21 집합과 graph attention, 26 VAE 분포 읽기·29 GAN 목적과 안정화·30 normalizing flow를 이어 제작했습니다. 아래 표에서 노트북 링크가 있는 단원은 실행 자료이며, 나머지 28개 단원은 다음 제작을 위한 학습 설계입니다.
+**현재 실행 자료는 총 44개 노트북입니다.** 아래 표의 노트북 링크가 있는 단원은 본문과 연습 정답의 새 커널 실행을 마쳤습니다. 전체 71개 중 남은 27개 단원은 순서대로 제작·검증하고 있습니다.
 2026-09-16부터 사용자가 요청한 모델을 더합니다: LeNet은 **05b**, 물체 검출(YOLO)은 **18b**, EDM은 **35b**로 기존 번호를 유지한 채 b 번호로 끼우고(00b·01b와 같은 규칙), VAE(23–25)·GAN(28)·NCSN(32–33)·DDPM(34–35)은 아래 표의 자리 그대로 제작합니다. 11권 모두 제작을 마쳤습니다. 2026-09-17에는 같은 규칙으로 스파이킹 신경망(SNN)을 **07b**, 복소수 신경망(CVNN)을 **10b**에 끼웠습니다.
 전체 71개 단위(번호 00–63의 64개 주제와 b 단위 7개)는 주제를 찾는 지도이며, 선수 개념을 확인하면서 관심 경로를 선택합니다.
 한 단위를 마치면 **설명 / 수식 구성 / 직접 구현 / 변형 검산**을 각각 기록합니다.
@@ -117,7 +117,7 @@ CNN의 공유, RNN의 공유, GNN의 공유를 비교하면서 같은 미분 규
 링크가 있는 단원의 선수 개념은 **현재 노트북 본문을 실행하는 데 필요한 자료**를 기준으로 적었습니다.
 22 AE와 27 샘플 추정은 현재 실행 가능한 연결 자료입니다. 25·32의 본문만으로도 첫 예제를 실행할 수 있고, 22·27에서 압축·기댓값·샘플 기울기를 따로 검산할 수 있습니다.
 26은 조건부 VAE와 β·warmup을, 29는 GAN 목적과 제약을, 30은 가역 변환의 밀도 학습을 실제로 실행합니다.
-31 에너지 모델은 33을 읽은 뒤 연결할 제작 계획입니다. 20 encoder–decoder에서는 cross-attention과 조건부 기호 생성을 먼저 실행해 볼 수 있습니다.
+31 에너지 모델은 격자 우도 학습과 Langevin·MALA를 실행해 비교합니다. 20 encoder–decoder에서는 cross-attention과 조건부 기호 생성을 먼저 실행해 볼 수 있습니다.
 
 | 번호 | 학습 단위 | 선수 개념 | 직접 구현할 계산 | 완성 예제·변형 검산 |
 |---|---|---|---|---|
@@ -130,7 +130,7 @@ CNN의 공유, RNN의 공유, GNN의 공유를 비교하면서 같은 미분 규
 | 28 | [GAN의 두 목적과 교대 갱신](../notebooks/04_생성/28_gan.ipynb) | 03–04·13–15 | D의 분류, G의 minimax/non-saturating 목적, gradient 경로 고정 | 1·2차원 혼합 분포 생성, D/G를 따로 갱신하고 mode별 샘플 수 기록 |
 | 29 | [GAN 목적과 안정화 비교](../notebooks/04_생성/29_gan_objectives.ipynb) | 01·03·04·11·28 | 분포 거리·critic, Wasserstein 목적, GP 혼합 미분·SVD 사후 투영 | 세 seed의 고정 예산 학습, critic·G 기울기와 생성 품질·coverage·비용을 구분 |
 | 30 | [변수 변환과 normalizing flow](../notebooks/04_생성/30_normalizing_flow.ipynb) | 03·04·11·12·27 | determinant·log Jacobian, 가역 affine coupling, 부피 항을 포함한 전체 backward | 순·역변환 왕복과 수치 Jacobian, 실제 2D 우도 학습·생성, 격자·영역·MC 오차 분리 |
-| 31 | 에너지 기반 모델과 MCMC | 12·27 | exp(-E)/Z, log-partition 미분, positive/negative phase, Langevin | 1차원 격자 적분과 샘플 추정 비교, chain·step size 변화 |
+| 31 | [에너지 기반 모델과 MCMC](../notebooks/04_생성/31_energy_mcmc.ipynb) | 12·27 | exp(-E)/Z, log-partition 미분, positive/negative phase, Langevin | 1차원 격자 적분과 샘플 추정 비교, chain·step size 변화 |
 | 32 | [score와 denoising score matching](../notebooks/04_생성/32_score_matching.ipynb) | 01·03·12–13·23 | score=입력의 log density 기울기, Gaussian 잡음의 조건부 score | 해석 가능한 혼합 분포의 score와 학습 벡터장·샘플 비교 |
 | 33 | [잡음 수준을 잇는 score 모델](../notebooks/04_생성/33_ncsn.ipynb) | 03–04·11–12·23·32 | noise-conditioned score, annealed Langevin, SDE/ODE의 작은 시간 스텝 | 잡음 크기·적분 간격·초깃값을 바꾸고 분포 이동 확인 |
 | 34 | [Diffusion의 전방 과정과 학습 타깃](../notebooks/04_생성/34_diffusion_forward.ipynb) | 12·24·32 | beta/alpha 누적곱, q(x_t\|x_0), posterior 계수, epsilon/x0/v 타깃 | 닫힌식과 반복 잡음의 평균·분산 대조, 작은 denoiser 학습 |
