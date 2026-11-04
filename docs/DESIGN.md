@@ -804,6 +804,21 @@ temperature·top-k·top-p, 실제 학습 모델의 prefix별 full/cache 동등�
 | 5. 같은 episode에서 네 가지 가치 학습을 비교합니다 | `plot_prediction_learning` | `episode_numbers, mean_rmse, se_rmse, method_names` |
 | 5. 같은 episode에서 네 가지 가치 학습을 비교합니다 | `plot_prediction_final` | `method_names, rmse_records[:, :, -1], mean_final_values, truth[:3]` |
 
+### 42 · masked reconstruction — `masked_reconstruction_plots.py` — 완료
+
+visible patch encoder·위치 decoder·masked-only 화소 손실 전체 미분, mask 비율별 실제 복원·평균 이미지 기준·동결 probe. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 이미지를 patch로 나누고 일부 위치만 고릅니다 | `plot_images` | `[small_image[0], small_shown[0], small_mask.reshape(2, 2)], ['원본 4×4 예시', 'visible 위치0·3', 'patch mask · 1=가림']` |
+| 2. 보이는 조각을 인코딩하고 위치별로 복원합니다 | `plot_panels` | `[demo_visible[0], demo_h[0], demo_g, demo_r[0]], ['선택한 화소만', '위치를 더한 특징', 'visible 평균 context', '네 위치 decoder 특징']` |
+| 3. 가린 화소 수로만 오차를 평균합니다 | `plot_panels` | `[loss_target[0], loss_pred[0], masked_residual[0], hand_grad[0]], ['복원 타깃', '예측', '가린 위치의 오차만', '가린 화소2개로 나눈 미분']` |
+| 4. 위치 선택을 거슬러 전체 미분을 검산합니다 | `plot_panels` | `[scatter_ids, scatter_values.reshape(2, 2), scatter_result, mean_distributed[0]], ['두 이미지의 ids', '위치마다 생긴 기여', '위치2는2+3 누적', '평균의 K=3 역전파']` |
+| 5. mask 비율과 복원·표현 평가를 분리합니다 | `plot_images` | `[vertical, horizontal, vertical * (1 - mask_pixels), mask_pixels], ['세로 띠: 방향0', '가로 띠: 방향1', '세로 띠의 일부만', '화소로 펼친 mask']` |
+| 5. mask 비율과 복원·표현 평가를 분리합니다 | `plot_curves` | `histories, ['train mask25%', 'train mask50%', 'train mask75%'], '공통 50% validation mask 반 MSE'` |
+| 5. mask 비율과 복원·표현 평가를 분리합니다 | `plot_panels` | `[report], ['초기·mask25·50·75%의 동일 test 평가'], [['반 MSE', '정확도', '평균', '분산']]` |
+| 5. mask 비율과 복원·표현 평가를 분리합니다 | `plot_images` | `[test_images[display_id], masked_pixels, reconstructions[1], completed_image], ['고정 test0 원본', '같은 test mask 입력', '50%학습 모델 원시 예측', 'visible 원본+masked 예측']` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.

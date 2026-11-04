@@ -5,7 +5,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 모델의 이름을 아는 데서 출발해, **왜 그 수식인지 설명하고 NumPy로 직접 구현하는 것**을 목표로 합니다.
 행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
-현재 **56개 노트북**을 실행하며 공부할 수 있습니다. 각 단원은 작은 완성 예제, 직접 구현·검산, 절 연습과 끝 연습 A–D를 담습니다.
+현재 **57개 노트북**을 실행하며 공부할 수 있습니다. 각 단원은 작은 완성 예제, 직접 구현·검산, 절 연습과 끝 연습 A–D를 담습니다.
 [전체 커리큘럼](docs/CURRICULUM.md)은 71개 학습 단위(번호 00–63의 64개 주제와 b 단위 7개)의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
 ## 여기서 시작합니다
@@ -104,6 +104,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 | 36 | [Flow matching과 ODE 생성](notebooks/04_생성/36_flow_matching.ipynb) | 조건부·주변 속도 목적의 연결, 시간 조건부 MLP 전체 미분·실제 학습, 정확 Gaussian 기준과 같은 NFE의 ODE 생성 |
 | 47 | [encoder 목적과 BERT식 MLM](notebooks/06_언어모델/47_masked_language_model.ipynb) | 양방향 문맥·80/10/10 corruption·선택 위치 CE 전체 미분, 실제 MLM·AR 학습과 held-out 빈칸 복원 |
 | 53 | [Monte Carlo·TD·다단계 타깃](notebooks/07_강화학습/53_mc_td.ipynb) | 완료 return·TD·n-step·유한 lambda, 경로 전수열거의 정확한 편향·분산과 32 seed 실제 가치 학습 |
+| 42 | [masked reconstruction](notebooks/05_표현학습/42_masked_reconstruction.ipynb) | visible patch encoder·위치 decoder·masked-only 화소 손실 전체 미분, mask 비율별 실제 복원·평균 이미지 기준·동결 probe |
 <!-- curriculum-completion-units -->
 
 ## 실행 환경
