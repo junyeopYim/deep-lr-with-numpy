@@ -747,6 +747,20 @@ temperature·top-k·top-p, 실제 학습 모델의 prefix별 full/cache 동등�
 | 5. 같은 난수로 생성하고 비용을 따로 측정합니다 | `plot_cache_budget` | `budget_lengths, score_counts, cache_bytes` |
 | 5. 같은 난수로 생성하고 비용을 따로 측정합니다 | `plot_cache_timing` | `budget_lengths, timing_results` |
 
+### 41 · 분산·공분산으로 표현 제약하기 — `variance_covariance_plots.py` — 완료
+
+정렬·표준편차 하한·비대각 공분산의 전체 미분, 상수·복제 대조와 목적항별 실제 학습·probe. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 관측 축을 중심화하고 특징끼리 비교합니다 | `plot_panels` | `[stats_z, stats_center, stats_cov], ['복제된 두 특징', '특징별 중심화', '표본 공분산']` |
+| 2. 특징마다 표준편차 하한을 둡니다 | `plot_panels` | `[variance_table[:, :2], variance_table[:, 2:]], ['상수·작음·충분: 각 std', '같은 순서: 각 hinge 비용']` |
+| 3. 복제 차원은 비대각 공분산에서 드러납니다 | `plot_panels` | `comparison_cov + comparison_off, ['복제 특징 공분산', '비상관 특징 공분산', '복제의 비대각', '비상관의 비대각']` |
+| 4. 세 항을 합하고 공유 표현기까지 미분합니다 | `plot_panels` | `[term_a, term_b, term_table, weighted_table], ['뷰 A', '뷰 B', '정렬·분산·공분산 항', '가중치 5·5·1 적용']` |
+| 5. 목적항을 빼 보며 실제 표현을 평가합니다 | `plot_panels` | `[weights_table, plan, collapsed_terms], ['조건별 정렬·분산·공분산 가중치', 'train·valid·test: N·seed', '상수 쌍의 세 비용']` |
+| 5. 목적항을 빼 보며 실제 표현을 평가합니다 | `plot_curves` | `[h[:, [0, 1]] for h in histories], [s[0] for s in settings], '공통 validation 정렬 항'` |
+| 5. 목적항을 빼 보며 실제 표현을 평가합니다 | `plot_panels` | `[report[:, :3], report[:, 3:]], ['초기·정렬·분산추가·전체: 정확도·평균·최소std', '같은 순서: 공분산 비용·다른 거리']` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
