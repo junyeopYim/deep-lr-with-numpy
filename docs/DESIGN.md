@@ -777,6 +777,19 @@ temperature·top-k·top-p, 실제 학습 모델의 prefix별 full/cache 동등�
 | 5. 학습한 속도를 적분하고 오차를 나눕니다 | `plot_flow_fields` | `grid_points, [grid_exact, grid_learned], ['t=.5 정답 주변 속도', 't=.5 학습한 속도']` |
 | 5. 학습한 속도를 적분하고 오차를 나눕니다 | `plot_flow_samples` | `[test_data, euler_path[-1], heun_path[-1]], ['독립 test 관측', 'Euler40 · NFE40', 'Heun20 · NFE40'], [None, euler_path[:, :8], heun_path[:, :8]]` |
 
+### 47 · encoder 목적과 BERT식 MLM — `masked_language_model_plots.py` — 완료
+
+양방향 문맥·80/10/10 corruption·선택 위치 CE 전체 미분, 실제 MLM·AR 학습과 held-out 빈칸 복원. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. 같은 token열에서도 읽을 수 있는 위치가 다릅니다 | `plot_context_masks` | `context_tokens, bidirectional, causal` |
+| 2. 선택한 위치와 바꾼 위치를 구분합니다 | `plot_corruption` | `corruption_clean, corruption_selected, corruption_hand` |
+| 3. 선택 CE를 전체 encoder로 역전파합니다 | `plot_selected_loss` | `selected_probabilities, selected_positions, selected_delta` |
+| 4. 같은 정답이어도 주는 정보가 다릅니다 | `plot_information_access` | `information_mlm, information_ar, information_answer` |
+| 4. 같은 정답이어도 주는 정보가 다릅니다 | `plot_mlm_learning` | `mlm_history` |
+| 5. 빈칸 복원은 자유 생성과 다른 사용법입니다 | `plot_fill` | `fill_original, fill_masked, fill_prediction` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
