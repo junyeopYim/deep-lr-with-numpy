@@ -5,7 +5,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 모델의 이름을 아는 데서 출발해, **왜 그 수식인지 설명하고 NumPy로 직접 구현하는 것**을 목표로 합니다.
 행렬·미분·확률은 실제 계산에 쓰이는 자리에서 함께 확인합니다.
 
-현재 **61개 노트북**을 실행하며 공부할 수 있습니다. 각 단원은 작은 완성 예제, 직접 구현·검산, 절 연습과 끝 연습 A–D를 담습니다.
+현재 **62개 노트북**을 실행하며 공부할 수 있습니다. 각 단원은 작은 완성 예제, 직접 구현·검산, 절 연습과 끝 연습 A–D를 담습니다.
 [전체 커리큘럼](docs/CURRICULUM.md)은 71개 학습 단위(번호 00–63의 64개 주제와 b 단위 7개)의 선수 개념·구현 과제·검산 기준을 담고 있습니다.
 
 ## 여기서 시작합니다
@@ -109,6 +109,7 @@ NumPy만으로 딥러닝을 공부하는 노트북 모음입니다. 노트북과
 | 43 | [JEPA와 잠재 타깃 예측](notebooks/05_표현학습/43_jepa.ipynb) | 분리된 context·target과 위치 조건 잠재 예측 전체 미분, optimizer 뒤 EMA·실제 화소/잠재 학습·동결 probe |
 | 63 | [논문에서 수식·구현·실험으로](notebooks/08_종합/63_paper_reproduction.ipynb) | Flow Matching 논문의 한 주장 재현, 정확 Gaussian 기울기·최소제곱 기준과 3 seed 실제 학습·같은 초기값 ODE 생성 |
 | 49 | [선호 쌍에서 DPO 목적 만들기](notebooks/06_언어모델/49_dpo.ipynb) | EOS까지의 sequence 로그확률·고정 reference DPO 전체 미분, 실제 SFT/DPO 학습과 후보 순위·절대 확률·자유 생성 평가 |
+| 54 | [SARSA·Expected SARSA·Q-learning](notebooks/07_강화학습/54_sarsa_q_learning.ipynb) | 실제 다음 행동·기대·max 타깃과 importance support, 32 seed 제어 학습·탐색 유지/제거의 정확한 정책 가치 |
 <!-- curriculum-completion-units -->
 
 ## 실행 환경

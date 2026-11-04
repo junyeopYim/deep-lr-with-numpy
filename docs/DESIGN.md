@@ -876,6 +876,20 @@ EOS까지의 sequence 로그확률·고정 reference DPO 전체 미분, 실제 S
 | 4. 동일한 출발점에서 SFT와 DPO를 실제 학습합니다 | `plot_dpo_learning` | `[preference_histories[name] for name in ['SFT', 'DPO']], ['chosen SFT', 'DPO']` |
 | 5. 선호 후보의 순위와 자유 생성을 따로 봅니다 | `plot_absolute_probabilities` | `absolute_log_probs, list(models)` |
 
+### 54 · SARSA·Expected SARSA·Q-learning — `control_plots.py` — 완료
+
+실제 다음 행동·기대·max 타깃과 importance support, 32 seed 제어 학습·탐색 유지/제거의 정확한 정책 가치. 수식·학습·평가 및 아래 그림 입력은 본문에서 계산하고 보조 파일은 배치·색·글씨와 그리기만 맡습니다.
+
+| 절의 질문 | 그림 함수 | 본문에서 전달하는 계산 결과 |
+|---|---|---|
+| 1. Q 표에서 실제 행동정책을 만듭니다 | `plot_control_environment` | `example_next, example_reward, example_policy` |
+| 2. SARSA는 실제로 할 다음 행동을 사용합니다 | `plot_sarsa_targets` | `next_q, next_probabilities, sarsa_targets, np.array([expected_target])` |
+| 3. Q-learning은 다음 최대 행동을 타깃에 넣습니다 | `plot_q_target_comparison` | `next_q, comparison_targets, comparison_updated` |
+| 4. 다른 정책의 경로 평균에는 확률비가 필요합니다 | `plot_importance_paths` | `np.column_stack([behavior_paths, target_paths]), path_ratios, path_returns, path_contributions` |
+| 5. 실제 Q 학습과 두 배포 규약을 비교합니다 | `plot_control_protocol` | `protocol_settings, protocol_policies, protocol_values` |
+| 5. 실제 Q 학습과 두 배포 규약을 비교합니다 | `plot_control_learning` | `checkpoints, mean_values, se_values, methods` |
+| 5. 실제 Q 학습과 두 배포 규약을 비교합니다 | `plot_control_final` | `methods, final_values, observed_returns` |
+
 ## 4. 작업 순서
 
 1. 계산 셀을 본문에 추가합니다. 결과 배열의 shape를 주석으로 적습니다.
